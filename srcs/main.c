@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/15 14:36:26 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/15 15:11:34 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ int				main(void)
 	if (!init_window(&scop))
 		return (ft_fdprintf(2, "Error: Cannot init window\n"), 1);
 	init_callback(&scop);
+	if (!create_shader("res/shaders/test.vert", "res/shaders/test.frag",
+		&(scop.test_shaders)))
+		return (ft_fdprintf(2, "Error: Cannot load shaders\n"), 1);
 	while (!glfwWindowShouldClose(scop.window))
 	{
 		glfwPollEvents();
