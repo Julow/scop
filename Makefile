@@ -46,6 +46,7 @@ C_HEADS := -I include -I libft
 #
 
 O_FILES := o/srcs/callback.o \
+	o/srcs/create_mesh.o \
 	o/srcs/create_shader.o \
 	o/srcs/main.o \
 	o/srcs/window.o
@@ -65,6 +66,9 @@ $(NAME): $(O_FILES)
 	@$(MSG_0) $@ ; $(LD_CC) -o $@ $(O_FILES) $(LD_FLAGS) && $(MSG_END) || $(MSG_1) $@
 
 o/srcs/callback.o: srcs/callback.c include/scop.h | o/srcs
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+o/srcs/create_mesh.o: srcs/create_mesh.c include/scop.h | o/srcs
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
 o/srcs/create_shader.o: srcs/create_shader.c include/scop.h | o/srcs

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/15 15:11:22 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/15 17:43:56 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,33 @@
 
 # define WIN_TITLE		"Scop"
 
+typedef struct	s_mesh
+{
+	t_uint			vao;
+	t_uint			vbo;
+	t_uint			ebo;
+	t_uint			count;
+}				t_mesh;
+
 typedef struct	s_scop
 {
 	GLFWwindow		*window;
 	t_uint			test_shaders;
+	t_mesh			test_mesh;
 }				t_scop;
+
+/*
+** create_mesh.c
+*/
+typedef struct	s_mesh_params
+{
+	float const		*vertices;
+	int				vertice_size;
+	t_uint const	*indices;
+	int				indice_size;
+}				t_mesh_params;
+
+t_mesh			create_mesh(t_mesh_params params);
 
 /*
 ** create_shader.c
