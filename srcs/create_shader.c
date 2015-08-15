@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 14:43:43 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/15 15:23:46 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/15 19:41:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_bool	create_shader_end(t_shader_c *chunks, int count, t_uint id)
 	if (i == 0)
 	{
 		glGetShaderInfoLog(id, ERR_SHADER_BUFFER, NULL, err_buff);
-		ft_printf("Error: %s\n", id, err_buff);
+		ft_printf("Error: %s\n", err_buff);
 		return (false);
 	}
 	return (true);
