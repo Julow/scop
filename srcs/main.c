@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/17 19:16:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/17 19:26:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static t_bool	create_texture(char const *file, t_texture *texture)
 
 static t_bool	create_test_obj(t_scop *scop)
 {
-	if (!create_texture("res/wall.tga", &(scop->test_texture)))
+	if (!create_texture("res/container.tga", &(scop->test_texture)))
 		return (false);
 	scop->test_mesh = create_mesh((t_mesh_params){
 		.vertices = test_vertices,
