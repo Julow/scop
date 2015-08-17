@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:51:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/17 17:48:27 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/17 19:17:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_bool			tga_parser(t_buff *buff, t_img *img)
 		return (ft_printf("Error: Unsupported format\n"), false);
 	img->width = (int)header.width;
 	img->height = (int)header.height;
-	data_size = img->width * img->height;
+	data_size = img->width * img->height * 4;
 	img->data = MAL(t_byte, data_size);
 	if (!ft_parsen(buff, NULL, header.id_length))
 		return (false);

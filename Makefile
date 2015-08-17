@@ -49,12 +49,14 @@ O_FILES := o/srcs/callback.o \
 	o/srcs/create_mesh.o \
 	o/srcs/create_shader.o \
 	o/srcs/main.o \
-	o/srcs/window.o
+	o/srcs/window.o \
+	o/srcs/ft_loadimg/ft_loadimage.o \
+	o/srcs/ft_loadimg/tga_parser.o
 
-O_DIRS := o/srcs
+O_DIRS := o/srcs/ft_loadimg o/srcs
 
-MSG_0 := printf '\033[0;32m%-29.29s\033[0;0m\r'
-MSG_1 := printf '\033[0;31m%-29.29s\033[0;0m\n'
+MSG_0 := printf '\033[0;32m%-32.32s\033[0;0m\r'
+MSG_1 := printf '\033[0;31m%-32.32s\033[0;0m\n'
 MSG_END := printf '\n'
 
 .SILENT:
@@ -65,19 +67,25 @@ all: $(addsuffix /.git,$(MODULES)) $(LIBS) $(NAME)
 $(NAME): $(O_FILES)
 	@$(MSG_0) $@ ; $(LD_CC) -o $@ $(O_FILES) $(LD_FLAGS) && $(MSG_END) || $(MSG_1) $@
 
-o/srcs/callback.o: srcs/callback.c include/scop.h | o/srcs
+o/srcs/callback.o: srcs/callback.c include/ft_loadimg.h include/scop.h | o/srcs
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/create_mesh.o: srcs/create_mesh.c include/scop.h | o/srcs
+o/srcs/create_mesh.o: srcs/create_mesh.c include/ft_loadimg.h include/scop.h | o/srcs
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/create_shader.o: srcs/create_shader.c include/scop.h | o/srcs
+o/srcs/create_shader.o: srcs/create_shader.c include/ft_loadimg.h include/scop.h | o/srcs
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/main.o: srcs/main.c include/scop.h | o/srcs
+o/srcs/main.o: srcs/main.c include/ft_loadimg.h include/scop.h | o/srcs
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/window.o: srcs/window.c include/scop.h | o/srcs
+o/srcs/window.o: srcs/window.c include/ft_loadimg.h include/scop.h | o/srcs
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+o/srcs/ft_loadimg/ft_loadimage.o: srcs/ft_loadimg/ft_loadimage.c include/ft_loadimg.h | o/srcs/ft_loadimg
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+o/srcs/ft_loadimg/tga_parser.o: srcs/ft_loadimg/tga_parser.c include/ft_loadimg.h | o/srcs/ft_loadimg
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
 $(LIBS):
