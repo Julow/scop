@@ -6,18 +6,18 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:56:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/18 15:49:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/18 17:01:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_3dmath.h"
 
-void			ft_mat4translate(t_mat4 *mat, t_vec3 translate)
+void			ft_mat4translate(t_mat4 *m_a, t_vec3 translate)
 {
-	ft_mat4mult(mat, MAT4(
-		(1.f, 0.f, 0.f, translate.x),
-		(0.f, 1.f, 0.f, translate.y),
-		(0.f, 0.f, 1.f, translate.z),
-		(0.f, 0.f, 0.f, 1.f)
-	));
+	t_mat4 const	a = *m_a;
+
+	m_a->x.w = a.x.x * translate.x + a.x.y * translate.y + a.x.z * translate.z + a.x.w;
+	m_a->y.w = a.y.x * translate.x + a.y.y * translate.y + a.y.z * translate.z + a.y.w;
+	m_a->z.w = a.z.x * translate.x + a.z.y * translate.y + a.z.z * translate.z + a.z.w;
+	m_a->w.w = a.w.x * translate.x + a.w.y * translate.y + a.w.z * translate.z + a.w.w;
 }

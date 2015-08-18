@@ -6,57 +6,64 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 14:57:48 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/18 15:47:21 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/18 17:18:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_3dmath.h"
 #include <math.h>
 
-// t_mat4 const	a = *m_a;
-
-// m_a->x.y = a.x.y * cosf(x) + a.x.z * sinf(x);
-// m_a->x.z = a.x.y * -sinf(x) + a.x.z * cosf(x);
-// m_a->y.y = a.y.y * cosf(x) + a.y.z * sinf(x);
-// m_a->y.z = a.y.y * -sinf(x) + a.y.z * cosf(x);
-// m_a->z.y = a.z.y * cosf(x) + a.z.z * sinf(x);
-// m_a->z.z = a.z.y * -sinf(x) + a.z.z * cosf(x);
-// m_a->w.y = a.w.y * cosf(x) + a.w.z * sinf(x);
-// m_a->w.z = a.w.y * -sinf(x) + a.w.z * cosf(x);
-
-static t_mat4	ft_mat4load_rotx(float x)
+static void		ft_mat4rotate_x(t_mat4 *m_a, float x)
 {
-	return (MAT4(
-		(1.f, 0.f, 0.f, 0.f),
-		(0.f, cosf(x), -sinf(x), 0.f),
-		(0.f, sinf(x), cosf(x), 0.f),
-		(0.f, 0.f, 0.f, 1.f),
-	));
+	t_mat4 const	a = *m_a;
+	float const		cos_x = cosf(x);
+	float const		sin_x = sinf(x);
+
+	m_a->x.y = a.x.y * cos_x + a.x.z * sin_x;
+	m_a->x.z = a.x.y * -sin_x + a.x.z * cos_x;
+	m_a->y.y = a.y.y * cos_x + a.y.z * sin_x;
+	m_a->y.z = a.y.y * -sin_x + a.y.z * cos_x;
+	m_a->z.y = a.z.y * cos_x + a.z.z * sin_x;
+	m_a->z.z = a.z.y * -sin_x + a.z.z * cos_x;
+	m_a->w.y = a.w.y * cos_x + a.w.z * sin_x;
+	m_a->w.z = a.w.y * -sin_x + a.w.z * cos_x;
 }
 
-static t_mat4	ft_mat4load_roty(float y)
+static void		ft_mat4rotate_y(t_mat4 *m_a, float y)
 {
-	return (MAT4(
-		(cosf(y), 0.f, sinf(y), 0.f),
-		(0.f, 1.f, 0.f, 0.f),
-		(-sinf(y), 0.f, cosf(y), 0.f),
-		(0.f, 0.f, 0.f, 1.f),
-	));
+	t_mat4 const	a = *m_a;
+	float const		cos_y = cosf(y);
+	float const		sin_y = sinf(y);
+
+	m_a->x.x = a.x.x * cos_y + a.x.z * -sin_y;
+	m_a->x.z = a.x.x * sin_y + a.x.z * cos_y;
+	m_a->y.x = a.y.x * cos_y + a.y.z * -sin_y;
+	m_a->y.z = a.y.x * sin_y + a.y.z * cos_y;
+	m_a->z.x = a.z.x * cos_y + a.z.z * -sin_y;
+	m_a->z.z = a.z.x * sin_y + a.z.z * cos_y;
+	m_a->w.x = a.w.x * cos_y + a.w.z * -sin_y;
+	m_a->w.z = a.w.x * sin_y + a.w.z * cos_y;
 }
 
-static t_mat4	ft_mat4load_rotz(float z)
+static void		ft_mat4rotate_z(t_mat4 *m_a, float z)
 {
-	return (MAT4(
-		(cosf(z), -sinf(z), 0.f, 0.f),
-		(sinf(z), cosf(z), 0.f, 0.f),
-		(0.f, 0.f, 1.f, 0.f),
-		(0.f, 0.f, 0.f, 1.f),
-	));
+	t_mat4 const	a = *m_a;
+	float const		cos_z = cosf(z);
+	float const		sin_z = sinf(z);
+
+	m_a->x.x = a.x.x * cos_z + a.x.y * sin_z;
+	m_a->x.y = a.x.x * -sin_z + a.x.y * cos_z;
+	m_a->y.x = a.y.x * cos_z + a.y.y * sin_z;
+	m_a->y.y = a.y.x * -sin_z + a.y.y * cos_z;
+	m_a->z.x = a.z.x * cos_z + a.z.y * sin_z;
+	m_a->z.y = a.z.x * -sin_z + a.z.y * cos_z;
+	m_a->w.x = a.w.x * cos_z + a.w.y * sin_z;
+	m_a->w.y = a.w.x * -sin_z + a.w.y * cos_z;
 }
 
 void			ft_mat4rotate(t_mat4 *mat, t_vec3 rotate)
 {
-	ft_mat4mult(mat, ft_mat4load_rotx(rotate.x));
-	ft_mat4mult(mat, ft_mat4load_roty(rotate.y));
-	ft_mat4mult(mat, ft_mat4load_rotz(rotate.z));
+	ft_mat4rotate_z(mat, rotate.z);
+	ft_mat4rotate_y(mat, rotate.y);
+	ft_mat4rotate_x(mat, rotate.x);
 }
