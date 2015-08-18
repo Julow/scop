@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/17 18:17:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/18 14:56:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,10 @@ t_bool			init_window(t_scop *scop);
 ** callback.c
 */
 void			init_callback(t_scop *scop);
+
+/*
+** utils
+*/
+t_ulong			ft_time(t_ulong start);
 
 #endif
