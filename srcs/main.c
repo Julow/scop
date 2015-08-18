@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/17 19:26:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/18 18:39:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,21 @@ int				main(void)
 		return (ft_fdprintf(2, "Error: Cannot load shaders\n"), 1);
 	if (!create_test_obj(&scop))
 		return (ft_fdprintf(2, "lol\n"), 1);
+	scop.test_mat_loc = glGetUniformLocation(scop.test_shaders, "test_mat");
 	while (!glfwWindowShouldClose(scop.window))
 	{
 		glfwPollEvents();
 		draw_background();
 		glUseProgram(scop.test_shaders);
+//
+		t_mat4			m;
+
+		ft_mat4identity(&m);
+		ft_mat4translate(&m, VEC3(0.f, 0.5f, 0.f));
+		ft_mat4rotate(&m, VEC3(0.5f, 0.5f, 0.5f));
+		ft_mat4scale(&m, VEC3(1.f, 1.f, 1.f));
+		glUniformMatrix4fv(scop.test_mat_loc, 1, GL_TRUE, (float*)&m);
+//
 		draw_obj(&(scop.test_obj));
 		glfwSwapBuffers(scop.window);
 	}

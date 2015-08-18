@@ -53,6 +53,7 @@ O_FILES := o/srcs/callback.o \
 	o/srcs/window.o \
 	o/srcs/ft_loadimg/ft_loadimage.o \
 	o/srcs/ft_loadimg/tga_parser.o \
+	o/srcs/ft_math/ft_mat4identity.o \
 	o/srcs/ft_math/ft_mat4mult.o \
 	o/srcs/ft_math/ft_mat4rotate.o \
 	o/srcs/ft_math/ft_mat4scale.o \
@@ -94,6 +95,9 @@ o/srcs/ft_loadimg/ft_loadimage.o: srcs/ft_loadimg/ft_loadimage.c include/ft_load
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
 o/srcs/ft_loadimg/tga_parser.o: srcs/ft_loadimg/tga_parser.c include/ft_loadimg.h | o/srcs/ft_loadimg
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+o/srcs/ft_math/ft_mat4identity.o: srcs/ft_math/ft_mat4identity.c include/ft_3dmath.h | o/srcs/ft_math
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
 o/srcs/ft_math/ft_mat4mult.o: srcs/ft_math/ft_mat4mult.c include/ft_3dmath.h | o/srcs/ft_math

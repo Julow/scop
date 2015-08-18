@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/18 14:56:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/18 18:14:10 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 
 # include "ft_loadimg.h"
+# include "ft_3dmath.h"
 
 # define GLFW_INCLUDE_GLCOREARB
 # include <GLFW/glfw3.h>
@@ -51,6 +52,7 @@ typedef struct	s_scop
 	t_obj			test_obj;
 	t_texture		test_texture;
 	t_mesh			test_mesh;
+	t_uint			test_mat_loc; // uniform location
 }				t_scop;
 
 /*
