@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/18 18:14:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/22 16:50:59 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 
 # include "ft_loadimg.h"
+# include "ft_loadmesh.h"
 # include "ft_3dmath.h"
 
 # define GLFW_INCLUDE_GLCOREARB
@@ -26,14 +27,6 @@
 
 # define WIN_TITLE		"Scop"
 
-typedef struct	s_mesh
-{
-	t_uint			vao;
-	t_uint			vbo;
-	t_uint			ebo;
-	t_uint			count;
-}				t_mesh;
-
 typedef struct	s_texture
 {
 	t_uint			handle;
@@ -43,11 +36,22 @@ typedef struct	s_obj
 {
 	t_mesh			*mesh;
 	t_texture		*texture;
+	// t_vec3			position;
+	// t_vec3			rotation;
+	// float			scale;
+	// t_mat4			matrix_cache;
 }				t_obj;
 
 typedef struct	s_scop
 {
 	GLFWwindow		*window;
+
+// textures		:hmap<string, texture>
+// meshes		:hmap<string, mesh>
+// shaders		:hmap<string, shader>
+
+// objects		:vector<obj>
+
 	t_uint			test_shaders;
 	t_obj			test_obj;
 	t_texture		test_texture;

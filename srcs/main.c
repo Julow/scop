@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/18 18:39:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/22 18:24:06 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static t_bool	create_texture(char const *file, t_texture *texture)
 
 static t_bool	create_test_obj(t_scop *scop)
 {
-	if (!create_texture("res/container.tga", &(scop->test_texture)))
+	if (!create_texture("res/tga/container.tga", &(scop->test_texture)))
 		return (false);
 	scop->test_mesh = create_mesh((t_mesh_params){
 		.vertices = test_vertices,
@@ -95,6 +95,9 @@ int				main(void)
 		return (ft_fdprintf(2, "Error: Cannot load shaders\n"), 1);
 	if (!create_test_obj(&scop))
 		return (ft_fdprintf(2, "lol\n"), 1);
+	t_mesh mdr;
+	if (!ft_loadmesh("res/obj/42.obj", &mdr))
+		return (ft_fdprintf(2, "Error: Cannot load obj"), 1);
 	scop.test_mat_loc = glGetUniformLocation(scop.test_shaders, "test_mat");
 	while (!glfwWindowShouldClose(scop.window))
 	{

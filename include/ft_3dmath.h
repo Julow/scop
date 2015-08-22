@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/18 18:12:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/22 17:04:21 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,11 @@
 
 # include "libft.h"
 
-typedef struct	s_vec4
+typedef struct	s_vec2
 {
 	float			x;
 	float			y;
-	float			z;
-	float			w;
-}				t_vec4;
+}				t_vec2;
 
 typedef struct	s_vec3
 {
@@ -29,6 +27,14 @@ typedef struct	s_vec3
 	float			y;
 	float			z;
 }				t_vec3;
+
+typedef struct	s_vec4
+{
+	float			x;
+	float			y;
+	float			z;
+	float			w;
+}				t_vec4;
 
 typedef struct	s_mat4
 {
