@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/22 18:24:06 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/23 17:18:06 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ int				main(void)
 {
 	t_scop			scop;
 
+	t_mesh mdr;
+	if (!ft_loadmesh("res/obj/42.obj", &mdr))
+		return (ft_fdprintf(2, "Error: Cannot load obj"), 1);
 	if (!init_window(&scop))
 		return (ft_fdprintf(2, "Error: Cannot init window\n"), 1);
 	init_callback(&scop);
@@ -95,9 +98,6 @@ int				main(void)
 		return (ft_fdprintf(2, "Error: Cannot load shaders\n"), 1);
 	if (!create_test_obj(&scop))
 		return (ft_fdprintf(2, "lol\n"), 1);
-	t_mesh mdr;
-	if (!ft_loadmesh("res/obj/42.obj", &mdr))
-		return (ft_fdprintf(2, "Error: Cannot load obj"), 1);
 	scop.test_mat_loc = glGetUniformLocation(scop.test_shaders, "test_mat");
 	while (!glfwWindowShouldClose(scop.window))
 	{

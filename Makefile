@@ -13,6 +13,8 @@ LIBS := libft
 
 # Compilation and linking flags
 FLAGS := -Wall -Wextra -O2
+# Same but used in debug mode
+DEBUG_FLAGS := -Wall -Wextra -g
 # Compilation flags
 HEADS := $(addprefix -I,$(DIRS)) -Ilibft
 # Linking flags
@@ -54,6 +56,12 @@ $(LIBS):
 $(O_DIR)/%/:
 	mkdir -p $@
 
+# Set debug mode and make
+debug: _debug all
+
+# Clean, set debug mode and make
+rebug: fclean debug
+
 # Clean obj files
 clean:
 	rm -f $(O_FILES)
@@ -69,5 +77,9 @@ re: fclean all
 $(DEPEND): Makefile
 	makemake || printf "\033[31mCannot remake $(DEPEND)\033[0m\n"
 
+# Set debug flags
+_debug:
+	$(eval FLAGS := $(DEBUG_FLAGS))
+
 .SILENT:
-.PHONY: all $(LIBS) clean fclean re
+.PHONY: all $(LIBS) clean fclean re debug rebug _debug
