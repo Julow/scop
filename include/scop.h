@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/24 15:50:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 00:04:36 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,12 @@
 # include "ft_loadmesh.h"
 # include "ft_3dmath.h"
 
-# define GLFW_INCLUDE_GLCOREARB
+# ifdef MAC_OS_MODE
+#  define GLFW_INCLUDE_GLCOREARB
+# else
+#  include <GL/glew.h>
+# endif
+
 # include <GLFW/glfw3.h>
 
 # define WIN_WIDTH			1900

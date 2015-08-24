@@ -18,7 +18,9 @@ DEBUG_FLAGS := -Wall -Wextra -g
 # Compilation flags
 HEADS := $(addprefix -I,$(DIRS)) -Ilibft
 # Linking flags
-LINKS := -Llibft -lft -lglfw3 -framework OpenGL
+LINKS := -Llibft -lft -lglfw -lGL -lGLEW -lm
+# FLAGS += -DMAC_OS_MODE=1
+# LINKS := -Llibft -lft -lglfw3 -lm -framework OpenGL
 
 # Objects directory
 O_DIR := o
