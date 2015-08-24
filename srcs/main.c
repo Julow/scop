@@ -6,17 +6,18 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/24 18:17:47 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/24 19:27:21 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 #include <stdlib.h>
+#include <math.h>
 
 static void		draw_background(void)
 {
 	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 static void		draw_obj(t_obj *obj)
@@ -51,12 +52,6 @@ static t_bool	create_test_obj(t_scop *scop)
 {
 	if (!create_texture("res/tga/container.tga", &(scop->test_texture)))
 		return (false);
-	// scop->test_mesh = create_mesh((t_mesh_params){
-	// 	.vertices = test_vertices,
-	// 	.vertice_size = sizeof(test_vertices),
-	// 	.indices = test_indices,
-	// 	.indice_size = sizeof(test_indices)
-	// });
 	if (!ft_loadmesh("res/obj/42.obj", &(scop->test_mesh)))
 		return (ft_fdprintf(2, "Error: Cannot load obj"), 1);
 	scop->test_obj = ((t_obj){&(scop->test_mesh), &(scop->test_texture)});
@@ -86,7 +81,7 @@ int				main(void)
 
 		ft_mat4identity(&m);
 		ft_mat4translate(&m, VEC3(0.f, 0.f, 0.f));
-		ft_mat4rotate(&m, VEC3(0.f, -1.f, 0.f));
+		ft_mat4rotate(&m, VEC3(0.f, -M_PI / 2, 0.f));
 		ft_mat4scale(&m, VEC3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(scop.test_mat_loc, 1, GL_TRUE, (float*)&m);
 //

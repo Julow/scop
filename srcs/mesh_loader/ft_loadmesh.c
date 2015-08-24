@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/24 18:37:09 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/24 19:20:51 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>//
-#include <stdio.h>//
 
 static t_bool	parse_v(t_sub line, t_mesh_data *data);
 static t_bool	parse_vn(t_sub line, t_mesh_data *data);
@@ -67,15 +66,14 @@ static t_bool	parse_vt(t_sub line, t_mesh_data *data)
 
 static t_bool	parse_f(t_sub line, t_mesh_data *data)
 {
-	int				*face;
+	int				face[9];
 	int				tmp;
 	int				i;
 	int				j;
 
-	face = ft_vpush_back(&(data->f), NULL, 1);
 	line.length = 0;
-	i = -3;
-	while ((i += 3) < 9 && ft_subnext(&line, IS_SPACE))
+	i = 0;
+	while (ft_subnext(&line, IS_SPACE))
 	{
 		j = -1;
 		while (++j < 3)
@@ -90,6 +88,12 @@ static t_bool	parse_f(t_sub line, t_mesh_data *data)
 			tmp++;
 			line.str += tmp;
 			line.length -= tmp;
+		}
+		if ((i += 3) >= 9)
+		{
+			ft_vpush_back(&(data->f), face, 1);
+			ft_memmove(face + 3, face + 6, S(int, 3));
+			i -= 3;
 		}
 	}
 	return (true);
@@ -121,35 +125,6 @@ static t_bool	load_mesh(int fd, t_mesh_data *data)
 
 static t_bool	build_mesh(t_mesh_data *data, t_mesh *mesh)
 {
-	// t_face			*face;
-	// t_mesh_vbo_data	*vbo_data;
-	// t_mesh_ebo_data	*ebo_data;
-	// int				i;
-	// float			color;
-
-	// i = -1;
-	// while (++i < data->f.length)
-	// {
-	// 	color = ((float)(rand() % 100)) / 100;
-	// 	face = VECTOR_GET(&(data->f), i);
-	// 	ebo_data = ft_vpush_back(&(data->ebo_data), NULL, 1);
-	// 	ebo_data->v1 = data->vbo_data.length;
-	// 	ebo_data->v2 = data->vbo_data.length + 1;
-	// 	ebo_data->v3 = data->vbo_data.length + 2;
-	// 	vbo_data = ft_vpush_back(&(data->vbo_data), NULL, 3);
-	// 	ft_memcpy(&(vbo_data[0].pos), VECTOR_GET(&(data->v), face->v1), sizeof(t_vec3));
-	// 	vbo_data[0].col = VEC3(color, color, color);
-	// 	// vbo_data[0].tex = VEC2(0.f, 0.f);
-	// 	// vbo_data[0].nor = VEC3(0.f, 0.f, 0.f);
-	// 	ft_memcpy(&(vbo_data[1].pos), VECTOR_GET(&(data->v), face->v2), sizeof(t_vec3));
-	// 	vbo_data[1].col = VEC3(color, color, color);
-	// 	// vbo_data[1].tex = VEC2(0.f, 0.f);
-	// 	// vbo_data[1].nor = VEC3(0.f, 0.f, 0.f);
-	// 	ft_memcpy(&(vbo_data[2].pos), VECTOR_GET(&(data->v), face->v3), sizeof(t_vec3));
-	// 	vbo_data[2].col = VEC3(color, color, color);
-	// 	// vbo_data[2].tex = VEC2(0.f, 0.f);
-	// 	// vbo_data[2].nor = VEC3(0.f, 0.f, 0.f);
-	// }
 	int					i;
 	t_vec3				*vert;
 	t_face				*face;
@@ -166,7 +141,6 @@ static t_bool	build_mesh(t_mesh_data *data, t_mesh *mesh)
 			VEC2(0.f, 0.f),
 			VEC3(0.f, 0.f, 0.f)
 		}, 1);
-		printf("v: %f %f %f\n", vert->x, vert->y, vert->z);
 	}
 	i = -1;
 	while (++i < data->f.length)
@@ -177,7 +151,6 @@ static t_bool	build_mesh(t_mesh_data *data, t_mesh *mesh)
 			face->v2,
 			face->v3
 		}, 1);
-		printf("f: %d %d %d\n", face->v1, face->v2, face->v3);
 	}
 	glGenVertexArrays(1, &(mesh->vao));
 	glGenBuffers(1, &(mesh->vbo));

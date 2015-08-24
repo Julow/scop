@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 14:10:54 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/15 14:34:43 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/24 19:25:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ t_bool			init_window(t_scop *scop)
 		NULL, NULL)) == NULL)
 		return (glfwTerminate(), false);
 	glViewport(0, 0, WIN_WIDTH, WIN_HEIGHT);
+	glEnable(GL_DEPTH_TEST);
 	return (true);
 }
