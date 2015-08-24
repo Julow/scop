@@ -6,47 +6,25 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/23 17:18:06 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/24 18:17:47 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 #include <stdlib.h>
 
-const float		test_vertices[] = {
-	0.5f, 0.5f, 0.0f,		1.0f, 0.0f, 0.0f,		1.0f, 1.0f,
-	0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f,		1.0f, 0.0f,
-	-0.5f, -0.5f, 0.0f,		0.0f, 0.0f, 1.0f,		0.0f, 0.0f,
-	-0.5f, 0.5f, 0.0f,		0.0f, 0.0f, 0.0f,		0.0f, 1.0f
-};
-
-const t_uint	test_indices[] = {
-	0, 1, 3,
-	1, 2, 3
-};
-
 static void		draw_background(void)
 {
-	glClearColor(0.6f, 0.1f, 0.1f, 1.0f);
+	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-}
-
-static void		draw_mesh(t_mesh *mesh)
-{
-	glBindVertexArray(mesh->vao);
-	glDrawElements(GL_TRIANGLES, mesh->count, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
 }
 
 static void		draw_obj(t_obj *obj)
 {
 	glBindTexture(GL_TEXTURE_2D, obj->texture->handle);
-	draw_mesh(obj->mesh);
-}
-
-static t_obj	create_obj(t_mesh *mesh, t_texture *texture)
-{
-	return ((t_obj){mesh, texture});
+	glBindVertexArray(obj->mesh->vao);
+	glDrawElements(GL_TRIANGLES, obj->mesh->count, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 }
 
 static t_bool	create_texture(char const *file, t_texture *texture)
@@ -73,13 +51,15 @@ static t_bool	create_test_obj(t_scop *scop)
 {
 	if (!create_texture("res/tga/container.tga", &(scop->test_texture)))
 		return (false);
-	scop->test_mesh = create_mesh((t_mesh_params){
-		.vertices = test_vertices,
-		.vertice_size = sizeof(test_vertices),
-		.indices = test_indices,
-		.indice_size = sizeof(test_indices)
-	});
-	scop->test_obj = create_obj(&(scop->test_mesh), &(scop->test_texture));
+	// scop->test_mesh = create_mesh((t_mesh_params){
+	// 	.vertices = test_vertices,
+	// 	.vertice_size = sizeof(test_vertices),
+	// 	.indices = test_indices,
+	// 	.indice_size = sizeof(test_indices)
+	// });
+	if (!ft_loadmesh("res/obj/42.obj", &(scop->test_mesh)))
+		return (ft_fdprintf(2, "Error: Cannot load obj"), 1);
+	scop->test_obj = ((t_obj){&(scop->test_mesh), &(scop->test_texture)});
 	return (true);
 }
 
@@ -87,9 +67,6 @@ int				main(void)
 {
 	t_scop			scop;
 
-	t_mesh mdr;
-	if (!ft_loadmesh("res/obj/42.obj", &mdr))
-		return (ft_fdprintf(2, "Error: Cannot load obj"), 1);
 	if (!init_window(&scop))
 		return (ft_fdprintf(2, "Error: Cannot init window\n"), 1);
 	init_callback(&scop);
@@ -108,9 +85,9 @@ int				main(void)
 		t_mat4			m;
 
 		ft_mat4identity(&m);
-		ft_mat4translate(&m, VEC3(0.f, 0.5f, 0.f));
-		ft_mat4rotate(&m, VEC3(0.5f, 0.5f, 0.5f));
-		ft_mat4scale(&m, VEC3(1.f, 1.f, 1.f));
+		ft_mat4translate(&m, VEC3(0.f, 0.f, 0.f));
+		ft_mat4rotate(&m, VEC3(0.f, -1.f, 0.f));
+		ft_mat4scale(&m, VEC3(0.5f, 0.5f, 0.5f));
 		glUniformMatrix4fv(scop.test_mat_loc, 1, GL_TRUE, (float*)&m);
 //
 		draw_obj(&(scop.test_obj));

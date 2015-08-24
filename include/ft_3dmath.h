@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/22 17:04:21 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/24 15:09:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct	s_mat4
 	t_vec4			w;
 }				t_mat4;
 
+# define VEC2(x,y)			((t_vec2){(x), (y)})
 # define VEC3(x,y,z)		((t_vec3){(x), (y), (z)})
 # define VEC4(x,y,z,w)		((t_vec4){(x), (y), (z), (w)})
 

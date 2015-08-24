@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/23 17:15:21 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/24 15:50:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # define GLFW_INCLUDE_GLCOREARB
 # include <GLFW/glfw3.h>
 
-# define WIN_WIDTH			500
-# define WIN_HEIGHT			400
+# define WIN_WIDTH			1900
+# define WIN_HEIGHT			1000
 
 # define WIN_TITLE			"Scop"
 
