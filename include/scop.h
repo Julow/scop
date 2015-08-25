@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 17:31:21 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 18:59:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include "mesh_loader.h"
 # include "texture_loader.h"
 
-# define WIN_RATIO			(3.f / 2.f)
+# define WIN_RATIO			1.f
+// # define WIN_RATIO			(3.f / 2.f)
 # define WIN_HEIGHT			800
 # define WIN_WIDTH			((int)(WIN_HEIGHT * WIN_RATIO))
 
