@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 11:57:11 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 13:02:19 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,33 +28,13 @@ static void		draw_obj(t_obj *obj)
 	glBindVertexArray(0);
 }
 
-static t_bool	create_texture(char const *file, t_texture *texture)
-{
-	t_img			img;
-
-	if (!ft_loadimage(file, &img))
-		return (ft_fdprintf(2, "Error: Cannot load textures\n"), false);
-	glGenTextures(1, &(texture->handle));
-	glBindTexture(GL_TEXTURE_2D, texture->handle);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.width, img.height, 0, GL_BGRA,
-		GL_UNSIGNED_BYTE, img.data);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	free(img.data);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return (true);
-}
-
 static t_bool	create_test_obj(t_scop *scop)
 {
-	if (!create_texture("res/tga/container.tga", &(scop->test_texture)))
+	if (!load_texture("res/tga/container.tga", &(scop->test_texture)))
 		return (false);
-	if (!ft_loadmesh("res/obj/42.obj", &(scop->test_mesh)))
+	if (!load_mesh("res/obj/42.obj", &(scop->test_mesh)))
 		return (ft_fdprintf(2, "Error: Cannot load obj"), 1);
-	scop->test_obj = ((t_obj){&(scop->test_mesh), &(scop->test_texture)});
+	scop->test_obj = ((t_obj){&(scop->test_mesh), &(scop->test_texture), &(scop->test_shaders)});
 	return (true);
 }
 
@@ -65,17 +45,17 @@ int				main(void)
 	if (!init_window(&scop))
 		return (ft_fdprintf(2, "Error: Cannot init window\n"), 1);
 	init_key_events(&scop);
-	if (!create_shader("res/shaders/test.vert", "res/shaders/test.frag",
+	if (!load_shader("res/shaders/test.vert", "res/shaders/test.frag",
 		&(scop.test_shaders)))
 		return (ft_fdprintf(2, "Error: Cannot load shaders\n"), 1);
 	if (!create_test_obj(&scop))
 		return (ft_fdprintf(2, "lol\n"), 1);
-	scop.test_mat_loc = glGetUniformLocation(scop.test_shaders, "test_mat");
+	scop.test_mat_loc = glGetUniformLocation(scop.test_shaders.handle, "test_mat");
 	while (!glfwWindowShouldClose(scop.window))
 	{
 		glfwPollEvents();
 		draw_background();
-		glUseProgram(scop.test_shaders);
+		glUseProgram(scop.test_shaders.handle);
 //
 		t_mat4			m;
 

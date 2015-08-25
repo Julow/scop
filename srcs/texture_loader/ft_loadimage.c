@@ -6,20 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:50:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/17 14:51:17 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 12:53:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_loadimg.h"
+#include "texture_loader.h"
 #include <fcntl.h>
-
-typedef struct	s_imgtype
-{
-	t_sub			ext;
-	t_bool			(*f)(t_buff *buff, t_img *img);
-}				t_imgtype;
-
-t_bool			tga_parser(t_buff *buff, t_img *img);
 
 t_imgtype const	g_imgtypes[] = {
 	{SUBC(".tga"), &tga_parser},

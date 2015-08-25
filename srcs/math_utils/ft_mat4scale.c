@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mat4translate.c                                 :+:      :+:    :+:   */
+/*   ft_mat4scale.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/18 12:56:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/18 17:01:54 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/08/18 14:57:53 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/08/25 12:55:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_3dmath.h"
+#include "math_utils.h"
 
-void			ft_mat4translate(t_mat4 *m_a, t_vec3 translate)
+void			ft_mat4scale(t_mat4 *m_a, t_vec3 scale)
 {
 	t_mat4 const	a = *m_a;
 
-	m_a->x.w = a.x.x * translate.x + a.x.y * translate.y + a.x.z * translate.z + a.x.w;
-	m_a->y.w = a.y.x * translate.x + a.y.y * translate.y + a.y.z * translate.z + a.y.w;
-	m_a->z.w = a.z.x * translate.x + a.z.y * translate.y + a.z.z * translate.z + a.z.w;
-	m_a->w.w = a.w.x * translate.x + a.w.y * translate.y + a.w.z * translate.z + a.w.w;
+	m_a->x.x = a.x.x * scale.x;
+	m_a->x.y = a.x.y * scale.y;
+	m_a->x.z = a.x.z * scale.z;
+	m_a->y.x = a.y.x * scale.x;
+	m_a->y.y = a.y.y * scale.y;
+	m_a->y.z = a.y.z * scale.z;
+	m_a->z.x = a.z.x * scale.x;
+	m_a->z.y = a.z.y * scale.y;
+	m_a->z.z = a.z.z * scale.z;
+	m_a->w.x = a.w.x * scale.x;
+	m_a->w.y = a.w.y * scale.y;
+	m_a->w.z = a.w.z * scale.z;
 }

@@ -6,11 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 13:04:14 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/18 15:47:17 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 12:55:36 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_3dmath.h"
+#include "math_utils.h"
 
 void			ft_mat4mult(t_mat4 *m_a, t_mat4 b)
 {

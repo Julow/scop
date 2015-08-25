@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_subint.c                                        :+:      :+:    :+:   */
+/*   shader_loader.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/23 18:02:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 12:08:48 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/08/25 12:50:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#ifndef SHADER_LOADER_H
+# define SHADER_LOADER_H
 
-int				ft_subint(t_sub sub, int *dst)
+# include "libft.h"
+
+# define LOAD_SHADER_BUFFER		256
+# define ERR_SHADER_BUFFER 		128
+
+typedef struct	s_shader
 {
-	int			tmp;
-	int			i;
+	t_uint			handle;
+}				t_shader;
 
-	tmp = 0;
-	i = -1;
-	while (++i < sub.length && IS(sub.str[i], IS_DIGIT))
-		tmp = tmp * 10 + sub.str[i] - '0';
-	*dst = tmp;
-	return (i);
-}
+typedef struct	s_shader_c
+{
+	char				*str;
+	int					length;
+	struct s_shader_c	*prev;
+}				t_shader_c;
+
+t_bool			load_shader(char const *vert, char const *frag, t_shader *p);
+
+#endif

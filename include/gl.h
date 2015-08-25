@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_subint.c                                        :+:      :+:    :+:   */
+/*   gl.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/23 18:02:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 12:08:48 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/08/25 12:47:36 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/08/25 12:47:46 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#ifndef GL_H
+# define GL_H
 
-int				ft_subint(t_sub sub, int *dst)
-{
-	int			tmp;
-	int			i;
+# ifdef MAC_OS_MODE
+#  define GLFW_INCLUDE_GLCOREARB
+# else
+#  include <GL/glew.h>
+# endif
 
-	tmp = 0;
-	i = -1;
-	while (++i < sub.length && IS(sub.str[i], IS_DIGIT))
-		tmp = tmp * 10 + sub.str[i] - '0';
-	*dst = tmp;
-	return (i);
-}
+# include <GLFW/glfw3.h>
+
+#endif

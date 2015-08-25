@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_loadmesh.h                                      :+:      :+:    :+:   */
+/*   mesh_loader.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/22 16:48:03 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/24 18:16:45 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/08/25 12:11:38 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/08/25 12:48:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LOADMESH_H
-# define FT_LOADMESH_H
+#ifndef MESH_LOADER_H
+# define MESH_LOADER_H
 
 # include "libft.h"
-# include "ft_3dmath.h"
 # include "ft_vector.h"
+# include "math_utils.h"
 
 # define MEM_EQU(a,b,s)		(ft_memcmp((a), (b), (s)) == 0)
 
@@ -68,11 +68,6 @@ typedef struct	s_mesh_data
 /*
 ** Load a mesh from a file (.obj)
 */
-t_bool			ft_loadmesh(char const *file, t_mesh *dst);
-
-/*
-** utils
-*/
-int				ft_subint(t_sub sub, int *dst);
+t_bool			load_mesh(char const *file, t_mesh *dst);
 
 #endif

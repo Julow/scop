@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_loadmesh.c                                      :+:      :+:    :+:   */
+/*   load_mesh.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/24 19:20:51 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 13:00:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scop.h"
-#include "ft_loadmesh.h"
 #include "ft_evalexpr.h"
+#include "gl.h"
+#include "mesh_loader.h"
+#include "utils.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>//
@@ -99,7 +100,7 @@ static t_bool	parse_f(t_sub line, t_mesh_data *data)
 	return (true);
 }
 
-static t_bool	load_mesh(int fd, t_mesh_data *data)
+static t_bool	load_mesh_data(int fd, t_mesh_data *data)
 {
 	t_sub			line;
 	int				i;
@@ -173,7 +174,7 @@ static t_bool	build_mesh(t_mesh_data *data, t_mesh *mesh)
 	return (true);
 }
 
-t_bool			ft_loadmesh(char const *file, t_mesh *dst)
+t_bool			load_mesh(char const *file, t_mesh *dst)
 {
 	t_mesh_data		data;
 	int				fd;
@@ -189,7 +190,7 @@ t_bool			ft_loadmesh(char const *file, t_mesh *dst)
 	data.vbo_data = VECTOR(t_mesh_vbo_data);
 	data.ebo_data = VECTOR(t_mesh_ebo_data);
 	t = ft_clock(0);
-	success = load_mesh(fd, &data);
+	success = load_mesh_data(fd, &data);
 	t = ft_clock(t);
 	ft_printf("Mesh loading time: %lldus\n", t);
 	t = ft_clock(0);

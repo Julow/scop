@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_shader.c                                    :+:      :+:    :+:   */
+/*   load_shader.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 14:43:43 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/15 19:41:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 12:59:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scop.h"
+#include "shader_loader.h"
+#include "gl.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-
-#define LOAD_SHADER_BUFFER		256
-#define ERR_SHADER_BUFFER 		128
 
 /*
 ** Compile a shader program
 ** vert and frag are file names
 ** store result in p
 */
-typedef struct	s_shader_c
-{
-	char				*str;
-	int					length;
-	struct s_shader_c	*prev;
-}				t_shader_c;
-
 static t_bool	create_shader_end(t_shader_c *chunks, int count, t_uint id)
 {
 	char const		*strings[count];
@@ -89,7 +80,7 @@ static t_bool	create_shader_file(char const *file, GLenum type, t_uint *id)
 	return (true);
 }
 
-t_bool			create_shader(char const *vert, char const *frag, t_uint *p)
+t_bool			load_shader(char const *vert, char const *frag, t_shader *p)
 {
 	t_uint			vert_shader;
 	t_uint			frag_shader;
@@ -99,19 +90,19 @@ t_bool			create_shader(char const *vert, char const *frag, t_uint *p)
 		return (false);
 	if (!create_shader_file(frag, GL_FRAGMENT_SHADER, &frag_shader))
 		return (glDeleteShader(vert_shader), false);
-	if ((*p = glCreateProgram()) > 0)
+	if ((p->handle = glCreateProgram()) > 0)
 	{
-		glAttachShader(*p, vert_shader);
-		glAttachShader(*p, frag_shader);
-		glLinkProgram(*p);
-		glGetProgramiv(*p, GL_LINK_STATUS, &tmp);
+		glAttachShader(p->handle, vert_shader);
+		glAttachShader(p->handle, frag_shader);
+		glLinkProgram(p->handle);
+		glGetProgramiv(p->handle, GL_LINK_STATUS, &tmp);
 		if (tmp == 0)
 		{
-			glDeleteProgram(*p);
-			*p = 0;
+			glDeleteProgram(p->handle);
+			p->handle = 0;
 		}
 	}
 	glDeleteShader(vert_shader);
 	glDeleteShader(frag_shader);
-	return ((*p == 0) ? false : true);
+	return ((p->handle == 0) ? false : true);
 }

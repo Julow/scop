@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_3dmath.h                                        :+:      :+:    :+:   */
+/*   math_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/24 15:09:38 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 12:45:41 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT__DMATH_H
-# define FT__DMATH_H
-
-# include "libft.h"
+#ifndef MATH_UTILS_H
+# define MATH_UTILS_H
 
 typedef struct	s_vec2
 {

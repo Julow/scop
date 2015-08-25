@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_subint.c                                        :+:      :+:    :+:   */
+/*   ft_mat4identity.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/23 18:02:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 12:08:48 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/08/18 18:11:04 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/08/25 12:59:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "math_utils.h"
+#include "libft.h"
 
-int				ft_subint(t_sub sub, int *dst)
+void			ft_mat4identity(t_mat4 *m)
 {
-	int			tmp;
-	int			i;
-
-	tmp = 0;
-	i = -1;
-	while (++i < sub.length && IS(sub.str[i], IS_DIGIT))
-		tmp = tmp * 10 + sub.str[i] - '0';
-	*dst = tmp;
-	return (i);
+	ft_bzero(m, sizeof(t_mat4));
+	m->x.x = 1.f;
+	m->y.y = 1.f;
+	m->z.z = 1.f;
+	m->w.w = 1.f;
 }

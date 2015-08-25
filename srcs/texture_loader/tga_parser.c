@@ -6,11 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:51:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/17 19:17:16 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 12:52:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_loadimg.h"
+#include "texture_loader.h"
 #include <stdlib.h>
 
 typedef struct	s_tga_header
