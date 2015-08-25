@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 13:01:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 14:46:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct	s_scop
 	t_obj			test_obj;
 	t_texture		test_texture;
 	t_mesh			test_mesh;
-	t_uint			test_mat_loc; // uniform location
 }				t_scop;
 
 t_bool			init_window(t_scop *scop);

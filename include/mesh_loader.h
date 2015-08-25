@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:11:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 12:48:32 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 14:20:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ typedef struct	s_mesh_ebo_data
 
 typedef struct	s_mesh_data
 {
-	t_vector		v; // :vector<vec3>
-	t_vector		vn; // :vector<vec3>
-	t_vector		vt; // :vector<vec2>
-	t_vector		f; // :vector<face>
-	t_vector		vbo_data; // :vector<tuple<vec3, vec3, vec2, vec3>>
-	t_vector		ebo_data; // :vector<tuple<int, int, int>>
+	t_vector		v;
+	t_vector		vn;
+	t_vector		vt;
+	t_vector		f;
+	t_vector		vbo_data;
+	t_vector		ebo_data;
 }				t_mesh_data;
 
 /*

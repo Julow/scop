@@ -8,11 +8,13 @@ layout (location = 3) in vec3 nor;
 out vec4			vertexColor;
 out vec2			texturePos;
 
-uniform mat4		test_mat;
+uniform mat4		model;
+uniform mat4		view;
+uniform mat4		projection;
 
 void main()
 {
-	gl_Position = test_mat * vec4(position, 1.0);
+	gl_Position = projection * view * model * vec4(position, 1.0);
 	vertexColor = vec4(vColor, 1.0);
 	texturePos = tPos;
 }

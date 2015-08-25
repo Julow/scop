@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 14:43:43 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 12:59:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 14:47:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-/*
-** Compile a shader program
-** vert and frag are file names
-** store result in p
-*/
 static t_bool	create_shader_end(t_shader_c *chunks, int count, t_uint id)
 {
 	char const		*strings[count];
@@ -104,5 +99,8 @@ t_bool			load_shader(char const *vert, char const *frag, t_shader *p)
 	}
 	glDeleteShader(vert_shader);
 	glDeleteShader(frag_shader);
+	p->model_loc = glGetUniformLocation(p->handle, "model");
+	p->view_loc = glGetUniformLocation(p->handle, "view");
+	p->projection_loc = glGetUniformLocation(p->handle, "projection");
 	return ((p->handle == 0) ? false : true);
 }

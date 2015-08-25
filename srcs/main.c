@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 13:02:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 15:46:04 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,13 @@ int				main(void)
 		return (ft_fdprintf(2, "Error: Cannot load shaders\n"), 1);
 	if (!create_test_obj(&scop))
 		return (ft_fdprintf(2, "lol\n"), 1);
-	scop.test_mat_loc = glGetUniformLocation(scop.test_shaders.handle, "test_mat");
+	// -
+	t_mat4				view_m, projection_m;
+
+	view_m = ft_mat4identity();
+	projection_m = ft_mat4perspective(45.f, (4.f / 3.f), 0.2f, 2000.f);
+	// ft_mat4perspective(&projection_m);
+	//
 	while (!glfwWindowShouldClose(scop.window))
 	{
 		glfwPollEvents();
@@ -59,11 +65,14 @@ int				main(void)
 //
 		t_mat4			m;
 
-		ft_mat4identity(&m);
-		ft_mat4translate(&m, VEC3(0.f, 0.f, 0.f));
-		ft_mat4rotate(&m, VEC3(0.f, -M_PI / 2, 0.f));
+		m = ft_mat4identity();
+		ft_mat4translate(&m, VEC3(0.f, 0.f, -5.f));
+		// ft_mat4rotate(&m, VEC3(0.f, ((float)(ft_clock(0) % 1000000)) / 1000000.f * M_PI * 2, 0.f));
+		ft_mat4rotate(&m, VEC3(0.f, -M_PI / 2 + ((float)(ft_clock(0) % 1000000)) / 1000000.f, 0.f));
 		ft_mat4scale(&m, VEC3(0.5f, 0.5f, 0.5f));
-		glUniformMatrix4fv(scop.test_mat_loc, 1, GL_TRUE, (float*)&m);
+		glUniformMatrix4fv(scop.test_shaders.model_loc, 1, GL_TRUE, (float*)&m);
+		glUniformMatrix4fv(scop.test_shaders.view_loc, 1, GL_TRUE, (float*)&view_m);
+		glUniformMatrix4fv(scop.test_shaders.projection_loc, 1, GL_TRUE, (float*)&projection_m);
 //
 		draw_obj(&(scop.test_obj));
 		glfwSwapBuffers(scop.window);

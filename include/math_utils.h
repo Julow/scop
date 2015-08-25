@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 12:45:41 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 15:23:07 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,20 @@ typedef struct	s_mat4
 # define MAT4(x,y,z,w)		((t_mat4){VEC4 x, VEC4 y, VEC4 z, VEC4 w})
 
 /*
-** Init a t_mat4
+** mat4 init
 */
-void			ft_mat4identity(t_mat4 *m);
+t_mat4			ft_mat4identity(void);
+t_mat4			ft_mat4perspective(float fov, float ratio, float f, float n);
 
 /*
-** Transform a matrix
+** mat4 transformations
 */
 void			ft_mat4scale(t_mat4 *m, t_vec3 scale);
 void			ft_mat4rotate(t_mat4 *m, t_vec3 rotate);
 void			ft_mat4translate(t_mat4 *m, t_vec3 translate);
 
 /*
-** Matrix product
-** Compute a . b and store the result in a
+** mat4 operations
 */
 void			ft_mat4mult(t_mat4 *a, t_mat4 b);
 
