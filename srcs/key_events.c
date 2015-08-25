@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   callback.c                                         :+:      :+:    :+:   */
+/*   key_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/15 14:10:42 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/15 14:36:50 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/08/25 11:52:01 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/08/25 11:54:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void		key_callback(GLFWwindow* window, int key, int scancode,
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
-void			init_callback(t_scop *scop)
+void			init_key_events(t_scop *scop)
 {
 	save_env(scop);
 	glfwSetKeyCallback(scop->window, &key_callback);

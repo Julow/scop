@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 00:04:36 by juloo            ###   ########.fr       */
+/*   Updated: 2015/08/25 11:56:56 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ typedef struct	s_scop
 }				t_scop;
 
 /*
+** init.c
+*/
+t_bool			init_window(t_scop *scop);
+
+/*
 ** create_mesh.c
 */
 typedef struct	s_mesh_params
@@ -88,9 +93,9 @@ t_bool			create_shader(char const *vert, char const *frag, t_uint *p);
 t_bool			init_window(t_scop *scop);
 
 /*
-** callback.c
+** key_events.c
 */
-void			init_callback(t_scop *scop);
+void			init_key_events(t_scop *scop);
 
 /*
 ** utils
