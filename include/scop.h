@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 19:36:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/26 00:50:05 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define SCOP_H
 
 # include "libft.h"
-# include "ft_vector.h"
+# include "ft_list.h"
 # include "ft_hmap.h"
 # include "gl.h"
 # include "shader_loader.h"
@@ -48,10 +48,8 @@ typedef struct	s_obj
 typedef struct	s_scop
 {
 	GLFWwindow		*window;
-	ft_hmap			*textures;
-	ft_hmap			*meshes;
-	ft_hmap			*shaders;
-	ft_vector		objects;
+	t_list			objects;
+	t_obj			test_obj;
 }				t_scop;
 
 t_bool			init_window(t_scop *scop);
@@ -59,5 +57,5 @@ t_bool			init_window(t_scop *scop);
 void			init_key_events(t_scop *scop);
 
 #else
-# pragma message "lol"
+# pragma message "scop.h included twice"
 #endif
