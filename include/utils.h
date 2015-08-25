@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:07:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 12:11:02 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 17:08:21 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 
 # include "libft.h"
 
-/*
-** Return the current time in micro seconds
-*/
-t_ulong			ft_time(t_ulong start);
+# define MEM_EQU(a,b,s)		(ft_memcmp((a), (b), (s)) == 0)
 
 /*
 ** Parse an int

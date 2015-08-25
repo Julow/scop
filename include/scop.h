@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 16:48:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 17:31:21 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define WIN_TITLE			"Scop"
 
 # define PERSPECTIVE_FOV	42.f
-# define PERSPECTIVE_NEAR	1.f
+# define PERSPECTIVE_NEAR	0.01f
 # define PERSPECTIVE_FAR	1000.f
 
 typedef struct	s_obj

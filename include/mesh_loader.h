@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:11:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 14:20:11 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 17:07:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include "ft_vector.h"
 # include "math_utils.h"
 
-# define MEM_EQU(a,b,s)		(ft_memcmp((a), (b), (s)) == 0)
-
 typedef struct	s_mesh
 {
 	t_uint			vao;
@@ -27,6 +25,14 @@ typedef struct	s_mesh
 	t_uint			count;
 }				t_mesh;
 
+/*
+** Load a mesh from a file (.obj)
+*/
+t_bool			load_mesh(char const *file, t_mesh *dst);
+
+/*
+** internal
+*/
 typedef struct	s_face
 {
 	int				v1;
@@ -66,8 +72,32 @@ typedef struct	s_mesh_data
 }				t_mesh_data;
 
 /*
-** Load a mesh from a file (.obj)
+** parse_mesh.c
 */
-t_bool			load_mesh(char const *file, t_mesh *dst);
+typedef struct	s_mesh_token
+{
+	t_sub			token;
+	t_bool			(*f)(t_sub, t_mesh_data*);
+}				t_mesh_token;
+
+t_bool			parse_mesh(char const *file, t_mesh_data *data);
+
+/*
+** parse_mesh_tokens.c
+*/
+t_bool			parse_v(t_sub line, t_mesh_data *data);
+t_bool			parse_vn(t_sub line, t_mesh_data *data);
+t_bool			parse_vt(t_sub line, t_mesh_data *data);
+t_bool			parse_f(t_sub line, t_mesh_data *data);
+
+/*
+** build_mesh.c
+*/
+t_bool			build_mesh(t_mesh_data *data);
+
+/*
+** send_mesh.c
+*/
+t_bool			send_mesh(t_mesh_data *data, t_mesh *mesh);
 
 #endif
