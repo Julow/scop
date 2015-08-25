@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 14:46:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 16:48:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,15 @@
 # include "mesh_loader.h"
 # include "texture_loader.h"
 
-# define WIN_WIDTH			1900
-# define WIN_HEIGHT			1000
+# define WIN_RATIO			(3.f / 2.f)
+# define WIN_HEIGHT			800
+# define WIN_WIDTH			((int)(WIN_HEIGHT * WIN_RATIO))
 
 # define WIN_TITLE			"Scop"
+
+# define PERSPECTIVE_FOV	42.f
+# define PERSPECTIVE_NEAR	1.f
+# define PERSPECTIVE_FAR	1000.f
 
 typedef struct	s_obj
 {
