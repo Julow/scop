@@ -6,13 +6,58 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 19:11:26 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 19:43:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 #include <stdlib.h>
 #include <math.h>
+
+struct
+{
+	char const		*name;
+	char const		*vert_file;
+	char const		*frag_file;
+} const			g_shaders[] = {
+	{"test", "res/shaders/test.vert", "res/shaders/test.frag"}
+};
+
+t_shader		*get_shader(t_scop *scop, t_sub name)
+{
+	t_shader		*shader;
+
+	if ((shader = ft_hmapget(&(scop->shaders), name)) != NULL)
+		return (shader);
+	// TODO
+	return (NULL);
+}
+
+struct
+{
+	char const		*name;
+	char const		*texture_file;
+} const			g_shaders[] = {
+	{"container", "res/tga/container.tga"},
+	{"wall", "res/tga/wall.tga"}
+};
+
+struct
+{
+	char const		*name;
+	char const		*obj_file;
+} const			g_shaders[] = {
+	{"42", "42.obj"},
+	{"cube", "cube.obj"},
+	{"rect", "rect.obj"},
+	{"teapot", "teapot.obj"},
+	{"teapot2", "teapot2.obj"}
+};
+
+t_bool			create_obj(t_obj *obj, t_obj_params params)
+{
+	return (true);
+}
 
 static void		draw_background(void)
 {

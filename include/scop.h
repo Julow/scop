@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 18:59:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/25 19:36:36 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define SCOP_H
 
 # include "libft.h"
+# include "ft_vector.h"
+# include "ft_hmap.h"
 # include "gl.h"
 # include "shader_loader.h"
 # include "mesh_loader.h"
@@ -41,24 +43,21 @@ typedef struct	s_obj
 	// t_mat4			matrix_cache;
 }				t_obj;
 
+# define OBJ(m,t,s)			((t_obj){(m), (t), (s), 0, 0, 0, 0})
+
 typedef struct	s_scop
 {
 	GLFWwindow		*window;
-
-// textures		:hmap<string, texture>
-// meshes		:hmap<string, mesh>
-// shaders		:hmap<string, shader>
-
-// objects		:vector<obj>
-
-	t_shader		test_shaders;
-	t_obj			test_obj;
-	t_texture		test_texture;
-	t_mesh			test_mesh;
+	ft_hmap			*textures;
+	ft_hmap			*meshes;
+	ft_hmap			*shaders;
+	ft_vector		objects;
 }				t_scop;
 
 t_bool			init_window(t_scop *scop);
 
 void			init_key_events(t_scop *scop);
 
+#else
+# pragma message "lol"
 #endif
