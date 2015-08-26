@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 16:53:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/26 23:12:52 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ typedef struct	s_mat4
 # define VEC4(x,y,z,w)		((t_vec4){(x), (y), (z), (w)})
 
 # define MAT4(x,y,z,w)		((t_mat4){VEC4 x, VEC4 y, VEC4 z, VEC4 w})
+
+# define MAT4_ZERO()		(MAT4((0,0,0,0),(0,0,0,0),(0,0,0,0),(0,0,0,0)))
+# define MAT4_IDENTITY()	(MAT4((1,0,0,0),(0,1,0,0),(0,0,1,0),(0,0,0,1)))
 
 /*
 ** mat4 init
