@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 13:07:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 14:10:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/26 23:45:09 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ static t_res const			*g_ressources[] = {
 	RES_MESH("cube", "cube.obj"),
 	RES_MESH("rect", "rect.obj"),
 	RES_MESH("teapot", "teapot.obj"),
-	RES_MESH("teapot2", "teapot2.obj")
+	RES_MESH("teapot2", "teapot2.obj"),
+	RES_MESH("shuttle", "shuttle.obj"),
+	RES_MESH("skyscraper", "skyscraper.obj"),
+	RES_MESH("power_lines", "power_lines.obj"),
+	RES_MESH("symphysis", "symphysis.obj"),
+	RES_MESH("cow", "cow.obj"),
 };
 
 static const t_res_config	g_res_conf[res_t_count] = {

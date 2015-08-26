@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:49:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 17:08:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/26 23:39:02 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ t_bool			parse_mesh(char const *file, t_mesh_data *data)
 					return (close(fd), false);
 				break ;
 			}
-		if (g_tokens[i].token.str == NULL)
-			ft_printf("Invalid line: %.*s\n", line.length, line.str);
 	}
 	close(fd);
 	return (true);

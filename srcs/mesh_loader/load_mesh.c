@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 14:04:06 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/27 00:02:08 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ t_bool			load_mesh(char const *file, t_mesh *dst)
 {
 	t_mesh_data		data;
 	t_bool			success;
-	t_ulong			t;
+	t_ulong			parse_t;
+	t_ulong			build_t;
+	t_ulong			send_t;
 
 	data.v = VECTOR(t_vec3);
 	data.vn = VECTOR(t_vec2);
@@ -24,11 +26,17 @@ t_bool			load_mesh(char const *file, t_mesh *dst)
 	data.f = VECTOR(t_face);
 	data.vbo_data = VECTOR(t_mesh_vbo_data);
 	data.ebo_data = VECTOR(t_mesh_ebo_data);
-	t = ft_clock(0);
-	success = parse_mesh(file, &data) && build_mesh(&data)
-		&& send_mesh(&data, dst);
-	t = ft_clock(t);
-	ft_printf("Load mesh time (%s): %lldμs\n", file, t);
+	parse_t = ft_clock(0);
+	success = parse_mesh(file, &data);
+	parse_t = ft_clock(parse_t);
+	build_t = ft_clock(0);
+	success = success && build_mesh(&data);
+	build_t = ft_clock(build_t);
+	send_t = ft_clock(0);
+	success = success && send_mesh(&data, dst);
+	send_t = ft_clock(send_t);
+	ft_printf("Mesh loading: parse:%-5lld build:%-5lld send:%-5lld (%s)\n",
+		parse_t, build_t, send_t, file);
 	ft_vclear(&(data.v));
 	ft_vclear(&(data.vn));
 	ft_vclear(&(data.vt));

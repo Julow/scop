@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 23:22:22 by juloo            ###   ########.fr       */
+/*   Updated: 2015/08/26 23:45:13 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,14 @@ typedef struct	s_scene_obj
 #define S_OBJ(m,t,s,p,r,k)	((t_scene_obj){SUBC(m),SUBC(t),SUBC(s),VEC3 p,VEC3 r,k})
 
 static const t_scene_obj	g_scene[] = {
-	S_OBJ("cube", "wall", "test", (-20.f, 0.f, 0.f), (0.f, 1.f, 0.5f), 1.f)
+	S_OBJ("cube", "wall", "test", (-20.f, 0.f, -2.f), (0.f, 1.f, 0.5f), 1.f),
+	S_OBJ("42", "wall", "test", (-20.f, 0.f, 5.f), (0.f, 0.f, 0.f), 1.f),
+	S_OBJ("teapot", "wall", "test", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
+	S_OBJ("shuttle", "wall", "test", (-40.f, 12.f, -1.f), (0.f, 2.f, 0.f), 0.8f),
+	S_OBJ("skyscraper", "wall", "test", (-40.f, 8.f, 9.f), (0.f, 2.f, 0.f), 0.2f),
+	S_OBJ("power_lines", "wall", "test", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
+	S_OBJ("cow", "wall", "test", (-40.f, -10.f, 9.f), (0.f, 1.f, 0.f), 1.f),
+	S_OBJ("symphysis", "wall", "test", (-40.f, 4.f, -10.f), (0.f, 2.f, 0.f), 0.5f),
 };
 
 t_bool			load_scene(t_scop *scop)
