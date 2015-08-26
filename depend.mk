@@ -1,11 +1,13 @@
 O_FILES :=	o/srcs/init_window.o o/srcs/key_events.o o/srcs/main.o \
 			o/srcs/math_utils/ft_mat4identity.o \
-			o/srcs/math_utils/ft_mat4mult.o \
+			o/srcs/math_utils/ft_mat4look_at.o o/srcs/math_utils/ft_mat4mult.o \
 			o/srcs/math_utils/ft_mat4perspective.o \
 			o/srcs/math_utils/ft_mat4rotate.o o/srcs/math_utils/ft_mat4scale.o \
 			o/srcs/math_utils/ft_mat4translate.o \
-			o/srcs/mesh_loader/build_mesh.o o/srcs/mesh_loader/load_mesh.o \
-			o/srcs/mesh_loader/parse_mesh.o \
+			o/srcs/math_utils/ft_vec3cross.o o/srcs/math_utils/ft_vec3dot.o \
+			o/srcs/math_utils/ft_vec3norm.o o/srcs/math_utils/ft_vec3rotate.o \
+			o/srcs/math_utils/ft_vec3sub.o o/srcs/mesh_loader/build_mesh.o \
+			o/srcs/mesh_loader/load_mesh.o o/srcs/mesh_loader/parse_mesh.o \
 			o/srcs/mesh_loader/parse_mesh_tokens.o \
 			o/srcs/mesh_loader/send_mesh.o o/srcs/resources/get_res.o \
 			o/srcs/shader_loader/load_shader.o \
@@ -25,6 +27,8 @@ o/srcs/main.o: srcs/main.c include/scop.h include/gl.h include/shader_loader.h \
 	include/resources.h include/utils.h | o/srcs
 o/srcs/math_utils/ft_mat4identity.o: srcs/math_utils/ft_mat4identity.c \
 	include/math_utils.h | o/srcs/math_utils
+o/srcs/math_utils/ft_mat4look_at.o: srcs/math_utils/ft_mat4look_at.c \
+	include/math_utils.h | o/srcs/math_utils
 o/srcs/math_utils/ft_mat4mult.o: srcs/math_utils/ft_mat4mult.c \
 	include/math_utils.h | o/srcs/math_utils
 o/srcs/math_utils/ft_mat4perspective.o: srcs/math_utils/ft_mat4perspective.c \
@@ -34,6 +38,16 @@ o/srcs/math_utils/ft_mat4rotate.o: srcs/math_utils/ft_mat4rotate.c \
 o/srcs/math_utils/ft_mat4scale.o: srcs/math_utils/ft_mat4scale.c \
 	include/math_utils.h | o/srcs/math_utils
 o/srcs/math_utils/ft_mat4translate.o: srcs/math_utils/ft_mat4translate.c \
+	include/math_utils.h | o/srcs/math_utils
+o/srcs/math_utils/ft_vec3cross.o: srcs/math_utils/ft_vec3cross.c \
+	include/math_utils.h | o/srcs/math_utils
+o/srcs/math_utils/ft_vec3dot.o: srcs/math_utils/ft_vec3dot.c \
+	include/math_utils.h | o/srcs/math_utils
+o/srcs/math_utils/ft_vec3norm.o: srcs/math_utils/ft_vec3norm.c \
+	include/math_utils.h | o/srcs/math_utils
+o/srcs/math_utils/ft_vec3rotate.o: srcs/math_utils/ft_vec3rotate.c \
+	include/math_utils.h | o/srcs/math_utils
+o/srcs/math_utils/ft_vec3sub.o: srcs/math_utils/ft_vec3sub.c \
 	include/math_utils.h | o/srcs/math_utils
 o/srcs/mesh_loader/build_mesh.o: srcs/mesh_loader/build_mesh.c \
 	include/mesh_loader.h include/math_utils.h | o/srcs/mesh_loader
