@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/27 00:02:08 by juloo            ###   ########.fr       */
+/*   Updated: 2015/08/27 00:36:00 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ t_bool			load_mesh(char const *file, t_mesh *dst)
 	send_t = ft_clock(0);
 	success = success && send_mesh(&data, dst);
 	send_t = ft_clock(send_t);
-	ft_printf("Mesh loading: parse:%-5lld build:%-5lld send:%-5lld (%s)\n",
-		parse_t, build_t, send_t, file);
+	ft_printf("%s%-25sv:%-9dvn:%-9dvt:%-9df:%-9dtime:%-5d %-5d %-5d\n",
+		success ? "" : "[FAIL] ", file,
+		data.v.length, data.vn.length, data.vt.length, data.f.length,
+		parse_t, build_t, send_t);
 	ft_vclear(&(data.v));
 	ft_vclear(&(data.vn));
 	ft_vclear(&(data.vt));
