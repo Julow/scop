@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:07:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 01:14:01 by juloo            ###   ########.fr       */
+/*   Updated: 2015/08/26 02:13:43 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # define MEM_EQU(a,b,s)		(ft_memcmp((a), (b), (s)) == 0)
 
 # define G_ARRAY_LEN(g)		((int)(sizeof(g) / sizeof(*(g))))
-# define G_ARRAY_NEXT(g,i)	(++i < G_ARRAY_LEN(g))
 
 /*
 ** Parse an int

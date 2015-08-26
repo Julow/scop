@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 01:45:29 by juloo            ###   ########.fr       */
+/*   Updated: 2015/08/26 02:30:31 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,123 +15,132 @@
 #include <stdlib.h>
 #include <math.h>
 
-static struct
+/*
+** res
+*/
+typedef enum	e_res_t
 {
+	res_shader,
+	res_texture,
+	res_mesh,
+	res_t_count
+}				t_res_t;
+
+typedef struct	s_res
+{
+	t_res_t			type;
 	t_sub			name;
+}				t_res;
+
+typedef struct	s_res_shader
+{
+	t_res			res;
 	char const		*vert_file;
 	char const		*frag_file;
-} const			g_shaders[] = {
-	{SUBC("test"), "res/shaders/test.vert", "res/shaders/test.frag"}
+}				t_res_shader;
+
+typedef struct	s_res_texture
+{
+	t_res			res;
+	char const		*file;
+}				t_res_texture;
+
+typedef struct	s_res_mesh
+{
+	t_res			res;
+	char const		*file;
+}				t_res_mesh;
+
+#define SHADERS_DIR		"res/shaders/"
+#define TEXTURES_DIR	"res/tga/"
+#define MESHES_DIR		"res/obj/"
+
+#define RES(t,n,...)		((t_res*)&(t_res_##t){{res_##t,n},##__VA_ARGS__})
+
+#define RES_SHADER(n,v,f)	RES(shader, SUBC(n), SHADERS_DIR v, SHADERS_DIR f)
+#define RES_TEXTURE(n,f)	RES(texture, SUBC(n), TEXTURES_DIR f)
+#define RES_MESH(n,f)		RES(mesh, SUBC(n), MESHES_DIR f)
+
+static t_res const *const	g_ressources[] = {
+	RES_SHADER(	"test",			"test.vert",		"test.frag"),
+
+	RES_TEXTURE("container",	"container.tga"),
+	RES_TEXTURE("wall",			"wall.tga"),
+
+	RES_MESH(	"42",			"42.obj"),
+	RES_MESH(	"cube",			"cube.obj"),
+	RES_MESH(	"rect",			"rect.obj"),
+	RES_MESH(	"teapot",		"teapot.obj"),
+	RES_MESH(	"teapot2",		"teapot2.obj")
 };
 
-static struct
+t_bool			shader_res_loader(void *dst, t_res_shader const *res)
 {
-	t_sub			name;
-	char const		*texture_file;
-} const			g_textures[] = {
-	{SUBC("container"), "res/tga/container.tga"},
-	{SUBC("wall"), "res/tga/wall.tga"}
+	return (load_shader(res->vert_file, res->frag_file, dst));
+}
+
+t_bool			texture_res_loader(void *dst, t_res_texture const *res)
+{
+	return (load_texture(res->file, dst));
+}
+
+t_bool			mesh_res_loader(void *dst, t_res_mesh const *res)
+{
+	return (load_mesh(res->file, dst));
+}
+
+typedef struct	s_res_config
+{
+	t_bool			(*const loader)();
+	int				res_size;
+}				t_res_config;
+
+static const t_res_config	res_conf[] = {
+	{&shader_res_loader, sizeof(t_shader)},
+	{&texture_res_loader, sizeof(t_texture)},
+	{&mesh_res_loader, sizeof(t_mesh)}
 };
 
-static struct
+/*
+** Search for a ressource with type 'type' and name 'name'
+** Ressources are cached (loaded once)
+** Return NULL if not found or if an error occur
+*/
+void const		*get_res(t_res_t type, t_sub name)
 {
-	t_sub			name;
-	char const		*obj_file;
-} const			g_meshes[] = {
-	{SUBC("42"), "res/obj/42.obj"},
-	{SUBC("cube"), "res/obj/cube.obj"},
-	{SUBC("rect"), "res/obj/rect.obj"},
-	{SUBC("teapot"), "res/obj/teapot.obj"},
-	{SUBC("teapot2"), "res/obj/teapot2.obj"}
-};
-
-struct
-{
-	t_sub			mesh;
-	t_sub			texture;
-	t_sub			shader;
-} const			g_objs[] = {
-	{SUBC("42"), SUBC("wall"), SUBC("test")}
-};
-
-t_shader const	*get_shader(t_sub name)
-{
-	static t_hmap	*shader_cache = NULL;
-	t_shader		*shader;
+	static t_hmap	*res_caches[res_t_count] = {NULL};
+	void			*res;
 	int				i;
 
-	if (shader_cache == NULL)
-		shader_cache = ft_hmapnew(5, &ft_djb2);
-	if ((shader = ft_hmapget(shader_cache, name)) != NULL)
-		return (shader);
+	if (type >= res_t_count)
+		return (NULL);
+	if (res_caches[type] == NULL)
+		res_caches[type] = ft_hmapnew(10, &ft_djb2);
+	if ((res = ft_hmapget(res_caches[type], name)) != NULL)
+		return (res);
 	i = -1;
-	while (G_ARRAY_NEXT(g_shaders, i))
-		if (name.length == g_shaders[i].name.length
-			&& MEM_EQU(name.str, g_shaders[i].name.str, name.length))
+	while (++i < G_ARRAY_LEN(g_ressources))
+		if (g_ressources[i]->type == type
+			&& g_ressources[i]->name.length == name.length
+			&& MEM_EQU(g_ressources[i]->name.str, name.str, name.length))
 		{
-			shader = ft_hmapput(shader_cache, name, NULL, sizeof(t_shader));
-			if (!load_shader(g_shaders[i].vert_file, g_shaders[i].frag_file,
-				shader))
-				ft_hmaprem(shader_cache, name, NULL);
-			else
-				return (shader);
+			res = ft_hmapput(res_caches[type], name, NULL,
+				res_conf[type].res_size);
+			if (!res_conf[type].loader(res, g_ressources[i]))
+				ft_hmaprem(res_caches[type], name, (res = NULL));
+			return (res);
 		}
 	return (NULL);
 }
-
-t_texture const	*get_texture(t_sub name)
-{
-	static t_hmap	*texture_cache = NULL;
-	t_texture		*texture;
-	int				i;
-
-	if (texture_cache == NULL)
-		texture_cache = ft_hmapnew(5, &ft_djb2);
-	if ((texture = ft_hmapget(texture_cache, name)) != NULL)
-		return (texture);
-	i = -1;
-	while (G_ARRAY_NEXT(g_textures, i))
-		if (name.length == g_textures[i].name.length
-			&& MEM_EQU(name.str, g_textures[i].name.str, name.length))
-		{
-			texture = ft_hmapput(texture_cache, name, NULL, sizeof(t_texture));
-			if (!load_texture(g_textures[i].texture_file, texture))
-				ft_hmaprem(texture_cache, name, NULL);
-			else
-				return (texture);
-		}
-	return (NULL);
-}
-
-t_mesh const	*get_mesh(t_sub name)
-{
-	static t_hmap	*mesh_cache = NULL;
-	t_mesh			*mesh;
-	int				i;
-
-	if (mesh_cache == NULL)
-		mesh_cache = ft_hmapnew(5, &ft_djb2);
-	if ((mesh = ft_hmapget(mesh_cache, name)) != NULL)
-		return (mesh);
-	i = -1;
-	while (G_ARRAY_NEXT(g_meshes, i))
-		if (name.length == g_meshes[i].name.length
-			&& MEM_EQU(name.str, g_meshes[i].name.str, name.length))
-		{
-			mesh = ft_hmapput(mesh_cache, name, NULL, sizeof(t_mesh));
-			if (!load_mesh(g_meshes[i].obj_file, mesh))
-				ft_hmaprem(mesh_cache, name, NULL);
-			else
-				return (mesh);
-		}
-	return (NULL);
-}
+/*
+** -
+*/
 
 t_bool			create_obj(t_obj *dst, t_sub mesh, t_sub texture, t_sub shader)
 {
-	if ((dst->mesh = get_mesh(mesh)) == NULL
-		|| (dst->texture = get_texture(texture)) == NULL
-		|| (dst->shader = get_shader(shader)) == NULL)
+	if ((dst->mesh = get_res(res_mesh, mesh)) == NULL
+		|| (dst->texture = get_res(res_texture, texture)) == NULL
+		|| (dst->shader = get_res(res_shader, shader)) == NULL)
 		return (false);
 	return (true);
 }
