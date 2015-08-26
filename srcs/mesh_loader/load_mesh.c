@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 17:12:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/26 14:04:06 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,10 @@ t_bool			load_mesh(char const *file, t_mesh *dst)
 	data.vbo_data = VECTOR(t_mesh_vbo_data);
 	data.ebo_data = VECTOR(t_mesh_ebo_data);
 	t = ft_clock(0);
-	success = parse_mesh(file, &data);
+	success = parse_mesh(file, &data) && build_mesh(&data)
+		&& send_mesh(&data, dst);
 	t = ft_clock(t);
-	ft_printf("Mesh parsing time: %lldμs\n", t);
-	t = ft_clock(0);
-	if (success)
-		success = build_mesh(&data);
-	t = ft_clock(t);
-	ft_printf("Mesh building time: %lldμs\n", t);
-	t = ft_clock(0);
-	if (success)
-		success = send_mesh(&data, dst);
-	t = ft_clock(t);
-	ft_printf("Mesh sending time: %lldμs\n", t);
+	ft_printf("Load mesh time (%s): %lldμs\n", file, t);
 	ft_vclear(&(data.v));
 	ft_vclear(&(data.vn));
 	ft_vclear(&(data.vt));

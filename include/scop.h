@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 00:50:05 by juloo            ###   ########.fr       */
+/*   Updated: 2015/08/26 14:02:33 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include "texture_loader.h"
 
 # define WIN_RATIO			1.f
-// # define WIN_RATIO			(3.f / 2.f)
 # define WIN_HEIGHT			800
 # define WIN_WIDTH			((int)(WIN_HEIGHT * WIN_RATIO))
 
@@ -37,10 +36,10 @@ typedef struct	s_obj
 	t_mesh const	*mesh;
 	t_texture const	*texture;
 	t_shader const	*shader;
-	// t_vec3			position;
-	// t_vec3			rotation;
-	// float			scale;
-	// t_mat4			matrix_cache;
+	t_vec3			position;
+	t_vec3			rotation;
+	float			scale;
+	t_mat4			matrix_cache;
 }				t_obj;
 
 # define OBJ(m,t,s)			((t_obj){(m), (t), (s), 0, 0, 0, 0})
@@ -56,6 +55,4 @@ t_bool			init_window(t_scop *scop);
 
 void			init_key_events(t_scop *scop);
 
-#else
-# pragma message "scop.h included twice"
 #endif
