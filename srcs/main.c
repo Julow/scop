@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 02:30:31 by juloo            ###   ########.fr       */
+/*   Updated: 2015/08/26 03:29:43 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,26 @@ static void		draw_obj(t_obj *obj)
 	glBindVertexArray(0);
 }
 
+/*
+** -
+*/
+#define FPS_INTERVAL		100000
+#define MICRO_SEC			1000000
+#define NANO_SEC			1000000000
+
+#include <time.h>
+
+static t_ulong	ft_clock_ns(void)
+{
+	struct timespec	spec;
+
+	clock_gettime(CLOCK_MONOTONIC, &spec);
+	return (spec.tv_sec * NANO_SEC + spec.tv_nsec);
+}
+/*
+** -
+*/
+
 int				main(void)
 {
 	t_scop			scop;
@@ -171,6 +191,8 @@ int				main(void)
 		return (ft_fdprintf(2, "lol\n"), 1);
 	// -
 	t_mat4				view_m, projection_m;
+	int					frames = 0;
+	t_ulong				last_fps = ft_clock(0);
 
 	view_m = ft_mat4identity();
 	ft_mat4translate(&view_m, VEC3(0.f, 0.f, -5.f));
@@ -178,18 +200,26 @@ int				main(void)
 		PERSPECTIVE_NEAR, PERSPECTIVE_FAR);
 	while (!glfwWindowShouldClose(scop.window))
 	{
+		t_ulong			tmp = ft_clock(0);
+		if ((tmp - last_fps) >= FPS_INTERVAL)
+		{
+			ft_printf("FPS: %-4d\r", frames * 1000000 / (tmp - last_fps));
+			last_fps = tmp;
+			frames = 0;
+		}
+		frames++;
 		glfwPollEvents();
 		draw_background();
 //
 		t_mat4			m;
 
 		m = ft_mat4identity();
+		float progress = cosf(((float)(tmp % 5000000)) / 2500000.f * M_PI);
 		ft_mat4translate(&m, VEC3(0.f, 0.f, 0.f));
-		ft_mat4scale(&m, VEC3(0.5f, 0.5f, 0.5f));
-		// ft_mat4rotate(&m, VEC3(0.f, M_PI / -2.f, 0.f));
-		float rot = ((float)(ft_clock(0) % 5000000)) / 5000000.f * M_PI * 2.f;
-		ft_mat4rotate(&m, VEC3(rot, rot, rot - M_PI));
-		// ft_mat4rotate(&m, VEC3(0.f, -M_PI / 2 + ((float)(ft_clock(0) % 1000000)) / 1000000.f, 0.f));
+		float scale = progress / M_PI + 0.5f;
+		ft_mat4scale(&m, VEC3(scale, scale, scale));
+		float rot = progress * 2.f;
+		ft_mat4rotate(&m, VEC3(rot - M_PI, rot - M_PI, rot));
 		glUniformMatrix4fv(scop.test_obj.shader->model_loc, 1, GL_TRUE, (float*)&m);
 		glUniformMatrix4fv(scop.test_obj.shader->view_loc, 1, GL_TRUE, (float*)&view_m);
 		glUniformMatrix4fv(scop.test_obj.shader->projection_loc, 1, GL_TRUE, (float*)&projection_m);
