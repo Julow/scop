@@ -6,13 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:59:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 17:39:43 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/27 15:19:33 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mesh_loader.h"
 #include <stdlib.h> //
-#include <stdio.h> //
 
 static t_bool	center_vertices(t_vector *vertices)
 {

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 23:18:33 by juloo            ###   ########.fr       */
+/*   Updated: 2015/08/27 16:57:07 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,22 @@ typedef struct	s_camera
 
 # define CAMERA(p,l)		((t_camera){MAT4_ZERO(), VEC3 p, VEC3 l, (1 << 1)})
 
+# define FLAG_MOVE_FRONT	(1 << 1)
+# define FLAG_MOVE_LEFT		(1 << 2)
+# define FLAG_MOVE_BACK		(1 << 3)
+# define FLAG_MOVE_RIGHT	(1 << 4)
+# define FLAG_ROT_UP		(1 << 5)
+# define FLAG_ROT_LEFT		(1 << 6)
+# define FLAG_ROT_DOWN		(1 << 7)
+# define FLAG_ROT_RIGHT		(1 << 8)
+
 typedef struct	s_scop
 {
 	GLFWwindow		*window;
 	t_vector		objects;
 	t_camera		camera;
 	t_mat4			projection_m;
+	int				flags;
 }				t_scop;
 
 t_bool			init_window(t_scop *scop);

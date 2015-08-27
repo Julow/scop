@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 13:07:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 23:45:09 by juloo            ###   ########.fr       */
+/*   Updated: 2015/08/27 14:37:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static t_res const			*g_ressources[] = {
 	RES_MESH("power_lines", "power_lines.obj"),
 	RES_MESH("symphysis", "symphysis.obj"),
 	RES_MESH("cow", "cow.obj"),
+	RES_MESH("alfa147", "alfa147.obj"),
 };
 
 static const t_res_config	g_res_conf[res_t_count] = {

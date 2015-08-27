@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/27 00:36:00 by juloo            ###   ########.fr       */
+/*   Updated: 2015/08/27 15:08:19 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_bool			load_mesh(char const *file, t_mesh *dst)
 	t_ulong			send_t;
 
 	data.v = VECTOR(t_vec3);
-	data.vn = VECTOR(t_vec2);
-	data.vt = VECTOR(t_vec3);
+	data.vn = VECTOR(t_vec3);
+	data.vt = VECTOR(t_vec2);
 	data.f = VECTOR(t_face);
 	data.vbo_data = VECTOR(t_mesh_vbo_data);
 	data.ebo_data = VECTOR(t_mesh_ebo_data);

@@ -21,10 +21,10 @@ o/srcs/init_window.o: srcs/init_window.c include/scop.h include/gl.h \
 	include/texture_loader.h | o/srcs
 o/srcs/key_events.o: srcs/key_events.c include/scop.h include/gl.h \
 	include/shader_loader.h include/mesh_loader.h include/math_utils.h \
-	include/texture_loader.h | o/srcs
+	include/texture_loader.h include/utils.h include/gl.h | o/srcs
 o/srcs/main.o: srcs/main.c include/scop.h include/gl.h include/shader_loader.h \
 	include/mesh_loader.h include/math_utils.h include/texture_loader.h \
-	include/resources.h include/utils.h | o/srcs
+	include/resources.h include/math_utils.h include/utils.h | o/srcs
 o/srcs/math_utils/ft_mat4identity.o: srcs/math_utils/ft_mat4identity.c \
 	include/math_utils.h | o/srcs/math_utils
 o/srcs/math_utils/ft_mat4look_at.o: srcs/math_utils/ft_mat4look_at.c \

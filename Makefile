@@ -20,6 +20,7 @@ HEADS := $(addprefix -I,$(DIRS)) -Ilibft
 # Linking flags
 ifeq ($(shell uname),Darwin)
 	FLAGS += -DMAC_OS_MODE=1
+	DEBUG_FLAGS += -DMAC_OS_MODE=1
 	LINKS := -Llibft -lft -lglfw3 -lm -framework OpenGL
 else
 	LINKS := -Llibft -lft -lglfw -lGL -lGLEW -lm
