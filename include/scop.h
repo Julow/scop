@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/27 16:57:07 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/27 17:53:23 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # define PERSPECTIVE_NEAR	0.01f
 # define PERSPECTIVE_FAR	1000.f
 
+# define MOVE_VELOCITY		0.000005f
+# define ROT_VELOCITY		0.000002f
+
 # define F_OBJ_UPDATED		(1 << 1)
 
 typedef struct	s_obj
@@ -53,11 +56,11 @@ typedef struct	s_camera
 {
 	t_mat4			_view_m;
 	t_vec3			position;
-	t_vec3			look_at;
+	t_vec2			look;
 	int				flags;
 }				t_camera;
 
-# define CAMERA(p,l)		((t_camera){MAT4_ZERO(), VEC3 p, VEC3 l, (1 << 1)})
+# define CAMERA(p,l)		((t_camera){MAT4_ZERO(), VEC3 p, VEC2 l, (1 << 1)})
 
 # define FLAG_MOVE_FRONT	(1 << 1)
 # define FLAG_MOVE_LEFT		(1 << 2)

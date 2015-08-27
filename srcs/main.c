@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/27 17:00:18 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/27 18:37:09 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,39 @@ t_mat4			*obj_get_model(t_obj *obj)
 /*
 ** camera
 */
+t_vec3			ft_vec3front(t_vec2 a)
+{
+	float const		cos_y = cosf(a.y);
+
+	return ((t_vec3){cosf(a.x) * cos_y, sinf(a.y), sinf(a.x) * cos_y});
+}
+
 void			camera_move(t_camera *camera, t_vec3 pos)
 {
-	camera->position = pos;
+	camera->position.x += pos.x;
+	camera->position.y += pos.y;
+	camera->position.z += pos.z;
 	camera->flags |= F_CAMERA_UPDATED;
 }
 
-void			camera_look(t_camera *camera, t_vec3 look)
+void			camera_look(t_camera *camera, t_vec2 look)
 {
-	camera->look_at = look;
+	camera->look.x += look.x;
+	camera->look.y += look.y;
 	camera->flags |= F_CAMERA_UPDATED;
 }
 
 t_mat4			*camera_get_view(t_camera *camera)
 {
+	t_vec3			look_at;
+
 	if (camera->flags & F_CAMERA_UPDATED)
 	{
-		camera->_view_m = ft_mat4look_at(camera->position, camera->look_at, VEC3(0.f, 1.f, 0.f));
+		look_at = ft_vec3front(camera->look);
+		look_at.x += camera->position.x;
+		look_at.y += camera->position.y;
+		look_at.z += camera->position.z;
+		camera->_view_m = ft_mat4look_at(camera->position, look_at, VEC3(0.f, 1.f, 0.f));
 		camera->flags &= ~F_CAMERA_UPDATED;
 	}
 	return (&(camera->_view_m));
@@ -151,35 +167,78 @@ void			render(t_scop *scop)
 		render_obj(scop, VECTOR_GET(&(scop->objects), i));
 }
 
+static void		handle_key_hold(t_scop *scop, float elapsed)
+{
+	t_vec3			move;
+	t_vec2			rot;
+
+	rot = VEC2(0.f, 0.f);
+	if (scop->flags & FLAG_ROT_UP)
+		rot.y -= elapsed * ROT_VELOCITY;
+	if (scop->flags & FLAG_ROT_DOWN)
+		rot.y += elapsed * ROT_VELOCITY;
+	if (scop->flags & FLAG_ROT_LEFT)
+		rot.x -= elapsed * ROT_VELOCITY;
+	if (scop->flags & FLAG_ROT_RIGHT)
+		rot.x += elapsed * ROT_VELOCITY;
+	camera_look(&(scop->camera), rot);
+	move = VEC3(0.f, 0.f, 0.f);
+	if (scop->flags & FLAG_MOVE_FRONT)
+	{
+		move.z -= sinf(scop->camera.look.x) * elapsed * MOVE_VELOCITY;
+		move.x -= cosf(scop->camera.look.x) * elapsed * MOVE_VELOCITY;
+	}
+	if (scop->flags & FLAG_MOVE_BACK)
+	{
+		move.z += sinf(scop->camera.look.x) * elapsed * MOVE_VELOCITY;
+		move.x += cosf(scop->camera.look.x) * elapsed * MOVE_VELOCITY;
+	}
+	if (scop->flags & FLAG_MOVE_LEFT)
+	{
+		move.z += sinf(scop->camera.look.x - (M_PI / 2.f)) * elapsed * MOVE_VELOCITY;
+		move.x += cosf(scop->camera.look.x - (M_PI / 2.f)) * elapsed * MOVE_VELOCITY;
+	}
+	if (scop->flags & FLAG_MOVE_RIGHT)
+	{
+		move.z -= sinf(scop->camera.look.x - (M_PI / 2.f)) * elapsed * MOVE_VELOCITY;
+		move.x -= cosf(scop->camera.look.x - (M_PI / 2.f)) * elapsed * MOVE_VELOCITY;
+	}
+	camera_move(&(scop->camera), move);
+}
+
 int				main(void)
 {
 	t_scop			scop;
 	int				frames;
 	t_ulong			last_fps;
-	t_ulong			tmp;
+	t_ulong			last_render;
+	t_ulong			now;
 
 	ft_bzero(&scop, sizeof(scop));
 	scop.objects = VECTOR(t_obj);
-	scop.camera = CAMERA((0.f, 0.f, 0.f), (1.f, 0.f, 0.f));
+	scop.camera = CAMERA((0.f, 0.f, 0.f), (0.f, 0.f));
 	scop.projection_m = ft_mat4perspective(PERSPECTIVE_FOV, WIN_RATIO, PERSPECTIVE_NEAR, PERSPECTIVE_FAR);
 	if (!init_window(&scop) || !load_scene(&scop))
 		return (1);
 	init_key_events(&scop);
 	frames = 0;
-	last_fps = ft_clock(0);
+	last_render = ft_clock(0);
+	last_fps = last_render;
 	while (!glfwWindowShouldClose(scop.window))
 	{
-		tmp = ft_clock(0);
-		if ((tmp - last_fps) >= FPS_INTERVAL)
+		now = ft_clock(0);
+		if ((now - last_fps) >= FPS_INTERVAL)
 		{
-			ft_printf("\rFPS: %-3d flags: %016b", frames * 1000000 / (tmp - last_fps), scop.flags);
-			last_fps = tmp;
+			ft_printf("\rFPS: %-3d flags: %016b", frames * 1000000 / (now - last_fps), scop.flags);
+			last_fps = now;
 			frames = 0;
 		}
 		frames++;
 		render(&scop);
 		glfwSwapBuffers(scop.window);
 		glfwPollEvents();
+		handle_key_hold(&scop, (float)(now - last_render));
+		last_render = now;
 	}
 	return (glfwTerminate(), 0);
 }
