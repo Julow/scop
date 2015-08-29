@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/27 18:37:09 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/30 01:14:55 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,14 @@ void			camera_move(t_camera *camera, t_vec3 pos)
 
 void			camera_look(t_camera *camera, t_vec2 look)
 {
+	float const		pi2 = M_PI / 2.f - 0.01f; // lol
+
 	camera->look.x += look.x;
 	camera->look.y += look.y;
+	if (camera->look.y > pi2)
+		camera->look.y = pi2;
+	else if (camera->look.y < -pi2)
+		camera->look.y = -pi2;
 	camera->flags |= F_CAMERA_UPDATED;
 }
 
@@ -171,7 +177,11 @@ static void		handle_key_hold(t_scop *scop, float elapsed)
 {
 	t_vec3			move;
 	t_vec2			rot;
+	float			sin_pitch;
+	float			length;
 
+	if (scop->flags == 0)
+		return ;
 	rot = VEC2(0.f, 0.f);
 	if (scop->flags & FLAG_ROT_UP)
 		rot.y -= elapsed * ROT_VELOCITY;
@@ -183,26 +193,40 @@ static void		handle_key_hold(t_scop *scop, float elapsed)
 		rot.x += elapsed * ROT_VELOCITY;
 	camera_look(&(scop->camera), rot);
 	move = VEC3(0.f, 0.f, 0.f);
+	length = 0.f;
 	if (scop->flags & FLAG_MOVE_FRONT)
 	{
-		move.z -= sinf(scop->camera.look.x) * elapsed * MOVE_VELOCITY;
-		move.x -= cosf(scop->camera.look.x) * elapsed * MOVE_VELOCITY;
+		move.y -= sinf(scop->camera.look.y);
+		sin_pitch = 1.f - ABS(move.y);
+		move.z -= sinf(scop->camera.look.x) * sin_pitch;
+		move.x -= cosf(scop->camera.look.x) * sin_pitch;
+		length++;
 	}
 	if (scop->flags & FLAG_MOVE_BACK)
 	{
-		move.z += sinf(scop->camera.look.x) * elapsed * MOVE_VELOCITY;
-		move.x += cosf(scop->camera.look.x) * elapsed * MOVE_VELOCITY;
+		move.y += sinf(scop->camera.look.y);
+		sin_pitch = 1.f - ABS(move.y);
+		move.z += sinf(scop->camera.look.x) * sin_pitch;
+		move.x += cosf(scop->camera.look.x) * sin_pitch;
+		length++;
 	}
 	if (scop->flags & FLAG_MOVE_LEFT)
 	{
-		move.z += sinf(scop->camera.look.x - (M_PI / 2.f)) * elapsed * MOVE_VELOCITY;
-		move.x += cosf(scop->camera.look.x - (M_PI / 2.f)) * elapsed * MOVE_VELOCITY;
+		move.z += sinf(scop->camera.look.x - (M_PI / 2.f));
+		move.x += cosf(scop->camera.look.x - (M_PI / 2.f));
+		length++;
 	}
 	if (scop->flags & FLAG_MOVE_RIGHT)
 	{
-		move.z -= sinf(scop->camera.look.x - (M_PI / 2.f)) * elapsed * MOVE_VELOCITY;
-		move.x -= cosf(scop->camera.look.x - (M_PI / 2.f)) * elapsed * MOVE_VELOCITY;
+		move.z -= sinf(scop->camera.look.x - (M_PI / 2.f));
+		move.x -= cosf(scop->camera.look.x - (M_PI / 2.f));
+		length++;
 	}
+	if (length == 0)
+		return ;
+	move.x = move.x * elapsed * MOVE_VELOCITY / length;
+	move.y = move.y * elapsed * MOVE_VELOCITY / length;
+	move.z = move.z * elapsed * MOVE_VELOCITY / length;
 	camera_move(&(scop->camera), move);
 }
 
@@ -240,5 +264,6 @@ int				main(void)
 		handle_key_hold(&scop, (float)(now - last_render));
 		last_render = now;
 	}
+	ft_printf("\n");
 	return (glfwTerminate(), 0);
 }
