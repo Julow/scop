@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:11:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 17:07:50 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/30 16:06:14 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,19 @@ t_bool			load_mesh(char const *file, t_mesh *dst);
 /*
 ** internal
 */
-typedef struct	s_face
-{
-	int				v1;
-	int				vn1;
-	int				vt1;
-	int				v2;
-	int				vn2;
-	int				vt2;
-	int				v3;
-	int				vn3;
-	int				vt3;
-}				t_face;
+/*
+** vbo_data:
+** float[11]
+** pos    color  tex  norm
+** x y z  r g b  u v  nx ny nz
+*/
 
-typedef struct	s_mesh_vbo_data
-{
-	t_vec3			pos;
-	t_vec3			col;
-	t_vec2			tex;
-	t_vec3			nor;
-}				t_mesh_vbo_data;
-
-typedef struct	s_mesh_ebo_data
-{
-	int				v1;
-	int				v2;
-	int				v3;
-}				t_mesh_ebo_data;
+/*
+** face:
+** int[9]
+** v1       v2       v3
+** v vt vn  v vt vn  v vt vn
+*/
 
 typedef struct	s_mesh_data
 {

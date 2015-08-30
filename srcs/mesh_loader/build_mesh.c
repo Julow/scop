@@ -6,12 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:59:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/27 15:19:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/30 16:20:41 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mesh_loader.h"
-#include <stdlib.h> //
 
 static t_bool	center_vertices(t_vector *vertices)
 {
@@ -44,34 +43,35 @@ static t_bool	center_vertices(t_vector *vertices)
 
 t_bool			build_mesh(t_mesh_data *data)
 {
-	int					i;
-	t_vec3				*vert;
-	t_face				*face;
-	float				color;
+	int				i;
+	int				j;
+	int				*face;
+	int				v_index;
 
 	if (!center_vertices(&(data->v)))
 		return (false);
 	i = -1;
-	while (++i < data->v.length)
-	{
-		color = ((float)(rand() % 100)) / 100.f;
-		vert = VECTOR_GET(&(data->v), i);
-		ft_vpush_back(&(data->vbo_data), &(t_mesh_vbo_data){
-			*vert,
-			VEC3(color, color, color),
-			VEC2(0.f, 0.f),
-			VEC3(0.f, 0.f, 0.f)
-		}, 1);
-	}
-	i = -1;
+	v_index = 0;
 	while (++i < data->f.length)
 	{
 		face = VECTOR_GET(&(data->f), i);
-		ft_vpush_back(&(data->ebo_data), &(t_mesh_ebo_data){
-			face->v1,
-			face->v2,
-			face->v3
-		}, 1);
+		j = 0;
+		while (j <= 6)
+		{
+			if (data->v.length <= face[0 + j]
+				|| data->vt.length <= face[1 + j]
+				|| data->vn.length <= face[2 + j])
+				return (ft_printf("Face #%d out of bounds (%d %d %d) / (%d %d %d)",
+					i, face[0 + j], face[1 + j], face[2 + j], data->v.length,
+					data->vt.length, data->vn.length), false);
+			ft_vpush_back(&(data->vbo_data), VECTOR_GET(&(data->v), face[0 + j]), 3);
+			ft_vpush_back(&(data->vbo_data), &VEC3(0.f, 0.f, 0.f), 3);
+			ft_vpush_back(&(data->vbo_data), VECTOR_GET(&(data->vt), face[1 + j]), 2);
+			ft_vpush_back(&(data->vbo_data), VECTOR_GET(&(data->vn), face[2 + j]), 3);
+			ft_vpush_back(&(data->ebo_data), &v_index, 1);
+			j += 3;
+			v_index++;
+		}
 	}
 	return (true);
 }

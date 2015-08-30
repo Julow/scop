@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:54:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 17:08:16 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/08/30 16:20:57 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,15 @@ t_bool			parse_f(t_sub line, t_mesh_data *data)
 		while (++j < 3)
 		{
 			tmp = ft_subint(line, face + i + j);
-			face[i + j] -= 1;
 			if (line.length <= tmp)
+			{
+				while (++j < 3)
+					face[i + j] = 0;
 				break ;
+			}
 			if (line.str[tmp] != '/')
-				return (ft_printf("Invalid syntax: %.*s\n",
-					line.length, line.str), false);
+				return (ft_printf("Invalid separator: '%c'\n", line.str[tmp]),
+					false);
 			tmp++;
 			line.str += tmp;
 			line.length -= tmp;
