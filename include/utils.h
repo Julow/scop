@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:07:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 14:02:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/03 19:05:56 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@
 ** Parse an int
 */
 int				ft_subint(t_sub sub, int *dst);
+
+/*
+** Parse a float vector (separated by space)
+*/
+t_bool			parse_fvec(t_sub line, float *vec, int len);
+
+/*
+** sub equ
+*/
+t_bool			ft_subequ(t_sub a, t_sub b);
 
 /*
 ** Hash

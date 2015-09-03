@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:54:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/30 16:20:57 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/03 18:39:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,19 @@
 #include "ft_evalexpr.h"
 #include "utils.h"
 
-static t_bool	parse_vec(t_sub line, float *vec, int len)
-{
-	int				i;
-
-	line.length = 0;
-	i = -1;
-	while (++i < len && ft_subnext(&line, IS_SPACE))
-		if (ft_subfloat(line, vec + i) == 0)
-		{
-			ft_printf("Invalid float: %.*s\n", line.length, line.str);
-			return (false);
-		}
-	return (true);
-}
-
 t_bool			parse_v(t_sub line, t_mesh_data *data)
 {
-	return (parse_vec(line, ft_vpush_back(&(data->v), NULL, 1), 3));
+	return (parse_fvec(line, ft_vpush_back(&(data->v), NULL, 1), 3));
 }
 
 t_bool			parse_vn(t_sub line, t_mesh_data *data)
 {
-	return (parse_vec(line, ft_vpush_back(&(data->vn), NULL, 1), 3));
+	return (parse_fvec(line, ft_vpush_back(&(data->vn), NULL, 1), 3));
 }
 
 t_bool			parse_vt(t_sub line, t_mesh_data *data)
 {
-	return (parse_vec(line, ft_vpush_back(&(data->vt), NULL, 1), 2));
+	return (parse_fvec(line, ft_vpush_back(&(data->vt), NULL, 1), 2));
 }
 
 t_bool			parse_f(t_sub line, t_mesh_data *data)
