@@ -59,7 +59,7 @@ $(LIBS):
 	make -C $@
 
 # Create obj directories
-$(O_DIR)/%/:
+$(O_DIR)/%:
 	mkdir -p $@
 
 # Set debug mode and make

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:50:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/03 14:03:51 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/03 21:04:19 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # define INIT_GLEW			(glewInit() == GLEW_OK)
 # define OPENGL_PROFILE		GLFW_OPENGL_COMPAT_PROFILE
 #endif
+#ifdef GLFW_DOUBLEBUFFER
+# define HINT_DOUBLE_BUFFER    true
+#else
+# define GLFW_DOUBLEBUFFER     0
+# define HINT_DOUBLE_BUFFER    false
+#endif
 
 t_bool			init_window(t_scop *scop)
 {
@@ -28,7 +34,8 @@ t_bool			init_window(t_scop *scop)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
+	if (HINT_DOUBLE_BUFFER)
+		glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, OPENGL_PROFILE);
 	if ((scop->window = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, WIN_TITLE,
