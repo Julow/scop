@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/30 01:14:55 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/03 14:14:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void			camera_move(t_camera *camera, t_vec3 pos)
 
 void			camera_look(t_camera *camera, t_vec2 look)
 {
-	float const		pi2 = M_PI / 2.f - 0.01f; // lol
+	float const		pi2 = M_PI / 2.f - 0.0001; // lol
 
 	camera->look.x += look.x;
 	camera->look.y += look.y;

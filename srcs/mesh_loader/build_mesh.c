@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:59:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/30 16:20:41 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/03 14:18:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ t_bool			build_mesh(t_mesh_data *data)
 					i, face[0 + j], face[1 + j], face[2 + j], data->v.length,
 					data->vt.length, data->vn.length), false);
 			ft_vpush_back(&(data->vbo_data), VECTOR_GET(&(data->v), face[0 + j]), 3);
-			ft_vpush_back(&(data->vbo_data), &VEC3(0.f, 0.f, 0.f), 3);
 			ft_vpush_back(&(data->vbo_data), VECTOR_GET(&(data->vt), face[1 + j]), 2);
 			ft_vpush_back(&(data->vbo_data), VECTOR_GET(&(data->vn), face[2 + j]), 3);
 			ft_vpush_back(&(data->ebo_data), &v_index, 1);
