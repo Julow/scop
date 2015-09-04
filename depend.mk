@@ -14,9 +14,7 @@ O_FILES :=	o/srcs/init_window.o o/srcs/key_events.o o/srcs/main.o \
 			o/srcs/resources/get_res.o o/srcs/shader_loader/load_shader.o \
 			o/srcs/texture_loader/ft_loadimage.o \
 			o/srcs/texture_loader/load_texture.o \
-			o/srcs/texture_loader/tga_parser.o o/srcs/utils/ft_djb2.o \
-			o/srcs/utils/ft_nanotime.o o/srcs/utils/ft_subequ.o \
-			o/srcs/utils/ft_subint.o o/srcs/utils/parse_fvec.o
+			o/srcs/texture_loader/tga_parser.o o/srcs/utils/parse_fvec.o
 
 o/srcs/init_window.o: srcs/init_window.c include/scop.h include/gl.h \
 	include/shader_loader.h include/mesh_loader.h include/math_utils.h \
@@ -85,10 +83,5 @@ o/srcs/texture_loader/load_texture.o: srcs/texture_loader/load_texture.c \
 	include/texture_loader.h | o/srcs/texture_loader
 o/srcs/texture_loader/tga_parser.o: srcs/texture_loader/tga_parser.c \
 	include/texture_loader.h | o/srcs/texture_loader
-o/srcs/utils/ft_djb2.o: srcs/utils/ft_djb2.c include/utils.h | o/srcs/utils
-o/srcs/utils/ft_nanotime.o: srcs/utils/ft_nanotime.c include/utils.h \
-	| o/srcs/utils
-o/srcs/utils/ft_subequ.o: srcs/utils/ft_subequ.c include/utils.h | o/srcs/utils
-o/srcs/utils/ft_subint.o: srcs/utils/ft_subint.c include/utils.h | o/srcs/utils
 o/srcs/utils/parse_fvec.o: srcs/utils/parse_fvec.c include/utils.h \
 	| o/srcs/utils
