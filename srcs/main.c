@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/03 14:14:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/06 02:44:13 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ t_bool			load_scene(t_scop *scop)
 		if ((obj.mesh = get_res(res_mesh, g_scene[i].mesh)) == NULL
 			|| (obj.texture = get_res(res_texture, g_scene[i].texture)) == NULL
 			|| (obj.shader = get_res(res_shader, g_scene[i].shader)) == NULL)
-			return (false);
+			continue ;
 		obj_move(&obj, g_scene[i].pos);
 		obj_rotate(&obj, g_scene[i].rot);
 		obj_scale(&obj, g_scene[i].scale);

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:11:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/30 16:06:14 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/06 02:30:55 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define MESH_LOADER_H
 
 # include "libft.h"
+# include "ft_hmap.h"
 # include "ft_vector.h"
+# include "mtl_loader.h"
 # include "math_utils.h"
 
 typedef struct	s_mesh
@@ -53,9 +55,17 @@ typedef struct	s_mesh_data
 	t_vector		vn;
 	t_vector		vt;
 	t_vector		f;
+	t_hmap const	*mtllib;
+	t_vector		mtl;
 	t_vector		vbo_data;
 	t_vector		ebo_data;
 }				t_mesh_data;
+
+typedef struct	s_mesh_mtl
+{
+	t_mtl const		*mtl;
+	int				count;
+}				t_mesh_mtl;
 
 /*
 ** parse_mesh.c
@@ -75,6 +85,8 @@ t_bool			parse_v(t_sub line, t_mesh_data *data);
 t_bool			parse_vn(t_sub line, t_mesh_data *data);
 t_bool			parse_vt(t_sub line, t_mesh_data *data);
 t_bool			parse_f(t_sub line, t_mesh_data *data);
+t_bool			parse_mtllib(t_sub line, t_mesh_data *data);
+t_bool			parse_usemtl(t_sub line, t_mesh_data *data);
 
 /*
 ** build_mesh.c

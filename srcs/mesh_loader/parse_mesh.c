@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:49:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 23:39:02 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/06 02:49:37 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static t_mesh_token const	g_tokens[] = {
 	{SUBC("vn "), &parse_vn},
 	{SUBC("vt "), &parse_vt},
 	{SUBC("f "), &parse_f},
+	{SUBC("mtllib "), &parse_mtllib},
+	{SUBC("usemtl "), &parse_usemtl},
 	{SUB(NULL, 0), NULL}
 };
 
@@ -40,7 +42,7 @@ t_bool			parse_mesh(char const *file, t_mesh_data *data)
 					g_tokens[i].token.length))
 			{
 				if (g_tokens[i].f != NULL && !g_tokens[i].f(ft_subsub(line,
-					g_tokens[i].token.length, -1), data))
+					g_tokens[i].token.length, -1), data) && !IGNORE_ERROR)
 					return (close(fd), false);
 				break ;
 			}

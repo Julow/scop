@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:59:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/03 14:18:03 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/06 03:32:06 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,31 @@ static t_bool	center_vertices(t_vector *vertices)
 	return (true);
 }
 
+static t_bool	build_mtl(t_mesh_data *data)
+{
+	t_mesh_mtl		*mtl;
+	int				i;
+	int				last;
+	int				tmp;
+
+	if (data->mtl.element_size != sizeof(t_mesh_mtl))
+	{
+		ft_printf("lol");
+	}
+	mtl = VECTOR_GET(&(data->mtl), data->mtl.length - 1);
+	mtl->count = data->f.length;
+	i = -1;
+	last = 0;
+	while (++i < data->mtl.length)
+	{
+		mtl = VECTOR_GET(&(data->mtl), i);
+		tmp = mtl->count;
+		mtl->count -= last;
+		last = tmp;
+	}
+	return (true);
+}
+
 t_bool			build_mesh(t_mesh_data *data)
 {
 	int				i;
@@ -48,7 +73,8 @@ t_bool			build_mesh(t_mesh_data *data)
 	int				*face;
 	int				v_index;
 
-	if (!center_vertices(&(data->v)))
+	// if (!center_vertices(&(data->v)))
+	if (!center_vertices(&(data->v)) || !build_mtl(data))
 		return (false);
 	i = -1;
 	v_index = 0;

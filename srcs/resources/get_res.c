@@ -6,16 +6,17 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 13:07:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/27 14:37:03 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/06 03:17:43 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_hmap.h"
 #include "resources.h"
-#include "utils.h"
 #include "shader_loader.h"
 #include "mesh_loader.h"
+#include "mtl_loader.h"
 #include "texture_loader.h"
+#include "utils.h"
 
 static t_res const			*g_ressources[] = {
 	RES_SHADER("test", "test.vert", "test.frag"),
@@ -32,28 +33,16 @@ static t_res const			*g_ressources[] = {
 	RES_MESH("symphysis", "symphysis.obj"),
 	RES_MESH("cow", "cow.obj"),
 	RES_MESH("alfa147", "alfa147.obj"),
+	RES_MTL("cube.mtl"),
+	RES_MTL("42.mtl"),
 };
 
 static const t_res_config	g_res_conf[res_t_count] = {
 	{&shader_res_loader, sizeof(t_shader)},
 	{&texture_res_loader, sizeof(t_texture)},
-	{&mesh_res_loader, sizeof(t_mesh)}
+	{&mesh_res_loader, sizeof(t_mesh)},
+	{&mtl_res_loader, sizeof(t_hmap*)}
 };
-
-t_bool			shader_res_loader(void *dst, t_res_shader const *res)
-{
-	return (load_shader(res->vert_file, res->frag_file, dst));
-}
-
-t_bool			texture_res_loader(void *dst, t_res_texture const *res)
-{
-	return (load_texture(res->file, dst));
-}
-
-t_bool			mesh_res_loader(void *dst, t_res_mesh const *res)
-{
-	return (load_mesh(res->file, dst));
-}
 
 void const		*get_res(t_res_t type, t_sub name)
 {
@@ -61,7 +50,7 @@ void const		*get_res(t_res_t type, t_sub name)
 	void			*res;
 	int				i;
 
-	if (type >= res_t_count || g_res_conf[type].loader == NULL)
+	if (type >= res_t_count || type >= G_ARRAY_LEN(g_res_conf))
 		return (NULL);
 	if (res_caches[type] == NULL)
 		res_caches[type] = ft_hmapnew(10, &ft_djb2);
@@ -79,5 +68,6 @@ void const		*get_res(t_res_t type, t_sub name)
 				ft_hmaprem(res_caches[type], name, (res = NULL));
 			return (res);
 		}
-	return (NULL);
+	return (ft_fdprintf(2, "Unknown resource: '%.*s'\n",
+		name.length, name.str), NULL);
 }

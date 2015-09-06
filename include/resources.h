@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 13:07:48 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/26 13:59:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/06 01:11:11 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 # define SHADERS_DIR		"res/shaders/"
 # define TEXTURES_DIR		"res/tga/"
 # define MESHES_DIR			"res/obj/"
+# define MATERIALS_DIR		"res/mtl/"
 
 typedef enum	e_res_t
 {
 	res_shader,
 	res_texture,
 	res_mesh,
+	res_mtl,
 	res_t_count
 }				t_res_t;
 
@@ -42,6 +44,7 @@ void const		*get_res(t_res_t type, t_sub name);
 # define RES_SHADER(n,v,f)	RES(shader, SUBC(n), SHADERS_DIR v, SHADERS_DIR f)
 # define RES_TEXTURE(n,f)	RES(texture, SUBC(n), TEXTURES_DIR f)
 # define RES_MESH(n,f)		RES(mesh, SUBC(n), MESHES_DIR f)
+# define RES_MTL(f)			RES(mtl, SUBC(f), MATERIALS_DIR f)
 
 typedef struct	s_res
 {
@@ -68,6 +71,12 @@ typedef struct	s_res_mesh
 	char const		*file;
 }				t_res_mesh;
 
+typedef struct	s_res_mtl
+{
+	t_res			res;
+	char const		*file;
+}				t_res_mtl;
+
 typedef struct	s_res_config
 {
 	t_bool (*const	loader)();
@@ -77,5 +86,6 @@ typedef struct	s_res_config
 t_bool			shader_res_loader(void *dst, t_res_shader const *res);
 t_bool			texture_res_loader(void *dst, t_res_texture const *res);
 t_bool			mesh_res_loader(void *dst, t_res_mesh const *res);
+t_bool			mtl_res_loader(void *dst, t_res_mtl const *res);
 
 #endif

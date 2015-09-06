@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/30 16:06:22 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/06 01:58:36 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ t_bool			load_mesh(char const *file, t_mesh *dst)
 	ft_vpush_back(&(data.vn), NULL, 1);
 	ft_vpush_back(&(data.vt), NULL, 1);
 	data.f = VECTOR(int[9]);
+	data.mtllib = NULL;
+	data.mtl = VECTOR(t_mesh_mtl);
+	ft_vpush_back(&(data.mtl), &(t_mesh_mtl){NULL, 0}, 1);
 	data.vbo_data = VECTOR(float);
 	data.ebo_data = VECTOR(int);
 	parse_t = ft_clock(0);
