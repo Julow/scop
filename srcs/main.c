@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/06 02:44:13 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/06 16:54:46 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void			render(t_scop *scop)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	i = -1;
 	while (++i < scop->objects.length)
-		render_obj(scop, VECTOR_GET(&(scop->objects), i));
+		render_obj(scop, VECTOR_GET(scop->objects, i));
 }
 
 static void		handle_key_hold(t_scop *scop, float elapsed)
