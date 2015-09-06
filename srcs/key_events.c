@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/27 16:59:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/07 00:56:58 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ static t_key_event const	g_events[] = {
 	KEY_EVENT(GLFW_KEY_RIGHT, KEY_FLAG, t_scop, flags, FLAG_ROT_RIGHT),
 	KEY_EVENT(GLFW_KEY_DOWN, KEY_FLAG, t_scop, flags, FLAG_ROT_DOWN),
 	KEY_EVENT(GLFW_KEY_LEFT, KEY_FLAG, t_scop, flags, FLAG_ROT_LEFT),
+	KEY_EVENT(GLFW_KEY_LEFT_CONTROL, KEY_FLAG, t_scop, flags, FLAG_ACCELERATE),
+	KEY_EVENT(GLFW_KEY_LEFT_SHIFT, KEY_FLAG, t_scop, flags, FLAG_MOVE_DOWN),
+	KEY_EVENT(GLFW_KEY_SPACE, KEY_FLAG, t_scop, flags, FLAG_MOVE_UP),
 };
 
 static void		*save_env(t_scop *scop)

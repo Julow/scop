@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/06 16:54:46 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/07 00:57:19 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ static const t_scene_obj	g_scene[] = {
 	S_OBJ("cow", "wall", "test", (-40.f, -10.f, 9.f), (0.f, 1.f, 0.f), 1.f),
 	// S_OBJ("symphysis", "wall", "test", (-40.f, 4.f, -10.f), (0.f, 2.f, 0.f), 0.5f),
 	S_OBJ("alfa147", "wall", "test", (-40.f, 4.f, -10.f), (0.f, 2.f, 0.f), 0.1f),
+	S_OBJ("venice", "wall", "test", (0.f, -30.f, 0.f), (0.f, 0.f, 0.f), 0.1f),
 };
 
 t_bool			load_scene(t_scop *scop)
@@ -178,7 +179,7 @@ static void		handle_key_hold(t_scop *scop, float elapsed)
 	t_vec3			move;
 	t_vec2			rot;
 	float			sin_pitch;
-	float			length;
+	int				length;
 
 	if (scop->flags == 0)
 		return ;
@@ -193,7 +194,9 @@ static void		handle_key_hold(t_scop *scop, float elapsed)
 		rot.x += elapsed * ROT_VELOCITY;
 	camera_look(&(scop->camera), rot);
 	move = VEC3(0.f, 0.f, 0.f);
-	length = 0.f;
+	if (scop->flags & FLAG_ACCELERATE)
+		elapsed *= ACCELERATION;
+	length = 0;
 	if (scop->flags & FLAG_MOVE_FRONT)
 	{
 		move.y -= sinf(scop->camera.look.y);
@@ -222,11 +225,21 @@ static void		handle_key_hold(t_scop *scop, float elapsed)
 		move.x -= cosf(scop->camera.look.x - (M_PI / 2.f));
 		length++;
 	}
+	if (scop->flags & FLAG_MOVE_UP)
+	{
+		move.y += 1.f;
+		length++;
+	}
+	if (scop->flags & FLAG_MOVE_DOWN)
+	{
+		move.y -= 1.f;
+		length++;
+	}
 	if (length == 0)
 		return ;
-	move.x = move.x * elapsed * MOVE_VELOCITY / length;
-	move.y = move.y * elapsed * MOVE_VELOCITY / length;
-	move.z = move.z * elapsed * MOVE_VELOCITY / length;
+	move.x = move.x * elapsed * MOVE_VELOCITY / (float)length;
+	move.y = move.y * elapsed * MOVE_VELOCITY / (float)length;
+	move.z = move.z * elapsed * MOVE_VELOCITY / (float)length;
 	camera_move(&(scop->camera), move);
 }
 

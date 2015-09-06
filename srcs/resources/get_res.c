@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 13:07:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/06 03:17:43 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/07 00:43:51 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static t_res const			*g_ressources[] = {
 	RES_MESH("symphysis", "symphysis.obj"),
 	RES_MESH("cow", "cow.obj"),
 	RES_MESH("alfa147", "alfa147.obj"),
+	RES_MESH("venice", "venice.obj"),
 	RES_MTL("cube.mtl"),
 	RES_MTL("42.mtl"),
 };

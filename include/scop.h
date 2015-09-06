@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/06 02:51:35 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/07 00:54:23 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 
 # define MOVE_VELOCITY		0.000005f
 # define ROT_VELOCITY		0.000002f
+# define ACCELERATION		10.f
 
 # define F_OBJ_UPDATED		(1 << 1)
 
@@ -70,6 +71,9 @@ typedef struct	s_camera
 # define FLAG_ROT_LEFT		(1 << 6)
 # define FLAG_ROT_DOWN		(1 << 7)
 # define FLAG_ROT_RIGHT		(1 << 8)
+# define FLAG_ACCELERATE	(1 << 9)
+# define FLAG_MOVE_DOWN		(1 << 10)
+# define FLAG_MOVE_UP		(1 << 11)
 
 typedef struct	s_scop
 {
