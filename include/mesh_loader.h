@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:11:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/06 02:30:55 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/08 00:05:35 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ typedef struct	s_mesh
 	t_uint			vao;
 	t_uint			vbo;
 	t_uint			ebo;
-	t_uint			count;
+	struct s_mesh_mtl const	*mtl;
+	int				mtl_count;
 }				t_mesh;
 
 /*
@@ -37,9 +38,9 @@ t_bool			load_mesh(char const *file, t_mesh *dst);
 */
 /*
 ** vbo_data:
-** float[11]
-** pos    color  tex  norm
-** x y z  r g b  u v  nx ny nz
+** float[8]
+** pos    tex  norm
+** x y z  u v  nx ny nz
 */
 
 /*
@@ -90,8 +91,10 @@ t_bool			parse_usemtl(t_sub line, t_mesh_data *data);
 
 /*
 ** build_mesh.c
+** build_mtl.c
 */
 t_bool			build_mesh(t_mesh_data *data);
+t_bool			build_mtl(t_mesh_data *data, t_mesh *dst);
 
 /*
 ** send_mesh.c

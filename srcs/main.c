@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/07 00:57:19 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/08 00:36:47 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static const t_scene_obj	g_scene[] = {
 	S_OBJ("cow", "wall", "test", (-40.f, -10.f, 9.f), (0.f, 1.f, 0.f), 1.f),
 	// S_OBJ("symphysis", "wall", "test", (-40.f, 4.f, -10.f), (0.f, 2.f, 0.f), 0.5f),
 	S_OBJ("alfa147", "wall", "test", (-40.f, 4.f, -10.f), (0.f, 2.f, 0.f), 0.1f),
-	S_OBJ("venice", "wall", "test", (0.f, -30.f, 0.f), (0.f, 0.f, 0.f), 0.1f),
+	S_OBJ("venice", "wall", "test", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 0.5f),
 };
 
 t_bool			load_scene(t_scop *scop)
@@ -152,6 +152,9 @@ t_bool			load_scene(t_scop *scop)
 
 void			render_obj(t_scop *scop, t_obj *obj)
 {
+	int			i;
+	int			offset;
+
 	// TODO useless uniform update
 	glUniformMatrix4fv(obj->shader->model_loc, 1, GL_TRUE, (float*)obj_get_model(obj));
 	glUniformMatrix4fv(obj->shader->view_loc, 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
@@ -160,7 +163,17 @@ void			render_obj(t_scop *scop, t_obj *obj)
 	glUseProgram(obj->shader->handle);
 	glBindTexture(GL_TEXTURE_2D, obj->texture->handle);
 	glBindVertexArray(obj->mesh->vao);
-	glDrawElements(GL_TRIANGLES, obj->mesh->count, GL_UNSIGNED_INT, 0);
+	offset = 0;
+	i = -1;
+	while (++i < obj->mesh->mtl_count)
+	{
+		if (obj->mesh->mtl[i].mtl != NULL && obj->mesh->mtl[i].mtl->texture != NULL)
+			glBindTexture(GL_TEXTURE_2D, obj->mesh->mtl[i].mtl->texture->handle);
+		else
+			glBindTexture(GL_TEXTURE_2D, obj->texture->handle);
+		glDrawArrays(GL_TRIANGLES, offset, obj->mesh->mtl[i].count);
+		offset += obj->mesh->mtl[i].count;
+	}
 }
 
 void			render(t_scop *scop)

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:59:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/06 18:45:57 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/08 00:09:49 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,6 @@ static t_bool	center_vertices(t_vector *vertices)
 	return (true);
 }
 
-static t_bool	build_mtl(t_mesh_data *data)
-{
-	t_mesh_mtl		*mtl;
-	int				i;
-	int				last;
-	int				tmp;
-
-	mtl = VECTOR_GET(data->mtl, data->mtl.length - 1);
-	mtl->count = data->f.length;
-	i = -1;
-	last = 0;
-	while (++i < data->mtl.length)
-	{
-		mtl = VECTOR_GET(data->mtl, i);
-		tmp = mtl->count;
-		mtl->count -= last;
-		last = tmp;
-	}
-	return (true);
-}
-
 t_bool			build_mesh(t_mesh_data *data)
 {
 	int				i;
@@ -69,8 +48,10 @@ t_bool			build_mesh(t_mesh_data *data)
 	int				*face;
 	int				v_index;
 
-	if (!center_vertices(&(data->v)) || !build_mtl(data))
+	if (!center_vertices(&(data->v)))
 		return (false);
+	ft_vreserve(&(data->vbo_data), data->f.length * 3);
+	ft_vreserve(&(data->ebo_data), data->f.length);
 	i = -1;
 	v_index = 0;
 	while (++i < data->f.length)

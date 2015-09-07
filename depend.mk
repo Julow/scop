@@ -7,7 +7,8 @@ O_FILES :=	o/srcs/init_window.o o/srcs/key_events.o o/srcs/main.o \
 			o/srcs/math_utils/ft_vec3cross.o o/srcs/math_utils/ft_vec3dot.o \
 			o/srcs/math_utils/ft_vec3norm.o o/srcs/math_utils/ft_vec3rotate.o \
 			o/srcs/math_utils/ft_vec3sub.o o/srcs/mesh_loader/build_mesh.o \
-			o/srcs/mesh_loader/load_mesh.o o/srcs/mesh_loader/parse_mesh.o \
+			o/srcs/mesh_loader/build_mtl.o o/srcs/mesh_loader/load_mesh.o \
+			o/srcs/mesh_loader/parse_mesh.o \
 			o/srcs/mesh_loader/parse_mesh_tokens.o \
 			o/srcs/mesh_loader/send_mesh.o o/srcs/mtl_loader/load_mtl.o \
 			o/srcs/mtl_loader/parse_mtl.o o/srcs/mtl_loader/parse_mtl_token.o \
@@ -54,6 +55,9 @@ o/srcs/math_utils/ft_vec3rotate.o: srcs/math_utils/ft_vec3rotate.c \
 o/srcs/math_utils/ft_vec3sub.o: srcs/math_utils/ft_vec3sub.c \
 	include/math_utils.h | o/srcs/math_utils/
 o/srcs/mesh_loader/build_mesh.o: srcs/mesh_loader/build_mesh.c \
+	include/mesh_loader.h include/mtl_loader.h include/texture_loader.h \
+	include/math_utils.h include/math_utils.h | o/srcs/mesh_loader/
+o/srcs/mesh_loader/build_mtl.o: srcs/mesh_loader/build_mtl.c \
 	include/mesh_loader.h include/mtl_loader.h include/texture_loader.h \
 	include/math_utils.h include/math_utils.h | o/srcs/mesh_loader/
 o/srcs/mesh_loader/load_mesh.o: srcs/mesh_loader/load_mesh.c \

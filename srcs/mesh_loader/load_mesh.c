@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/06 01:58:36 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/08 00:06:10 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ t_bool			load_mesh(char const *file, t_mesh *dst)
 	success = parse_mesh(file, &data);
 	parse_t = ft_clock(parse_t);
 	build_t = ft_clock(0);
-	success = success && build_mesh(&data);
+	success = success && build_mesh(&data) && build_mtl(&data, dst);
 	build_t = ft_clock(build_t);
 	send_t = ft_clock(0);
 	success = success && send_mesh(&data, dst);
 	send_t = ft_clock(send_t);
-	ft_printf("%s%-25sv:%-9dvn:%-9dvt:%-9df:%-9dvbo:%-9debo:%-9dtime:%-5d %-5d %-5d\n",
+	ft_printf("%s%-25sv:%-9dvn:%-9dvt:%-9df:%-9dvbo:%-9debo:%-9dmtl:%-9dtime:%-5d %-5d %-5d\n",
 		success ? "" : "[FAIL] ", file,
 		data.v.length, data.vn.length, data.vt.length, data.f.length,
-		data.vbo_data.length / 11, data.ebo_data.length / 3,
+		data.vbo_data.length / 8, data.ebo_data.length / 3, data.mtl.length,
 		parse_t, build_t, send_t);
 	ft_vclear(&(data.v));
 	ft_vclear(&(data.vn));
