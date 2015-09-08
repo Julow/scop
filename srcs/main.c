@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 18:11:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 18:57:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,13 +254,12 @@ static void		handle_cursor_move(t_scop *scop)
 	if (!(scop->flags & FLAG_CURSOR_MOVE))
 		return ;
 	glfwGetCursorPos(scop->window, &x, &y);
-	x = fmod((x - (WIN_WIDTH / 2.f)) / WIN_WIDTH * CURSOR_SPEED, M_PI * 2.0);
-	y = fmod((y - (WIN_HEIGHT / 2.f)) / WIN_HEIGHT * CURSOR_SPEED, M_PI * 2.0);
+	x = fmod(x / WIN_WIDTH * CURSOR_SPEED, M_PI * 2.0);
+	y = fmod(y / WIN_HEIGHT * CURSOR_SPEED, M_PI * 2.0);
 	camera_look(&(scop->camera), VEC2((float)x, (float)y));
 	scop->flags &= ~FLAG_CURSOR_MOVE;
 }
 
-#include <stdio.h> //tmp
 int				main(void)
 {
 	t_scop			scop;
@@ -288,10 +287,7 @@ int				main(void)
 		now = ft_clock(0);
 		if ((now - last_fps) >= FPS_INTERVAL)
 		{
-			printf("\rFPS: %-2lld flags: %016b pos: [ %f, %f, %f ] cam: [ %f, %f ]", frames * 1000000 / (now - last_fps), scop.flags,
-				scop.camera.position.x, scop.camera.position.y, scop.camera.position.z,
-				scop.camera.look.x, scop.camera.look.y);
-			fflush(stdout);
+			ft_printf("\rFPS: %-2lld flags: %016b", frames * 1000000 / (now - last_fps), scop.flags);
 			last_fps = now;
 			frames = 0;
 		}

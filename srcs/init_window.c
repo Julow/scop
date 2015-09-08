@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:50:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 16:08:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 18:53:27 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_bool			init_window(t_scop *scop)
 		NULL, NULL)) == NULL)
 		return (glfwTerminate(), ft_printf("Error: Cannot init window"), false);
 	glfwMakeContextCurrent(scop->window);
+	glfwSetInputMode(scop->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	if (!INIT_GLEW)
 		return (ft_printf("Error: Cannot init GLEW"), false);
 	glViewport(0, 0, WIN_WIDTH, WIN_HEIGHT);
