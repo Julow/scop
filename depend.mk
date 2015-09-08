@@ -10,9 +10,10 @@ O_FILES :=	o/srcs/init_window.o o/srcs/key_events.o o/srcs/main.o \
 			o/srcs/mesh_loader/build_mtl.o o/srcs/mesh_loader/load_mesh.o \
 			o/srcs/mesh_loader/parse_mesh.o \
 			o/srcs/mesh_loader/parse_mesh_tokens.o \
-			o/srcs/mesh_loader/send_mesh.o o/srcs/mtl_loader/load_mtl.o \
-			o/srcs/mtl_loader/parse_mtl.o o/srcs/mtl_loader/parse_mtl_token.o \
-			o/srcs/resources/get_res.o o/srcs/shader_loader/load_shader.o \
+			o/srcs/mesh_loader/send_mesh.o o/srcs/mouse_events.o \
+			o/srcs/mtl_loader/load_mtl.o o/srcs/mtl_loader/parse_mtl.o \
+			o/srcs/mtl_loader/parse_mtl_token.o o/srcs/resources/get_res.o \
+			o/srcs/shader_loader/load_shader.o \
 			o/srcs/texture_loader/ft_loadimage.o \
 			o/srcs/texture_loader/load_texture.o \
 			o/srcs/texture_loader/tga_parser.o o/srcs/utils/parse_fvec.o
@@ -73,6 +74,10 @@ o/srcs/mesh_loader/parse_mesh_tokens.o: srcs/mesh_loader/parse_mesh_tokens.c \
 o/srcs/mesh_loader/send_mesh.o: srcs/mesh_loader/send_mesh.c \
 	include/mesh_loader.h include/mtl_loader.h include/texture_loader.h \
 	include/math_utils.h include/math_utils.h include/gl.h | o/srcs/mesh_loader
+o/srcs/mouse_events.o: srcs/mouse_events.c include/gl.h include/scop.h \
+	include/gl.h include/shader_loader.h include/mesh_loader.h \
+	include/mtl_loader.h include/texture_loader.h include/math_utils.h \
+	include/math_utils.h include/texture_loader.h | o/srcs
 o/srcs/mtl_loader/load_mtl.o: srcs/mtl_loader/load_mtl.c include/mtl_loader.h \
 	include/texture_loader.h include/math_utils.h include/utils.h \
 	| o/srcs/mtl_loader

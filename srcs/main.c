@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 15:18:23 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 18:11:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void			camera_look(t_camera *camera, t_vec2 look)
 {
 	float const		pi2 = M_PI / 2.f - 0.0001; // lol
 
-	camera->look.x += look.x;
-	camera->look.y += look.y;
+	camera->look.x = look.x;
+	camera->look.y = look.y;
 	if (camera->look.y > pi2)
 		camera->look.y = pi2;
 	else if (camera->look.y < -pi2)
@@ -191,22 +191,11 @@ void			render(t_scop *scop)
 static void		handle_key_hold(t_scop *scop, float elapsed)
 {
 	t_vec3			move;
-	t_vec2			rot;
 	float			sin_pitch;
 	int				length;
 
 	if (scop->flags == 0)
 		return ;
-	rot = VEC2(0.f, 0.f);
-	if (scop->flags & FLAG_ROT_UP)
-		rot.y -= elapsed * ROT_VELOCITY;
-	if (scop->flags & FLAG_ROT_DOWN)
-		rot.y += elapsed * ROT_VELOCITY;
-	if (scop->flags & FLAG_ROT_LEFT)
-		rot.x -= elapsed * ROT_VELOCITY;
-	if (scop->flags & FLAG_ROT_RIGHT)
-		rot.x += elapsed * ROT_VELOCITY;
-	camera_look(&(scop->camera), rot);
 	move = VEC3(0.f, 0.f, 0.f);
 	if (scop->flags & FLAG_ACCELERATE)
 		elapsed *= ACCELERATION;
@@ -251,12 +240,27 @@ static void		handle_key_hold(t_scop *scop, float elapsed)
 	}
 	if (length == 0)
 		return ;
-	move.x = move.x * elapsed * MOVE_VELOCITY / (float)length;
-	move.y = move.y * elapsed * MOVE_VELOCITY / (float)length;
-	move.z = move.z * elapsed * MOVE_VELOCITY / (float)length;
+	move.x = move.x * elapsed * MOVE_SPEED / (float)length;
+	move.y = move.y * elapsed * MOVE_SPEED / (float)length;
+	move.z = move.z * elapsed * MOVE_SPEED / (float)length;
 	camera_move(&(scop->camera), move);
 }
 
+static void		handle_cursor_move(t_scop *scop)
+{
+	double			x;
+	double			y;
+
+	if (!(scop->flags & FLAG_CURSOR_MOVE))
+		return ;
+	glfwGetCursorPos(scop->window, &x, &y);
+	x = fmod((x - (WIN_WIDTH / 2.f)) / WIN_WIDTH * CURSOR_SPEED, M_PI * 2.0);
+	y = fmod((y - (WIN_HEIGHT / 2.f)) / WIN_HEIGHT * CURSOR_SPEED, M_PI * 2.0);
+	camera_look(&(scop->camera), VEC2((float)x, (float)y));
+	scop->flags &= ~FLAG_CURSOR_MOVE;
+}
+
+#include <stdio.h> //tmp
 int				main(void)
 {
 	t_scop			scop;
@@ -272,23 +276,28 @@ int				main(void)
 	if (!init_window(&scop) || !load_scene(&scop))
 		return (1);
 	init_key_events(&scop);
+	init_mouse_events(&scop);
 	frames = 0;
 	last_render = ft_clock(0);
 	last_fps = last_render;
 	while (!glfwWindowShouldClose(scop.window))
 	{
+		render(&scop);
+		glfwSwapBuffers(scop.window);
+		glfwPollEvents();
 		now = ft_clock(0);
 		if ((now - last_fps) >= FPS_INTERVAL)
 		{
-			ft_printf("\rFPS: %-3d flags: %016b", frames * 1000000 / (now - last_fps), scop.flags);
+			printf("\rFPS: %-2lld flags: %016b pos: [ %f, %f, %f ] cam: [ %f, %f ]", frames * 1000000 / (now - last_fps), scop.flags,
+				scop.camera.position.x, scop.camera.position.y, scop.camera.position.z,
+				scop.camera.look.x, scop.camera.look.y);
+			fflush(stdout);
 			last_fps = now;
 			frames = 0;
 		}
 		frames++;
-		render(&scop);
-		glfwSwapBuffers(scop.window);
-		glfwPollEvents();
 		handle_key_hold(&scop, (float)(now - last_render));
+		handle_cursor_move(&scop);
 		last_render = now;
 	}
 	ft_printf("\n");

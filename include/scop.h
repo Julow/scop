@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/07 00:54:23 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/08 18:11:40 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include "mesh_loader.h"
 # include "texture_loader.h"
 
-# define WIN_RATIO			1.f
-# define WIN_HEIGHT			800
+# define WIN_RATIO			(1.f)
+# define WIN_HEIGHT			1300
 # define WIN_WIDTH			((int)(WIN_HEIGHT * WIN_RATIO))
 
 # define WIN_TITLE			"Scop"
@@ -31,8 +31,8 @@
 # define PERSPECTIVE_NEAR	0.01f
 # define PERSPECTIVE_FAR	1000.f
 
-# define MOVE_VELOCITY		0.000005f
-# define ROT_VELOCITY		0.000002f
+# define MOVE_SPEED			0.00001f
+# define CURSOR_SPEED		3.f
 # define ACCELERATION		10.f
 
 # define F_OBJ_UPDATED		(1 << 1)
@@ -67,13 +67,10 @@ typedef struct	s_camera
 # define FLAG_MOVE_LEFT		(1 << 2)
 # define FLAG_MOVE_BACK		(1 << 3)
 # define FLAG_MOVE_RIGHT	(1 << 4)
-# define FLAG_ROT_UP		(1 << 5)
-# define FLAG_ROT_LEFT		(1 << 6)
-# define FLAG_ROT_DOWN		(1 << 7)
-# define FLAG_ROT_RIGHT		(1 << 8)
 # define FLAG_ACCELERATE	(1 << 9)
 # define FLAG_MOVE_DOWN		(1 << 10)
 # define FLAG_MOVE_UP		(1 << 11)
+# define FLAG_CURSOR_MOVE	(1 << 12)
 
 typedef struct	s_scop
 {
@@ -87,5 +84,6 @@ typedef struct	s_scop
 t_bool			init_window(t_scop *scop);
 
 void			init_key_events(t_scop *scop);
+void			init_mouse_events(t_scop *scop);
 
 #endif
