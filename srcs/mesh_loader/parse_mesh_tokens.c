@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:54:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/06 16:52:53 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/08 15:19:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_bool			parse_usemtl(t_sub line, t_mesh_data *data)
 	if (data->mtllib == NULL)
 		// return (ft_fdprintf(2, "no mtllib loaded\n"), false);
 		return (false); // TMP
-	if (!ft_subnext(&line, IS_SPACE))
+	if (!ft_subnextc(&line, ' '))
 		return (ft_fdprintf(2, "usemtl need an argument\n"), false);
 	if ((mtl = ft_hmapget(data->mtllib, line)) == NULL)
 		return (ft_fdprintf(2, "Unknown mtl: %.*s\n", line.length, line.str), false);

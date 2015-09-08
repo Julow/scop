@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:54:03 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 12:53:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 15:50:33 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_bool			ft_loadimage(char const *file, t_img *img);
 
 /*
 ** Load a .tga file
-** no color map, 32 bit, alpha
+** no color map, 24/32 bit
 */
 t_bool			tga_parser(t_buff *buff, t_img *img);
 

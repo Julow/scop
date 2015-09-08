@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:12:53 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/03 19:13:56 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 14:08:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_bool			specular_exp_token(t_sub line, t_mtl *mtl)
 
 t_bool			map_kd_token(t_sub line, t_mtl *mtl)
 {
+	if (!ft_subnext(&line, IS_SPACE))
+		return (false);
 	mtl->texture = get_res(res_texture, line);
 	return (true);
 }

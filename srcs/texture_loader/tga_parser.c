@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:51:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 12:52:30 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 15:46:09 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,25 @@ typedef struct	s_tga_header
 	t_byte			image_spec;
 }				t_tga_header;
 
+static t_bool	parse(t_buff *buff, t_img *img, int data_size, int pixel_size)
+{
+	t_byte			*tmp;
+	t_byte const	*const end = img->data + data_size;
+	int				i;
+
+	tmp = img->data;
+	while (tmp < end && !BEOF(buff))
+	{
+		i = 0;
+		while (i < pixel_size)
+			tmp[i++] = BR(buff);
+		while (i < 4)
+			tmp[i++] = (t_byte)-1;
+		tmp += 4;
+	}
+	return (true);
+}
+
 t_bool			tga_parser(t_buff *buff, t_img *img)
 {
 	t_tga_header	header;
@@ -36,20 +55,13 @@ t_bool			tga_parser(t_buff *buff, t_img *img)
 		return (ft_printf("Error: struct tga_header not sizeof 18 (%d)\n",
 			sizeof(t_tga_header)), false);
 	if (!ft_parsen(buff, (void*)&header, sizeof(t_tga_header)))
-		return (false);
+		return (ft_printf("Error: Corrupt file\n"), false);
 	if (header.color_map_type != 0 || header.image_type != 2
-		|| header.pixel_depth != 32)
+		|| (header.pixel_depth != 32 && header.pixel_depth != 24))
 		return (ft_printf("Error: Unsupported format\n"), false);
 	img->width = (int)header.width;
 	img->height = (int)header.height;
 	data_size = img->width * img->height * 4;
 	img->data = MAL(t_byte, data_size);
-	if (!ft_parsen(buff, NULL, header.id_length))
-		return (false);
-	if (!ft_parsen(buff, (void*)img->data, data_size))
-	{
-		free(img->data);
-		return (false);
-	}
-	return (true);
+	return (parse(buff, img, data_size, header.pixel_depth / 8));
 }

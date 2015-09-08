@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 14:43:43 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 14:47:38 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 13:21:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static t_bool	create_shader_file(char const *file, GLenum type, t_uint *id)
 	return (true);
 }
 
-t_bool			load_shader(char const *vert, char const *frag, t_shader *p)
+static t_bool	load_shader_program(char const *vert, char const *frag, t_shader *p)
 {
 	t_uint			vert_shader;
 	t_uint			frag_shader;
@@ -103,4 +103,16 @@ t_bool			load_shader(char const *vert, char const *frag, t_shader *p)
 	p->view_loc = glGetUniformLocation(p->handle, "view");
 	p->projection_loc = glGetUniformLocation(p->handle, "projection");
 	return ((p->handle == 0) ? false : true);
+}
+
+t_bool			load_shader(char const *file, t_shader *p)
+{
+	t_sub const		base_name = ft_sub(file, 0, -1);
+	char			file_names[2][base_name.length + 6 + 1];
+
+	ft_memcpy(file_names[0], base_name.str, base_name.length);
+	ft_memcpy(file_names[0] + base_name.length, ".vert", 6);
+	ft_memcpy(file_names[1], base_name.str, base_name.length);
+	ft_memcpy(file_names[1] + base_name.length, ".frag", 6);
+	return (load_shader_program(file_names[0], file_names[1], p));
 }

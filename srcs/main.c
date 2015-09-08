@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 00:36:47 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/08 15:18:23 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,16 @@ typedef struct	s_scene_obj
 #define S_OBJ(m,t,s,p,r,k)	((t_scene_obj){SUBC(m),SUBC(t),SUBC(s),VEC3 p,VEC3 r,k})
 
 static const t_scene_obj	g_scene[] = {
-	S_OBJ("cube", "wall", "test", (-20.f, 0.f, -2.f), (0.f, 1.f, 0.5f), 1.f),
-	S_OBJ("42", "wall", "test", (-20.f, 0.f, 5.f), (0.f, 0.f, 0.f), 1.f),
-	S_OBJ("teapot", "wall", "test", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
-	S_OBJ("shuttle", "wall", "test", (-40.f, 12.f, -1.f), (0.f, 2.f, 0.f), 0.8f),
-	S_OBJ("skyscraper", "wall", "test", (-40.f, 8.f, 9.f), (0.f, 2.f, 0.f), 0.2f),
-	S_OBJ("power_lines", "wall", "test", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
-	S_OBJ("cow", "wall", "test", (-40.f, -10.f, 9.f), (0.f, 1.f, 0.f), 1.f),
-	// S_OBJ("symphysis", "wall", "test", (-40.f, 4.f, -10.f), (0.f, 2.f, 0.f), 0.5f),
-	S_OBJ("alfa147", "wall", "test", (-40.f, 4.f, -10.f), (0.f, 2.f, 0.f), 0.1f),
-	S_OBJ("venice", "wall", "test", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 0.5f),
+	S_OBJ("cube.obj", "wall.tga", "test", (-20.f, 0.f, -2.f), (0.f, 1.f, 0.5f), 1.f),
+	S_OBJ("42.obj", "wall.tga", "test", (-20.f, 0.f, 5.f), (0.f, 0.f, 0.f), 1.f),
+	S_OBJ("teapot.obj", "wall.tga", "test", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
+	S_OBJ("shuttle.obj", "wall.tga", "test", (-40.f, 12.f, -1.f), (0.f, 2.f, 0.f), 0.8f),
+	S_OBJ("skyscraper.obj", "wall.tga", "test", (-40.f, 8.f, 9.f), (0.f, 2.f, 0.f), 0.2f),
+	S_OBJ("power_lines.obj", "wall.tga", "test", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
+	S_OBJ("cow.obj", "wall.tga", "test", (-40.f, -10.f, 9.f), (0.f, 1.f, 0.f), 1.f),
+	// S_OBJ("symphysis.obj", "wall.tga", "test", (-40.f, 4.f, -10.f), (0.f, 2.f, 0.f), 0.5f),
+	S_OBJ("alfa147.obj", "wall.tga", "test", (-40.f, 4.f, -10.f), (0.f, 2.f, 0.f), 0.1f),
+	S_OBJ("venice.obj", "wall.tga", "test", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 0.5f),
 };
 
 t_bool			load_scene(t_scop *scop)
@@ -171,6 +171,7 @@ void			render_obj(t_scop *scop, t_obj *obj)
 			glBindTexture(GL_TEXTURE_2D, obj->mesh->mtl[i].mtl->texture->handle);
 		else
 			glBindTexture(GL_TEXTURE_2D, obj->texture->handle);
+		// TODO here set ambient/diffuse/specular
 		glDrawArrays(GL_TRIANGLES, offset, obj->mesh->mtl[i].count);
 		offset += obj->mesh->mtl[i].count;
 	}

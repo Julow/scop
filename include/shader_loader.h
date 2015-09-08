@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/27 12:59:59 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 13:18:52 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ typedef struct	s_shader_c
 	struct s_shader_c	*prev;
 }				t_shader_c;
 
-t_bool			load_shader(char const *vert, char const *frag, t_shader *p);
+/*
+** TODO
+** if file is res/shaders/test
+**  program is res/shaders/test.vert & res/shaders/test.frag
+*/
+t_bool			load_shader(char const *file, t_shader *p);
 
 #endif
