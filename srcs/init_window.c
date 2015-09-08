@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:50:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 18:53:27 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 19:27:33 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,5 @@ t_bool			init_window(t_scop *scop)
 		return (ft_printf("Error: Cannot init GLEW"), false);
 	glViewport(0, 0, WIN_WIDTH, WIN_HEIGHT);
 	glEnable(GL_DEPTH_TEST);
-	// glEnable(GL_FRAMEBUFFER_SRGB);
 	return (true);
 }

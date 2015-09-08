@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:11:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 00:05:35 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/08 19:49:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_bool			parse_mesh(char const *file, t_mesh_data *data);
 
 /*
 ** parse_mesh_tokens.c
+** parse_mesh_tokens_mtl.c
 */
 t_bool			parse_v(t_sub line, t_mesh_data *data);
 t_bool			parse_vn(t_sub line, t_mesh_data *data);

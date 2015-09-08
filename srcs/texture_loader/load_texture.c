@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:15:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 15:48:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 19:44:37 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ t_bool			load_texture(char const *file, t_texture *texture)
 	t_img			img;
 
 	if (!ft_loadimage(file, &img))
-		return (ft_fdprintf(2, "Error: %s: Cannot load textures\n", file),
-			false);
+		return (false);
 	glGenTextures(1, &(texture->handle));
 	glBindTexture(GL_TEXTURE_2D, texture->handle);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

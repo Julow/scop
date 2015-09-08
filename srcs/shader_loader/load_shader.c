@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 14:43:43 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 13:21:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 19:05:49 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_bool	create_shader_end(t_shader_c *chunks, int count, t_uint id)
 	return (true);
 }
 
-static t_bool	create_shader_loop(int fd, t_shader_c *prev, int count, t_uint id)
+static t_bool	read_shader(int fd, t_shader_c *prev, int count, t_uint id)
 {
 	t_shader_c		chunk;
 	t_bool			ret;
@@ -54,7 +54,7 @@ static t_bool	create_shader_loop(int fd, t_shader_c *prev, int count, t_uint id)
 		return (free(chunk.str), create_shader_end(prev, count, id));
 	chunk.str[chunk.length] = '\0';
 	chunk.prev = prev;
-	ret = create_shader_loop(fd, &chunk, count + 1, id);
+	ret = read_shader(fd, &chunk, count + 1, id);
 	free(chunk.str);
 	return (ret);
 }
@@ -67,15 +67,12 @@ static t_bool	create_shader_file(char const *file, GLenum type, t_uint *id)
 		return (ft_printf("Error: Cannot create shader\n"), false);
 	if ((fd = open(file, O_RDONLY)) < 0)
 		return (ft_printf("Error: %s: Cannot open\n", file), false);
-	if (!create_shader_loop(fd, NULL, 0, *id))
-	{
-		glDeleteShader(*id);
-		return (false);
-	}
+	if (!read_shader(fd, NULL, 0, *id))
+		return (glDeleteShader(*id), false);
 	return (true);
 }
 
-static t_bool	load_shader_program(char const *vert, char const *frag, t_shader *p)
+static t_bool	load_program(char const *vert, char const *frag, t_shader *p)
 {
 	t_uint			vert_shader;
 	t_uint			frag_shader;
@@ -91,11 +88,8 @@ static t_bool	load_shader_program(char const *vert, char const *frag, t_shader *
 		glAttachShader(p->handle, frag_shader);
 		glLinkProgram(p->handle);
 		glGetProgramiv(p->handle, GL_LINK_STATUS, &tmp);
-		if (tmp == 0)
-		{
+		if (tmp == 0 && !(p->handle = 0))
 			glDeleteProgram(p->handle);
-			p->handle = 0;
-		}
 	}
 	glDeleteShader(vert_shader);
 	glDeleteShader(frag_shader);
@@ -114,5 +108,5 @@ t_bool			load_shader(char const *file, t_shader *p)
 	ft_memcpy(file_names[0] + base_name.length, ".vert", 6);
 	ft_memcpy(file_names[1], base_name.str, base_name.length);
 	ft_memcpy(file_names[1] + base_name.length, ".frag", 6);
-	return (load_shader_program(file_names[0], file_names[1], p));
+	return (load_program(file_names[0], file_names[1], p));
 }

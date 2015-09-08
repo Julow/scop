@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 13:07:48 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 13:04:20 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 19:01:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct	s_res_mtl
 typedef struct	s_res_config
 {
 	char const		*basedir;
-	t_bool (*const	loader)(); // char *file, void *dst
+	t_bool			(*const loader)();
 	int				res_size;
 }				t_res_config;
 

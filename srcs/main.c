@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 18:57:30 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 19:01:26 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ t_mat4			*obj_get_model(t_obj *obj)
 {
 	if (obj->flags & F_OBJ_UPDATED)
 	{
-		obj->_model_m = ft_mat4identity();
-		ft_mat4translate(&(obj->_model_m), obj->position);
-		ft_mat4scale(&(obj->_model_m), obj->scale);
-		ft_mat4rotate(&(obj->_model_m), obj->rotation);
+		obj->model_m = ft_mat4identity();
+		ft_mat4translate(&(obj->model_m), obj->position);
+		ft_mat4scale(&(obj->model_m), obj->scale);
+		ft_mat4rotate(&(obj->model_m), obj->rotation);
 		obj->flags &= ~F_OBJ_UPDATED;
 	}
-	return (&(obj->_model_m));
+	return (&(obj->model_m));
 }
 /*
 ** camera
@@ -93,10 +93,10 @@ t_mat4			*camera_get_view(t_camera *camera)
 		look_at.x += camera->position.x;
 		look_at.y += camera->position.y;
 		look_at.z += camera->position.z;
-		camera->_view_m = ft_mat4look_at(camera->position, look_at, VEC3(0.f, 1.f, 0.f));
+		camera->view_m = ft_mat4look_at(camera->position, look_at, VEC3(0.f, 1.f, 0.f));
 		camera->flags &= ~F_CAMERA_UPDATED;
 	}
-	return (&(camera->_view_m));
+	return (&(camera->view_m));
 }
 /*
 ** scene

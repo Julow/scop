@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:13:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 15:47:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 19:06:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ t_bool			parse_mtl(int fd, t_hmap *mtl)
 		if (!ft_subnextc(&line, ' '))
 			continue ;
 		if (ft_subequ(line, SUBC("newmtl")))
-			curr_mtl = ft_subnextc(&line, ' ') ? // newmtl need an argument
+			curr_mtl = ft_subnextc(&line, ' ') ?
 				ft_hmapput(mtl, line, NULL, sizeof(t_mtl)) : NULL;
 		if (curr_mtl == NULL)
-			continue ; // No mtl declared
+			continue ;
 		i = -1;
 		while (++i < G_ARRAY_LEN(g_mtl_tokens))
 			if (ft_subequ(g_mtl_tokens[i].name, line)

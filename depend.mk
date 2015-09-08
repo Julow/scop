@@ -10,6 +10,7 @@ O_FILES :=	o/srcs/init_window.o o/srcs/key_events.o o/srcs/main.o \
 			o/srcs/mesh_loader/build_mtl.o o/srcs/mesh_loader/load_mesh.o \
 			o/srcs/mesh_loader/parse_mesh.o \
 			o/srcs/mesh_loader/parse_mesh_tokens.o \
+			o/srcs/mesh_loader/parse_mesh_tokens_mtl.o \
 			o/srcs/mesh_loader/send_mesh.o o/srcs/mouse_events.o \
 			o/srcs/mtl_loader/load_mtl.o o/srcs/mtl_loader/parse_mtl.o \
 			o/srcs/mtl_loader/parse_mtl_token.o o/srcs/resources/get_res.o \
@@ -71,6 +72,10 @@ o/srcs/mesh_loader/parse_mesh_tokens.o: srcs/mesh_loader/parse_mesh_tokens.c \
 	include/mesh_loader.h include/mtl_loader.h include/texture_loader.h \
 	include/math_utils.h include/math_utils.h include/resources.h \
 	include/utils.h | o/srcs/mesh_loader
+o/srcs/mesh_loader/parse_mesh_tokens_mtl.o: \
+	srcs/mesh_loader/parse_mesh_tokens_mtl.c include/mesh_loader.h \
+	include/mtl_loader.h include/texture_loader.h include/math_utils.h \
+	include/math_utils.h include/resources.h | o/srcs/mesh_loader
 o/srcs/mesh_loader/send_mesh.o: srcs/mesh_loader/send_mesh.c \
 	include/mesh_loader.h include/mtl_loader.h include/texture_loader.h \
 	include/math_utils.h include/math_utils.h include/gl.h | o/srcs/mesh_loader

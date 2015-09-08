@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/08 16:26:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 18:12:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/08 19:09:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		*save_env(t_scop *scop)
 
 static void		mouse_callback(GLFWwindow *window, double x, double y)
 {
-	t_scop				*const scop = save_env(NULL);
+	t_scop			*const scop = save_env(NULL);
 
 	scop->flags |= FLAG_CURSOR_MOVE;
 	(void)window;
