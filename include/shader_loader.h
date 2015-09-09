@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/09 13:55:08 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/09 18:40:25 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ typedef struct	s_shader_c
 }				t_shader_c;
 
 /*
-** TODO
-** if file is res/shaders/test
-**  program is res/shaders/test.vert & res/shaders/test.frag
+** Load a shader program
+** Requesting "test" will try to compile "test.vert" and "test.frag"
 */
 t_bool			load_shader(char const *file, t_shader *p);
 

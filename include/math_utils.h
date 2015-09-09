@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/09 17:54:08 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/09 18:34:51 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,23 @@ typedef struct	s_mat4
 # define VEC3(x,y,z)		((t_vec3){(x), (y), (z)})
 # define VEC4(x,y,z,w)		((t_vec4){(x), (y), (z), (w)})
 
-# define MAT4(x,y,z,w)		((t_mat4){VEC4 x, VEC4 y, VEC4 z, VEC4 w})
+# define VEC2_0()			((t_vec2){0.f, 0.f})
+# define VEC3_0()			((t_vec3){0.f, 0.f, 0.f})
+# define VEC4_0()			((t_vec4){0.f, 0.f, 0.f, 0.f})
 
-# define MAT4_ZERO()		(MAT4((0,0,0,0),(0,0,0,0),(0,0,0,0),(0,0,0,0)))
-# define MAT4_IDENTITY()	(MAT4((1,0,0,0),(0,1,0,0),(0,0,1,0),(0,0,0,1)))
+# define VEC4_X()			((t_vec4){1.f, 0.f, 0.f, 0.f})
+# define VEC4_Y()			((t_vec4){0.f, 1.f, 0.f, 0.f})
+# define VEC4_Z()			((t_vec4){0.f, 0.f, 1.f, 0.f})
+# define VEC4_W()			((t_vec4){0.f, 0.f, 0.f, 1.f})
+
+# define MAT4(...)			((t_mat4){##__VA_ARGS__})
+
+# define MAT4_0()			((t_mat4){VEC4_0(), VEC4_0(), VEC4_0(), VEC4_0()})
+# define MAT4_I()			((t_mat4){VEC4_X(), VEC4_Y(), VEC4_Z(), VEC4_W()})
 
 /*
 ** mat4 init
 */
-t_mat4			ft_mat4identity(void);
 t_mat4			ft_mat4perspective(float fov, float ratio, float f, float n);
 t_mat4			ft_mat4look_at(t_vec3 pos, t_vec3 target, t_vec3 up);
 
@@ -72,6 +80,11 @@ void			ft_mat4transpose(t_mat4 *m);
 ** mat4 operations
 */
 void			ft_mat4mult(t_mat4 *a, t_mat4 b);
+
+/*
+** vec3 init
+*/
+t_vec3			ft_vec3front(t_vec2 a);
 
 /*
 ** vec3 transformations

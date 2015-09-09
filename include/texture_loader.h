@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:54:03 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 15:50:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/09 18:43:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ t_bool			load_texture(char const *file, t_texture *texture);
 ** ========================================================================== **
 ** Load an image file
 ** -
-** Supported formats:
-** .tga		(32 bits, no color map, uncompressed)
+** Formats:
+** .tga		24 or 32 bits		no color map and no compression
 */
 
 typedef struct	s_img
@@ -56,7 +56,6 @@ t_bool			ft_loadimage(char const *file, t_img *img);
 
 /*
 ** Load a .tga file
-** no color map, 24/32 bit
 */
 t_bool			tga_parser(t_buff *buff, t_img *img);
 

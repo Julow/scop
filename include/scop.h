@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/09 16:59:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/09 18:47:10 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct	s_camera
 	int				flags;
 }				t_camera;
 
-# define CAMERA(p,l)		((t_camera){MAT4_ZERO(), VEC3 p, VEC2 l, (1 << 1)})
+# define CAMERA(p,l)		((t_camera){MAT4_0(), p, l, (1 << 1)})
 
 # define FLAG_MOVE_FRONT	(1 << 1)
 # define FLAG_MOVE_LEFT		(1 << 2)
@@ -81,9 +81,18 @@ typedef struct	s_scop
 	int				flags;
 }				t_scop;
 
+/*
+** init
+*/
 t_bool			init_window(t_scop *scop);
 
 void			init_key_events(t_scop *scop);
 void			init_mouse_events(t_scop *scop);
+
+/*
+** update
+*/
+void			handle_key_hold(t_scop *scop, float elapsed);
+void			handle_cursor_move(t_scop *scop);
 
 #endif
