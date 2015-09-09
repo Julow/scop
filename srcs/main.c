@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/09 17:13:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/09 17:55:42 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ t_mat4			*obj_get_model(t_obj *obj)
 	if (obj->flags & F_OBJ_UPDATED)
 	{
 		obj->model_m[0] = ft_mat4identity();
-		ft_mat4translate(&(obj->model_m[0]), obj->position);
-		ft_mat4scale(&(obj->model_m[0]), obj->scale);
-		ft_mat4rotate(&(obj->model_m[0]), obj->rotation);
+		ft_mat4translate(obj->model_m, obj->position);
+		ft_mat4scale(obj->model_m, obj->scale);
+		ft_mat4rotate(obj->model_m, obj->rotation);
 		obj->model_m[1] = ft_mat4identity();
-		ft_mat4rotate(&(obj->model_m[1]), ft_vec3sub(VEC3(0.f, 0.f, 0.f), obj->rotation));
-		ft_mat4scale(&(obj->model_m[1]), 1.f / obj->scale);
-		ft_mat4translate(&(obj->model_m[1]), ft_vec3sub(VEC3(0.f, 0.f, 0.f), obj->position));
+		ft_mat4rotate_inv(obj->model_m + 1, ft_vec3sub(VEC3(0.f, 0.f, 0.f), obj->rotation));
+		ft_mat4scale(obj->model_m + 1, 1.f / obj->scale);
+		ft_mat4translate(obj->model_m + 1, ft_vec3sub(VEC3(0.f, 0.f, 0.f), obj->position));
+		ft_mat4transpose(obj->model_m + 1);
 		obj->flags &= ~F_OBJ_UPDATED;
 	}
 	return (obj->model_m);
@@ -120,7 +121,7 @@ typedef struct	s_scene_obj
 
 static const t_scene_obj	g_scene[] = {
 	S_OBJ("cube.obj", "wall.tga", "test", (-20.f, 0.f, -2.f), (0.f, 1.f, 0.5f), 1.f),
-	S_OBJ("42.obj", "wall.tga", "test", (-20.f, 0.f, 5.f), (0.f, 0.f, 0.f), 1.f),
+	S_OBJ("42.obj", "wall.tga", "test", (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), 1.f),
 	S_OBJ("teapot.obj", "wall.tga", "test", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
 	S_OBJ("shuttle.obj", "wall.tga", "test", (-40.f, 12.f, -1.f), (0.f, 2.f, 0.f), 0.8f),
 	S_OBJ("skyscraper.obj", "wall.tga", "test", (-40.f, 8.f, 9.f), (0.f, 2.f, 0.f), 0.2f),

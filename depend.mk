@@ -4,6 +4,7 @@ O_FILES :=	o/srcs/init_window.o o/srcs/key_events.o o/srcs/main.o \
 			o/srcs/math_utils/ft_mat4perspective.o \
 			o/srcs/math_utils/ft_mat4rotate.o o/srcs/math_utils/ft_mat4scale.o \
 			o/srcs/math_utils/ft_mat4translate.o \
+			o/srcs/math_utils/ft_mat4transpose.o \
 			o/srcs/math_utils/ft_vec3cross.o o/srcs/math_utils/ft_vec3dot.o \
 			o/srcs/math_utils/ft_vec3norm.o o/srcs/math_utils/ft_vec3rotate.o \
 			o/srcs/math_utils/ft_vec3sub.o o/srcs/mesh_loader/build_mesh.o \
@@ -44,6 +45,8 @@ o/srcs/math_utils/ft_mat4rotate.o: srcs/math_utils/ft_mat4rotate.c \
 o/srcs/math_utils/ft_mat4scale.o: srcs/math_utils/ft_mat4scale.c \
 	include/math_utils.h | o/srcs/math_utils
 o/srcs/math_utils/ft_mat4translate.o: srcs/math_utils/ft_mat4translate.c \
+	include/math_utils.h | o/srcs/math_utils
+o/srcs/math_utils/ft_mat4transpose.o: srcs/math_utils/ft_mat4transpose.c \
 	include/math_utils.h | o/srcs/math_utils
 o/srcs/math_utils/ft_vec3cross.o: srcs/math_utils/ft_vec3cross.c \
 	include/math_utils.h | o/srcs/math_utils

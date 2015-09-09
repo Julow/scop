@@ -26,7 +26,7 @@ vec3		light_color = vec3(1.f, 1.f, 1.f); // TODO: mtl
 void		main()
 {
 	vec4		pos = model[0] * vec4(buff_pos, 1.f);
-	vec3		nor = normalize(mat3(transpose(model[1])) * buff_nor);
+	vec3		nor = normalize(mat3(model[1]) * buff_nor);
 	vec3		light = vec3(0.f, 0.f, 0.f);
 
 	for (int i = 0; i < light_count; i++)

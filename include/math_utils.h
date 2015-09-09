@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/03 19:02:02 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/09 17:54:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ t_mat4			ft_mat4look_at(t_vec3 pos, t_vec3 target, t_vec3 up);
 */
 void			ft_mat4scale(t_mat4 *m, float scale);
 void			ft_mat4rotate(t_mat4 *m, t_vec3 rotate);
+void			ft_mat4rotate_inv(t_mat4 *mat, t_vec3 rotate);
 void			ft_mat4translate(t_mat4 *m, t_vec3 translate);
+
+void			ft_mat4transpose(t_mat4 *m);
 
 /*
 ** mat4 operations
