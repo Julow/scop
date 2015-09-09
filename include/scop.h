@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:01:02 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/09 16:59:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct	s_obj
 	t_mesh const	*mesh;
 	t_texture const	*texture;
 	t_shader const	*shader;
-	t_mat4			model_m;
+	t_mat4			model_m[2];
 	t_vec3			position;
 	t_vec3			rotation;
 	float			scale;

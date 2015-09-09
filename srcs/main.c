@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/09 15:04:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/09 17:13:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,19 @@ t_mat4			*obj_get_model(t_obj *obj)
 {
 	if (obj->flags & F_OBJ_UPDATED)
 	{
-		obj->model_m = ft_mat4identity();
-		ft_mat4translate(&(obj->model_m), obj->position);
-		ft_mat4scale(&(obj->model_m), obj->scale);
-		ft_mat4rotate(&(obj->model_m), obj->rotation);
+		obj->model_m[0] = ft_mat4identity();
+		ft_mat4translate(&(obj->model_m[0]), obj->position);
+		ft_mat4scale(&(obj->model_m[0]), obj->scale);
+		ft_mat4rotate(&(obj->model_m[0]), obj->rotation);
+		obj->model_m[1] = ft_mat4identity();
+		ft_mat4rotate(&(obj->model_m[1]), ft_vec3sub(VEC3(0.f, 0.f, 0.f), obj->rotation));
+		ft_mat4scale(&(obj->model_m[1]), 1.f / obj->scale);
+		ft_mat4translate(&(obj->model_m[1]), ft_vec3sub(VEC3(0.f, 0.f, 0.f), obj->position));
 		obj->flags &= ~F_OBJ_UPDATED;
 	}
-	return (&(obj->model_m));
+	return (obj->model_m);
 }
+
 /*
 ** camera
 */
@@ -152,7 +157,7 @@ t_bool			load_scene(t_scop *scop)
 
 static t_vec3 const	g_light_pos[] = { // TMP
 	{-35.f, -7.f, 0.f},
-	{176.f, -20.f, 55.f}
+	{176.f, -5.f, 55.f}
 };
 
 void			render_obj(t_scop *scop, t_obj *obj)
@@ -162,7 +167,7 @@ void			render_obj(t_scop *scop, t_obj *obj)
 
 	glUseProgram(obj->shader->handle);
 	// TODO useless uniform update
-	glUniformMatrix4fv(obj->shader->model_loc, 1, GL_TRUE, (float*)obj_get_model(obj));
+	glUniformMatrix4fv(obj->shader->model_loc, 2, GL_TRUE, (float*)obj_get_model(obj));
 	glUniformMatrix4fv(obj->shader->view_loc, 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
 	glUniformMatrix4fv(obj->shader->projection_loc, 1, GL_TRUE, (float*)&(scop->projection_m));
 	//glUniform3fv
