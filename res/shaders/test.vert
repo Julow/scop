@@ -21,6 +21,6 @@ void main()
 
 	vs_out.pos = vec3(pos);
 	vs_out.tex = tex;
-	vs_out.nor = mat3(transpose(inverse(model))) * nor;
+	vs_out.nor = normalize(mat3(transpose(inverse(model))) * nor);
 	gl_Position = projection * view * pos;
 }

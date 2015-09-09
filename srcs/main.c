@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:01:26 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/09 15:04:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,18 +150,25 @@ t_bool			load_scene(t_scop *scop)
 ** -
 */
 
+static t_vec3 const	g_light_pos[] = { // TMP
+	{-35.f, -7.f, 0.f},
+	{176.f, -20.f, 55.f}
+};
+
 void			render_obj(t_scop *scop, t_obj *obj)
 {
 	int			i;
 	int			offset;
 
+	glUseProgram(obj->shader->handle);
 	// TODO useless uniform update
 	glUniformMatrix4fv(obj->shader->model_loc, 1, GL_TRUE, (float*)obj_get_model(obj));
 	glUniformMatrix4fv(obj->shader->view_loc, 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
 	glUniformMatrix4fv(obj->shader->projection_loc, 1, GL_TRUE, (float*)&(scop->projection_m));
+	//glUniform3fv
+	glUniform3fv(obj->shader->lightpos_loc, G_ARRAY_LEN(g_light_pos), (float*)g_light_pos);
+	glUniform1i(obj->shader->lightcount_loc, G_ARRAY_LEN(g_light_pos));
 	// -
-	glUseProgram(obj->shader->handle);
-	glBindTexture(GL_TEXTURE_2D, obj->texture->handle);
 	glBindVertexArray(obj->mesh->vao);
 	offset = 0;
 	i = -1;

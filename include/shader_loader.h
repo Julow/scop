@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 13:18:52 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/09 13:55:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct	s_shader
 	t_uint			model_loc;
 	t_uint			view_loc;
 	t_uint			projection_loc;
+	t_uint			lightpos_loc;
+	t_uint			lightcount_loc;
 }				t_shader;
 
 typedef struct	s_shader_c

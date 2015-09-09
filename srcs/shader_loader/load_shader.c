@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 14:43:43 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:05:49 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/09 13:54:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ static t_bool	load_program(char const *vert, char const *frag, t_shader *p)
 	p->model_loc = glGetUniformLocation(p->handle, "model");
 	p->view_loc = glGetUniformLocation(p->handle, "view");
 	p->projection_loc = glGetUniformLocation(p->handle, "projection");
+	p->lightpos_loc = glGetUniformLocation(p->handle, "light_pos");
+	p->lightcount_loc = glGetUniformLocation(p->handle, "light_count");
 	return ((p->handle == 0) ? false : true);
 }
 
