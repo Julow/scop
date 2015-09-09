@@ -17,10 +17,13 @@ out			T_VSHADER_OUT
 uniform mat4	model[2];
 uniform mat4	view;
 uniform mat4	projection;
+uniform vec3	camera_pos;
 uniform vec3	light_pos[MAX_LIGHT];
 uniform int		light_count;
 
 float		ambient_strength = 0.25f; // mtl ?
+float		specular_strength = 0.6f; // mtl ?
+int			specular_exp = 256; // TODO: mtl
 vec3		light_color = vec3(1.f, 1.f, 1.f); // TODO: mtl
 
 void		main()
@@ -35,11 +38,15 @@ void		main()
 		vec3	ambient = ambient_strength * light_color;
 		// Diffuse
 		vec3	light_dir = normalize(light_pos[i] - pos.xyz);
-
 		float	diff = max(dot(nor, light_dir), 0.f);
 		vec3	diffuse = diff * light_color;
+		// Specular
+		vec3	camera_dir = normalize(camera_pos - pos.xyz);
+		vec3	reflect_dir = reflect(-light_dir, nor);
+		float	spec = pow(max(dot(camera_dir, reflect_dir), 0.f), specular_exp);
+		vec3	specular = specular_strength * spec * light_color;
 
-		light = max(light, diffuse + ambient);
+		light = max(light, diffuse + ambient + specular);
 	}
 
 	// vs_out.pos = pos.xyz;
