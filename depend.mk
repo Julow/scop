@@ -17,7 +17,8 @@ O_FILES :=	o/srcs/init_window.o o/srcs/key_events.o o/srcs/main.o \
 			o/srcs/resources/get_res.o o/srcs/shader_loader/load_shader.o \
 			o/srcs/texture_loader/ft_loadimage.o \
 			o/srcs/texture_loader/load_texture.o \
-			o/srcs/texture_loader/tga_parser.o o/srcs/utils/parse_fvec.o
+			o/srcs/texture_loader/tga_parser.o o/srcs/utils/fps.o \
+			o/srcs/utils/parse_fvec.o
 
 o/srcs/init_window.o: srcs/init_window.c include/scop.h include/gl.h \
 	include/shader_loader.h include/mesh_loader.h include/mtl_loader.h \
@@ -84,7 +85,7 @@ o/srcs/mesh_loader/send_mesh.o: srcs/mesh_loader/send_mesh.c \
 o/srcs/motions.o: srcs/motions.c include/scop.h include/gl.h \
 	include/shader_loader.h include/mesh_loader.h include/mtl_loader.h \
 	include/texture_loader.h include/math_utils.h include/math_utils.h \
-	include/texture_loader.h | o/srcs
+	include/texture_loader.h include/math_utils.h | o/srcs
 o/srcs/mouse_events.o: srcs/mouse_events.c include/gl.h include/scop.h \
 	include/gl.h include/shader_loader.h include/mesh_loader.h \
 	include/mtl_loader.h include/texture_loader.h include/math_utils.h \
@@ -114,5 +115,6 @@ o/srcs/texture_loader/load_texture.o: srcs/texture_loader/load_texture.c \
 	include/texture_loader.h | o/srcs/texture_loader
 o/srcs/texture_loader/tga_parser.o: srcs/texture_loader/tga_parser.c \
 	include/texture_loader.h | o/srcs/texture_loader
+o/srcs/utils/fps.o: srcs/utils/fps.c include/utils.h | o/srcs/utils
 o/srcs/utils/parse_fvec.o: srcs/utils/parse_fvec.c include/utils.h \
 	| o/srcs/utils

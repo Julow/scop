@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/09 19:04:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/10 18:27:46 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "utils.h"
 #include <stdlib.h>
 #include <math.h>
-
-#define FPS_INTERVAL		100000
 
 /*
 ** obj
@@ -195,10 +193,8 @@ void			render(t_scop *scop)
 int				main(void)
 {
 	t_scop			scop;
-	int				frames;
-	t_ulong			last_fps;
-	t_ulong			last_render;
-	t_ulong			now;
+	t_fps			fps;
+	int				last_flags;
 
 	ft_bzero(&scop, sizeof(scop));
 	scop.objects = VECTOR(t_obj);
@@ -208,25 +204,22 @@ int				main(void)
 		return (1);
 	init_key_events(&scop);
 	init_mouse_events(&scop);
-	frames = 0;
-	last_render = ft_clock(0);
-	last_fps = last_render;
+	fps = fps_init(200000);
+	last_flags = -1;
 	while (!glfwWindowShouldClose(scop.window))
 	{
+		fps_start(&fps);
 		render(&scop);
 		glfwSwapBuffers(scop.window);
 		glfwPollEvents();
-		now = ft_clock(0);
-		if ((now - last_fps) >= FPS_INTERVAL)
+		if (fps_end(&fps) || scop.flags != last_flags)
 		{
-			ft_printf("\rFPS: %-2lld flags: %016b", frames * 1000000 / (now - last_fps), scop.flags);
-			last_fps = now;
-			frames = 0;
+			last_flags = scop.flags;
+			ft_printf("\rFPS: %-2lld t: %-3lld flags: %016b",
+				fps.average_fps, fps.average_time, scop.flags);
 		}
-		frames++;
-		handle_key_hold(&scop, (float)(now - last_render));
+		handle_key_hold(&scop, fps.elapsed);
 		handle_cursor_move(&scop);
-		last_render = now;
 	}
 	ft_printf("\n");
 	return (glfwTerminate(), 0);
