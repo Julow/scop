@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 14:43:43 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/14 13:21:02 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/14 22:02:04 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,20 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-static char const *const g_locations[] = { // TODO generate
+static char const *const g_locations[locations_count] = { // TODO generate
 	"model",
 	"view",
 	"projection",
 	"camera_pos",
 	"light_pos",
 	"light_count",
+	"ambient_map",
+	"diffuse_map",
+	"specular_map",
+	"specular_exp",
 	"ambient_color",
 	"diffuse_color",
 	"specular_color",
-	"specular_exp",
 };
 
 static t_bool	create_shader_end(t_shader_c *chunks, int count, t_uint id)

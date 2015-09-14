@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/14 15:26:44 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/14 22:09:29 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,10 +146,10 @@ t_bool			load_scene(t_scop *scop)
 ** -
 */
 static t_vec3 const	g_light_pos[] = { // TMP
-	{-35.f, -7.f, 0.f},
+	// {-35.f, -7.f, 0.f},
 	{176.f, -5.f, 55.f},
-	{0.f, 50.f, 0.f},
-	{0.f, 0.f, 0.f},
+	// {0.f, 50.f, 0.f},
+	// {0.f, 0.f, 0.f},
 };
 
 void			render_obj(t_scop *scop, t_obj *obj)
@@ -173,17 +173,40 @@ void			render_obj(t_scop *scop, t_obj *obj)
 	while (++i < obj->mesh->mtl_count)
 	{
 		// texture
-		if (obj->mesh->mtl[i].mtl != NULL && obj->mesh->mtl[i].mtl->texture != NULL)
-			glBindTexture(GL_TEXTURE_2D, obj->mesh->mtl[i].mtl->texture->handle);
-		else
-			glBindTexture(GL_TEXTURE_2D, obj->texture->handle);
+		// glActiveTexture(GL_TEXTURE0);
+		// if (obj->mesh->mtl[i].mtl != NULL && obj->mesh->mtl[i].mtl->diffuse_map != NULL)
+		// 	glBindTexture(GL_TEXTURE_2D, obj->mesh->mtl[i].mtl->diffuse_map->handle);
+		// else
+		// 	glBindTexture(GL_TEXTURE_2D, obj->texture->handle);
 		// material uniforms
 		if (obj->mesh->mtl[i].mtl != NULL)
 		{
+			t_uint tmp;
+			glActiveTexture(GL_TEXTURE1);
+			if (obj->mesh->mtl[i].mtl->ambient_map != NULL)
+				tmp = obj->mesh->mtl[i].mtl->ambient_map->handle;
+			else
+				tmp = obj->texture->handle;
+			glBindTexture(GL_TEXTURE_2D, tmp);
+			glUniform1i(obj->shader->loc[ambient_map], tmp);
 			glUniform3fv(obj->shader->loc[ambient_color], 1, (float*)&(obj->mesh->mtl[i].mtl->ambient_color));
-			glUniform3fv(obj->shader->loc[diffuse_color], 1, (float*)&(obj->mesh->mtl[i].mtl->diffuse_color));
-			glUniform3fv(obj->shader->loc[specular_color], 1, (float*)&(obj->mesh->mtl[i].mtl->specular_color));
-			glUniform1i(obj->shader->loc[specular_exp], (int)obj->mesh->mtl[i].mtl->specular_exp); // lol
+			glActiveTexture(GL_TEXTURE2);
+			if (obj->mesh->mtl[i].mtl->diffuse_map != NULL)
+				tmp = obj->mesh->mtl[i].mtl->diffuse_map->handle;
+			else
+				tmp = obj->texture->handle;
+			glBindTexture(GL_TEXTURE_2D, tmp);
+			glUniform1i(obj->shader->loc[diffuse_map], tmp);
+			glUniform3fv(obj->shader->loc[diffuse_color], 1, (float*)&(obj->mesh->mtl[i].mtl->ambient_color));
+			glActiveTexture(GL_TEXTURE3);
+			if (obj->mesh->mtl[i].mtl->specular_map != NULL)
+				tmp = obj->mesh->mtl[i].mtl->specular_map->handle;
+			else
+				tmp = obj->texture->handle;
+			glBindTexture(GL_TEXTURE_2D, tmp);
+			glUniform1i(obj->shader->loc[specular_map], tmp);
+			glUniform3fv(obj->shader->loc[specular_color], 1, (float*)&(obj->mesh->mtl[i].mtl->ambient_color));
+			glUniform1i(obj->shader->loc[specular_exp], obj->mesh->mtl[i].mtl->specular_exp);
 		}
 		// draw
 		glDrawArrays(GL_TRIANGLES, offset, obj->mesh->mtl[i].count);

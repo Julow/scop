@@ -1,0 +1,5 @@
+newmtl cube
+	Ka 0 0 0
+	Ns 32
+	map_Kd container2.tga
+	map_Ks container2_specular.tga

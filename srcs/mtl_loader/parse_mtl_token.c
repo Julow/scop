@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:12:53 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 14:08:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/14 22:02:59 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,29 @@ t_bool			specular_color_token(t_sub line, t_mtl *mtl)
 
 t_bool			specular_exp_token(t_sub line, t_mtl *mtl)
 {
-	return (ft_subfloat(line, &(mtl->specular_exp)));
+	return (ft_subint(line, &(mtl->specular_exp)));
+}
+
+t_bool			map_ka_token(t_sub line, t_mtl *mtl)
+{
+	if (!ft_subnext(&line, IS_SPACE))
+		return (false);
+	mtl->ambient_map = get_res(res_texture, line);
+	return (true);
 }
 
 t_bool			map_kd_token(t_sub line, t_mtl *mtl)
 {
 	if (!ft_subnext(&line, IS_SPACE))
 		return (false);
-	mtl->texture = get_res(res_texture, line);
+	mtl->diffuse_map = get_res(res_texture, line);
+	return (true);
+}
+
+t_bool			map_ks_token(t_sub line, t_mtl *mtl)
+{
+	if (!ft_subnext(&line, IS_SPACE))
+		return (false);
+	mtl->specular_map = get_res(res_texture, line);
 	return (true);
 }

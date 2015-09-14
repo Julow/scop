@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 15:07:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:45:02 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/14 16:39:26 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_bool			load_mtl(char const *file, t_hmap **mtl)
 	int				fd;
 	t_bool			ret;
 
+	ft_printf("load mtl %s\n", file);
 	if ((fd = open(file, O_RDONLY)) < 0)
 		return (ft_fdprintf(2, "Failed to load %s: %s\n",
 			file, strerror(errno)), false);

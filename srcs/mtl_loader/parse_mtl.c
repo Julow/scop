@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:13:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:06:38 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/14 16:43:16 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static t_mtl_token const	g_mtl_tokens[] = {
 	{SUBC("Kd"), &diffuse_color_token},
 	{SUBC("Ks"), &specular_color_token},
 	{SUBC("Ns"), &specular_exp_token},
-	{SUBC("map_Kd"), &map_kd_token}
+	{SUBC("map_Ka"), &map_ka_token},
+	{SUBC("map_Kd"), &map_kd_token},
+	{SUBC("map_Ks"), &map_ks_token},
 };
 
 t_bool			parse_mtl(int fd, t_hmap *mtl)
@@ -31,7 +33,7 @@ t_bool			parse_mtl(int fd, t_hmap *mtl)
 	while (get_next_line(fd, &line) > 0)
 	{
 		line.length = 0;
-		if (!ft_subnextc(&line, ' '))
+		if (!ft_subnext(&line, IS_SPACE))
 			continue ;
 		if (ft_subequ(line, SUBC("newmtl")))
 			curr_mtl = ft_subnextc(&line, ' ') ?
