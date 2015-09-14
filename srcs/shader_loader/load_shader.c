@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 14:43:43 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/09 19:00:49 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/14 13:09:54 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+
+static char const *const g_locations[] = { // TODO generate
+	"model",
+	"view",
+	"projection",
+	"camera_pos",
+	"light_pos",
+	"light_count",
+};
 
 static t_bool	create_shader_end(t_shader_c *chunks, int count, t_uint id)
 {
@@ -93,12 +102,6 @@ static t_bool	load_program(char const *vert, char const *frag, t_shader *p)
 	}
 	glDeleteShader(vert_shader);
 	glDeleteShader(frag_shader);
-	p->model_loc = glGetUniformLocation(p->handle, "model");
-	p->view_loc = glGetUniformLocation(p->handle, "view");
-	p->projection_loc = glGetUniformLocation(p->handle, "projection");
-	p->camerapos_loc = glGetUniformLocation(p->handle, "camera_pos");
-	p->lightpos_loc = glGetUniformLocation(p->handle, "light_pos");
-	p->lightcount_loc = glGetUniformLocation(p->handle, "light_count");
 	return ((p->handle == 0) ? false : true);
 }
 
@@ -106,10 +109,16 @@ t_bool			load_shader(char const *file, t_shader *p)
 {
 	t_sub const		base_name = ft_sub(file, 0, -1);
 	char			file_names[2][base_name.length + 6 + 1];
+	int				i;
 
 	ft_memcpy(file_names[0], base_name.str, base_name.length);
 	ft_memcpy(file_names[0] + base_name.length, ".vert", 6);
 	ft_memcpy(file_names[1], base_name.str, base_name.length);
 	ft_memcpy(file_names[1] + base_name.length, ".frag", 6);
-	return (load_program(file_names[0], file_names[1], p));
+	if (!load_program(file_names[0], file_names[1], p))
+		return (false);
+	i = -1;
+	while (++i < locations_count)
+		p->loc[i] = glGetUniformLocation(p->handle, g_locations[i]);
+	return (true);
 }

@@ -6,12 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/10 11:44:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/10 13:41:18 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/14 11:21:14 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #version 410 core
-  
+
 layout (location = 0) in vec3	buff_pos;
 layout (location = 1) in vec2	buff_tex;
 layout (location = 2) in vec3	buff_nor;

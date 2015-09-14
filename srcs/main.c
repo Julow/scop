@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/10 18:27:46 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/14 12:54:45 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,13 +156,14 @@ void			render_obj(t_scop *scop, t_obj *obj)
 	int			offset;
 
 	glUseProgram(obj->shader->handle);
-	// TODO useless uniform update
-	glUniformMatrix4fv(obj->shader->model_loc, 2, GL_TRUE, (float*)obj_get_model(obj));
-	glUniformMatrix4fv(obj->shader->view_loc, 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
-	glUniformMatrix4fv(obj->shader->projection_loc, 1, GL_TRUE, (float*)&(scop->projection_m));
-	glUniform3fv(obj->shader->camerapos_loc, 1, (float*)&(scop->camera.position));
-	glUniform3fv(obj->shader->lightpos_loc, G_ARRAY_LEN(g_light_pos), (float*)g_light_pos);
-	glUniform1i(obj->shader->lightcount_loc, G_ARRAY_LEN(g_light_pos));
+	// vertex uniforms
+	glUniformMatrix4fv(obj->shader->loc[model], 2, GL_TRUE, (float*)obj_get_model(obj));
+	glUniformMatrix4fv(obj->shader->loc[view], 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
+	glUniformMatrix4fv(obj->shader->loc[projection], 1, GL_TRUE, (float*)&(scop->projection_m));
+	// light uniforms
+	glUniform3fv(obj->shader->loc[camera_pos], 1, (float*)&(scop->camera.position));
+	glUniform3fv(obj->shader->loc[light_pos], G_ARRAY_LEN(g_light_pos), (float*)g_light_pos);
+	glUniform1i(obj->shader->loc[light_count], G_ARRAY_LEN(g_light_pos));
 	// -
 	glBindVertexArray(obj->mesh->vao);
 	offset = 0;

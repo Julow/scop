@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/10 11:44:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/10 13:43:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/14 11:25:16 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ uniform vec3		camera_pos;
 uniform vec3		light_pos[MAX_LIGHT];
 uniform int			light_count;
 
-float		ambient_strength = 0.25f; // mtl ?
-float		specular_strength = 0.6f; // mtl ?
 int			specular_exp = 256; // TODO: mtl
 vec3		ambient_color = vec3(0.25f, 0.25f, 0.25f);
 vec3		diffuse_color = vec3(1.f, 1.f, 1.f);
