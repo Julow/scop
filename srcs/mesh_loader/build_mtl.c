@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/07 20:24:14 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/08 00:11:39 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/14 15:25:53 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ t_bool			build_mtl(t_mesh_data *data, t_mesh *dst)
 	}
 	dst->mtl = data->mtl.data;
 	dst->mtl_count = data->mtl.length;
-	ft_printf("building mtl... len: %d\n", dst->mtl_count);
 	return (true);
 }

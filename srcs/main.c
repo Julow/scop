@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/14 12:54:45 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/14 15:26:44 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct	s_scene_obj
 #define S_OBJ(m,t,s,p,r,k)	((t_scene_obj){SUBC(m),SUBC(t),SUBC(s),VEC3 p,VEC3 r,k})
 
 static const t_scene_obj	g_scene[] = {
-	S_OBJ("cube.obj", "wall.tga", "test", (-20.f, 0.f, -2.f), (0.f, 1.f, 0.5f), 1.f),
+	S_OBJ("cube.obj", "wall.tga", "test", (0.f, 0.f, 0.f), (0.f, 1.f, 0.5f), 1.f),
 	S_OBJ("42.obj", "wall.tga", "test", (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), 1.f),
 	S_OBJ("teapot.obj", "wall.tga", "test", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
 	S_OBJ("shuttle.obj", "wall.tga", "test", (-40.f, 12.f, -1.f), (0.f, 2.f, 0.f), 0.8f),
@@ -147,7 +147,9 @@ t_bool			load_scene(t_scop *scop)
 */
 static t_vec3 const	g_light_pos[] = { // TMP
 	{-35.f, -7.f, 0.f},
-	{176.f, -5.f, 55.f}
+	{176.f, -5.f, 55.f},
+	{0.f, 50.f, 0.f},
+	{0.f, 0.f, 0.f},
 };
 
 void			render_obj(t_scop *scop, t_obj *obj)
@@ -170,12 +172,22 @@ void			render_obj(t_scop *scop, t_obj *obj)
 	i = -1;
 	while (++i < obj->mesh->mtl_count)
 	{
+		// texture
 		if (obj->mesh->mtl[i].mtl != NULL && obj->mesh->mtl[i].mtl->texture != NULL)
 			glBindTexture(GL_TEXTURE_2D, obj->mesh->mtl[i].mtl->texture->handle);
 		else
 			glBindTexture(GL_TEXTURE_2D, obj->texture->handle);
-		// TODO here set ambient/diffuse/specular
+		// material uniforms
+		if (obj->mesh->mtl[i].mtl != NULL)
+		{
+			glUniform3fv(obj->shader->loc[ambient_color], 1, (float*)&(obj->mesh->mtl[i].mtl->ambient_color));
+			glUniform3fv(obj->shader->loc[diffuse_color], 1, (float*)&(obj->mesh->mtl[i].mtl->diffuse_color));
+			glUniform3fv(obj->shader->loc[specular_color], 1, (float*)&(obj->mesh->mtl[i].mtl->specular_color));
+			glUniform1i(obj->shader->loc[specular_exp], (int)obj->mesh->mtl[i].mtl->specular_exp); // lol
+		}
+		// draw
 		glDrawArrays(GL_TRIANGLES, offset, obj->mesh->mtl[i].count);
+		// -
 		offset += obj->mesh->mtl[i].count;
 	}
 }

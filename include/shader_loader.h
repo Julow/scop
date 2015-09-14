@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/14 13:09:53 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/14 13:21:04 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ typedef enum	e_locations
 	camera_pos,
 	light_pos,
 	light_count,
+	ambient_color,
+	diffuse_color,
+	specular_color,
+	specular_exp,
 	locations_count
 }				t_locations;
 
