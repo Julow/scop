@@ -5,127 +5,192 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/15 14:43:43 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/15 11:40:55 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/09/15 14:06:07 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/09/15 20:09:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader_loader.h"
+#include "ft_colors.h"
+#include "ft_list.h"
 #include "gl.h"
-#include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
 
-static char const *const g_locations[locations_count] = { // TODO generate
-	"model",
-	"view",
-	"projection",
-	"camera_pos",
-	"light_pos",
-	"light_count",
-	"ambient_map",
-	"diffuse_map",
-	"specular_map",
-	"ambient_color",
-	"diffuse_color",
-	"specular_color",
-	"specular_exp",
+/*
+** [enum] shader_t
+** char const		*name;
+** t_uint			gl_name;
+** ALL("all", 0),
+** VERT("vert", GL_VERTEX_SHADER),
+** FRAG("frag", GL_FRAGMENT_SHADER),
+*/
+
+struct			enum_t_shader_t
+{
+	t_uint			index;
+	t_sub			name;
+	t_uint			gl_name;
 };
 
-static t_bool	create_shader_end(t_shader_c *chunks, int count, t_uint id)
+typedef struct enum_t_shader_t const*	t_shader_t;
+
+static struct
 {
-	char const		*strings[count];
-	int				lengths[count];
+	t_shader_t		ALL;
+	t_shader_t		VERT;
+	t_shader_t		FRAG;
+	int				length;
+} const			shader_t = {
+	&(struct enum_t_shader_t){0, SUBC("all"), 0},
+	&(struct enum_t_shader_t){1, SUBC("vert"), GL_VERTEX_SHADER},
+	&(struct enum_t_shader_t){2, SUBC("frag"), GL_FRAGMENT_SHADER},
+	3
+};
+
+#define ENUM_ARRAY(e)		((t_##e const*)&e)
+
+/*
+** [end]
+*/
+
+#define SHADER_START		(SUBC("//#shader "))
+
+t_bool			ft_substart(t_sub sub, t_sub start)
+{
+	if (sub.length < start.length)
+		return (false);
+	if (ft_memcmp(sub.str, start.str, start.length) == 0)
+		return (true);
+	return (false);
+}
+
+static void		shader_error(t_uint id, t_shader_t t)
+{
 	char			err_buff[ERR_SHADER_BUFFER];
-	int				i;
 
-	i = count;
-	while (--i >= 0)
+	glGetShaderInfoLog(id, ERR_SHADER_BUFFER, NULL, err_buff);
+	ft_printf(C_RED "Shader Error (%s):" C_RESET " %s\n", t->name.str, err_buff);
+}
+
+static t_bool	compile_shader(t_list *lines, t_uint *dst, t_shader_t t)
+{
+	int				status;
+	char const		*strings[lines->length];
+	int				lengths[lines->length];
+	t_sub			*tmp;
+
+	//
+	status = 0;
+	tmp = LIST_IT(lines);
+	while ((tmp = LIST_NEXT(tmp)))
 	{
-		strings[i] = chunks->str;
-		lengths[i] = chunks->length;
-		chunks = chunks->prev;
+		strings[status] = tmp->str;
+		lengths[status] = tmp->length;
+		status++;
 	}
-	glShaderSource(id, count, strings, lengths);
-	glCompileShader(id);
-	glGetShaderiv(id, GL_COMPILE_STATUS, &i);
-	if (i == 0)
+	//
+	if ((*dst = glCreateShader(t->gl_name)) == 0)
+		return (false);
+	glShaderSource(*dst, lines->length, strings, lengths);
+	glCompileShader(*dst);
+	glGetShaderiv(*dst, GL_COMPILE_STATUS, &status);
+	if (status == 0)
 	{
-		glGetShaderInfoLog(id, ERR_SHADER_BUFFER, NULL, err_buff);
-		ft_printf("Error: %s\n", err_buff);
+		shader_error(*dst, t);
 		return (false);
 	}
 	return (true);
 }
 
-static t_bool	read_shader(int fd, t_shader_c *prev, int count, t_uint id)
+static t_bool	get_shader_type(t_sub line, t_shader_t *t)
 {
-	t_shader_c		chunk;
-	t_bool			ret;
-
-	chunk.str = MAL(char, LOAD_SHADER_BUFFER + 1);
-	if ((chunk.length = read(fd, chunk.str, LOAD_SHADER_BUFFER)) < 0)
-		return (ft_printf("Error: Cannot read shader file\n"), false);
-	if (chunk.length == 0)
-		return (free(chunk.str), create_shader_end(prev, count, id));
-	chunk.str[chunk.length] = '\0';
-	chunk.prev = prev;
-	ret = read_shader(fd, &chunk, count + 1, id);
-	free(chunk.str);
-	return (ret);
-}
-
-static t_bool	create_shader_file(char const *file, GLenum type, t_uint *id)
-{
-	int				fd;
-
-	if ((*id = glCreateShader(type)) == 0)
-		return (ft_printf("Error: Cannot create shader\n"), false);
-	if ((fd = open(file, O_RDONLY)) < 0)
-		return (ft_printf("Error: %s: Cannot open\n", file), false);
-	if (!read_shader(fd, NULL, 0, *id))
-		return (glDeleteShader(*id), false);
-	return (true);
-}
-
-static t_bool	load_program(char const *vert, char const *frag, t_shader *p)
-{
-	t_uint			vert_shader;
-	t_uint			frag_shader;
-	int				tmp;
-
-	if (!create_shader_file(vert, GL_VERTEX_SHADER, &vert_shader))
-		return (false);
-	if (!create_shader_file(frag, GL_FRAGMENT_SHADER, &frag_shader))
-		return (glDeleteShader(vert_shader), false);
-	if ((p->handle = glCreateProgram()) > 0)
-	{
-		glAttachShader(p->handle, vert_shader);
-		glAttachShader(p->handle, frag_shader);
-		glLinkProgram(p->handle);
-		glGetProgramiv(p->handle, GL_LINK_STATUS, &tmp);
-		if (tmp == 0 && !(p->handle = 0))
-			glDeleteProgram(p->handle);
-	}
-	glDeleteShader(vert_shader);
-	glDeleteShader(frag_shader);
-	return ((p->handle == 0) ? false : true);
-}
-
-t_bool			load_shader(char const *file, t_shader *p)
-{
-	t_sub const		base_name = ft_sub(file, 0, -1);
-	char			file_names[2][base_name.length + 6 + 1];
 	int				i;
 
-	ft_memcpy(file_names[0], base_name.str, base_name.length);
-	ft_memcpy(file_names[0] + base_name.length, ".vert", 6);
-	ft_memcpy(file_names[1], base_name.str, base_name.length);
-	ft_memcpy(file_names[1] + base_name.length, ".frag", 6);
-	if (!load_program(file_names[0], file_names[1], p))
+	line.length = MIN(SHADER_START.length, line.length);
+	if (!ft_subnext(&line, IS_SPACE))
 		return (false);
 	i = -1;
-	while (++i < locations_count)
-		p->loc[i] = glGetUniformLocation(p->handle, g_locations[i]);
+	while (++i < shader_t.length)
+		if (ft_subequ(ENUM_ARRAY(shader_t)[i]->name, line))
+		{
+			*t = ENUM_ARRAY(shader_t)[i];
+			return (true);
+		}
+	return (false);
+}
+
+static t_bool	read_shader(int fd, t_list *lines, t_uint *s, t_shader_t t)
+{
+	const int		start_line = lines->length;
+	t_sub			*tmp;
+	t_sub			line;
+
+	while (get_next_line(fd, &line) > 0)
+		if (ft_substart(line, SHADER_START))
+		{
+			if (t != shader_t.ALL)
+			{
+				if (s[t->index] > 0)
+					glDeleteShader(s[t->index]);
+				if (!compile_shader(lines, s + t->index, t))
+					return (false);
+				ft_vremove(lines, start_line, -1);
+			}
+			if (!get_shader_type(line, &t))
+				return (false);
+			return (read_shader(fd, lines, s, t));
+		}
+		else
+		{
+			tmp = ft_listadd(lines, lines->last, line.length + 2);
+			tmp->str = ((void*)tmp) + sizeof(t_sub);
+			tmp->length = line.length + 1;
+			ft_memcpy(tmp->str, line.str, line.length);
+			tmp->str[line.length] = '\n';
+			tmp->str[tmp->length] = '\0';
+		}
 	return (true);
+}
+
+static t_bool	link_shader(t_uint *shaders, t_shader *dst)
+{
+	int				i;
+
+	if ((dst->handle = glCreateProgram()) <= 0)
+		return (false);
+	i = -1;
+	while (++i < shader_t.length)
+		if (shaders[i] > 0)
+			glAttachShader(dst->handle, shaders[i]);
+	glLinkProgram(dst->handle);
+	glGetProgramiv(dst->handle, GL_LINK_STATUS, &i);
+	if (i == 0)
+	{
+		glDeleteProgram(dst->handle);
+		return (false);
+	}
+	return (true);
+}
+
+t_bool			load_shader(char const *file, t_shader *dst)
+{
+	t_uint			shaders[shader_t.length];
+	int				tmp;
+	t_bool			success;
+	t_list		lines;
+
+	if ((tmp = open(file, O_RDONLY)) < 0)
+		return (false);
+	ft_bzero(shaders, sizeof(t_uint[shader_t.length]));
+	lines = LIST(t_sub);
+	success = read_shader(tmp, &lines, shaders, shader_t.ALL);
+	close(tmp);
+	// ft_vclear(&lines);
+	success = success && link_shader(shaders, dst);
+	tmp = -1;
+	while (++tmp < shader_t.length)
+		if (shaders[tmp] > 0)
+			glDeleteShader(shaders[tmp]);
+	return (success);
 }

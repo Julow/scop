@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/15 12:51:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/15 19:57:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,14 @@ typedef struct	s_scene_obj
 #define S_OBJ(m,t,s,p,r,k)	((t_scene_obj){SUBC(m),SUBC(t),SUBC(s),VEC3 p,VEC3 r,k})
 
 static const t_scene_obj	g_scene[] = {
-	S_OBJ("cube.obj", "wall.tga", "test", (0.f, 10.f, 0.f), (0.f, 1.f, 0.5f), 1.f),
-	S_OBJ("42.obj", "wall.tga", "test", (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), 1.f),
-	S_OBJ("teapot.obj", "wall.tga", "test", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
-	S_OBJ("shuttle.obj", "wall.tga", "test", (-40.f, 12.f, -1.f), (0.f, 2.f, 0.f), 0.8f),
-	S_OBJ("skyscraper.obj", "wall.tga", "test", (-40.f, 8.f, 9.f), (0.f, 2.f, 0.f), 0.2f),
-	S_OBJ("power_lines.obj", "wall.tga", "test", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
-	S_OBJ("cow.obj", "wall.tga", "test", (-40.f, -10.f, 9.f), (0.f, 1.f, 0.5f), 1.f),
-	S_OBJ("venice.obj", "wall.tga", "test", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 0.5f),
+	S_OBJ("cube.obj", "wall.tga", "test.glsl", (0.f, 10.f, 0.f), (0.f, 1.f, 0.5f), 1.f),
+	S_OBJ("42.obj", "wall.tga", "test.glsl", (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), 1.f),
+	S_OBJ("teapot.obj", "wall.tga", "test.glsl", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
+	S_OBJ("shuttle.obj", "wall.tga", "test.glsl", (-40.f, 12.f, -1.f), (0.f, 2.f, 0.f), 0.8f),
+	S_OBJ("skyscraper.obj", "wall.tga", "test.glsl", (-40.f, 8.f, 9.f), (0.f, 2.f, 0.f), 0.2f),
+	S_OBJ("power_lines.obj", "wall.tga", "test.glsl", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
+	S_OBJ("cow.obj", "wall.tga", "test.glsl", (-40.f, -10.f, 9.f), (0.f, 1.f, 0.5f), 1.f),
+	S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 0.5f),
 };
 
 t_bool			load_scene(t_scop *scop)
