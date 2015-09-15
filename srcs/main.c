@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/14 22:09:29 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/15 12:51:39 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct	s_scene_obj
 #define S_OBJ(m,t,s,p,r,k)	((t_scene_obj){SUBC(m),SUBC(t),SUBC(s),VEC3 p,VEC3 r,k})
 
 static const t_scene_obj	g_scene[] = {
-	S_OBJ("cube.obj", "wall.tga", "test", (0.f, 0.f, 0.f), (0.f, 1.f, 0.5f), 1.f),
+	S_OBJ("cube.obj", "wall.tga", "test", (0.f, 10.f, 0.f), (0.f, 1.f, 0.5f), 1.f),
 	S_OBJ("42.obj", "wall.tga", "test", (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), 1.f),
 	S_OBJ("teapot.obj", "wall.tga", "test", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
 	S_OBJ("shuttle.obj", "wall.tga", "test", (-40.f, 12.f, -1.f), (0.f, 2.f, 0.f), 0.8f),
@@ -146,9 +146,9 @@ t_bool			load_scene(t_scop *scop)
 ** -
 */
 static t_vec3 const	g_light_pos[] = { // TMP
-	// {-35.f, -7.f, 0.f},
+	{-35.f, -7.f, 0.f},
 	{176.f, -5.f, 55.f},
-	// {0.f, 50.f, 0.f},
+	{0.f, 50.f, 0.f},
 	// {0.f, 0.f, 0.f},
 };
 
@@ -182,30 +182,30 @@ void			render_obj(t_scop *scop, t_obj *obj)
 		if (obj->mesh->mtl[i].mtl != NULL)
 		{
 			t_uint tmp;
-			glActiveTexture(GL_TEXTURE1);
+			glActiveTexture(GL_TEXTURE0);
 			if (obj->mesh->mtl[i].mtl->ambient_map != NULL)
 				tmp = obj->mesh->mtl[i].mtl->ambient_map->handle;
 			else
 				tmp = obj->texture->handle;
 			glBindTexture(GL_TEXTURE_2D, tmp);
-			glUniform1i(obj->shader->loc[ambient_map], tmp);
+			glUniform1i(obj->shader->loc[ambient_map], 0);
 			glUniform3fv(obj->shader->loc[ambient_color], 1, (float*)&(obj->mesh->mtl[i].mtl->ambient_color));
-			glActiveTexture(GL_TEXTURE2);
+			glActiveTexture(GL_TEXTURE1);
 			if (obj->mesh->mtl[i].mtl->diffuse_map != NULL)
 				tmp = obj->mesh->mtl[i].mtl->diffuse_map->handle;
 			else
 				tmp = obj->texture->handle;
 			glBindTexture(GL_TEXTURE_2D, tmp);
-			glUniform1i(obj->shader->loc[diffuse_map], tmp);
-			glUniform3fv(obj->shader->loc[diffuse_color], 1, (float*)&(obj->mesh->mtl[i].mtl->ambient_color));
-			glActiveTexture(GL_TEXTURE3);
+			glUniform1i(obj->shader->loc[diffuse_map], 1);
+			glUniform3fv(obj->shader->loc[diffuse_color], 1, (float*)&(obj->mesh->mtl[i].mtl->diffuse_color));
+			glActiveTexture(GL_TEXTURE2);
 			if (obj->mesh->mtl[i].mtl->specular_map != NULL)
 				tmp = obj->mesh->mtl[i].mtl->specular_map->handle;
 			else
 				tmp = obj->texture->handle;
 			glBindTexture(GL_TEXTURE_2D, tmp);
-			glUniform1i(obj->shader->loc[specular_map], tmp);
-			glUniform3fv(obj->shader->loc[specular_color], 1, (float*)&(obj->mesh->mtl[i].mtl->ambient_color));
+			glUniform1i(obj->shader->loc[specular_map], 2);
+			glUniform3fv(obj->shader->loc[specular_color], 1, (float*)&(obj->mesh->mtl[i].mtl->specular_color));
 			glUniform1i(obj->shader->loc[specular_exp], obj->mesh->mtl[i].mtl->specular_exp);
 		}
 		// draw

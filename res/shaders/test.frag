@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/10 11:44:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/14 22:07:07 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/15 12:02:26 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,18 @@ void		main()
 	for (int i = 0; i < light_count; i++)
 	{
 		// Ambient
-		vec3	ambient = ambient_color + vec3(texture(ambient_map, fs_in.tex));
+		vec3	ambient = ambient_color * vec3(texture(ambient_map, fs_in.tex));
 		// Diffuse
+		float	camera_dist = length(light_pos[i] - fs_in.pos);
 		vec3	light_dir = normalize(light_pos[i] - fs_in.pos);
 		float	diff = max(dot(fs_in.nor, light_dir), 0.f);
-		vec3	diffuse = diff * (diffuse_color + vec3(texture(diffuse_map, fs_in.tex)));
+		float	att = 1 - camera_dist / 300.f;
+		vec3	diffuse = diff * att * (diffuse_color * vec3(texture(diffuse_map, fs_in.tex)));
 		// Specular
 		vec3	camera_dir = normalize(camera_pos - fs_in.pos);
 		vec3	reflect_dir = reflect(-light_dir, fs_in.nor);
 		float	spec = pow(max(dot(camera_dir, reflect_dir), 0.f), specular_exp);
-		vec3	specular = spec * (specular_color + vec3(texture(specular_map, fs_in.tex)));
+		vec3	specular = spec * att * (specular_color * vec3(texture(specular_map, fs_in.tex)));
 
 		light = max(light, diffuse + ambient + specular);
 	}
