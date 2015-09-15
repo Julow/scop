@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/15 19:57:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/15 23:41:03 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ t_mat4			*camera_get_view(t_camera *camera)
 	}
 	return (&(camera->view_m));
 }
+
 /*
 ** scene
 */
@@ -114,10 +115,7 @@ static const t_scene_obj	g_scene[] = {
 	S_OBJ("cube.obj", "wall.tga", "test.glsl", (0.f, 10.f, 0.f), (0.f, 1.f, 0.5f), 1.f),
 	S_OBJ("42.obj", "wall.tga", "test.glsl", (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), 1.f),
 	S_OBJ("teapot.obj", "wall.tga", "test.glsl", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
-	S_OBJ("shuttle.obj", "wall.tga", "test.glsl", (-40.f, 12.f, -1.f), (0.f, 2.f, 0.f), 0.8f),
-	S_OBJ("skyscraper.obj", "wall.tga", "test.glsl", (-40.f, 8.f, 9.f), (0.f, 2.f, 0.f), 0.2f),
-	S_OBJ("power_lines.obj", "wall.tga", "test.glsl", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
-	S_OBJ("cow.obj", "wall.tga", "test.glsl", (-40.f, -10.f, 9.f), (0.f, 1.f, 0.5f), 1.f),
+	S_OBJ("teapot2.obj", "wall.tga", "test.glsl", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
 	S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 0.5f),
 };
 
@@ -149,7 +147,6 @@ static t_vec3 const	g_light_pos[] = { // TMP
 	{-35.f, -7.f, 0.f},
 	{176.f, -5.f, 55.f},
 	{0.f, 50.f, 0.f},
-	// {0.f, 0.f, 0.f},
 };
 
 void			render_obj(t_scop *scop, t_obj *obj)
@@ -172,12 +169,6 @@ void			render_obj(t_scop *scop, t_obj *obj)
 	i = -1;
 	while (++i < obj->mesh->mtl_count)
 	{
-		// texture
-		// glActiveTexture(GL_TEXTURE0);
-		// if (obj->mesh->mtl[i].mtl != NULL && obj->mesh->mtl[i].mtl->diffuse_map != NULL)
-		// 	glBindTexture(GL_TEXTURE_2D, obj->mesh->mtl[i].mtl->diffuse_map->handle);
-		// else
-		// 	glBindTexture(GL_TEXTURE_2D, obj->texture->handle);
 		// material uniforms
 		if (obj->mesh->mtl[i].mtl != NULL)
 		{
