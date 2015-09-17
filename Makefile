@@ -36,13 +36,13 @@ DEPEND := depend.mk
 MODULE_RULES := $(addsuffix /.git,$(MODULES))
 
 # Default rule (need to be before any include)
-all: $(MODULE_RULES) $(LIBS) $(NAME)
+all: $(MODULE_RULES) libs $(NAME)
 
 # Include $(O_FILES) and dependencies
 -include $(DEPEND)
 
 # Linking
-$(NAME): $(O_FILES)
+$(NAME): $(LIBS_DEPEND) $(O_FILES)
 	clang $(FLAGS) -o $@ $(O_FILES) $(LINKS) && printf '\033[32m$@\033[0m\n'
 
 # Compiling
@@ -54,12 +54,8 @@ $(MODULE_RULES):
 	git submodule init $(@:.git=)
 	git submodule update $(@:.git=)
 
-# Call sub Makefiles
-$(LIBS):
-	make -C $@
-
 # Create obj directories
-$(O_DIR)/%:
+$(O_DIR)/%/:
 	mkdir -p $@
 
 # Set debug mode and make

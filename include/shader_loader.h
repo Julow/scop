@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 12:12:32 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/17 15:26:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 # define SHADER_LOADER_H
 
 # include "libft.h"
+# include "ft_list.h"
 # include "gl.h"
 
 # define LOAD_SHADER_BUFFER		256
 # define ERR_SHADER_BUFFER 		1024
+
+# define SHADER_START		(SUBC("//#shader "))
 
 /*
 ** ?enum loc length-macro(G_LOC_LENGTH)
@@ -138,5 +141,13 @@ extern struct s_enum_shader_t const		g_shader_t;
 ** a //#shader cannot be repeated (except 'all')
 */
 t_bool			load_shader(char const *file, t_shader *p);
+
+/*
+** internal
+*/
+
+t_bool			read_shader(int fd, t_list *lines, t_uint *s, t_shader_t t);
+
+t_bool			compile_shader(t_list *lines, t_uint *dst, t_shader_t t);
 
 #endif

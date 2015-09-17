@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:07:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/15 17:14:08 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/17 15:25:52 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define UTILS_H
 
 # include "libft.h"
+# include "ft_list.h"
 
 # define MEM_EQU(a,b,s)		(ft_memcmp((a), (b), (s)) == 0)
 
@@ -31,6 +32,18 @@
 ** Parse a float vector (separated by space)
 */
 t_bool			parse_fvec(t_sub line, float *vec, int len);
+
+/*
+** Remove 'n' node after 'node'
+** remove all nodes until the end if 'n' is negative
+*/
+void			ft_listremove_next(t_list *lst, void *node, int n);
+
+/*
+** Return true if 'sub' starts with 'start'
+** false otherwise
+*/
+t_bool			ft_substart(t_sub sub, t_sub start);
 
 /*
 ** Fps monitor
