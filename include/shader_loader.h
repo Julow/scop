@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 11:04:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/17 12:12:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,65 @@
 # define LOAD_SHADER_BUFFER		256
 # define ERR_SHADER_BUFFER 		1024
 
-typedef enum	e_locations
+/*
+** ?enum loc length-macro(G_LOC_LENGTH)
+** t_uint			index;
+** char const		*name;
+** model(0, "model"),
+** view(1, "view"),
+** projection(2, "projection"),
+** camera_pos(3, "camera_pos"),
+** light_pos(4, "light_pos"),
+** light_count(5, "light_count"),
+** ambient_map(6, "ambient_map"),
+** diffuse_map(7, "diffuse_map"),
+** specular_map(8, "specular_map"),
+** ambient_color(9, "ambient_color"),
+** diffuse_color(10, "diffuse_color"),
+** specular_color(11, "specular_color"),
+** specular_exp(12, "specular_exp"),
+*/
+
+struct			s_evalue_loc
 {
-	model,
-	view,
-	projection,
-	camera_pos,
-	light_pos,
-	light_count,
-	ambient_map,
-	diffuse_map,
-	specular_map,
-	ambient_color,
-	diffuse_color,
-	specular_color,
-	specular_exp,
-	locations_count
-}				t_locations;
+	t_uint			index;
+	char const		*name;
+
+};
+
+typedef struct s_evalue_loc const*		t_loc;
+
+struct			s_enum_loc
+{
+	t_loc			model;
+	t_loc			view;
+	t_loc			projection;
+	t_loc			camera_pos;
+	t_loc			light_pos;
+	t_loc			light_count;
+	t_loc			ambient_map;
+	t_loc			diffuse_map;
+	t_loc			specular_map;
+	t_loc			ambient_color;
+	t_loc			diffuse_color;
+	t_loc			specular_color;
+	t_loc			specular_exp;
+	int					length;
+	t_loc const	*values;
+};
+
+extern struct s_enum_loc const		g_loc;
+
+# define G_LOC_LENGTH		13
+
+/*
+** ?end
+*/
 
 typedef struct	s_shader
 {
 	t_uint			handle;
-	t_uint			loc[locations_count];
+	t_uint			loc[G_LOC_LENGTH];
 }				t_shader;
 
 typedef struct	s_shader_c
@@ -55,9 +92,9 @@ typedef struct	s_shader_c
 ** t_uint			index;
 ** t_sub			name;
 ** t_uint			gl_name;
-** ALL(1, SUBC("all"), 0),
-** VERT(2, SUBC("vert"), GL_VERTEX_SHADER),
-** FRAG(0, SUBC("frag"), GL_FRAGMENT_SHADER),
+** ALL(0, SUBC("all"), 0),
+** VERT(1, SUBC("vert"), GL_VERTEX_SHADER),
+** FRAG(2, SUBC("frag"), GL_FRAGMENT_SHADER),
 */
 
 struct			s_evalue_shader_t
@@ -72,9 +109,9 @@ typedef struct s_evalue_shader_t const*		t_shader_t;
 
 struct			s_enum_shader_t
 {
-	t_shader_t			FRAG;
 	t_shader_t			ALL;
 	t_shader_t			VERT;
+	t_shader_t			FRAG;
 	int					length;
 	t_shader_t const	*values;
 };

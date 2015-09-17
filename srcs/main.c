@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/15 23:41:03 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/17 11:24:07 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,13 +156,13 @@ void			render_obj(t_scop *scop, t_obj *obj)
 
 	glUseProgram(obj->shader->handle);
 	// vertex uniforms
-	glUniformMatrix4fv(obj->shader->loc[model], 2, GL_TRUE, (float*)obj_get_model(obj));
-	glUniformMatrix4fv(obj->shader->loc[view], 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
-	glUniformMatrix4fv(obj->shader->loc[projection], 1, GL_TRUE, (float*)&(scop->projection_m));
+	glUniformMatrix4fv(obj->shader->loc[g_loc.model->index], 2, GL_TRUE, (float*)obj_get_model(obj));
+	glUniformMatrix4fv(obj->shader->loc[g_loc.view->index], 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
+	glUniformMatrix4fv(obj->shader->loc[g_loc.projection->index], 1, GL_TRUE, (float*)&(scop->projection_m));
 	// light uniforms
-	glUniform3fv(obj->shader->loc[camera_pos], 1, (float*)&(scop->camera.position));
-	glUniform3fv(obj->shader->loc[light_pos], G_ARRAY_LEN(g_light_pos), (float*)g_light_pos);
-	glUniform1i(obj->shader->loc[light_count], G_ARRAY_LEN(g_light_pos));
+	glUniform3fv(obj->shader->loc[g_loc.camera_pos->index], 1, (float*)&(scop->camera.position));
+	glUniform3fv(obj->shader->loc[g_loc.light_pos->index], G_ARRAY_LEN(g_light_pos), (float*)g_light_pos);
+	glUniform1i(obj->shader->loc[g_loc.light_count->index], G_ARRAY_LEN(g_light_pos));
 	// -
 	glBindVertexArray(obj->mesh->vao);
 	offset = 0;
@@ -179,25 +179,25 @@ void			render_obj(t_scop *scop, t_obj *obj)
 			else
 				tmp = obj->texture->handle;
 			glBindTexture(GL_TEXTURE_2D, tmp);
-			glUniform1i(obj->shader->loc[ambient_map], 0);
-			glUniform3fv(obj->shader->loc[ambient_color], 1, (float*)&(obj->mesh->mtl[i].mtl->ambient_color));
+			glUniform1i(obj->shader->loc[g_loc.ambient_map->index], 0);
+			glUniform3fv(obj->shader->loc[g_loc.ambient_color->index], 1, (float*)&(obj->mesh->mtl[i].mtl->ambient_color));
 			glActiveTexture(GL_TEXTURE1);
 			if (obj->mesh->mtl[i].mtl->diffuse_map != NULL)
 				tmp = obj->mesh->mtl[i].mtl->diffuse_map->handle;
 			else
 				tmp = obj->texture->handle;
 			glBindTexture(GL_TEXTURE_2D, tmp);
-			glUniform1i(obj->shader->loc[diffuse_map], 1);
-			glUniform3fv(obj->shader->loc[diffuse_color], 1, (float*)&(obj->mesh->mtl[i].mtl->diffuse_color));
+			glUniform1i(obj->shader->loc[g_loc.diffuse_map->index], 1);
+			glUniform3fv(obj->shader->loc[g_loc.diffuse_color->index], 1, (float*)&(obj->mesh->mtl[i].mtl->diffuse_color));
 			glActiveTexture(GL_TEXTURE2);
 			if (obj->mesh->mtl[i].mtl->specular_map != NULL)
 				tmp = obj->mesh->mtl[i].mtl->specular_map->handle;
 			else
 				tmp = obj->texture->handle;
 			glBindTexture(GL_TEXTURE_2D, tmp);
-			glUniform1i(obj->shader->loc[specular_map], 2);
-			glUniform3fv(obj->shader->loc[specular_color], 1, (float*)&(obj->mesh->mtl[i].mtl->specular_color));
-			glUniform1i(obj->shader->loc[specular_exp], obj->mesh->mtl[i].mtl->specular_exp);
+			glUniform1i(obj->shader->loc[g_loc.specular_map->index], 2);
+			glUniform3fv(obj->shader->loc[g_loc.specular_color->index], 1, (float*)&(obj->mesh->mtl[i].mtl->specular_color));
+			glUniform1i(obj->shader->loc[g_loc.specular_exp->index], obj->mesh->mtl[i].mtl->specular_exp);
 		}
 		// draw
 		glDrawArrays(GL_TRIANGLES, offset, obj->mesh->mtl[i].count);

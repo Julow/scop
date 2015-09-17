@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/15 14:06:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 11:01:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/17 11:34:57 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,39 @@
 #include <fcntl.h>
 
 /*
+** ?enum-def loc
+*/
+
+struct s_enum_loc const	g_loc = {
+	&(struct s_evalue_loc){0, "model"},
+	&(struct s_evalue_loc){1, "view"},
+	&(struct s_evalue_loc){2, "projection"},
+	&(struct s_evalue_loc){3, "camera_pos"},
+	&(struct s_evalue_loc){4, "light_pos"},
+	&(struct s_evalue_loc){5, "light_count"},
+	&(struct s_evalue_loc){6, "ambient_map"},
+	&(struct s_evalue_loc){7, "diffuse_map"},
+	&(struct s_evalue_loc){8, "specular_map"},
+	&(struct s_evalue_loc){9, "ambient_color"},
+	&(struct s_evalue_loc){10, "diffuse_color"},
+	&(struct s_evalue_loc){11, "specular_color"},
+	&(struct s_evalue_loc){12, "specular_exp"},
+	13,
+	(t_loc const*)&g_loc
+};
+
+/*
+** ?end
+*/
+
+/*
 ** ?enum-def shader_t
 */
 
 struct s_enum_shader_t const	g_shader_t = {
-	&(struct s_evalue_shader_t){0, SUBC("frag"), GL_FRAGMENT_SHADER},
-	&(struct s_evalue_shader_t){1, SUBC("all"), 0},
-	&(struct s_evalue_shader_t){2, SUBC("vert"), GL_VERTEX_SHADER},
+	&(struct s_evalue_shader_t){0, SUBC("all"), 0},
+	&(struct s_evalue_shader_t){1, SUBC("vert"), GL_VERTEX_SHADER},
+	&(struct s_evalue_shader_t){2, SUBC("frag"), GL_FRAGMENT_SHADER},
 	3,
 	(t_shader_t const*)&g_shader_t
 };
@@ -31,22 +57,6 @@ struct s_enum_shader_t const	g_shader_t = {
 /*
 ** ?end
 */
-
-static char const *const g_locations[locations_count] = { // TODO generate
-	"model",
-	"view",
-	"projection",
-	"camera_pos",
-	"light_pos",
-	"light_count",
-	"ambient_map",
-	"diffuse_map",
-	"specular_map",
-	"ambient_color",
-	"diffuse_color",
-	"specular_color",
-	"specular_exp",
-};
 
 #define SHADER_START		(SUBC("//#shader "))
 
@@ -211,7 +221,7 @@ t_bool			load_shader(char const *file, t_shader *dst)
 			glDeleteShader(shaders[tmp]);
 	tmp = -1;
 	if (success)
-		while (++tmp < locations_count)
-			dst->loc[tmp] = glGetUniformLocation(dst->handle, g_locations[tmp]);
+		while (++tmp < g_loc.length)
+			dst->loc[g_loc.values[tmp]->index] = glGetUniformLocation(dst->handle, g_loc.values[tmp]->name);
 	return (success);
 }
