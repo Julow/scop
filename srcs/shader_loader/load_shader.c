@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/15 14:06:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 15:27:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/17 15:36:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ static t_bool	link_shader(t_uint *shaders, t_shader *dst)
 	i = -1;
 	while (++i < g_shader_t.length)
 		if (shaders[i] > 0)
-		{
-			ft_printf("Linking %s\n", g_shader_t.values[i]->name.str);
 			glAttachShader(dst->handle, shaders[i]);
-		}
 	glLinkProgram(dst->handle);
 	glGetProgramiv(dst->handle, GL_LINK_STATUS, &i);
 	if (i == 0)

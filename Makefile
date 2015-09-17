@@ -41,6 +41,11 @@ all: $(MODULE_RULES) libs $(NAME)
 # Include $(O_FILES) and dependencies
 -include $(DEPEND)
 
+# Run omg scripts
+omg:
+	omg include/shader_loader.h srcs/shader_loader/load_shader.c | python
+	omg include/resources.h srcs/resources/get_res.c | python
+
 # Linking
 $(NAME): $(LIBS_DEPEND) $(O_FILES)
 	clang $(FLAGS) -o $@ $(O_FILES) $(LINKS) && printf '\033[32m$@\033[0m\n'

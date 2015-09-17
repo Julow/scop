@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/08 19:15:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/09 19:30:04 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/17 15:58:27 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_bool			parse_mtllib(t_sub line, t_mesh_data *data)
 	line.length = 0;
 	if (!ft_subnext(&line, IS_SPACE))
 		return (ft_fdprintf(2, "mtllib need an argument"), false);
-	if ((data->mtllib = get_res(res_mtl, line)) == NULL)
+	if ((data->mtllib = get_res(g_res_t.mtl, line)) == NULL)
 		return (false);
 	data->mtllib = *(t_hmap**)data->mtllib;
 	return (true);

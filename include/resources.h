@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 13:07:48 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/09 18:37:52 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/17 16:03:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,46 @@
 # define MESHES_DIR			"res/obj/"
 # define MATERIALS_DIR		"res/mtl/"
 
-typedef enum	e_res_t
+/*
+** ?enum res_t length-macro(RES_T_COUNT)
+** int				index;
+** char const		*basedir;
+** t_bool			(*const loader)();
+** int				res_size;
+** shader(0, SHADERS_DIR, &load_shader, sizeof(t_shader)),
+** texture(1, TEXTURES_DIR, &load_texture, sizeof(t_texture)),
+** mesh(2, MESHES_DIR, &load_mesh, sizeof(t_mesh)),
+** mtl(3, MATERIALS_DIR, &load_mtl, sizeof(t_mtl)),
+*/
+
+struct			s_evalue_res_t
 {
-	res_shader,
-	res_texture,
-	res_mesh,
-	res_mtl,
-	res_t_count
-}				t_res_t;
+	int				index;
+	char const		*basedir;
+	t_bool			(*const loader)();
+	int				res_size;
+
+};
+
+typedef struct s_evalue_res_t const*		t_res_t;
+
+struct			s_enum_res_t
+{
+	t_res_t			shader;
+	t_res_t			texture;
+	t_res_t			mesh;
+	t_res_t			mtl;
+	int					length;
+	t_res_t const	*values;
+};
+
+extern struct s_enum_res_t const		g_res_t;
+
+# define RES_T_COUNT		4
+
+/*
+** ?end
+*/
 
 /*
 ** Search for a ressource with type 'type' and name 'name'
