@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/15 19:03:22 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/17 11:04:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SHADER_LOADER_H
 
 # include "libft.h"
+# include "gl.h"
 
 # define LOAD_SHADER_BUFFER		256
 # define ERR_SHADER_BUFFER 		1024
@@ -49,41 +50,40 @@ typedef struct	s_shader_c
 	struct s_shader_c	*prev;
 }				t_shader_c;
 
-// enum	ShaderType
-// {
-// 	char const		*str;
-// 	t_uint			gl_name;
-
-// 	ALL("lol", GL_VERTEX_SHADER),
-// 	VERT("lol", GL_VERTEX_SHADER),
-// 	FRAG("lol", GL_VERTEX_SHADER)
-// };
-
 /*
-** [enum] shader_type
-** char const		*name;
+** ?enum shader_t
+** t_uint			index;
+** t_sub			name;
 ** t_uint			gl_name;
-** ALL("all", 0),
-** VERT("vert", GL_VERTEX_SHADER),
-** FRAG("frag", GL_FRAGMENT_SHADER),
+** ALL(1, SUBC("all"), 0),
+** VERT(2, SUBC("vert"), GL_VERTEX_SHADER),
+** FRAG(0, SUBC("frag"), GL_FRAGMENT_SHADER),
 */
 
-// struct			s_ShaderType
-// {
-// 	char const		*str;
-// 	t_uint			gl_name;;
-// };
+struct			s_evalue_shader_t
+{
+	t_uint			index;
+	t_sub			name;
+	t_uint			gl_name;
 
-// static struct
-// {
-// 	struct s_ShaderType	ALL;
-// 	struct s_ShaderType	VERT;
-// 	struct s_ShaderType	FRAG;
-// } const ShaderType = {
-// 	{"all", 0},
-// 	{"vert", GL_VERTEX_SHADER},
-// 	{"frag", GL_FRAGMENT_SHADER},
-// }
+};
+
+typedef struct s_evalue_shader_t const*		t_shader_t;
+
+struct			s_enum_shader_t
+{
+	t_shader_t			FRAG;
+	t_shader_t			ALL;
+	t_shader_t			VERT;
+	int					length;
+	t_shader_t const	*values;
+};
+
+extern struct s_enum_shader_t const		g_shader_t;
+
+/*
+** ?end
+*/
 
 /*
 ** Load a shader program
