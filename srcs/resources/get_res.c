@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 13:07:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 16:03:55 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/18 16:26:06 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void const		*get_res(t_res_t type, t_sub name)
 	if ((res = ft_hmapget(res_caches[type->index], name)) != NULL)
 		return (res);
 	file_name = DSTR0();
-	ft_dstradd(&file_name, type->basedir, -1);
-	ft_dstradd(&file_name, name.str, name.length);
+	ft_dstradd(&file_name, ft_sub(type->basedir, 0, -1));
+	ft_dstradd(&file_name, name);
 	res = ft_hmapput(res_caches[type->index], name, NULL, type->res_size);
 	if (!type->loader(file_name.str, res))
 		ft_hmaprem(res_caches[type->index], name, (res = NULL));

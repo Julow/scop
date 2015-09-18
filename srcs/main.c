@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 15:58:51 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/18 17:36:35 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ static const t_scene_obj	g_scene[] = {
 	S_OBJ("42.obj", "wall.tga", "test.glsl", (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), 1.f),
 	S_OBJ("teapot.obj", "wall.tga", "test.glsl", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
 	S_OBJ("teapot2.obj", "wall.tga", "test.glsl", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
-	S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 0.5f),
+	S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
 };
 
 t_bool			load_scene(t_scop *scop)
@@ -177,7 +177,7 @@ void			render_obj(t_scop *scop, t_obj *obj)
 			if (obj->mesh->mtl[i].mtl->ambient_map != NULL)
 				tmp = obj->mesh->mtl[i].mtl->ambient_map->handle;
 			else
-				tmp = obj->texture->handle;
+				tmp = 0;
 			glBindTexture(GL_TEXTURE_2D, tmp);
 			glUniform1i(obj->shader->loc[g_loc.ambient_map->index], 0);
 			glUniform3fv(obj->shader->loc[g_loc.ambient_color->index], 1, (float*)&(obj->mesh->mtl[i].mtl->ambient_color));
@@ -185,7 +185,7 @@ void			render_obj(t_scop *scop, t_obj *obj)
 			if (obj->mesh->mtl[i].mtl->diffuse_map != NULL)
 				tmp = obj->mesh->mtl[i].mtl->diffuse_map->handle;
 			else
-				tmp = obj->texture->handle;
+				tmp = 0;
 			glBindTexture(GL_TEXTURE_2D, tmp);
 			glUniform1i(obj->shader->loc[g_loc.diffuse_map->index], 1);
 			glUniform3fv(obj->shader->loc[g_loc.diffuse_color->index], 1, (float*)&(obj->mesh->mtl[i].mtl->diffuse_color));
@@ -193,7 +193,7 @@ void			render_obj(t_scop *scop, t_obj *obj)
 			if (obj->mesh->mtl[i].mtl->specular_map != NULL)
 				tmp = obj->mesh->mtl[i].mtl->specular_map->handle;
 			else
-				tmp = obj->texture->handle;
+				tmp = 0;
 			glBindTexture(GL_TEXTURE_2D, tmp);
 			glUniform1i(obj->shader->loc[g_loc.specular_map->index], 2);
 			glUniform3fv(obj->shader->loc[g_loc.specular_color->index], 1, (float*)&(obj->mesh->mtl[i].mtl->specular_color));

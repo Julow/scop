@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:54:03 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/09 18:43:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/18 16:25:35 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TEXTURE_LOADER_H
 
 # include "libft.h"
+# include "ft_buff.h"
 
 typedef struct	s_texture
 {

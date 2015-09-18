@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/10 11:44:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/15 19:40:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/18 17:43:22 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void		main()
 		// Specular
 		vec3	camera_dir = normalize(camera_pos - fs_in.pos);
 		vec3	reflect_dir = reflect(-light_dir, fs_in.nor);
-		float	spec = pow(max(dot(camera_dir, reflect_dir), 0.f), specular_exp);
+		float	spec = max(pow(dot(camera_dir, reflect_dir), specular_exp), 0.f);
 		vec3	specular = spec * att * (FIX_GAMMA(specular_color) * FIX_GAMMA(vec3(texture(specular_map, fs_in.tex))));
 
 		light = max(light, diffuse + ambient + specular);
