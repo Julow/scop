@@ -6,11 +6,17 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/10 11:44:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/18 17:43:22 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/18 18:14:27 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #version 410 core
+
+#define GAMMA			2.2
+#define FIX_GAMMA(COL)	pow((COL), vec3(GAMMA))
+#define SET_GAMMA(COL)	pow((COL), vec3(1.f / GAMMA))
+
+#define MAX_LIGHT		10
 
 //#shader vert
 
@@ -42,12 +48,6 @@ void		main()
 
 //#shader frag
 
-#define GAMMA			2.2
-#define FIX_GAMMA(COL)	pow((COL), vec3(GAMMA))
-#define SET_GAMMA(COL)	pow((COL), vec3(1.f / GAMMA))
-
-#define MAX_LIGHT		10
-
 in			T_VSHADER_OUT
 {
 	vec3		pos;
@@ -69,6 +69,9 @@ uniform vec3		diffuse_color;
 uniform vec3		specular_color;
 uniform int			specular_exp;
 
+float				att_dist = 1000.f;
+int					att_exp = 4;
+
 void		main()
 {
 	vec3		light = vec3(0.f);
@@ -77,11 +80,12 @@ void		main()
 	{
 		// Ambient
 		vec3	ambient = FIX_GAMMA(ambient_color) * FIX_GAMMA(vec3(texture(ambient_map, fs_in.tex)));
-		// Diffuse
+		// Attenuation
 		float	camera_dist = length(light_pos[i] - fs_in.pos);
-		vec3	light_dir = normalize(light_pos[i] - fs_in.pos);
+		float	att = pow(max(1.f - camera_dist / att_dist, 0.f), att_exp);
+		// Diffuse
+		vec3	light_dir = (light_pos[i] - fs_in.pos) / camera_dist;
 		float	diff = max(dot(fs_in.nor, light_dir), 0.f);
-		float	att = 1.f - camera_dist / 800.f;
 		vec3	diffuse = diff * att * (FIX_GAMMA(diffuse_color) * FIX_GAMMA(vec3(texture(diffuse_map, fs_in.tex))));
 		// Specular
 		vec3	camera_dir = normalize(camera_pos - fs_in.pos);
