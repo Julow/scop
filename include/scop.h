@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/09 18:47:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/18 19:49:39 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "texture_loader.h"
 
 # define WIN_RATIO			(1.f)
-# define WIN_HEIGHT			1300
+# define WIN_HEIGHT			900
 # define WIN_WIDTH			((int)(WIN_HEIGHT * WIN_RATIO))
 
 # define WIN_TITLE			"Scop"
@@ -31,7 +31,7 @@
 # define PERSPECTIVE_NEAR	0.01f
 # define PERSPECTIVE_FAR	1000.f
 
-# define MOVE_SPEED			0.00001f
+# define MOVE_SPEED			0.00002f
 # define CURSOR_SPEED		3.f
 # define ACCELERATION		10.f
 
