@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 16:02:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 19:00:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ typedef struct	s_shader_c
 ** t_uint			index;
 ** t_sub			name;
 ** t_uint			gl_name;
-** ALL(0, SUBC("all"), 0),
-** VERT(1, SUBC("vert"), GL_VERTEX_SHADER),
-** FRAG(2, SUBC("frag"), GL_FRAGMENT_SHADER),
+** all(0, SUBC("all"), 0),
+** vert(1, SUBC("vert"), GL_VERTEX_SHADER),
+** frag(2, SUBC("frag"), GL_FRAGMENT_SHADER),
 */
 
 struct			s_evalue_shader_t
@@ -112,9 +112,9 @@ typedef struct s_evalue_shader_t const*		t_shader_t;
 
 struct			s_enum_shader_t
 {
-	t_shader_t			ALL;
-	t_shader_t			VERT;
-	t_shader_t			FRAG;
+	t_shader_t			all;
+	t_shader_t			vert;
+	t_shader_t			frag;
 	int					length;
 	t_shader_t const	*values;
 };

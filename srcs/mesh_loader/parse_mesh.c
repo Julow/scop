@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:49:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/06 02:49:37 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/19 18:36:20 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ t_bool			parse_mesh(char const *file, t_mesh_data *data)
 			{
 				if (g_tokens[i].f != NULL && !g_tokens[i].f(ft_subsub(line,
 					g_tokens[i].token.length, -1), data) && !IGNORE_ERROR)
-					return (close(fd), false);
+				{
+					close(fd);
+					return (false);
+				}
 				break ;
 			}
 	}

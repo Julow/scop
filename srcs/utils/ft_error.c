@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_mtl.c                                         :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/03 15:07:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 19:36:05 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/09/19 18:03:21 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/09/19 19:06:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mtl_loader.h"
 #include "utils.h"
-#include <fcntl.h>
-#include <unistd.h>
-#include <errno.h>
-#include <string.h>
+#include "ft_internal.h"
 
-t_bool			load_mtl(char const *file, t_hmap **mtl)
+int				ft_error(int ret, char const *format, ...)
 {
-	int				fd;
-	t_bool			ret;
+	t_printf		pf;
+	va_list			ap;
+	int				old_fd;
 
-	if ((fd = open(file, O_RDONLY)) < 0)
-		return (ft_error(false, "Cannot open %s", file));
-	*mtl = ft_hmapnew(50, &ft_djb2);
-	ret = parse_mtl(fd, *mtl);
-	close(fd);
-	if (!ret)
-		ft_hmapdestroy(*mtl, NULL);
+	old_fd = FTOUT->fd;
+	ft_out(2);
+	PS("Error: ");
+	va_start(ap, format);
+	pf = (t_printf){FTOUT, 0, &ap};
+	writef(&pf, format);
+	va_end(ap);
+	PC('\n');
+	ft_flush(pf.out);
+	ft_out(old_fd);
 	return (ret);
 }

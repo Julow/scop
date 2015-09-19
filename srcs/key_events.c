@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 18:11:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 19:36:29 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ static void		key_callback(GLFWwindow *window, int key, int scancode,
 		else if (g_events[i].flags & KEY_FLAG && action == GLFW_PRESS)
 			(*(int*)(save_env(NULL) + (g_events[i].action >> 32))) |= g_events[i].action & 0xFFFFFFFF;
 	}
-	// ft_printf("key event key=%d; scancode=%d; action=%d; mode=%d;\n",
-	// 	key, scancode, action, mode);
 	(void)scancode;
 	(void)mode;
 }

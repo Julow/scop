@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/15 14:06:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 15:36:38 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 19:05:59 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_bool			load_shader(char const *file, t_shader *dst)
 		return (false);
 	ft_bzero(shaders, sizeof(t_uint[g_shader_t.length]));
 	lines = LIST(t_sub);
-	success = read_shader(tmp, &lines, shaders, g_shader_t.ALL);
+	success = read_shader(tmp, &lines, shaders, g_shader_t.all);
 	close(tmp);
 	ft_listremove_next(&lines, LIST_IT(&lines), -1);
 	success = success && link_shader(shaders, dst);
@@ -100,6 +100,7 @@ t_bool			load_shader(char const *file, t_shader *dst)
 	tmp = -1;
 	if (success)
 		while (++tmp < g_loc.length)
-			dst->loc[g_loc.values[tmp]->index] = glGetUniformLocation(dst->handle, g_loc.values[tmp]->name);
+			dst->loc[g_loc.values[tmp]->index] =
+				glGetUniformLocation(dst->handle, g_loc.values[tmp]->name);
 	return (success);
 }

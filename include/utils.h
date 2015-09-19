@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:07:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 15:25:52 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 18:17:52 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ void			ft_listremove_next(t_list *lst, void *node, int n);
 ** false otherwise
 */
 t_bool			ft_substart(t_sub sub, t_sub start);
+
+/*
+** Print an error
+** Return ret
+*/
+int				ft_error(int ret, char const *format, ...);
 
 /*
 ** Fps monitor

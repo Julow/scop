@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 15:54:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 19:42:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ t_mat4			*obj_get_model(t_obj *obj)
 		ft_mat4scale(obj->model_m, obj->scale);
 		ft_mat4rotate(obj->model_m, obj->rotation);
 		obj->model_m[1] = MAT4_I();
-		ft_mat4rotate_inv(obj->model_m + 1, ft_vec3sub(VEC3_0(), obj->rotation));
+		ft_mat4rotate_inv(obj->model_m + 1,
+			ft_vec3sub(VEC3_0(), obj->rotation));
 		ft_mat4scale(obj->model_m + 1, 1.f / obj->scale);
 		ft_mat4translate(obj->model_m + 1, ft_vec3sub(VEC3_0(), obj->position));
 		ft_mat4transpose(obj->model_m + 1);
@@ -69,7 +70,7 @@ void			camera_move(t_camera *camera, t_vec3 pos)
 
 void			camera_look(t_camera *camera, t_vec2 look)
 {
-	float const		pi2 = M_PI / 2.f - 0.0001; // lol
+	float const		pi2 = M_PI / 2.f - 0.0001;
 
 	camera->look.x = look.x;
 	camera->look.y = look.y;
@@ -90,7 +91,8 @@ t_mat4			*camera_get_view(t_camera *camera)
 		look_at.x += camera->position.x;
 		look_at.y += camera->position.y;
 		look_at.z += camera->position.z;
-		camera->view_m = ft_mat4look_at(camera->position, look_at, VEC3(0.f, 1.f, 0.f));
+		camera->view_m = ft_mat4look_at(camera->position, look_at,
+			VEC3(0.f, 1.f, 0.f));
 		camera->flags &= ~F_CAMERA_UPDATED;
 	}
 	return (&(camera->view_m));
@@ -130,8 +132,8 @@ t_bool			load_scene(t_scop *scop)
 	{
 		ft_bzero(&obj, sizeof(t_obj));
 		if ((obj.mesh = get_res(g_res_t.mesh, g_scene[i].mesh)) == NULL
-			|| (obj.texture = get_res(g_res_t.texture, g_scene[i].texture)) == NULL
-			|| (obj.shader = get_res(g_res_t.shader, g_scene[i].shader)) == NULL)
+		|| (obj.texture = get_res(g_res_t.texture, g_scene[i].texture)) == NULL
+		|| (obj.shader = get_res(g_res_t.shader, g_scene[i].shader)) == NULL)
 			continue ;
 		obj_move(&obj, g_scene[i].pos);
 		obj_rotate(&obj, g_scene[i].rot);
@@ -154,6 +156,7 @@ void			render_obj(t_scop *scop, t_obj *obj)
 {
 	int			i;
 	int			offset;
+	t_uint		tmp;
 
 	glUseProgram(obj->shader->handle);
 	// vertex uniforms
@@ -173,7 +176,6 @@ void			render_obj(t_scop *scop, t_obj *obj)
 		// material uniforms
 		if (obj->mesh->mtl[i].mtl != NULL)
 		{
-			t_uint tmp;
 			glActiveTexture(GL_TEXTURE0);
 			if (obj->mesh->mtl[i].mtl->ambient_map != NULL)
 				tmp = obj->mesh->mtl[i].mtl->ambient_map->handle;
@@ -238,7 +240,8 @@ int				main(void)
 	ft_bzero(&scop, sizeof(scop));
 	scop.objects = VECTOR(t_obj);
 	scop.camera = CAMERA(VEC3_0(), VEC2_0());
-	scop.projection_m = ft_mat4perspective(PERSPECTIVE_FOV, WIN_RATIO, PERSPECTIVE_NEAR, PERSPECTIVE_FAR);
+	scop.projection_m = ft_mat4perspective(PERSPECTIVE_FOV, WIN_RATIO,
+		PERSPECTIVE_NEAR, PERSPECTIVE_FAR);
 	if (!init_window(&scop) || !load_scene(&scop))
 		return (1);
 	init_key_events(&scop);
@@ -260,6 +263,7 @@ int				main(void)
 		handle_input(&scop, fps.elapsed);
 	}
 	ft_printf("\n");
-	return (glfwTerminate(), 0);
+	glfwTerminate();
+	return (0);
 }
 	

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:20:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 15:27:55 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 19:06:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_bool	get_shader_type(t_sub line, t_shader_t *t)
 
 static t_bool	read_shader_end(t_list *lines, t_uint *s, t_shader_t t)
 {
-	if (t != g_shader_t.ALL)
+	if (t != g_shader_t.all)
 	{
 		if (s[t->index] > 0)
 			glDeleteShader(s[t->index]);
@@ -44,7 +44,7 @@ static t_bool	read_shader_end(t_list *lines, t_uint *s, t_shader_t t)
 
 t_bool			read_shader(int fd, t_list *lines, t_uint *s, t_shader_t t)
 {
-	t_sub			*const start_line = lines->last;
+	t_sub *const	start_line = lines->last;
 	t_sub			*tmp;
 	t_sub			line;
 
@@ -53,7 +53,7 @@ t_bool			read_shader(int fd, t_list *lines, t_uint *s, t_shader_t t)
 		{
 			if (!read_shader_end(lines, s, t))
 				return (false);
-			if (t != g_shader_t.ALL)
+			if (t != g_shader_t.all)
 				ft_listremove_next(lines, start_line, -1);
 			if (!get_shader_type(line, &t))
 				return (false);

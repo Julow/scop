@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:21:09 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 15:27:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 18:52:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void		shader_error(t_uint id, t_shader_t t)
 	glGetShaderInfoLog(id, ERR_SHADER_BUFFER, NULL, err_buff);
 	ft_printf(C_RED "Shader Error (%s):" C_RESET " %s\n", t->name.str, err_buff);
 }
+
 
 t_bool			compile_shader(t_list *lines, t_uint *dst, t_shader_t t)
 {

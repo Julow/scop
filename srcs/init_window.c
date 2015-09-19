@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:50:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:27:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 18:38:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
+#include "utils.h"
 
 #ifdef MAC_OS_MODE
 # define INIT_GLEW			true
@@ -29,7 +30,7 @@
 t_bool			init_window(t_scop *scop)
 {
 	if (glfwInit() != GL_TRUE)
-		return (ft_printf("Error: Cannot init GLFW"), false);
+		return (ft_error(false, "Cannot init GLFW"));
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_SAMPLES, 4);
@@ -40,11 +41,14 @@ t_bool			init_window(t_scop *scop)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, OPENGL_PROFILE);
 	if ((scop->window = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, WIN_TITLE,
 		NULL, NULL)) == NULL)
-		return (glfwTerminate(), ft_printf("Error: Cannot init window"), false);
+	{
+		glfwTerminate();
+		return (ft_error(false, "Cannot init window"));
+	}
 	glfwMakeContextCurrent(scop->window);
 	glfwSetInputMode(scop->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	if (!INIT_GLEW)
-		return (ft_printf("Error: Cannot init GLEW"), false);
+		return (ft_error(false, "Cannot init GLEW"));
 	glViewport(0, 0, WIN_WIDTH, WIN_HEIGHT);
 	glEnable(GL_DEPTH_TEST);
 	return (true);

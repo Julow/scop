@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:54:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:42:41 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 18:37:52 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static t_bool	parse_f_tri(t_sub *line, int *face)
 		if (line->length <= tmp)
 			break ;
 		if (line->str[tmp] != '/')
-			return (ft_printf("Invalid separator\n"), false);
+			return (ft_error(false, "Invalid separator"));
 		tmp++;
 		line->str += tmp;
 		line->length -= tmp;

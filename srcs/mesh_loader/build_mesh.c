@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:59:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:55:05 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 18:39:47 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mesh_loader.h"
+#include "utils.h"
 
 static t_bool	center_vertices(t_vector *vertices)
 {
@@ -51,7 +52,7 @@ static t_bool	build_face(t_mesh_data *data, int *face, int *ebo_id)
 		if (data->v.length <= face[0 + i]
 			|| data->vt.length <= face[1 + i]
 			|| data->vn.length <= face[2 + i])
-			return (ft_printf("Face out of bounds\n"), false);
+			return (ft_error(false, "Face out of bounds\n"));
 		ft_vpush_back(&(data->vbo_data), VECTOR_GET(data->v, face[0 + i]), 3);
 		ft_vpush_back(&(data->vbo_data), VECTOR_GET(data->vt, face[1 + i]), 2);
 		ft_vpush_back(&(data->vbo_data), VECTOR_GET(data->vn, face[2 + i]), 3);

@@ -6,18 +6,19 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/08 19:15:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 15:58:27 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 19:31:43 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mesh_loader.h"
 #include "resources.h"
+#include "utils.h"
 
 t_bool			parse_mtllib(t_sub line, t_mesh_data *data)
 {
 	line.length = 0;
 	if (!ft_subnext(&line, IS_SPACE))
-		return (ft_fdprintf(2, "mtllib need an argument"), false);
+		return (ft_error(false, "mtllib need an argument"));
 	if ((data->mtllib = get_res(g_res_t.mtl, line)) == NULL)
 		return (false);
 	data->mtllib = *(t_hmap**)data->mtllib;
@@ -33,7 +34,7 @@ t_bool			parse_usemtl(t_sub line, t_mesh_data *data)
 	if (data->mtllib == NULL)
 		return (false);
 	if (!ft_subnextc(&line, ' '))
-		return (ft_fdprintf(2, "usemtl need an argument\n"), false);
+		return (ft_error(false, "usemtl need an argument\n"));
 	if ((mtl = ft_hmapget(data->mtllib, line)) == NULL)
 		return (false);
 	tmp = VECTOR_GET(data->mtl, data->mtl.length - 1);

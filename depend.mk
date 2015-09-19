@@ -13,15 +13,16 @@ O_FILES :=	o/srcs/init_window.o o/srcs/key_events.o o/srcs/main.o \
 			o/srcs/mesh_loader/parse_mesh_tokens_mtl.o \
 			o/srcs/mesh_loader/send_mesh.o o/srcs/motions.o \
 			o/srcs/mouse_events.o o/srcs/mtl_loader/load_mtl.o \
-			o/srcs/mtl_loader/parse_mtl.o o/srcs/mtl_loader/parse_mtl_token.o \
+			o/srcs/mtl_loader/parse_mtl.o o/srcs/mtl_loader/parse_mtl_tokens.o \
+			o/srcs/mtl_loader/parse_mtl_tokens_map.o \
 			o/srcs/resources/get_res.o o/srcs/shader_loader/compile_shader.o \
 			o/srcs/shader_loader/load_shader.o \
 			o/srcs/shader_loader/read_shader.o \
 			o/srcs/texture_loader/ft_loadimage.o \
 			o/srcs/texture_loader/load_texture.o \
 			o/srcs/texture_loader/tga_parser.o o/srcs/utils/fps.o \
-			o/srcs/utils/ft_listremove_next.o o/srcs/utils/ft_substart.o \
-			o/srcs/utils/parse_fvec.o
+			o/srcs/utils/ft_error.o o/srcs/utils/ft_listremove_next.o \
+			o/srcs/utils/ft_substart.o o/srcs/utils/parse_fvec.o
 
 LIBS_DEPEND := libft/libft.a
 
@@ -32,7 +33,7 @@ libs:
 o/srcs/init_window.o: srcs/init_window.c include/scop.h include/gl.h \
 	include/shader_loader.h include/gl.h include/mesh_loader.h \
 	include/mtl_loader.h include/texture_loader.h include/math_utils.h \
-	include/math_utils.h include/texture_loader.h | o/srcs/
+	include/math_utils.h include/texture_loader.h include/utils.h | o/srcs/
 o/srcs/key_events.o: srcs/key_events.c include/scop.h include/gl.h \
 	include/shader_loader.h include/gl.h include/mesh_loader.h \
 	include/mtl_loader.h include/texture_loader.h include/math_utils.h \
@@ -71,7 +72,8 @@ o/srcs/math_utils/ft_vec3sub.o: srcs/math_utils/ft_vec3sub.c \
 	include/math_utils.h | o/srcs/math_utils/
 o/srcs/mesh_loader/build_mesh.o: srcs/mesh_loader/build_mesh.c \
 	include/mesh_loader.h include/mtl_loader.h include/texture_loader.h \
-	include/math_utils.h include/math_utils.h | o/srcs/mesh_loader/
+	include/math_utils.h include/math_utils.h include/utils.h \
+	| o/srcs/mesh_loader/
 o/srcs/mesh_loader/build_mtl.o: srcs/mesh_loader/build_mtl.c \
 	include/mesh_loader.h include/mtl_loader.h include/texture_loader.h \
 	include/math_utils.h include/math_utils.h | o/srcs/mesh_loader/
@@ -89,7 +91,8 @@ o/srcs/mesh_loader/parse_mesh_tokens.o: srcs/mesh_loader/parse_mesh_tokens.c \
 o/srcs/mesh_loader/parse_mesh_tokens_mtl.o: \
 	srcs/mesh_loader/parse_mesh_tokens_mtl.c include/mesh_loader.h \
 	include/mtl_loader.h include/texture_loader.h include/math_utils.h \
-	include/math_utils.h include/resources.h | o/srcs/mesh_loader/
+	include/math_utils.h include/resources.h include/utils.h \
+	| o/srcs/mesh_loader/
 o/srcs/mesh_loader/send_mesh.o: srcs/mesh_loader/send_mesh.c \
 	include/mesh_loader.h include/mtl_loader.h include/texture_loader.h \
 	include/math_utils.h include/math_utils.h include/gl.h | o/srcs/mesh_loader/
@@ -107,9 +110,13 @@ o/srcs/mtl_loader/load_mtl.o: srcs/mtl_loader/load_mtl.c include/mtl_loader.h \
 o/srcs/mtl_loader/parse_mtl.o: srcs/mtl_loader/parse_mtl.c \
 	include/mtl_loader.h include/texture_loader.h include/math_utils.h \
 	include/utils.h | o/srcs/mtl_loader/
-o/srcs/mtl_loader/parse_mtl_token.o: srcs/mtl_loader/parse_mtl_token.c \
+o/srcs/mtl_loader/parse_mtl_tokens.o: srcs/mtl_loader/parse_mtl_tokens.c \
 	include/mtl_loader.h include/texture_loader.h include/math_utils.h \
-	include/utils.h include/resources.h | o/srcs/mtl_loader/
+	include/utils.h | o/srcs/mtl_loader/
+o/srcs/mtl_loader/parse_mtl_tokens_map.o: \
+	srcs/mtl_loader/parse_mtl_tokens_map.c include/mtl_loader.h \
+	include/texture_loader.h include/math_utils.h include/resources.h \
+	| o/srcs/mtl_loader/
 o/srcs/resources/get_res.o: srcs/resources/get_res.c include/resources.h \
 	include/shader_loader.h include/gl.h include/mesh_loader.h \
 	include/mtl_loader.h include/texture_loader.h include/math_utils.h \
@@ -132,6 +139,7 @@ o/srcs/texture_loader/load_texture.o: srcs/texture_loader/load_texture.c \
 o/srcs/texture_loader/tga_parser.o: srcs/texture_loader/tga_parser.c \
 	include/texture_loader.h | o/srcs/texture_loader/
 o/srcs/utils/fps.o: srcs/utils/fps.c include/utils.h | o/srcs/utils/
+o/srcs/utils/ft_error.o: srcs/utils/ft_error.c include/utils.h | o/srcs/utils/
 o/srcs/utils/ft_listremove_next.o: srcs/utils/ft_listremove_next.c \
 	include/utils.h | o/srcs/utils/
 o/srcs/utils/ft_substart.o: srcs/utils/ft_substart.c include/utils.h \

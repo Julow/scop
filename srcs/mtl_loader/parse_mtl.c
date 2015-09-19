@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:13:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 16:39:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 18:42:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ t_bool			parse_mtl(int fd, t_hmap *mtl_lib)
 		line.length = 0;
 		if (!ft_subnext(&line, IS_SPACE))
 			continue ;
-		if (ft_subequ(line, SUBC("newmtl")) && !new_mtl_token(line, mtl_lib, &curr_mtl))
+		if (ft_subequ(line, SUBC("newmtl"))
+			&& !new_mtl_token(line, mtl_lib, &curr_mtl))
 			return (false);
 		if (curr_mtl == NULL)
 			continue ;
