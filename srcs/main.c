@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/18 20:05:28 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/19 15:03:42 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,10 @@ typedef struct	s_scene_obj
 
 static const t_scene_obj	g_scene[] = {
 	S_OBJ("42.obj", "wall.tga", "test.glsl", (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), 1.f),
-	S_OBJ("cube.obj", "wall.tga", "test.glsl", (0.f, 10.f, 0.f), (0.f, 1.f, 0.5f), 1.f),
+	S_OBJ("cube.obj", "wall.tga", "test.glsl", (20.f, 0.f, 20.f), (0.f, 0.f, 0.f), 1.f),
 	S_OBJ("teapot.obj", "wall.tga", "test.glsl", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
 	S_OBJ("teapot2.obj", "wall.tga", "test.glsl", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
+	// S_OBJ("cube.obj", "wall.tga", "test.glsl", (0.f, -55.f, 0.f), (0.f, 0.f, 0.f), 50.f),
 	S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
 };
 
@@ -144,9 +145,9 @@ t_bool			load_scene(t_scop *scop)
 ** -
 */
 static t_vec3 const	g_light_pos[] = { // TMP
-	{-35.f, -7.f, 0.f},
-	{176.f, -5.f, 55.f},
-	{0.f, 50.f, 0.f},
+	// {-35.f, -7.f, 0.f},
+	// {176.f, -5.f, 55.f},
+	{20.f, 0.f, 20.f},
 };
 
 void			render_obj(t_scop *scop, t_obj *obj)
@@ -217,6 +218,17 @@ void			render(t_scop *scop)
 		render_obj(scop, VECTOR_GET(scop->objects, i));
 }
 
+static void		handle_input(t_scop *scop, float elapsed)
+{
+	t_vec3			pos;
+	t_vec2			look;
+
+	if (handle_key_hold(scop, elapsed, &pos))
+		camera_move(&(scop->camera), pos);
+	if (handle_cursor_move(scop, &look))
+		camera_look(&(scop->camera), look);
+}
+
 int				main(void)
 {
 	t_scop			scop;
@@ -245,8 +257,7 @@ int				main(void)
 			ft_printf("\rFPS: %-2lld t: %-3lld flags: %016b",
 				fps.average_fps, fps.average_time, scop.flags);
 		}
-		handle_key_hold(&scop, fps.elapsed);
-		handle_cursor_move(&scop);
+		handle_input(&scop, fps.elapsed);
 	}
 	ft_printf("\n");
 	return (glfwTerminate(), 0);

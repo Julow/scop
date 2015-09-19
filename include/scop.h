@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/18 19:49:39 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/19 13:48:49 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "texture_loader.h"
 
 # define WIN_RATIO			(1.f)
-# define WIN_HEIGHT			900
+# define WIN_HEIGHT			1100
 # define WIN_WIDTH			((int)(WIN_HEIGHT * WIN_RATIO))
 
 # define WIN_TITLE			"Scop"
@@ -92,7 +92,7 @@ void			init_mouse_events(t_scop *scop);
 /*
 ** update
 */
-void			handle_key_hold(t_scop *scop, float elapsed);
-void			handle_cursor_move(t_scop *scop);
+t_bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos);
+t_bool			handle_cursor_move(t_scop *scop, t_vec2 *look);
 
 #endif
