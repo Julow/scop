@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:13:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/14 16:43:16 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/19 16:39:48 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,25 @@ static t_mtl_token const	g_mtl_tokens[] = {
 	{SUBC("map_Ks"), &map_ks_token},
 };
 
-t_bool			parse_mtl(int fd, t_hmap *mtl)
+static t_bool	new_mtl_token(t_sub line, t_hmap *mtl_lib, t_mtl **dst)
+{
+	t_mtl const		default_mtl = {
+		NULL,
+		NULL,
+		NULL,
+		VEC3(1.f, 1.f, 1.f),
+		VEC3(1.f, 1.f, 1.f),
+		VEC3(1.f, 1.f, 1.f),
+		1
+	};
+
+	if (!ft_subnextc(&line, ' '))
+		return (false);
+	*dst = ft_hmapput(mtl_lib, line, &default_mtl, sizeof(t_mtl));
+	return (true);
+}
+
+t_bool			parse_mtl(int fd, t_hmap *mtl_lib)
 {
 	t_mtl			*curr_mtl;
 	t_sub			line;
@@ -35,9 +53,8 @@ t_bool			parse_mtl(int fd, t_hmap *mtl)
 		line.length = 0;
 		if (!ft_subnext(&line, IS_SPACE))
 			continue ;
-		if (ft_subequ(line, SUBC("newmtl")))
-			curr_mtl = ft_subnextc(&line, ' ') ?
-				ft_hmapput(mtl, line, NULL, sizeof(t_mtl)) : NULL;
+		if (ft_subequ(line, SUBC("newmtl")) && !new_mtl_token(line, mtl_lib, &curr_mtl))
+			return (false);
 		if (curr_mtl == NULL)
 			continue ;
 		i = -1;

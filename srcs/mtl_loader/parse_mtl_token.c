@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:12:53 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 15:56:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/19 15:53:18 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ t_bool			specular_color_token(t_sub line, t_mtl *mtl)
 
 t_bool			specular_exp_token(t_sub line, t_mtl *mtl)
 {
-	return (ft_subint(line, &(mtl->specular_exp)));
+	float			ns;
+
+	if (!ft_subnext(&line, IS_SPACE) || ft_subfloat(line, &ns) == 0)
+		return (false);
+	mtl->specular_exp = ROUND(ns);
+	return (true);
 }
 
 t_bool			map_ka_token(t_sub line, t_mtl *mtl)
