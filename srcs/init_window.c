@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:50:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 18:38:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/20 23:33:30 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,9 @@ t_bool			init_window(t_scop *scop)
 		return (ft_error(false, "Cannot init GLEW"));
 	glViewport(0, 0, WIN_WIDTH, WIN_HEIGHT);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_MULTISAMPLE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_CULL_FACE);
 	return (true);
 }

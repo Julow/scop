@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/20 18:54:36 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/20 23:37:57 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,10 @@ typedef struct	s_scene_obj
 static const t_scene_obj	g_scene[] = {
 	S_OBJ("42.obj", "wall.tga", "test.glsl", (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), 1.f),
 	S_OBJ("cube.obj", "wall.tga", "test.glsl", (20.f, 0.f, 20.f), (0.f, 0.f, 0.f), 1.f),
+	S_OBJ("cube.obj", "wall.tga", "test.glsl", (-700.f, 120.f, -750.f), (0.f, 0.f, 0.f), 1.f),
 	S_OBJ("teapot.obj", "wall.tga", "test.glsl", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
 	S_OBJ("teapot2.obj", "wall.tga", "test.glsl", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
-	// S_OBJ("cube.obj", "wall.tga", "test.glsl", (0.f, -55.f, 0.f), (0.f, 0.f, 0.f), 50.f),
+	S_OBJ("cube.obj", "wall.tga", "test.glsl", (0.f, -55.f, 0.f), (0.f, 0.f, 0.f), 50.f),
 	S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
 };
 
@@ -258,7 +259,7 @@ int				main(void)
 		PERSPECTIVE_NEAR, PERSPECTIVE_FAR);
 	if (!init_window(&scop) || !load_scene(&scop))
 		return (1);
-	// glfwSwapInterval(0);
+	glfwSwapInterval(0);
 	init_key_events(&scop);
 	init_mouse_events(&scop);
 	fps = fps_init(200000);

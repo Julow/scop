@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/10 11:44:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/20 19:17:45 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/20 23:00:10 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,15 @@ uniform int			specular_exp;
 
 void		main()
 {
+	vec4		diffuse_map_color = texture(diffuse_map, fs_in.tex);
+
+	if (diffuse_map_color.w < 0.01)
+		discard ;
+
 	vec3		light = vec3(0.f);
 	vec3		nor = normalize(fs_in.nor);
 	vec3		ambient_col = FIX_GAMMA(ambient_color) * FIX_GAMMA(vec3(texture(ambient_map, fs_in.tex)));
-	vec3		diffuse_col = FIX_GAMMA(diffuse_color) * FIX_GAMMA(vec3(texture(diffuse_map, fs_in.tex)));
+	vec3		diffuse_col = FIX_GAMMA(diffuse_color) * FIX_GAMMA(vec3(diffuse_map_color));
 	vec3		specular_col = FIX_GAMMA(specular_color) * FIX_GAMMA(vec3(texture(specular_map, fs_in.tex)));
 
 	for (int i = 0; i < light_count; i++)
@@ -137,5 +142,5 @@ void		main()
 
 		light = max(light, (diffuse + specular) * intensity + ambient_col);
 	}
-	color = vec4(SET_GAMMA(light), 1.f);
+	color = vec4(SET_GAMMA(light), diffuse_map_color.w);
 }

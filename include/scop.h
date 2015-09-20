@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/20 14:42:42 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/20 22:40:36 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 # define PERSPECTIVE_FOV	42.f
 # define PERSPECTIVE_NEAR	0.01f
-# define PERSPECTIVE_FAR	1000.f
+# define PERSPECTIVE_FAR	10000.f
 
 # define MOVE_SPEED			0.00002f
 # define CURSOR_SPEED		3.f
