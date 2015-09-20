@@ -38,7 +38,6 @@ struct			s_evalue_res_t
 	char const		*basedir;
 	t_bool			(*const loader)();
 	int				res_size;
-
 };
 
 typedef struct s_evalue_res_t const*		t_res_t;

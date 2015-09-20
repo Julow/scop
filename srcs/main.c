@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 19:42:11 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/20 18:54:36 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ static const t_scene_obj	g_scene[] = {
 	S_OBJ("cube.obj", "wall.tga", "test.glsl", (20.f, 0.f, 20.f), (0.f, 0.f, 0.f), 1.f),
 	S_OBJ("teapot.obj", "wall.tga", "test.glsl", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
 	S_OBJ("teapot2.obj", "wall.tga", "test.glsl", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
-	S_OBJ("cube.obj", "wall.tga", "test.glsl", (0.f, -55.f, 0.f), (0.f, 0.f, 0.f), 50.f),
-	// S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
+	// S_OBJ("cube.obj", "wall.tga", "test.glsl", (0.f, -55.f, 0.f), (0.f, 0.f, 0.f), 50.f),
+	S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
 };
 
 t_bool			load_scene(t_scop *scop)
@@ -146,10 +146,24 @@ t_bool			load_scene(t_scop *scop)
 /*
 ** -
 */
-static t_vec3 const	g_light_pos[] = { // TMP
-	// {-35.f, -7.f, 0.f},
-	// {176.f, -5.f, 55.f},
-	{20.f, 0.f, 20.f},
+#define LIGHT(x,y,z,att)			{0.f, att, 0.f}, {x, y, z}
+#define SPOT(x,y,z,dx,dy,dz,c,o)	{1.f, c, o}, {x, y, z}, {dx, dy, dz}
+
+/*
+** ?omg
+** import math
+** out("#define SPOT_CUTOFF %f\n" % math.cos(math.pi - (math.pi / 4)))
+** out("#define SPOT_OUTCUTOFF %f\n" % math.cos(math.pi - (math.pi / 5)))
+*/
+#define SPOT_CUTOFF -0.707107
+#define SPOT_OUTCUTOFF -0.809017
+/*
+** ?end
+*/
+
+static t_vec3 const	g_lights[] = { // TMP
+	LIGHT(20.f, 0.f, 20.f, 1000.f),
+	SPOT(-700.f, 120.f, -750.f, 0.60083428991, 0.11971220728, -0.79035887006, SPOT_CUTOFF, SPOT_OUTCUTOFF),
 };
 
 void			render_obj(t_scop *scop, t_obj *obj)
@@ -165,8 +179,8 @@ void			render_obj(t_scop *scop, t_obj *obj)
 	glUniformMatrix4fv(obj->shader->loc[g_loc.projection->index], 1, GL_TRUE, (float*)&(scop->projection_m));
 	// light uniforms
 	glUniform3fv(obj->shader->loc[g_loc.camera_pos->index], 1, (float*)&(scop->camera.position));
-	glUniform3fv(obj->shader->loc[g_loc.light_pos->index], G_ARRAY_LEN(g_light_pos), (float*)g_light_pos);
-	glUniform1i(obj->shader->loc[g_loc.light_count->index], G_ARRAY_LEN(g_light_pos));
+	glUniform3fv(obj->shader->loc[g_loc.lights->index], G_ARRAY_LEN(g_lights), (float*)g_lights);
+	glUniform1i(obj->shader->loc[g_loc.light_count->index], G_ARRAY_LEN(g_lights));
 	// -
 	glBindVertexArray(obj->mesh->vao);
 	offset = 0;
@@ -244,6 +258,7 @@ int				main(void)
 		PERSPECTIVE_NEAR, PERSPECTIVE_FAR);
 	if (!init_window(&scop) || !load_scene(&scop))
 		return (1);
+	// glfwSwapInterval(0);
 	init_key_events(&scop);
 	init_mouse_events(&scop);
 	fps = fps_init(200000);
@@ -257,8 +272,11 @@ int				main(void)
 		if (fps_end(&fps) || scop.flags != last_flags)
 		{
 			last_flags = scop.flags;
-			ft_printf("\rFPS: %-2lld t: %-3lld flags: %016b",
-				fps.average_fps, fps.average_time, scop.flags);
+			ft_printf("\rFPS: %-2lld t: %-3lld flags: %016b "
+				"pos: [ %f, %f, %f ] look: [ %f, %f ]%5 ",
+				fps.average_fps, fps.average_time, scop.flags,
+				scop.camera.position.x, scop.camera.position.y,
+				scop.camera.position.z, scop.camera.look.x, scop.camera.look.y);
 		}
 		handle_input(&scop, fps.elapsed);
 	}
@@ -266,4 +284,3 @@ int				main(void)
 	glfwTerminate();
 	return (0);
 }
-	

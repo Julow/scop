@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 19:00:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/20 18:46:12 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 ** view(1, "view"),
 ** projection(2, "projection"),
 ** camera_pos(3, "camera_pos"),
-** light_pos(4, "light_pos"),
+** lights(4, "lights"),
 ** light_count(5, "light_count"),
 ** ambient_map(6, "ambient_map"),
 ** diffuse_map(7, "diffuse_map"),
@@ -45,7 +45,6 @@ struct			s_evalue_loc
 {
 	t_uint			index;
 	char const		*name;
-
 };
 
 typedef struct s_evalue_loc const*		t_loc;
@@ -56,7 +55,7 @@ struct			s_enum_loc
 	t_loc			view;
 	t_loc			projection;
 	t_loc			camera_pos;
-	t_loc			light_pos;
+	t_loc			lights;
 	t_loc			light_count;
 	t_loc			ambient_map;
 	t_loc			diffuse_map;
@@ -105,7 +104,6 @@ struct			s_evalue_shader_t
 	t_uint			index;
 	t_sub			name;
 	t_uint			gl_name;
-
 };
 
 typedef struct s_evalue_shader_t const*		t_shader_t;

@@ -25,7 +25,7 @@ struct s_enum_loc const	g_loc = {
 	&(struct s_evalue_loc){1, "view"},
 	&(struct s_evalue_loc){2, "projection"},
 	&(struct s_evalue_loc){3, "camera_pos"},
-	&(struct s_evalue_loc){4, "light_pos"},
+	&(struct s_evalue_loc){4, "lights"},
 	&(struct s_evalue_loc){5, "light_count"},
 	&(struct s_evalue_loc){6, "ambient_map"},
 	&(struct s_evalue_loc){7, "diffuse_map"},
