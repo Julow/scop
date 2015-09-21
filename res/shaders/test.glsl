@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/10 11:44:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/20 23:00:10 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/21 10:39:41 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,14 +133,14 @@ void		main()
 		float	att			= pow(max(1.f - light_dist / att_dist, 0.f), att_exp);
 		// Diffuse
 		float	diff		= max(dot(nor, light_dir), 0.f);
-		vec3	diffuse		= diff * att * diffuse_col;
+		vec3	diffuse		= diff * diffuse_col;
 		// Specular
 		vec3	camera_dir	= normalize(camera_pos - fs_in.pos);
 		vec3	spec_dir	= normalize(light_dir + camera_dir);
 		float	spec		= max(pow(dot(nor, spec_dir), specular_exp), 0.f);
 		vec3	specular	= spec * specular_col;
 
-		light = max(light, (diffuse + specular) * intensity + ambient_col);
+		light = max(light, (diffuse + specular) * att * intensity + ambient_col);
 	}
 	color = vec4(SET_GAMMA(light), diffuse_map_color.w);
 }

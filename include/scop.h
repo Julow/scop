@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/20 22:40:36 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/21 08:10:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "texture_loader.h"
 
 # define WIN_RATIO			(1.f)
-# define WIN_HEIGHT			900
+# define WIN_HEIGHT			1200
 # define WIN_WIDTH			((int)(WIN_HEIGHT * WIN_RATIO))
 
 # define WIN_TITLE			"Scop"

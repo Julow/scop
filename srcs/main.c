@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/20 23:37:57 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/21 10:40:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
+#include "shader_loader.h"
 #include "resources.h"
 #include "math_utils.h"
 #include "utils.h"
@@ -18,7 +19,8 @@
 #include <math.h>
 
 /*
-** obj
+** ========================================================================== **
+** Obj management
 */
 void			obj_move(t_obj *obj, t_vec3 pos)
 {
@@ -58,7 +60,8 @@ t_mat4			*obj_get_model(t_obj *obj)
 }
 
 /*
-** camera
+** ========================================================================== **
+** Camera management
 */
 void			camera_move(t_camera *camera, t_vec3 pos)
 {
@@ -99,7 +102,8 @@ t_mat4			*camera_get_view(t_camera *camera)
 }
 
 /*
-** scene
+** ========================================================================== **
+** Scene
 */
 typedef struct	s_scene_obj
 {
@@ -121,6 +125,7 @@ static const t_scene_obj	g_scene[] = {
 	S_OBJ("teapot2.obj", "wall.tga", "test.glsl", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
 	S_OBJ("cube.obj", "wall.tga", "test.glsl", (0.f, -55.f, 0.f), (0.f, 0.f, 0.f), 50.f),
 	S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
+	// S_OBJ("venice.obj", "wall.tga", "depth.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
 };
 
 t_bool			load_scene(t_scop *scop)
@@ -153,10 +158,10 @@ t_bool			load_scene(t_scop *scop)
 /*
 ** ?omg
 ** import math
-** out("#define SPOT_CUTOFF %f\n" % math.cos(math.pi - (math.pi / 4)))
-** out("#define SPOT_OUTCUTOFF %f\n" % math.cos(math.pi - (math.pi / 5)))
+** out("#define SPOT_CUTOFF		%f\n" % math.cos(math.pi - (math.pi / 4)))
+** out("#define SPOT_OUTCUTOFF	%f\n" % math.cos(math.pi - (math.pi / 5.2)))
 */
-#define SPOT_CUTOFF -0.707107
+#define SPOT_CUTOFF	-0.707107
 #define SPOT_OUTCUTOFF -0.809017
 /*
 ** ?end
@@ -167,59 +172,95 @@ static t_vec3 const	g_lights[] = { // TMP
 	SPOT(-700.f, 120.f, -750.f, 0.60083428991, 0.11971220728, -0.79035887006, SPOT_CUTOFF, SPOT_OUTCUTOFF),
 };
 
+/*
+** ========================================================================== **
+** Shader def
+*/
+
+static void		test_glsl_pre(t_shader const *shader, t_scop *scop, t_obj *obj)
+{
+	glUniformMatrix4fv(shader->loc[0], 2, GL_TRUE, (float*)obj_get_model(obj));
+	glUniformMatrix4fv(shader->loc[1], 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
+	glUniformMatrix4fv(shader->loc[2], 1, GL_TRUE, (float*)&(scop->projection_m));
+	glUniform3fv(shader->loc[3], 1, (float*)&(scop->camera.position));
+	glUniform3fv(shader->loc[4], G_ARRAY_LEN(g_lights), (float*)g_lights);
+	glUniform1i(shader->loc[5], G_ARRAY_LEN(g_lights));
+}
+
+static void		test_glsl_mtl(t_shader const *shader, t_scop *scop,
+	t_obj const *obj, t_mtl const *mtl)
+{
+	t_uint			tmp;
+
+	if (mtl == NULL)
+		return ;
+	glActiveTexture(GL_TEXTURE0);
+	if (mtl->ambient_map != NULL)
+		tmp = mtl->ambient_map->handle;
+	else
+		tmp = 0;
+	glBindTexture(GL_TEXTURE_2D, tmp);
+	glUniform1i(shader->loc[6], 0);
+	glUniform3fv(shader->loc[9], 1, (float*)&(mtl->ambient_color));
+	glActiveTexture(GL_TEXTURE1);
+	if (mtl->diffuse_map != NULL)
+		tmp = mtl->diffuse_map->handle;
+	else
+		tmp = 0;
+	glBindTexture(GL_TEXTURE_2D, tmp);
+	glUniform1i(shader->loc[7], 1);
+	glUniform3fv(shader->loc[10], 1, (float*)&(mtl->diffuse_color));
+	glActiveTexture(GL_TEXTURE2);
+	if (mtl->specular_map != NULL)
+		tmp = mtl->specular_map->handle;
+	else
+		tmp = 0;
+	glBindTexture(GL_TEXTURE_2D, tmp);
+	glUniform1i(shader->loc[8], 2);
+	glUniform3fv(shader->loc[11], 1, (float*)&(mtl->specular_color));
+	glUniform1i(shader->loc[12], mtl->specular_exp);
+	(void)scop;
+	(void)obj;
+}
+
+const t_shader_def	g_shader_def[] = {
+	SHADER_DEF("test.glsl", &test_glsl_pre, &test_glsl_mtl, ((char*[]){
+		[0] = "model",
+		[1] = "view",
+		[2] = "projection",
+		[3] = "camera_pos",
+		[4] = "lights",
+		[5] = "light_count",
+		[6] = "ambient_map",
+		[7] = "diffuse_map",
+		[8] = "specular_map",
+		[9] = "ambient_color",
+		[10] = "diffuse_color",
+		[11] = "specular_color",
+		[12] = "specular_exp",
+	})),
+	SHADER_DEF_END()
+};
+
+/*
+** ========================================================================== **
+** Render obj
+*/
+
 void			render_obj(t_scop *scop, t_obj *obj)
 {
 	int			i;
 	int			offset;
-	t_uint		tmp;
 
 	glUseProgram(obj->shader->handle);
-	// vertex uniforms
-	glUniformMatrix4fv(obj->shader->loc[g_loc.model->index], 2, GL_TRUE, (float*)obj_get_model(obj));
-	glUniformMatrix4fv(obj->shader->loc[g_loc.view->index], 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
-	glUniformMatrix4fv(obj->shader->loc[g_loc.projection->index], 1, GL_TRUE, (float*)&(scop->projection_m));
-	// light uniforms
-	glUniform3fv(obj->shader->loc[g_loc.camera_pos->index], 1, (float*)&(scop->camera.position));
-	glUniform3fv(obj->shader->loc[g_loc.lights->index], G_ARRAY_LEN(g_lights), (float*)g_lights);
-	glUniform1i(obj->shader->loc[g_loc.light_count->index], G_ARRAY_LEN(g_lights));
-	// -
+	obj->shader->pre(obj->shader, scop, obj);
 	glBindVertexArray(obj->mesh->vao);
 	offset = 0;
 	i = -1;
 	while (++i < obj->mesh->mtl_count)
 	{
-		// material uniforms
-		if (obj->mesh->mtl[i].mtl != NULL)
-		{
-			glActiveTexture(GL_TEXTURE0);
-			if (obj->mesh->mtl[i].mtl->ambient_map != NULL)
-				tmp = obj->mesh->mtl[i].mtl->ambient_map->handle;
-			else
-				tmp = 0;
-			glBindTexture(GL_TEXTURE_2D, tmp);
-			glUniform1i(obj->shader->loc[g_loc.ambient_map->index], 0);
-			glUniform3fv(obj->shader->loc[g_loc.ambient_color->index], 1, (float*)&(obj->mesh->mtl[i].mtl->ambient_color));
-			glActiveTexture(GL_TEXTURE1);
-			if (obj->mesh->mtl[i].mtl->diffuse_map != NULL)
-				tmp = obj->mesh->mtl[i].mtl->diffuse_map->handle;
-			else
-				tmp = 0;
-			glBindTexture(GL_TEXTURE_2D, tmp);
-			glUniform1i(obj->shader->loc[g_loc.diffuse_map->index], 1);
-			glUniform3fv(obj->shader->loc[g_loc.diffuse_color->index], 1, (float*)&(obj->mesh->mtl[i].mtl->diffuse_color));
-			glActiveTexture(GL_TEXTURE2);
-			if (obj->mesh->mtl[i].mtl->specular_map != NULL)
-				tmp = obj->mesh->mtl[i].mtl->specular_map->handle;
-			else
-				tmp = 0;
-			glBindTexture(GL_TEXTURE_2D, tmp);
-			glUniform1i(obj->shader->loc[g_loc.specular_map->index], 2);
-			glUniform3fv(obj->shader->loc[g_loc.specular_color->index], 1, (float*)&(obj->mesh->mtl[i].mtl->specular_color));
-			glUniform1i(obj->shader->loc[g_loc.specular_exp->index], obj->mesh->mtl[i].mtl->specular_exp);
-		}
-		// draw
+		obj->shader->mtl(obj->shader, scop, obj, obj->mesh->mtl[i]);
 		glDrawArrays(GL_TRIANGLES, offset, obj->mesh->mtl[i].count);
-		// -
 		offset += obj->mesh->mtl[i].count;
 	}
 }
@@ -234,6 +275,11 @@ void			render(t_scop *scop)
 	while (++i < scop->objects.length)
 		render_obj(scop, VECTOR_GET(scop->objects, i));
 }
+
+/*
+** ========================================================================== **
+** Main
+*/
 
 static void		handle_input(t_scop *scop, float elapsed)
 {

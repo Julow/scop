@@ -42,8 +42,8 @@ o/srcs/key_events.o: srcs/key_events.c include/scop.h include/gl.h \
 o/srcs/main.o: srcs/main.c include/scop.h include/gl.h include/shader_loader.h \
 	include/gl.h include/mesh_loader.h include/mtl_loader.h \
 	include/texture_loader.h include/math_utils.h include/math_utils.h \
-	include/texture_loader.h include/resources.h include/math_utils.h \
-	include/utils.h | o/srcs/
+	include/texture_loader.h include/shader_loader.h include/gl.h \
+	include/resources.h include/math_utils.h include/utils.h | o/srcs/
 o/srcs/math_utils/ft_mat4look_at.o: srcs/math_utils/ft_mat4look_at.c \
 	include/math_utils.h | o/srcs/math_utils/
 o/srcs/math_utils/ft_mat4mult.o: srcs/math_utils/ft_mat4mult.c \
@@ -137,7 +137,7 @@ o/srcs/texture_loader/load_texture.o: srcs/texture_loader/load_texture.c \
 	include/mtl_loader.h include/texture_loader.h include/math_utils.h \
 	include/math_utils.h include/texture_loader.h | o/srcs/texture_loader/
 o/srcs/texture_loader/tga_parser.o: srcs/texture_loader/tga_parser.c \
-	include/texture_loader.h | o/srcs/texture_loader/
+	include/texture_loader.h include/utils.h | o/srcs/texture_loader/
 o/srcs/utils/fps.o: srcs/utils/fps.c include/utils.h | o/srcs/utils/
 o/srcs/utils/ft_error.o: srcs/utils/ft_error.c include/utils.h | o/srcs/utils/
 o/srcs/utils/ft_listremove_next.o: srcs/utils/ft_listremove_next.c \

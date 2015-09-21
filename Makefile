@@ -12,7 +12,7 @@ MODULES := libft
 LIBS := libft
 
 # Compilation and linking flags
-FLAGS := -Wall -Wextra -O2
+FLAGS := -Wall -Wextra -O2 -Weverything
 # Same but used in debug mode
 DEBUG_FLAGS := -Wall -Wextra -g
 # Compilation flags

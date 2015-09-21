@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/15 14:06:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 19:05:59 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/21 10:33:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,6 @@
 #include "ft_list.h"
 #include <unistd.h>
 #include <fcntl.h>
-
-/*
-** ?enum-def loc
-*/
-
-struct s_enum_loc const	g_loc = {
-	&(struct s_evalue_loc){0, "model"},
-	&(struct s_evalue_loc){1, "view"},
-	&(struct s_evalue_loc){2, "projection"},
-	&(struct s_evalue_loc){3, "camera_pos"},
-	&(struct s_evalue_loc){4, "lights"},
-	&(struct s_evalue_loc){5, "light_count"},
-	&(struct s_evalue_loc){6, "ambient_map"},
-	&(struct s_evalue_loc){7, "diffuse_map"},
-	&(struct s_evalue_loc){8, "specular_map"},
-	&(struct s_evalue_loc){9, "ambient_color"},
-	&(struct s_evalue_loc){10, "diffuse_color"},
-	&(struct s_evalue_loc){11, "specular_color"},
-	&(struct s_evalue_loc){12, "specular_exp"},
-	13,
-	(t_loc const*)&g_loc
-};
-
-/*
-** ?end
-*/
 
 /*
 ** ?enum-def shader_t
@@ -78,7 +52,7 @@ static t_bool	link_shader(t_uint *shaders, t_shader *dst)
 	return (true);
 }
 
-t_bool			load_shader(char const *file, t_shader *dst)
+static t_bool	load_shaders_file(char const *file, t_shader *dst)
 {
 	t_uint			shaders[g_shader_t.length];
 	int				tmp;
@@ -97,10 +71,28 @@ t_bool			load_shader(char const *file, t_shader *dst)
 	while (++tmp < g_shader_t.length)
 		if (shaders[tmp] > 0)
 			glDeleteShader(shaders[tmp]);
-	tmp = -1;
-	if (success)
-		while (++tmp < g_loc.length)
-			dst->loc[g_loc.values[tmp]->index] =
-				glGetUniformLocation(dst->handle, g_loc.values[tmp]->name);
 	return (success);
+}
+
+t_bool			load_shader(char const *file, t_shader *dst)
+{
+	int				i;
+	int				j;
+
+	i = -1;
+	while (g_shader_def[++i].file_name != NULL)
+		if (ft_strequ(file, g_shader_def[i].file_name))
+		{
+			if (!load_shaders_file(file, dst))
+				return (false);
+			dst->loc = MAL(t_uint, g_shader_def[i].uniform_count);
+			dst->pre = g_shader_def[i].pre;
+			dst->mtl = g_shader_def[i].mtl;
+			j = -1;
+			while (++j < g_shader_def[i].uniform_count)
+				dst->loc[j] = glGetUniformLocation(dst->handle,
+					g_shader_def[i].uniforms[j]);
+			return (true);
+		}
+	return (ft_error(false, "Unknown shader %s", file));
 }
