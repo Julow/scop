@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/21 08:10:11 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/21 11:30:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "ft_list.h"
 # include "ft_hmap.h"
 # include "gl.h"
+# include "camera.h"
 # include "shader_loader.h"
 # include "mesh_loader.h"
 # include "texture_loader.h"
@@ -50,18 +51,6 @@ typedef struct	s_obj
 }				t_obj;
 
 # define OBJ(m,t,s)			((t_obj){(m), (t), (s), 0, 0, 0, 0})
-
-# define F_CAMERA_UPDATED	(1 << 1)
-
-typedef struct	s_camera
-{
-	t_mat4			view_m;
-	t_vec3			position;
-	t_vec2			look;
-	int				flags;
-}				t_camera;
-
-# define CAMERA(p,l)		((t_camera){MAT4_0(), p, l, (1 << 1)})
 
 # define FLAG_MOVE_FRONT	(1 << 1)
 # define FLAG_MOVE_LEFT		(1 << 2)

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/21 11:10:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/21 11:32:23 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,48 +57,6 @@ t_mat4			*obj_get_model(t_obj *obj)
 		obj->flags &= ~F_OBJ_UPDATED;
 	}
 	return (obj->model_m);
-}
-
-/*
-** ========================================================================== **
-** Camera management
-*/
-void			camera_move(t_camera *camera, t_vec3 pos)
-{
-	camera->position.x += pos.x;
-	camera->position.y += pos.y;
-	camera->position.z += pos.z;
-	camera->flags |= F_CAMERA_UPDATED;
-}
-
-void			camera_look(t_camera *camera, t_vec2 look)
-{
-	float const		pi2 = M_PI / 2.f - 0.0001;
-
-	camera->look.x = look.x;
-	camera->look.y = look.y;
-	if (camera->look.y > pi2)
-		camera->look.y = pi2;
-	else if (camera->look.y < -pi2)
-		camera->look.y = -pi2;
-	camera->flags |= F_CAMERA_UPDATED;
-}
-
-t_mat4			*camera_get_view(t_camera *camera)
-{
-	t_vec3			look_at;
-
-	if (camera->flags & F_CAMERA_UPDATED)
-	{
-		look_at = ft_vec3front(camera->look);
-		look_at.x += camera->position.x;
-		look_at.y += camera->position.y;
-		look_at.z += camera->position.z;
-		camera->view_m = ft_mat4look_at(camera->position, look_at,
-			VEC3(0.f, 1.f, 0.f));
-		camera->flags &= ~F_CAMERA_UPDATED;
-	}
-	return (&(camera->view_m));
 }
 
 /*
