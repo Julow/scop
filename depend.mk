@@ -17,6 +17,8 @@ O_FILES :=	o/srcs/camera/camera_get_view.o o/srcs/camera/camera_look.o \
 			o/srcs/mouse_events.o o/srcs/mtl_loader/load_mtl.o \
 			o/srcs/mtl_loader/parse_mtl.o o/srcs/mtl_loader/parse_mtl_tokens.o \
 			o/srcs/mtl_loader/parse_mtl_tokens_map.o \
+			o/srcs/obj/obj_get_model.o o/srcs/obj/obj_move.o \
+			o/srcs/obj/obj_rotate.o o/srcs/obj/obj_scale.o \
 			o/srcs/resources/get_res.o o/srcs/shader_loader/compile_shader.o \
 			o/srcs/shader_loader/load_shader.o \
 			o/srcs/shader_loader/read_shader.o o/srcs/simple_renderer.o \
@@ -52,7 +54,10 @@ o/srcs/main.o: srcs/main.c include/scop.h include/gl.h include/camera.h \
 	include/math_utils.h include/shader_loader.h include/gl.h \
 	include/mesh_loader.h include/mtl_loader.h include/texture_loader.h \
 	include/math_utils.h include/math_utils.h include/texture_loader.h \
-	include/shader_loader.h include/gl.h include/resources.h \
+	include/shader_loader.h include/gl.h include/resources.h include/obj.h \
+	include/math_utils.h include/mesh_loader.h include/mtl_loader.h \
+	include/texture_loader.h include/math_utils.h include/math_utils.h \
+	include/texture_loader.h include/shader_loader.h include/gl.h \
 	include/math_utils.h include/utils.h | o/srcs/
 o/srcs/math_utils/ft_mat4look_at.o: srcs/math_utils/ft_mat4look_at.c \
 	include/math_utils.h | o/srcs/math_utils/
@@ -129,6 +134,22 @@ o/srcs/mtl_loader/parse_mtl_tokens_map.o: \
 	srcs/mtl_loader/parse_mtl_tokens_map.c include/mtl_loader.h \
 	include/texture_loader.h include/math_utils.h include/resources.h \
 	| o/srcs/mtl_loader/
+o/srcs/obj/obj_get_model.o: srcs/obj/obj_get_model.c include/obj.h \
+	include/math_utils.h include/mesh_loader.h include/mtl_loader.h \
+	include/texture_loader.h include/math_utils.h include/math_utils.h \
+	include/texture_loader.h include/shader_loader.h include/gl.h | o/srcs/obj/
+o/srcs/obj/obj_move.o: srcs/obj/obj_move.c include/obj.h include/math_utils.h \
+	include/mesh_loader.h include/mtl_loader.h include/texture_loader.h \
+	include/math_utils.h include/math_utils.h include/texture_loader.h \
+	include/shader_loader.h include/gl.h | o/srcs/obj/
+o/srcs/obj/obj_rotate.o: srcs/obj/obj_rotate.c include/obj.h \
+	include/math_utils.h include/mesh_loader.h include/mtl_loader.h \
+	include/texture_loader.h include/math_utils.h include/math_utils.h \
+	include/texture_loader.h include/shader_loader.h include/gl.h | o/srcs/obj/
+o/srcs/obj/obj_scale.o: srcs/obj/obj_scale.c include/obj.h \
+	include/math_utils.h include/mesh_loader.h include/mtl_loader.h \
+	include/texture_loader.h include/math_utils.h include/math_utils.h \
+	include/texture_loader.h include/shader_loader.h include/gl.h | o/srcs/obj/
 o/srcs/resources/get_res.o: srcs/resources/get_res.c include/resources.h \
 	include/shader_loader.h include/gl.h include/mesh_loader.h \
 	include/mtl_loader.h include/texture_loader.h include/math_utils.h \

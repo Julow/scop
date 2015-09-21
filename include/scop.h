@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/21 23:13:52 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/21 23:30:24 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "shader_loader.h"
 # include "mesh_loader.h"
 # include "texture_loader.h"
+# include "obj.h"
 
 # define WIN_RATIO			(1.f)
 # define WIN_HEIGHT			900
@@ -35,22 +36,6 @@
 # define MOVE_SPEED			0.00002f
 # define CURSOR_SPEED		3.f
 # define ACCELERATION		10.f
-
-# define F_OBJ_UPDATED		(1 << 1)
-
-typedef struct	s_obj
-{
-	t_mesh const	*mesh;
-	t_texture const	*texture;
-	t_shader const	*shader;
-	t_mat4			model_m[2];
-	t_vec3			position;
-	t_vec3			rotation;
-	float			scale;
-	int				flags;
-}				t_obj;
-
-# define OBJ(m,t,s)			((t_obj){(m), (t), (s), 0, 0, 0, 0})
 
 # define FLAG_MOVE_FRONT	(1 << 1)
 # define FLAG_MOVE_LEFT		(1 << 2)

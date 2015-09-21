@@ -6,58 +6,18 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/21 22:53:43 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/21 23:28:18 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 #include "shader_loader.h"
 #include "resources.h"
+#include "obj.h"
 #include "math_utils.h"
 #include "utils.h"
 #include <stdlib.h>
 #include <math.h>
-
-/*
-** ========================================================================== **
-** Obj management
-*/
-void			obj_move(t_obj *obj, t_vec3 pos)
-{
-	obj->position = pos;
-	obj->flags |= F_OBJ_UPDATED;
-}
-
-void			obj_rotate(t_obj *obj, t_vec3 rot)
-{
-	obj->rotation = rot;
-	obj->flags |= F_OBJ_UPDATED;
-}
-
-void			obj_scale(t_obj *obj, float scale)
-{
-	obj->scale = scale;
-	obj->flags |= F_OBJ_UPDATED;
-}
-
-t_mat4			*obj_get_model(t_obj *obj)
-{
-	if (obj->flags & F_OBJ_UPDATED)
-	{
-		obj->model_m[0] = MAT4_I();
-		ft_mat4translate(obj->model_m, obj->position);
-		ft_mat4scale(obj->model_m, obj->scale);
-		ft_mat4rotate(obj->model_m, obj->rotation);
-		obj->model_m[1] = MAT4_I();
-		ft_mat4rotate_inv(obj->model_m + 1,
-			ft_vec3sub(VEC3_0(), obj->rotation));
-		ft_mat4scale(obj->model_m + 1, 1.f / obj->scale);
-		ft_mat4translate(obj->model_m + 1, ft_vec3sub(VEC3_0(), obj->position));
-		ft_mat4transpose(obj->model_m + 1);
-		obj->flags &= ~F_OBJ_UPDATED;
-	}
-	return (obj->model_m);
-}
 
 /*
 ** ========================================================================== **
