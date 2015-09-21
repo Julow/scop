@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/10 11:44:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/21 10:39:41 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/21 10:53:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #define FIX_GAMMA(COL)	pow((COL), vec3(GAMMA))
 #define SET_GAMMA(COL)	pow((COL), vec3(1.f / GAMMA))
 
-#define LIGHT_BUFF_SIZE	30
+#define LIGHT_BUFF_SIZE	50
 
 #define T_VSHADER_OUT t_vshader_out \
 { \
@@ -57,9 +57,9 @@ out vec4			color;
 // Lights
 uniform vec3		camera_pos;
 
-// point light	{0.f, att_dist, 0.f}, {x, y, z}
-// spot light	{1.f, cuttof, out}, {x, y, z}, {dx, dy, dz}
-uniform vec3		lights[LIGHT_BUFF_SIZE];
+// point light	{0.f, att_dist}, {x, y}, {z, 0.f}
+// spot light	{1.f, att_dist}, {cuttof, out}, {x, y}, {z, dx}, {dy, dz}
+uniform vec2		lights[LIGHT_BUFF_SIZE];
 uniform int			light_count;
 
 int					att_exp = 4;
@@ -103,7 +103,9 @@ void		main()
 			// point light
 			att_dist = lights[i].y;
 			i++;
-			light_pos = lights[i];
+			light_pos.xy = lights[i];
+			i++;
+			light_pos.z = lights[i].x;
 			light_dist = length(light_pos - fs_in.pos);
 			light_dir = (light_pos - fs_in.pos) / light_dist;
 			intensity = 1.f;
@@ -111,15 +113,19 @@ void		main()
 		else if (light_type == 1.f)
 		{
 			// spot light
-			float	cutoff		= lights[i].y;
-			float	out_cutoff	= lights[i].z;
+			att_dist = lights[i].y;
 			i++;
-			att_dist = 1000.f; // TODO
-			light_pos = lights[i];
+			float	cutoff		= lights[i].x;
+			float	out_cutoff	= lights[i].y;
+			i++;
+			light_pos.xy = lights[i];
+			i++;
+			light_pos.z = lights[i].x;
 			light_dist = length(light_pos - fs_in.pos);
 			light_dir = (light_pos - fs_in.pos) / light_dist;
+			vec3	spot_dir	= vec3(lights[i].y, 0.f, 0.f);
 			i++;
-			vec3	spot_dir	= lights[i];
+			spot_dir.yz = lights[i];
 			float	theta		= dot(light_dir, normalize(-spot_dir));
 			float	epsilon		= cutoff - out_cutoff;
 

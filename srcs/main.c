@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/21 10:40:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/21 11:10:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ static const t_scene_obj	g_scene[] = {
 	S_OBJ("teapot.obj", "wall.tga", "test.glsl", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
 	S_OBJ("teapot2.obj", "wall.tga", "test.glsl", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
 	S_OBJ("cube.obj", "wall.tga", "test.glsl", (0.f, -55.f, 0.f), (0.f, 0.f, 0.f), 50.f),
-	S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
-	// S_OBJ("venice.obj", "wall.tga", "depth.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
+	// S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
+	S_OBJ("venice.obj", "wall.tga", "depth.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
 };
 
 t_bool			load_scene(t_scop *scop)
@@ -152,8 +152,8 @@ t_bool			load_scene(t_scop *scop)
 /*
 ** -
 */
-#define LIGHT(x,y,z,att)			{0.f, att, 0.f}, {x, y, z}
-#define SPOT(x,y,z,dx,dy,dz,c,o)	{1.f, c, o}, {x, y, z}, {dx, dy, dz}
+#define LIGHT(x,y,z,a)				{0.f, a}, {x, y}, {z, 0.f}
+#define SPOT(x,y,z,a,dx,dy,dz,c,o)	{1.f, a}, {c, o}, {x, y}, {z, dx}, {dy, dz}
 
 /*
 ** ?omg
@@ -161,15 +161,15 @@ t_bool			load_scene(t_scop *scop)
 ** out("#define SPOT_CUTOFF		%f\n" % math.cos(math.pi - (math.pi / 4)))
 ** out("#define SPOT_OUTCUTOFF	%f\n" % math.cos(math.pi - (math.pi / 5.2)))
 */
-#define SPOT_CUTOFF	-0.707107
-#define SPOT_OUTCUTOFF -0.809017
+#define SPOT_CUTOFF		-0.707107
+#define SPOT_OUTCUTOFF	-0.822984
 /*
 ** ?end
 */
 
-static t_vec3 const	g_lights[] = { // TMP
+static t_vec2 const	g_lights[] = { // TMP
 	LIGHT(20.f, 0.f, 20.f, 1000.f),
-	SPOT(-700.f, 120.f, -750.f, 0.60083428991, 0.11971220728, -0.79035887006, SPOT_CUTOFF, SPOT_OUTCUTOFF),
+	SPOT(-700.f, 120.f, -750.f, 1000.f, 0.60083428991, 0.11971220728, -0.79035887006, SPOT_CUTOFF, SPOT_OUTCUTOFF),
 };
 
 /*
@@ -183,12 +183,12 @@ static void		test_glsl_pre(t_shader const *shader, t_scop *scop, t_obj *obj)
 	glUniformMatrix4fv(shader->loc[1], 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
 	glUniformMatrix4fv(shader->loc[2], 1, GL_TRUE, (float*)&(scop->projection_m));
 	glUniform3fv(shader->loc[3], 1, (float*)&(scop->camera.position));
-	glUniform3fv(shader->loc[4], G_ARRAY_LEN(g_lights), (float*)g_lights);
+	glUniform2fv(shader->loc[4], G_ARRAY_LEN(g_lights), (float*)g_lights);
 	glUniform1i(shader->loc[5], G_ARRAY_LEN(g_lights));
 }
 
-static void		test_glsl_mtl(t_shader const *shader, t_scop *scop,
-	t_obj const *obj, t_mtl const *mtl)
+static void		test_glsl_mtl(t_shader const *shader, t_scop *scop, t_obj *obj,
+	t_mtl const *mtl)
 {
 	t_uint			tmp;
 
@@ -223,6 +223,23 @@ static void		test_glsl_mtl(t_shader const *shader, t_scop *scop,
 	(void)obj;
 }
 
+static void		depth_glsl_pre(t_shader const *shader, t_scop *scop, t_obj *obj)
+{
+	glUniformMatrix4fv(shader->loc[0], 1, GL_TRUE, (float*)obj_get_model(obj));
+	glUniformMatrix4fv(shader->loc[1], 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
+	glUniformMatrix4fv(shader->loc[2], 1, GL_TRUE, (float*)&(scop->projection_m));
+	glUniform3fv(shader->loc[3], 1, (float*)&(scop->camera.position));
+}
+
+static void		depth_glsl_mtl(t_shader const *shader, t_scop *scop, t_obj *obj,
+	t_mtl const *mtl)
+{
+	(void)shader;
+	(void)scop;
+	(void)obj;
+	(void)mtl;
+}
+
 const t_shader_def	g_shader_def[] = {
 	SHADER_DEF("test.glsl", &test_glsl_pre, &test_glsl_mtl, ((char*[]){
 		[0] = "model",
@@ -238,6 +255,12 @@ const t_shader_def	g_shader_def[] = {
 		[10] = "diffuse_color",
 		[11] = "specular_color",
 		[12] = "specular_exp",
+	})),
+	SHADER_DEF("depth.glsl", &depth_glsl_pre, &depth_glsl_mtl, ((char*[]){
+		[0] = "model",
+		[1] = "view",
+		[2] = "projection",
+		[3] = "camera_pos",
 	})),
 	SHADER_DEF_END()
 };
