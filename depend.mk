@@ -19,7 +19,7 @@ O_FILES :=	o/srcs/camera/camera_get_view.o o/srcs/camera/camera_look.o \
 			o/srcs/mtl_loader/parse_mtl_tokens_map.o \
 			o/srcs/resources/get_res.o o/srcs/shader_loader/compile_shader.o \
 			o/srcs/shader_loader/load_shader.o \
-			o/srcs/shader_loader/read_shader.o \
+			o/srcs/shader_loader/read_shader.o o/srcs/simple_renderer.o \
 			o/srcs/texture_loader/ft_loadimage.o \
 			o/srcs/texture_loader/load_texture.o \
 			o/srcs/texture_loader/tga_parser.o o/srcs/utils/fps.o \
@@ -141,6 +141,11 @@ o/srcs/shader_loader/load_shader.o: srcs/shader_loader/load_shader.c \
 	include/shader_loader.h include/gl.h include/utils.h | o/srcs/shader_loader/
 o/srcs/shader_loader/read_shader.o: srcs/shader_loader/read_shader.c \
 	include/shader_loader.h include/gl.h include/utils.h | o/srcs/shader_loader/
+o/srcs/simple_renderer.o: srcs/simple_renderer.c include/scop.h include/gl.h \
+	include/camera.h include/math_utils.h include/shader_loader.h include/gl.h \
+	include/mesh_loader.h include/mtl_loader.h include/texture_loader.h \
+	include/math_utils.h include/math_utils.h include/texture_loader.h \
+	include/camera.h include/math_utils.h | o/srcs/
 o/srcs/texture_loader/ft_loadimage.o: srcs/texture_loader/ft_loadimage.c \
 	include/texture_loader.h | o/srcs/texture_loader/
 o/srcs/texture_loader/load_texture.o: srcs/texture_loader/load_texture.c \

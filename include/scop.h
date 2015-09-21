@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/21 11:30:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/21 23:13:52 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "texture_loader.h"
 
 # define WIN_RATIO			(1.f)
-# define WIN_HEIGHT			1200
+# define WIN_HEIGHT			900
 # define WIN_WIDTH			((int)(WIN_HEIGHT * WIN_RATIO))
 
 # define WIN_TITLE			"Scop"
@@ -70,6 +70,22 @@ typedef struct	s_scop
 	int				flags;
 }				t_scop;
 
+// TODO
+// typedef struct	s_simple_renderer
+// {
+// 	t_renderer		t;
+// 	t_shader const	*shader;
+// }				t_simple_renderer;
+
+// typedef struct	s_shadow_renderer
+// {
+// 	t_renderer		t;
+// 	t_shader const	*depth;
+// 	t_shader const	*light;
+// 	t_shader const	*render;
+// }				t_shadow_renderer;
+// -
+
 /*
 ** init
 */
@@ -77,6 +93,11 @@ t_bool			init_window(t_scop *scop);
 
 void			init_key_events(t_scop *scop);
 void			init_mouse_events(t_scop *scop);
+
+/*
+** renderer
+*/
+void			simple_renderer(t_scop *scop, t_obj *obj);
 
 /*
 ** update
