@@ -6,12 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:51:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 19:42:46 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:22:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "texture_loader.h"
 #include "utils.h"
+#include "ft_buff.h"
 #include <stdlib.h>
 
 #define AT(t,p,i)			((t*)(((void*)(p)) + (i)))

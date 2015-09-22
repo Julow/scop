@@ -6,12 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:15:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:44:37 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:13:09 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "texture_loader.h"
-#include "scop.h"
+#include "gl.h"
 #include <stdlib.h>
 
 t_bool			load_texture(char const *file, t_texture *texture)

@@ -6,12 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:20:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 19:06:16 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:24:47 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader_loader.h"
 #include "utils.h"
+#include "gl.h"
+#include "ft_list.h"
 
 static t_bool	get_shader_type(t_sub line, t_shader_t *t)
 {

@@ -6,11 +6,17 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/21 23:30:18 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/22 08:22:34 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
+#include "main.h"
+#include "shader_loader.h"
+#include "texture_loader.h"
+#include "mesh_loader.h"
+#include "mtl_loader.h"
+#include "obj.h"
 #include "camera.h"
 
 /*

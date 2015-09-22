@@ -6,12 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/21 23:28:18 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/22 08:18:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "main.h"
 #include "scop.h"
 #include "shader_loader.h"
+#include "mesh_loader.h"
 #include "resources.h"
 #include "obj.h"
 #include "math_utils.h"
@@ -96,7 +98,7 @@ void			depth_renderer(t_scop *scop, t_obj *obj)
 }
 
 const t_shader_def	g_shader_def[] = {
-	SHADER_DEF("test.glsl", &simple_renderer, NULL, ((char*[]){
+	SHADER_DEF("test.glsl", &simple_renderer, NULL, ((char const*[]){
 		[0] = "model",
 		[1] = "view",
 		[2] = "projection",
@@ -111,7 +113,7 @@ const t_shader_def	g_shader_def[] = {
 		[11] = "specular_color",
 		[12] = "specular_exp",
 	})),
-	SHADER_DEF("depth.glsl", &depth_renderer, NULL, ((char*[]){
+	SHADER_DEF("depth.glsl", &depth_renderer, NULL, ((char const*[]){
 		[0] = "model",
 		[1] = "view",
 		[2] = "projection",
@@ -170,7 +172,7 @@ int				main(void)
 		PERSPECTIVE_NEAR, PERSPECTIVE_FAR);
 	if (!init_window(&scop) || !load_scene(&scop))
 		return (1);
-	glfwSwapInterval(0);
+	// glfwSwapInterval(0);
 	init_key_events(&scop);
 	init_mouse_events(&scop);
 	fps = fps_init(200000);

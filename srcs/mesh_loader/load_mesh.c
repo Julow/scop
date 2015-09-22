@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:31:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:19:41 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mesh_loader.h"
+#include "math_utils.h"
 
 static void		init_mesh_data(t_mesh_data *data)
 {

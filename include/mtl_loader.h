@@ -6,15 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 15:08:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/14 22:03:22 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/22 08:17:19 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MTL_LOADER_H
 # define MTL_LOADER_H
 
-# include "ft_hmap.h"
-# include "texture_loader.h"
+# include "scop.h"
 # include "math_utils.h"
 
 /*
@@ -28,7 +27,7 @@
 ** map_Ks <file>				specular map
 */
 
-typedef struct	s_mtl
+struct			s_mtl
 {
 	t_texture const	*ambient_map;
 	t_texture const	*diffuse_map;
@@ -37,7 +36,7 @@ typedef struct	s_mtl
 	t_vec3			diffuse_color;
 	t_vec3			specular_color;
 	int				specular_exp;
-}				t_mtl;
+};
 
 /*
 ** Load mtls from a file

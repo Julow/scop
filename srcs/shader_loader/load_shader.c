@@ -6,12 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/15 14:06:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/21 10:33:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:21:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader_loader.h"
 #include "utils.h"
+#include "gl.h"
 #include "ft_list.h"
 #include <unistd.h>
 #include <fcntl.h>

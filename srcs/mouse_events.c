@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/08 16:26:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:09:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:12:22 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gl.h"
+#include "main.h"
 #include "scop.h"
 
 static void		*save_env(t_scop *scop)

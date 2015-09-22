@@ -6,27 +6,30 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:11:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:49:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:17:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MESH_LOADER_H
 # define MESH_LOADER_H
 
-# include "libft.h"
-# include "ft_hmap.h"
+# include "scop.h"
 # include "ft_vector.h"
-# include "mtl_loader.h"
-# include "math_utils.h"
 
-typedef struct	s_mesh
+struct			s_mesh
 {
 	t_uint			vao;
 	t_uint			vbo;
 	t_uint			ebo;
-	struct s_mesh_mtl const	*mtl;
+	t_mesh_mtl const	*mtl;
 	int				mtl_count;
-}				t_mesh;
+};
+
+struct			s_mesh_mtl
+{
+	t_mtl const		*mtl;
+	int				count;
+};
 
 /*
 ** Load a mesh from a file (.obj)
@@ -61,12 +64,6 @@ typedef struct	s_mesh_data
 	t_vector		vbo_data;
 	t_vector		ebo_data;
 }				t_mesh_data;
-
-typedef struct	s_mesh_mtl
-{
-	t_mtl const		*mtl;
-	int				count;
-}				t_mesh_mtl;
 
 /*
 ** parse_mesh.c

@@ -6,12 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:13:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 18:42:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:23:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mtl_loader.h"
 #include "utils.h"
+#include "ft_hmap.h"
 
 static t_mtl_token const	g_mtl_tokens[] = {
 	{SUBC("Ka"), &ambient_color_token},

@@ -6,14 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 13:07:48 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 18:55:39 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:17:37 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RESOURCES_H
 # define RESOURCES_H
 
-# include "libft.h"
+# include "scop.h"
 
 # define SHADERS_DIR		"res/shaders/"
 # define TEXTURES_DIR		"res/tga/"

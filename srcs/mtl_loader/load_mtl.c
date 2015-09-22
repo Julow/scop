@@ -6,16 +6,15 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 15:07:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 19:36:05 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:21:19 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mtl_loader.h"
 #include "utils.h"
+#include "ft_hmap.h"
 #include <fcntl.h>
 #include <unistd.h>
-#include <errno.h>
-#include <string.h>
 
 t_bool			load_mtl(char const *file, t_hmap **mtl)
 {

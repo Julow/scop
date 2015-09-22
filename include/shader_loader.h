@@ -6,38 +6,36 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/21 10:31:26 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:18:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHADER_LOADER_H
 # define SHADER_LOADER_H
 
-# include "libft.h"
-# include "ft_list.h"
-# include "gl.h"
+# include "scop.h"
 
 # define LOAD_SHADER_BUFFER		256
 # define ERR_SHADER_BUFFER 		1024
 
 # define SHADER_START		(SUBC("//#shader "))
 
-typedef struct	s_shader
+struct			s_shader
 {
 	t_uint			*loc;
 	void			(*pre)();
 	void			(*mtl)();
 	t_uint			handle;
-}				t_shader;
+};
 
-typedef struct	s_shader_def
+struct			s_shader_def
 {
 	char const		*file_name;
 	void			(*pre)();
 	void			(*mtl)();
 	char const		**uniforms;
 	int				uniform_count;
-}				t_shader_def;
+};
 
 #define SHADER_DEF(f,a,b,u)	{SHADERS_DIR f, a, b, u, sizeof(u) / sizeof(u[0])}
 #define SHADER_DEF_END()	{NULL, NULL, NULL, NULL, 0}

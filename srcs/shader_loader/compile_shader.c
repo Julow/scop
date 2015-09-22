@@ -6,12 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:21:09 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 18:52:30 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:21:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shader_loader.h"
+#include "gl.h"
 #include "ft_colors.h"
+#include "ft_list.h"
 
 static void		shader_error(t_uint id, t_shader_t t)
 {

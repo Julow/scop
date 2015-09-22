@@ -6,20 +6,19 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:54:03 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/18 16:25:35 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/22 08:18:19 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEXTURE_LOADER_H
 # define TEXTURE_LOADER_H
 
-# include "libft.h"
-# include "ft_buff.h"
+# include "scop.h"
 
-typedef struct	s_texture
+struct			s_texture
 {
 	t_uint			handle;
-}				t_texture;
+};
 
 /*
 ** Load a texture from a file

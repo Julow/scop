@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:50:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/08/25 12:53:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:22:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "texture_loader.h"
+#include "ft_buff.h"
 #include <fcntl.h>
 
 t_imgtype const	g_imgtypes[] = {

@@ -6,10 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:50:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/20 23:33:30 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/22 08:11:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "main.h"
 #include "scop.h"
 #include "utils.h"
 

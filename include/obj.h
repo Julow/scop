@@ -6,22 +6,20 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/21 23:29:58 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/22 08:17:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJ_H
 # define OBJ_H
 
-# include "math_utils.h" // TODO: Clean up includes
-# include "mesh_loader.h" // Every includes
-# include "texture_loader.h"
-# include "shader_loader.h"
+# include "scop.h"
+# include "math_utils.h"
 
 # define F_OBJ_UPDATED		(1 << 1)
 
 // TODO: move 'mesh' field in an other part
-typedef struct	s_obj
+struct			s_obj
 {
 	t_mesh const	*mesh;
 	t_texture const	*texture;
@@ -31,7 +29,7 @@ typedef struct	s_obj
 	t_vec3			rotation;
 	float			scale;
 	int				flags;
-}				t_obj;
+};
 
 # define OBJ(m,t,s)			((t_obj){(m), (t), (s), 0, 0, 0, 0})
 
