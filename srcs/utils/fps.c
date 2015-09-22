@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/10 18:27:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/10 18:27:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:34:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_fps			fps_init(t_uint update_interval)
 /*
 ** Start of a frame
 */
+
 void			fps_start(t_fps *fps)
 {
 	fps->frame_start = ft_clock(0);
@@ -31,6 +32,7 @@ void			fps_start(t_fps *fps)
 ** Start of a frame
 ** Return true every fps->update_interval
 */
+
 t_bool			fps_end(t_fps *fps)
 {
 	t_ulong			t;

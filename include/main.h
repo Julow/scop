@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:11:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:58:23 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ struct			s_scop
 ** init
 */
 t_bool			init_window(t_scop *scop);
-
-void			init_key_events(t_scop *scop);
-void			init_mouse_events(t_scop *scop);
 
 /*
 ** renderer

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:50:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:11:11 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:32:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define HINT_DOUBLE_BUFFER	false
 #endif
 
-t_bool			init_window(t_scop *scop)
+static t_bool	init_glfw(t_scop *scop)
 {
 	if (glfwInit() != GL_TRUE)
 		return (ft_error(false, "Cannot init GLFW"));
@@ -48,13 +48,28 @@ t_bool			init_window(t_scop *scop)
 	}
 	glfwMakeContextCurrent(scop->window);
 	glfwSetInputMode(scop->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	if (!INIT_GLEW)
-		return (ft_error(false, "Cannot init GLEW"));
+	return (true);
+}
+
+static t_bool	init_gl(t_scop *scop)
+{
 	glViewport(0, 0, WIN_WIDTH, WIN_HEIGHT);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_CULL_FACE);
+	return (true);
+	(void)scop;
+}
+
+t_bool			init_window(t_scop *scop)
+{
+	if (!init_glfw(scop))
+		return (false);
+	if (!INIT_GLEW)
+		return (ft_error(false, "Cannot init GLEW"));
+	if (!init_gl(scop))
+		return (false);
 	return (true);
 }

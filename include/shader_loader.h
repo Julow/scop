@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:18:11 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:29:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ struct			s_shader_def
 	int				uniform_count;
 };
 
-#define SHADER_DEF(f,a,b,u)	{SHADERS_DIR f, a, b, u, sizeof(u) / sizeof(u[0])}
-#define SHADER_DEF_END()	{NULL, NULL, NULL, NULL, 0}
+# define SHADER_DEF(f,a,b,u)	{SHADERS_DIR f, a, b, u, sizeof(u) / sizeof(u[0])}
+# define SHADER_DEF_END()		{NULL, NULL, NULL, NULL, 0}
 
 /*
 ** g_shader_def have to be declared by the user

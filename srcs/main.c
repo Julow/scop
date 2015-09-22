@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:18:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 09:30:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,42 @@
 #include "resources.h"
 #include "obj.h"
 #include "math_utils.h"
+#include "events.h"
 #include "utils.h"
 #include <stdlib.h>
 #include <math.h>
+
+/*
+** ========================================================================== **
+** Def events
+*/
+
+static void		on_mouse_move(t_scop *env, double x, double y)
+{
+	env->flags |= FLAG_CURSOR_MOVE;
+	(void)x;
+	(void)y;
+}
+
+static void		on_esc(t_scop *env, int key_code)
+{
+	glfwSetWindowShouldClose(env->window, GL_TRUE);
+	(void)key_code;
+}
+
+t_key_event const		g_events[] = {
+	E_KEY_FLAG(GLFW_KEY_W, t_scop, flags, FLAG_MOVE_FRONT),
+	E_KEY_FLAG(GLFW_KEY_W, t_scop, flags, FLAG_MOVE_FRONT),
+	E_KEY_FLAG(GLFW_KEY_D, t_scop, flags, FLAG_MOVE_LEFT),
+	E_KEY_FLAG(GLFW_KEY_S, t_scop, flags, FLAG_MOVE_BACK),
+	E_KEY_FLAG(GLFW_KEY_A, t_scop, flags, FLAG_MOVE_RIGHT),
+	E_KEY_FLAG(GLFW_KEY_LEFT_CONTROL, t_scop, flags, FLAG_ACCELERATE),
+	E_KEY_FLAG(GLFW_KEY_LEFT_SHIFT, t_scop, flags, FLAG_MOVE_DOWN),
+	E_KEY_FLAG(GLFW_KEY_SPACE, t_scop, flags, FLAG_MOVE_UP),
+	E_KEY_CALLBACK(GLFW_KEY_ESCAPE, &on_esc),
+	E_MOUSE_MOVE(&on_mouse_move),
+	E_END()
+};
 
 /*
 ** ========================================================================== **
@@ -173,8 +206,7 @@ int				main(void)
 	if (!init_window(&scop) || !load_scene(&scop))
 		return (1);
 	// glfwSwapInterval(0);
-	init_key_events(&scop);
-	init_mouse_events(&scop);
+	init_events(scop.window, &scop);
 	fps = fps_init(200000);
 	last_flags = -1;
 	while (!glfwWindowShouldClose(scop.window))

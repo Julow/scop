@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:11:35 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 09:29:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct s_mat4		t_mat4;
 
 typedef struct s_shader		t_shader;
 typedef struct s_shader_def	t_shader_def;
+
+typedef struct s_key_event	t_key_event;
 
 // TODO
 // typedef struct	s_simple_renderer

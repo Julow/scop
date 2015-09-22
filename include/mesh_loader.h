@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:11:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:17:03 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/22 08:45:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 
 struct			s_mesh
 {
-	t_uint			vao;
-	t_uint			vbo;
-	t_uint			ebo;
+	t_uint				vao;
+	t_uint				vbo;
+	t_uint				ebo;
 	t_mesh_mtl const	*mtl;
-	int				mtl_count;
+	int					mtl_count;
 };
 
 struct			s_mesh_mtl
