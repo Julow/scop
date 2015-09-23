@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/22 08:44:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 08:54:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@
 
 static t_vec2 const	g_lights[] = {
 	LIGHT(20.f, 0.f, 20.f, 1000.f),
-	SPOT(-700.f, 120.f, -750.f, 1000.f, 0.6f, 0.12f, -0.79f, 0.5f, 0.5f),
+	SPOT(-700.f, 120.f, -750.f, 1000.f, 0.6f, 0.12f, -0.79f, -0.5f, -0.6f),
 };
 
 static void		test_glsl_pre(t_shader const *shader, t_scop *scop, t_obj *obj)
 {
-	glUniformMatrix4fv(shader->loc[0], 2, GL_TRUE, (float*)obj_get_model(obj));
+	glUniformMatrix4fv(shader->loc[0], 2, GL_TRUE, (float*)ft_transform_get(&(obj->transform)));
 	glUniformMatrix4fv(shader->loc[1], 1, GL_TRUE,
 		(float*)camera_get_view(&(scop->camera)));
 	glUniformMatrix4fv(shader->loc[2], 1, GL_TRUE,

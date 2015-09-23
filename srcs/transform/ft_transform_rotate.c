@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_scale.c                                        :+:      :+:    :+:   */
+/*   ft_transform_rotate.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/21 23:27:49 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/21 23:27:54 by juloo            ###   ########.fr       */
+/*   Created: 2015/09/23 08:40:06 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/09/23 08:42:14 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "obj.h"
+#include "transform.h"
 
-void			obj_scale(t_obj *obj, float scale)
+void			ft_transform_rotate(t_transform *t, t_vec3 rot)
 {
-	obj->scale = scale;
-	obj->flags |= F_OBJ_UPDATED;
+	t->rotation = rot;
+	t->flags &= ~F_TRANSFORM_OK;
 }

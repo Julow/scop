@@ -17,14 +17,16 @@ O_FILES :=	o/srcs/camera/camera_get_view.o o/srcs/camera/camera_look.o \
 			o/srcs/mtl_loader/load_mtl.o o/srcs/mtl_loader/parse_mtl.o \
 			o/srcs/mtl_loader/parse_mtl_tokens.o \
 			o/srcs/mtl_loader/parse_mtl_tokens_map.o \
-			o/srcs/obj/obj_get_model.o o/srcs/obj/obj_move.o \
-			o/srcs/obj/obj_rotate.o o/srcs/obj/obj_scale.o \
 			o/srcs/resources/get_res.o o/srcs/shader_loader/compile_shader.o \
 			o/srcs/shader_loader/load_shader.o \
 			o/srcs/shader_loader/read_shader.o o/srcs/simple_renderer.o \
 			o/srcs/texture_loader/ft_loadimage.o \
 			o/srcs/texture_loader/load_texture.o \
-			o/srcs/texture_loader/tga_parser.o o/srcs/utils/fps.o \
+			o/srcs/texture_loader/tga_parser.o \
+			o/srcs/transform/ft_transform_get.o \
+			o/srcs/transform/ft_transform_move.o \
+			o/srcs/transform/ft_transform_rotate.o \
+			o/srcs/transform/ft_transform_scale.o o/srcs/utils/fps.o \
 			o/srcs/utils/ft_error.o o/srcs/utils/ft_listremove_next.o \
 			o/srcs/utils/ft_substart.o o/srcs/utils/parse_fvec.o
 
@@ -51,6 +53,7 @@ o/srcs/main.o: srcs/main.c include/main.h include/scop.h include/gl.h \
 	include/scop.h include/shader_loader.h include/scop.h \
 	include/mesh_loader.h include/scop.h include/resources.h include/scop.h \
 	include/obj.h include/scop.h include/math_utils.h include/scop.h \
+	include/transform.h include/scop.h include/math_utils.h include/scop.h \
 	include/math_utils.h include/scop.h include/events.h include/scop.h \
 	include/gl.h include/utils.h | o/srcs/
 o/srcs/math_utils/ft_mat4look_at.o: srcs/math_utils/ft_mat4look_at.c \
@@ -114,14 +117,6 @@ o/srcs/mtl_loader/parse_mtl_tokens_map.o: \
 	srcs/mtl_loader/parse_mtl_tokens_map.c include/mtl_loader.h include/scop.h \
 	include/math_utils.h include/scop.h include/resources.h include/scop.h \
 	| o/srcs/mtl_loader/
-o/srcs/obj/obj_get_model.o: srcs/obj/obj_get_model.c include/obj.h \
-	include/scop.h include/math_utils.h include/scop.h | o/srcs/obj/
-o/srcs/obj/obj_move.o: srcs/obj/obj_move.c include/obj.h include/scop.h \
-	include/math_utils.h include/scop.h | o/srcs/obj/
-o/srcs/obj/obj_rotate.o: srcs/obj/obj_rotate.c include/obj.h include/scop.h \
-	include/math_utils.h include/scop.h | o/srcs/obj/
-o/srcs/obj/obj_scale.o: srcs/obj/obj_scale.c include/obj.h include/scop.h \
-	include/math_utils.h include/scop.h | o/srcs/obj/
 o/srcs/resources/get_res.o: srcs/resources/get_res.c include/resources.h \
 	include/scop.h include/shader_loader.h include/scop.h \
 	include/mesh_loader.h include/scop.h include/mtl_loader.h include/scop.h \
@@ -141,6 +136,7 @@ o/srcs/simple_renderer.o: srcs/simple_renderer.c include/scop.h include/main.h \
 	include/texture_loader.h include/scop.h include/mesh_loader.h \
 	include/scop.h include/mtl_loader.h include/scop.h include/math_utils.h \
 	include/scop.h include/obj.h include/scop.h include/math_utils.h \
+	include/scop.h include/transform.h include/scop.h include/math_utils.h \
 	include/scop.h include/camera.h include/scop.h include/math_utils.h \
 	include/scop.h | o/srcs/
 o/srcs/texture_loader/ft_loadimage.o: srcs/texture_loader/ft_loadimage.c \
@@ -151,6 +147,18 @@ o/srcs/texture_loader/load_texture.o: srcs/texture_loader/load_texture.c \
 o/srcs/texture_loader/tga_parser.o: srcs/texture_loader/tga_parser.c \
 	include/texture_loader.h include/scop.h include/utils.h \
 	| o/srcs/texture_loader/
+o/srcs/transform/ft_transform_get.o: srcs/transform/ft_transform_get.c \
+	include/transform.h include/scop.h include/math_utils.h include/scop.h \
+	| o/srcs/transform/
+o/srcs/transform/ft_transform_move.o: srcs/transform/ft_transform_move.c \
+	include/transform.h include/scop.h include/math_utils.h include/scop.h \
+	| o/srcs/transform/
+o/srcs/transform/ft_transform_rotate.o: srcs/transform/ft_transform_rotate.c \
+	include/transform.h include/scop.h include/math_utils.h include/scop.h \
+	| o/srcs/transform/
+o/srcs/transform/ft_transform_scale.o: srcs/transform/ft_transform_scale.c \
+	include/transform.h include/scop.h include/math_utils.h include/scop.h \
+	| o/srcs/transform/
 o/srcs/utils/fps.o: srcs/utils/fps.c include/utils.h | o/srcs/utils/
 o/srcs/utils/ft_error.o: srcs/utils/ft_error.c include/utils.h | o/srcs/utils/
 o/srcs/utils/ft_listremove_next.o: srcs/utils/ft_listremove_next.c \

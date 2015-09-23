@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 09:30:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 08:48:57 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ t_bool			load_scene(t_scop *scop)
 		|| (obj.texture = get_res(g_res_t.texture, g_scene[i].texture)) == NULL
 		|| (obj.shader = get_res(g_res_t.shader, g_scene[i].shader)) == NULL)
 			continue ;
-		obj_move(&obj, g_scene[i].pos);
-		obj_rotate(&obj, g_scene[i].rot);
-		obj_scale(&obj, g_scene[i].scale);
+		ft_transform_move(&(obj.transform), g_scene[i].pos);
+		ft_transform_rotate(&(obj.transform), g_scene[i].rot);
+		ft_transform_scale(&(obj.transform), g_scene[i].scale);
 		ft_vpush_back(&(scop->objects), &obj, 1);
 	}
 	return (true);
@@ -109,7 +109,7 @@ t_bool			load_scene(t_scop *scop)
 
 static void		depth_glsl_pre(t_shader const *shader, t_scop *scop, t_obj *obj)
 {
-	glUniformMatrix4fv(shader->loc[0], 1, GL_TRUE, (float*)obj_get_model(obj));
+	glUniformMatrix4fv(shader->loc[0], 1, GL_TRUE, (float*)ft_transform_get(&(obj->transform)));
 	glUniformMatrix4fv(shader->loc[1], 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
 	glUniformMatrix4fv(shader->loc[2], 1, GL_TRUE, (float*)&(scop->projection_m));
 	glUniform3fv(shader->loc[3], 1, (float*)&(scop->camera.position));

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_move.c                                         :+:      :+:    :+:   */
+/*   ft_transform_scale.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/21 23:28:11 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/21 23:28:16 by juloo            ###   ########.fr       */
+/*   Created: 2015/09/23 08:40:04 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/09/23 08:42:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "obj.h"
+#include "transform.h"
 
-void			obj_move(t_obj *obj, t_vec3 pos)
+void			ft_transform_scale(t_transform *t, float scale)
 {
-	obj->position = pos;
-	obj->flags |= F_OBJ_UPDATED;
+	t->scale = scale;
+	t->flags &= ~F_TRANSFORM_OK;
 }

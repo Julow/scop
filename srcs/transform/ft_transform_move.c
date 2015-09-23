@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_rotate.c                                       :+:      :+:    :+:   */
+/*   ft_transform_move.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/21 23:28:01 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/21 23:28:05 by juloo            ###   ########.fr       */
+/*   Created: 2015/09/23 08:40:09 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/09/23 08:42:18 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "obj.h"
+#include "transform.h"
 
-void			obj_rotate(t_obj *obj, t_vec3 rot)
+void			ft_transform_move(t_transform *t, t_vec3 pos)
 {
-	obj->rotation = rot;
-	obj->flags |= F_OBJ_UPDATED;
+	t->position = pos;
+	t->flags &= ~F_TRANSFORM_OK;
 }
