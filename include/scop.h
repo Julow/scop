@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 16:21:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 18:42:29 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 typedef struct s_scop		t_scop;
 
 typedef struct s_obj		t_obj;
-typedef struct s_camera		t_camera;
+typedef void				(*t_renderer)(t_scop*, t_obj*);
 
 typedef struct s_mtl		t_mtl;
 
@@ -44,26 +44,11 @@ typedef struct s_vec4		t_vec4;
 typedef struct s_mat4		t_mat4;
 
 typedef struct s_transform	t_transform;
+typedef struct s_camera		t_camera;
 
 typedef struct s_shader		t_shader;
 typedef struct s_uniform	t_uniform;
 
 typedef struct s_key_event	t_key_event;
-
-// TODO
-// typedef struct	s_simple_renderer
-// {
-// 	t_renderer		t;
-// 	t_shader const	*shader;
-// }				t_simple_renderer;
-
-// typedef struct	s_shadow_renderer
-// {
-// 	t_renderer		t;
-// 	t_shader const	*depth;
-// 	t_shader const	*light;
-// 	t_shader const	*render;
-// }				t_shadow_renderer;
-// -
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 16:52:30 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 19:22:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ struct			s_uniform
 ** Warning: Crash if 'name' is not found
 ** TODO: fix
 */
+// # define UNIFORM(shader,name)	(glGetUniformLocation(shader->handle, name))
 # define UNIFORM(shader,name)	(((t_uniform const*)ft_hmapget((shader)->uniforms, SUBC(name)))->loc)
 
 /*

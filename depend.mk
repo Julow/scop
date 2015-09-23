@@ -1,7 +1,8 @@
-O_FILES :=	o/srcs/camera/camera_get_view.o o/srcs/camera/camera_look.o \
-			o/srcs/camera/camera_move.o o/srcs/events/events.o \
-			o/srcs/init_window.o o/srcs/main.o \
-			o/srcs/math_utils/ft_mat4look_at.o o/srcs/math_utils/ft_mat4mult.o \
+O_FILES :=	o/srcs/callbacks.o o/srcs/camera/camera_get_view.o \
+			o/srcs/camera/camera_look.o o/srcs/camera/camera_move.o \
+			o/srcs/events/events.o o/srcs/init.o o/srcs/init_window.o \
+			o/srcs/main.o o/srcs/math_utils/ft_mat4look_at.o \
+			o/srcs/math_utils/ft_mat4mult.o \
 			o/srcs/math_utils/ft_mat4perspective.o \
 			o/srcs/math_utils/ft_mat4reflect.o \
 			o/srcs/math_utils/ft_mat4rotate.o o/srcs/math_utils/ft_mat4scale.o \
@@ -15,13 +16,14 @@ O_FILES :=	o/srcs/camera/camera_get_view.o o/srcs/camera/camera_look.o \
 			o/srcs/mesh_loader/load_mesh.o o/srcs/mesh_loader/parse_mesh.o \
 			o/srcs/mesh_loader/parse_mesh_tokens.o \
 			o/srcs/mesh_loader/parse_mesh_tokens_mtl.o \
-			o/srcs/mesh_loader/send_mesh.o o/srcs/motions.o \
+			o/srcs/mesh_loader/send_mesh.o o/srcs/motions/motions.o \
 			o/srcs/mtl_loader/load_mtl.o o/srcs/mtl_loader/parse_mtl.o \
 			o/srcs/mtl_loader/parse_mtl_tokens.o \
 			o/srcs/mtl_loader/parse_mtl_tokens_map.o \
-			o/srcs/resources/get_res.o o/srcs/shader_loader/compile_shader.o \
+			o/srcs/renderer/simple_renderer.o o/srcs/resources/get_res.o \
+			o/srcs/shader_loader/compile_shader.o \
 			o/srcs/shader_loader/load_shader.o \
-			o/srcs/shader_loader/read_shader.o o/srcs/simple_renderer.o \
+			o/srcs/shader_loader/read_shader.o \
 			o/srcs/texture_loader/ft_loadimage.o \
 			o/srcs/texture_loader/load_texture.o \
 			o/srcs/texture_loader/tga_parser.o \
@@ -41,6 +43,9 @@ libs:
 	make -C libft
 .PHONY: libs
 
+o/srcs/callbacks.o: srcs/callbacks.c include/main.h include/scop.h \
+	include/gl.h include/camera.h include/scop.h include/math_utils.h \
+	include/scop.h | o/srcs/
 o/srcs/camera/camera_get_view.o: srcs/camera/camera_get_view.c \
 	include/camera.h include/scop.h include/math_utils.h include/scop.h \
 	| o/srcs/camera/
@@ -50,6 +55,9 @@ o/srcs/camera/camera_move.o: srcs/camera/camera_move.c include/camera.h \
 	include/scop.h include/math_utils.h include/scop.h | o/srcs/camera/
 o/srcs/events/events.o: srcs/events/events.c include/events.h include/scop.h \
 	include/gl.h include/utils.h include/gl.h | o/srcs/events/
+o/srcs/init.o: srcs/init.c include/main.h include/scop.h include/gl.h \
+	include/camera.h include/scop.h include/math_utils.h include/scop.h \
+	include/scop.h include/events.h include/scop.h include/gl.h | o/srcs/
 o/srcs/init_window.o: srcs/init_window.c include/main.h include/scop.h \
 	include/gl.h include/camera.h include/scop.h include/math_utils.h \
 	include/scop.h include/scop.h include/utils.h | o/srcs/
@@ -110,9 +118,8 @@ o/srcs/mesh_loader/parse_mesh_tokens_mtl.o: \
 	| o/srcs/mesh_loader/
 o/srcs/mesh_loader/send_mesh.o: srcs/mesh_loader/send_mesh.c \
 	include/mesh_loader.h include/scop.h include/gl.h | o/srcs/mesh_loader/
-o/srcs/motions.o: srcs/motions.c include/main.h include/scop.h include/gl.h \
-	include/camera.h include/scop.h include/math_utils.h include/scop.h \
-	include/scop.h include/math_utils.h include/scop.h | o/srcs/
+o/srcs/motions/motions.o: srcs/motions/motions.c include/motions.h \
+	include/scop.h include/math_utils.h include/scop.h | o/srcs/motions/
 o/srcs/mtl_loader/load_mtl.o: srcs/mtl_loader/load_mtl.c include/mtl_loader.h \
 	include/scop.h include/math_utils.h include/scop.h include/utils.h \
 	| o/srcs/mtl_loader/
@@ -126,6 +133,16 @@ o/srcs/mtl_loader/parse_mtl_tokens_map.o: \
 	srcs/mtl_loader/parse_mtl_tokens_map.c include/mtl_loader.h include/scop.h \
 	include/math_utils.h include/scop.h include/resources.h include/scop.h \
 	| o/srcs/mtl_loader/
+o/srcs/renderer/simple_renderer.o: srcs/renderer/simple_renderer.c \
+	include/scop.h include/main.h include/scop.h include/gl.h include/camera.h \
+	include/scop.h include/math_utils.h include/scop.h include/shader_loader.h \
+	include/scop.h include/texture_loader.h include/scop.h \
+	include/mesh_loader.h include/scop.h include/mtl_loader.h include/scop.h \
+	include/math_utils.h include/scop.h include/obj.h include/scop.h \
+	include/math_utils.h include/scop.h include/transform.h include/scop.h \
+	include/math_utils.h include/scop.h include/resources.h include/scop.h \
+	include/camera.h include/scop.h include/math_utils.h include/scop.h \
+	| o/srcs/renderer/
 o/srcs/resources/get_res.o: srcs/resources/get_res.c include/resources.h \
 	include/scop.h include/shader_loader.h include/scop.h \
 	include/mesh_loader.h include/scop.h include/mtl_loader.h include/scop.h \
@@ -139,15 +156,6 @@ o/srcs/shader_loader/load_shader.o: srcs/shader_loader/load_shader.c \
 o/srcs/shader_loader/read_shader.o: srcs/shader_loader/read_shader.c \
 	include/shader_loader.h include/scop.h include/utils.h include/gl.h \
 	| o/srcs/shader_loader/
-o/srcs/simple_renderer.o: srcs/simple_renderer.c include/scop.h include/main.h \
-	include/scop.h include/gl.h include/camera.h include/scop.h \
-	include/math_utils.h include/scop.h include/shader_loader.h include/scop.h \
-	include/texture_loader.h include/scop.h include/mesh_loader.h \
-	include/scop.h include/mtl_loader.h include/scop.h include/math_utils.h \
-	include/scop.h include/obj.h include/scop.h include/math_utils.h \
-	include/scop.h include/transform.h include/scop.h include/math_utils.h \
-	include/scop.h include/camera.h include/scop.h include/math_utils.h \
-	include/scop.h | o/srcs/
 o/srcs/texture_loader/ft_loadimage.o: srcs/texture_loader/ft_loadimage.c \
 	include/texture_loader.h include/scop.h | o/srcs/texture_loader/
 o/srcs/texture_loader/load_texture.o: srcs/texture_loader/load_texture.c \

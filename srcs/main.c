@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 17:10:29 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 19:18:22 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,45 +24,12 @@
 
 /*
 ** ========================================================================== **
-** Def events
-*/
-
-static void		on_mouse_move(t_scop *env, double x, double y)
-{
-	env->flags |= FLAG_CURSOR_MOVE;
-	(void)x;
-	(void)y;
-}
-
-static void		on_esc(t_scop *env, int key_code)
-{
-	glfwSetWindowShouldClose(env->window, GL_TRUE);
-	(void)key_code;
-}
-
-t_key_event const		g_events[] = {
-	E_KEY_FLAG(GLFW_KEY_W, t_scop, flags, FLAG_MOVE_FRONT),
-	E_KEY_FLAG(GLFW_KEY_W, t_scop, flags, FLAG_MOVE_FRONT),
-	E_KEY_FLAG(GLFW_KEY_D, t_scop, flags, FLAG_MOVE_LEFT),
-	E_KEY_FLAG(GLFW_KEY_S, t_scop, flags, FLAG_MOVE_BACK),
-	E_KEY_FLAG(GLFW_KEY_A, t_scop, flags, FLAG_MOVE_RIGHT),
-	E_KEY_FLAG(GLFW_KEY_LEFT_CONTROL, t_scop, flags, FLAG_ACCELERATE),
-	E_KEY_FLAG(GLFW_KEY_LEFT_SHIFT, t_scop, flags, FLAG_MOVE_DOWN),
-	E_KEY_FLAG(GLFW_KEY_SPACE, t_scop, flags, FLAG_MOVE_UP),
-	E_KEY_CALLBACK(GLFW_KEY_ESCAPE, &on_esc),
-	E_MOUSE_MOVE(&on_mouse_move),
-	E_END()
-};
-
-/*
-** ========================================================================== **
 ** Scene
 */
 typedef struct	s_scene_obj
 {
 	t_sub			mesh;
-	t_sub			texture;
-	t_sub			shader;
+	t_renderer		renderer;
 	t_vec3			pos;
 	t_vec3			rot;
 	t_vec3			shear;
@@ -70,16 +37,16 @@ typedef struct	s_scene_obj
 	int				reflect;
 }				t_scene_obj;
 
-#define S_OBJ(m,t,s,p,r,h,k,f)	((t_scene_obj){SUBC(m),SUBC(t),SUBC(s),VEC3 p,VEC3 r,VEC3 h,k,f})
+#define S_OBJ(m,e,p,r,h,k,f)	((t_scene_obj){SUBC(m),e,VEC3 p,VEC3 r,VEC3 h,k,f})
 
 static const t_scene_obj	g_scene[] = {
-	S_OBJ("42.obj", "wall.tga", "test.glsl", (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
-	S_OBJ("cube.obj", "wall.tga", "test.glsl", (20.f, 0.f, 20.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
-	S_OBJ("cube.obj", "wall.tga", "test.glsl", (-700.f, 120.f, -750.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
-	S_OBJ("teapot.obj", "wall.tga", "test.glsl", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), (0.f, 0.f, 0.f), 1.f, REFLECT_Y),
-	S_OBJ("teapot2.obj", "wall.tga", "test.glsl", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.1f, 0),
-	S_OBJ("cube.obj", "wall.tga", "test.glsl", (300.f, -10.f, -50.f), (0.f, 0.f, 0.f), (0.f, 0.5f, 0.5f), 50.f, 0),
-	S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("42.obj", &simple_renderer, (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("cube.obj", &simple_renderer, (20.f, 0.f, 20.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("cube.obj", &simple_renderer, (-700.f, 120.f, -750.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("teapot.obj", &simple_renderer, (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), (0.f, 0.f, 0.f), 1.f, REFLECT_Y),
+	S_OBJ("teapot2.obj", &simple_renderer, (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.1f, 0),
+	S_OBJ("cube.obj", &simple_renderer, (300.f, -10.f, -50.f), (0.f, 0.f, 0.f), (0.f, 0.5f, 0.5f), 50.f, 0),
+	S_OBJ("venice.obj", &simple_renderer, (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
 	// S_OBJ("venice.obj", "wall.tga", "depth.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
 };
 
@@ -92,10 +59,9 @@ t_bool			load_scene(t_scop *scop)
 	while (++i < G_ARRAY_LEN(g_scene))
 	{
 		ft_bzero(&obj, sizeof(t_obj));
-		if ((obj.mesh = get_res(g_res_t.mesh, g_scene[i].mesh)) == NULL
-		|| (obj.texture = get_res(g_res_t.texture, g_scene[i].texture)) == NULL
-		|| (obj.shader = get_res(g_res_t.shader, g_scene[i].shader)) == NULL)
+		if ((obj.mesh = get_res(g_res_t.mesh, g_scene[i].mesh)) == NULL)
 			continue ;
+		obj.renderer = g_scene[i].renderer;
 		ft_transform_move(&(obj.transform), g_scene[i].pos);
 		ft_transform_rotate(&(obj.transform), g_scene[i].rot);
 		ft_transform_scale(&(obj.transform), g_scene[i].scale);
@@ -139,10 +105,9 @@ t_bool			load_scene(t_scop *scop)
 ** Render obj
 */
 
-void			render_obj(t_scop *scop, t_obj *obj)
+static void		render_obj(t_scop *scop, t_obj *obj)
 {
-	simple_renderer(scop, obj);
-	// obj->shader->pre(scop, obj);
+	obj->renderer(scop, obj);
 }
 
 void			render(t_scop *scop)
@@ -185,43 +150,7 @@ int				main(void)
 		PERSPECTIVE_NEAR, PERSPECTIVE_FAR);
 	if (!init_window(&scop) || !load_scene(&scop))
 		return (1);
-	// glfwSwapInterval(0);
 	init_events(scop.window, &scop);
-
-/*
-** HMap power demo
-*/
-	// {
-	// 	ft_printf("TEST START\n");
-
-	// 	t_shader const	*shader = get_res(g_res_t.shader, SUBC("depth.glsl"));
-	// 	t_ulong			t;
-	// 	int				i;
-	// 	t_hmap			*locations;
-	// 	t_uint			loc;
-	// 	t_uint			*tmp = &loc;
-
-	// 	locations = ft_hmapnew(10, &ft_djb2);
-
-	// 	t = ft_clock(0);
-
-	// 	i = 10000000;
-	// 	while (--i >= 0)
-	// 	{
-	// 		if ((tmp = ft_hmapget(locations, SUBC("projection"))) == NULL)
-	// 		{
-	// 			loc = glGetUniformLocation(shader->handle, "projection");
-	// 			ft_hmapput(locations, SUBC("projection"), &loc, sizeof(t_uint));
-	// 		}
-	// 		// loc = glGetUniformLocation(shader->handle, "projection");
-	// 	}
-
-	// 	t = ft_clock(t);
-	// 	ft_printf("time: %lld us; loc: %u|%u\n", t, *tmp, loc);
-
-	// 	ft_printf("TEST END\n");
-	// }
-
 	fps = fps_init(200000);
 	last_flags = -1;
 	while (!glfwWindowShouldClose(scop.window))

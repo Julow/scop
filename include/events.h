@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:47:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 09:31:07 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 18:58:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ struct			s_key_event
 ** 'action' is dst_offset << 32 | flags
 ** (Not available for mouse events)
 */
-# define E_KEY_FLAG(k,s,n,f)	(t_key_event){k,F_KEY_FLAG,(offsetof(s,n)<<32)|f}
+# define E_KEY_FLAG(k,s,n,f)	(t_key_event){k,F_KEY_FLAG,_E_KEY_FLAG(s,n)|f}
+# define _E_KEY_FLAG(s,n)		(offsetof(s,n)<<32)
 
 /*
 ** Call 'f' on key up

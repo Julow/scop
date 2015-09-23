@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_events.c                                       :+:      :+:    :+:   */
+/*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 09:31:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 18:50:07 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ static void		key_callback(GLFWwindow *window, int key, int scancode,
 		if (g_events[i].flags & F_KEY_CALLBACK && action == GLFW_RELEASE)
 			((void(*)())g_events[i].action)(save_env(NULL), key);
 		else if (g_events[i].flags & F_KEY_FLAG && action == GLFW_RELEASE)
-			(*(int*)(save_env(NULL) + (g_events[i].action >> 32))) &= ~(g_events[i].action & 0xFFFFFFFF);
+			(*(int*)(save_env(NULL) + (g_events[i].action >> 32))) &=
+				~(g_events[i].action & 0xFFFFFFFF);
 		else if (g_events[i].flags & F_KEY_FLAG && action == GLFW_PRESS)
-			(*(int*)(save_env(NULL) + (g_events[i].action >> 32))) |= g_events[i].action & 0xFFFFFFFF;
+			(*(int*)(save_env(NULL) + (g_events[i].action >> 32))) |=
+				g_events[i].action & 0xFFFFFFFF;
 	}
 	(void)window;
 	(void)scancode;

@@ -6,13 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/09 18:45:57 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:12:11 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 18:54:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include "scop.h"
-#include "math_utils.h"
+#include "main.h" // TODO: move
+#include "motions.h"
 #include <math.h>
 
 static void		move_front(t_vec2 dir, t_vec3 *move, float inv)
@@ -38,12 +37,7 @@ static void		move_vertical(t_vec2 dir, t_vec3 *move, float inv)
 	(void)dir;
 }
 
-static struct
-{
-	int				flag;
-	void			(*f)(t_vec2 dir, t_vec3 *move, float inv);
-	float			inv;
-} const			g_moves[] = {
+static t_motion_def const	g_moves[] = {
 	{FLAG_MOVE_FRONT, &move_front, -1.f},
 	{FLAG_MOVE_BACK, &move_front, 1.f},
 	{FLAG_MOVE_RIGHT, &move_lateral, -1.f},

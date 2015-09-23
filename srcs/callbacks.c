@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj.h                                              :+:      :+:    :+:   */
+/*   callbacks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/23 18:42:07 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/09/23 19:10:51 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/09/23 19:11:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJ_H
-# define OBJ_H
+#include "main.h"
 
-# include "scop.h"
-# include "math_utils.h"
-# include "transform.h"
-
-struct			s_obj
+void			on_mouse_move(t_scop *env, double x, double y)
 {
-	t_mesh const	*mesh;
-	t_renderer		renderer;
-	t_transform		transform;
-};
+	env->flags |= FLAG_CURSOR_MOVE;
+	(void)x;
+	(void)y;
+}
 
-#endif
+void			on_esc(t_scop *env, int key_code)
+{
+	glfwSetWindowShouldClose(env->window, GL_TRUE);
+	(void)key_code;
+}
