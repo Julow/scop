@@ -5,6 +5,7 @@ O_FILES :=	o/srcs/camera/camera_get_view.o o/srcs/camera/camera_look.o \
 			o/srcs/math_utils/ft_mat4perspective.o \
 			o/srcs/math_utils/ft_mat4reflect.o \
 			o/srcs/math_utils/ft_mat4rotate.o o/srcs/math_utils/ft_mat4scale.o \
+			o/srcs/math_utils/ft_mat4shear.o \
 			o/srcs/math_utils/ft_mat4translate.o \
 			o/srcs/math_utils/ft_mat4transpose.o \
 			o/srcs/math_utils/ft_vec3cross.o o/srcs/math_utils/ft_vec3dot.o \
@@ -28,7 +29,8 @@ O_FILES :=	o/srcs/camera/camera_get_view.o o/srcs/camera/camera_look.o \
 			o/srcs/transform/ft_transform_move.o \
 			o/srcs/transform/ft_transform_reflect.o \
 			o/srcs/transform/ft_transform_rotate.o \
-			o/srcs/transform/ft_transform_scale.o o/srcs/utils/fps.o \
+			o/srcs/transform/ft_transform_scale.o \
+			o/srcs/transform/ft_transform_shear.o o/srcs/utils/fps.o \
 			o/srcs/utils/ft_error.o o/srcs/utils/ft_listremove_next.o \
 			o/srcs/utils/ft_substart.o o/srcs/utils/parse_fvec.o
 
@@ -69,6 +71,8 @@ o/srcs/math_utils/ft_mat4reflect.o: srcs/math_utils/ft_mat4reflect.c \
 o/srcs/math_utils/ft_mat4rotate.o: srcs/math_utils/ft_mat4rotate.c \
 	include/math_utils.h include/scop.h | o/srcs/math_utils/
 o/srcs/math_utils/ft_mat4scale.o: srcs/math_utils/ft_mat4scale.c \
+	include/math_utils.h include/scop.h | o/srcs/math_utils/
+o/srcs/math_utils/ft_mat4shear.o: srcs/math_utils/ft_mat4shear.c \
 	include/math_utils.h include/scop.h | o/srcs/math_utils/
 o/srcs/math_utils/ft_mat4translate.o: srcs/math_utils/ft_mat4translate.c \
 	include/math_utils.h include/scop.h | o/srcs/math_utils/
@@ -164,6 +168,9 @@ o/srcs/transform/ft_transform_rotate.o: srcs/transform/ft_transform_rotate.c \
 	include/transform.h include/scop.h include/math_utils.h include/scop.h \
 	| o/srcs/transform/
 o/srcs/transform/ft_transform_scale.o: srcs/transform/ft_transform_scale.c \
+	include/transform.h include/scop.h include/math_utils.h include/scop.h \
+	| o/srcs/transform/
+o/srcs/transform/ft_transform_shear.o: srcs/transform/ft_transform_shear.c \
 	include/transform.h include/scop.h include/math_utils.h include/scop.h \
 	| o/srcs/transform/
 o/srcs/utils/fps.o: srcs/utils/fps.c include/utils.h | o/srcs/utils/

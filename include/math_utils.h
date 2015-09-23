@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 10:08:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 10:23:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ void			ft_mat4translate(t_mat4 *m, t_vec3 translate);
 
 void			ft_mat4reflect(t_mat4 *mat, int flags);
 void			ft_mat4reflect_inv(t_mat4 *mat, int flags);
+
+void			ft_mat4shear(t_mat4 *mat, t_vec3 shear);
+void			ft_mat4shear_inv(t_mat4 *mat, t_vec3 shear);
 
 void			ft_mat4transpose(t_mat4 *m);
 

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 14:57:48 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/09 17:53:59 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 10:28:57 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			ft_mat4rotate(t_mat4 *mat, t_vec3 rotate)
 
 void			ft_mat4rotate_inv(t_mat4 *mat, t_vec3 rotate)
 {
-	ft_mat4rotate_x(mat, rotate.x);
-	ft_mat4rotate_y(mat, rotate.y);
-	ft_mat4rotate_z(mat, rotate.z);
+	ft_mat4rotate_x(mat, 0.f - rotate.x);
+	ft_mat4rotate_y(mat, 0.f - rotate.y);
+	ft_mat4rotate_z(mat, 0.f - rotate.z);
 }
