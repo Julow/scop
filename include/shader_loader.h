@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 19:22:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 23:55:46 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,19 @@ struct			s_uniform
 };
 
 /*
-** Warning: Crash if 'name' is not found
-** TODO: fix
+** Set an uniform
+** t		glUniform* suffix
+** s		shader
+** n		uniform name
+** ...		corresponding glUniform* arguments
 */
-// # define UNIFORM(shader,name)	(glGetUniformLocation(shader->handle, name))
-# define UNIFORM(shader,name)	(((t_uniform const*)ft_hmapget((shader)->uniforms, SUBC(name)))->loc)
+# define UNIFORM(t,s,n,...)	(glUniform##t(_UNIFORM(s,n), ##__VA_ARGS__))
+
+// # define _UNIFORM(s,n)		(glGetUniformLocation((s)->handle, n))
+// # define _UNIFORM(s,n)		(((t_uniform const*)ft_hmapget((s)->uniforms, SUBC(n)))->loc)
+# define _UNIFORM(s,n)		(shader_get_uniform(s, n))
+
+t_uint			shader_get_uniform(t_shader const *shader, t_sub name);
 
 /*
 ** Load a shader program

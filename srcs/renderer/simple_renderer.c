@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/23 19:16:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 23:27:26 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,15 @@ static t_vec2 const	g_lights[] = {
 
 static void		test_glsl_pre(t_shader const *shader, t_scop *scop, t_obj *obj)
 {
-	glUniformMatrix4fv(UNIFORM(shader, "model"), 2, GL_TRUE,
+	UNIFORM(Matrix4fv, shader, "model", 2, true,
 		(float*)ft_transform_get(&(obj->transform)));
-	glUniformMatrix4fv(UNIFORM(shader, "view"), 1, GL_TRUE,
+	UNIFORM(Matrix4fv, shader, "view", 1, true,
 		(float*)camera_get_view(&(scop->camera)));
-	glUniformMatrix4fv(UNIFORM(shader, "projection"), 1, GL_TRUE,
+	UNIFORM(Matrix4fv, shader, "projection", 1, true,
 		(float*)&(scop->projection_m));
-	glUniform3fv(UNIFORM(shader, "camera_pos"), 1,
-		(float*)&(scop->camera.position));
-	glUniform2fv(UNIFORM(shader, "lights"), G_ARRAY_LEN(g_lights),
-		(float*)g_lights);
-	glUniform1i(UNIFORM(shader, "light_count"), G_ARRAY_LEN(g_lights));
+	UNIFORM(3fv, shader, "camera_pos", 1, (float*)&(scop->camera.position));
+	UNIFORM(2fv, shader, "lights", G_ARRAY_LEN(g_lights), (float*)g_lights);
+	UNIFORM(1i, shader, "light_count", G_ARRAY_LEN(g_lights));
 }
 
 static void		test_glsl_mtl(t_shader const *shader, t_scop *scop, t_obj *obj,
@@ -55,22 +53,19 @@ static void		test_glsl_mtl(t_shader const *shader, t_scop *scop, t_obj *obj,
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D,
 		(mtl->ambient_map != NULL) ? mtl->ambient_map->handle : 0);
-	glUniform1i(UNIFORM(shader, "ambient_map"), 0);
-	glUniform3fv(UNIFORM(shader, "ambient_color"), 1,
-		(float*)&(mtl->ambient_color));
+	UNIFORM(1i, shader, "ambient_map", 0);
+	UNIFORM(3fv, shader, "ambient_color", 1, (float*)&(mtl->ambient_color));
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D,
 		(mtl->diffuse_map != NULL) ? mtl->diffuse_map->handle : 0);
-	glUniform1i(UNIFORM(shader, "diffuse_map"), 1);
-	glUniform3fv(UNIFORM(shader, "diffuse_color"), 1,
-		(float*)&(mtl->diffuse_color));
+	UNIFORM(1i, shader, "diffuse_map", 1);
+	UNIFORM(3fv, shader, "diffuse_color", 1, (float*)&(mtl->diffuse_color));
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D,
 		(mtl->specular_map != NULL) ? mtl->specular_map->handle : 0);
-	glUniform1i(UNIFORM(shader, "specular_map"), 2);
-	glUniform3fv(UNIFORM(shader, "specular_color"), 1,
-		(float*)&(mtl->specular_color));
-	glUniform1i(UNIFORM(shader, "specular_exp"), mtl->specular_exp);
+	UNIFORM(1i, shader, "specular_map", 2);
+	UNIFORM(3fv, shader, "specular_color", 1, (float*)&(mtl->specular_color));
+	UNIFORM(1i, shader, "specular_exp", mtl->specular_exp);
 	(void)scop;
 	(void)obj;
 }
