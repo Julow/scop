@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:07:56 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 10:08:36 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ struct			s_mat4
 # define MAT4_0()			((t_mat4){VEC4_0(), VEC4_0(), VEC4_0(), VEC4_0()})
 # define MAT4_I()			((t_mat4){VEC4_X(), VEC4_Y(), VEC4_Z(), VEC4_W()})
 
+# define REFLECT_X			(1 << 1)
+# define REFLECT_Y			(1 << 2)
+# define REFLECT_Z			(1 << 3)
+
 /*
 ** mat4 init
 */
@@ -76,6 +80,9 @@ void			ft_mat4scale3(t_mat4 *m_a, t_vec3 scale);
 void			ft_mat4rotate(t_mat4 *m, t_vec3 rotate);
 void			ft_mat4rotate_inv(t_mat4 *mat, t_vec3 rotate);
 void			ft_mat4translate(t_mat4 *m, t_vec3 translate);
+
+void			ft_mat4reflect(t_mat4 *mat, int flags);
+void			ft_mat4reflect_inv(t_mat4 *mat, int flags);
 
 void			ft_mat4transpose(t_mat4 *m);
 

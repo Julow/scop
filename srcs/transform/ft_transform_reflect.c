@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj.h                                              :+:      :+:    :+:   */
+/*   ft_transform_reflect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/23 09:02:19 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/09/23 10:11:23 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/09/23 10:12:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJ_H
-# define OBJ_H
+#include "transform.h"
 
-# include "scop.h"
-# include "math_utils.h"
-# include "transform.h"
-
-struct			s_obj
+void			ft_transform_reflect(t_transform *t, int reflects)
 {
-	t_mesh const	*mesh;
-	t_texture const	*texture;
-	t_shader const	*shader;
-	t_transform		transform;
-};
-
-#endif
+	t->flags |= reflects & (REFLECT_X | REFLECT_Y | REFLECT_Z);
+	t->flags &= ~F_TRANSFORM_OK;
+}

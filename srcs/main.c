@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 08:48:57 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 10:14:17 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,20 @@ typedef struct	s_scene_obj
 	t_vec3			pos;
 	t_vec3			rot;
 	float			scale;
+	int				reflect;
 }				t_scene_obj;
 
-#define S_OBJ(m,t,s,p,r,k)	((t_scene_obj){SUBC(m),SUBC(t),SUBC(s),VEC3 p,VEC3 r,k})
+#define S_OBJ(m,t,s,p,r,k,f)	((t_scene_obj){SUBC(m),SUBC(t),SUBC(s),VEC3 p,VEC3 r,k,f})
 
 static const t_scene_obj	g_scene[] = {
-	S_OBJ("42.obj", "wall.tga", "test.glsl", (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), 1.f),
-	S_OBJ("cube.obj", "wall.tga", "test.glsl", (20.f, 0.f, 20.f), (0.f, 0.f, 0.f), 1.f),
-	S_OBJ("cube.obj", "wall.tga", "test.glsl", (-700.f, 120.f, -750.f), (0.f, 0.f, 0.f), 1.f),
-	S_OBJ("teapot.obj", "wall.tga", "test.glsl", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f),
-	S_OBJ("teapot2.obj", "wall.tga", "test.glsl", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f),
-	S_OBJ("cube.obj", "wall.tga", "test.glsl", (0.f, -55.f, 0.f), (0.f, 0.f, 0.f), 50.f),
-	S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
-	// S_OBJ("venice.obj", "wall.tga", "depth.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f),
+	S_OBJ("42.obj", "wall.tga", "test.glsl", (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), 1.f, 0),
+	S_OBJ("cube.obj", "wall.tga", "test.glsl", (20.f, 0.f, 20.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("cube.obj", "wall.tga", "test.glsl", (-700.f, 120.f, -750.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("teapot.obj", "wall.tga", "test.glsl", (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), 1.f, REFLECT_Y),
+	S_OBJ("teapot2.obj", "wall.tga", "test.glsl", (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), 0.1f, 0),
+	S_OBJ("cube.obj", "wall.tga", "test.glsl", (0.f, -55.f, 0.f), (0.f, 0.f, 0.f), 50.f, 0),
+	S_OBJ("venice.obj", "wall.tga", "test.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	// S_OBJ("venice.obj", "wall.tga", "depth.glsl", (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
 };
 
 t_bool			load_scene(t_scop *scop)
@@ -97,6 +98,7 @@ t_bool			load_scene(t_scop *scop)
 		ft_transform_move(&(obj.transform), g_scene[i].pos);
 		ft_transform_rotate(&(obj.transform), g_scene[i].rot);
 		ft_transform_scale(&(obj.transform), g_scene[i].scale);
+		ft_transform_reflect(&(obj.transform), g_scene[i].reflect);
 		ft_vpush_back(&(scop->objects), &obj, 1);
 	}
 	return (true);

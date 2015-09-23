@@ -3,6 +3,7 @@ O_FILES :=	o/srcs/camera/camera_get_view.o o/srcs/camera/camera_look.o \
 			o/srcs/init_window.o o/srcs/main.o \
 			o/srcs/math_utils/ft_mat4look_at.o o/srcs/math_utils/ft_mat4mult.o \
 			o/srcs/math_utils/ft_mat4perspective.o \
+			o/srcs/math_utils/ft_mat4reflect.o \
 			o/srcs/math_utils/ft_mat4rotate.o o/srcs/math_utils/ft_mat4scale.o \
 			o/srcs/math_utils/ft_mat4translate.o \
 			o/srcs/math_utils/ft_mat4transpose.o \
@@ -25,6 +26,7 @@ O_FILES :=	o/srcs/camera/camera_get_view.o o/srcs/camera/camera_look.o \
 			o/srcs/texture_loader/tga_parser.o \
 			o/srcs/transform/ft_transform_get.o \
 			o/srcs/transform/ft_transform_move.o \
+			o/srcs/transform/ft_transform_reflect.o \
 			o/srcs/transform/ft_transform_rotate.o \
 			o/srcs/transform/ft_transform_scale.o o/srcs/utils/fps.o \
 			o/srcs/utils/ft_error.o o/srcs/utils/ft_listremove_next.o \
@@ -61,6 +63,8 @@ o/srcs/math_utils/ft_mat4look_at.o: srcs/math_utils/ft_mat4look_at.c \
 o/srcs/math_utils/ft_mat4mult.o: srcs/math_utils/ft_mat4mult.c \
 	include/math_utils.h include/scop.h | o/srcs/math_utils/
 o/srcs/math_utils/ft_mat4perspective.o: srcs/math_utils/ft_mat4perspective.c \
+	include/math_utils.h include/scop.h | o/srcs/math_utils/
+o/srcs/math_utils/ft_mat4reflect.o: srcs/math_utils/ft_mat4reflect.c \
 	include/math_utils.h include/scop.h | o/srcs/math_utils/
 o/srcs/math_utils/ft_mat4rotate.o: srcs/math_utils/ft_mat4rotate.c \
 	include/math_utils.h include/scop.h | o/srcs/math_utils/
@@ -151,6 +155,9 @@ o/srcs/transform/ft_transform_get.o: srcs/transform/ft_transform_get.c \
 	include/transform.h include/scop.h include/math_utils.h include/scop.h \
 	| o/srcs/transform/
 o/srcs/transform/ft_transform_move.o: srcs/transform/ft_transform_move.c \
+	include/transform.h include/scop.h include/math_utils.h include/scop.h \
+	| o/srcs/transform/
+o/srcs/transform/ft_transform_reflect.o: srcs/transform/ft_transform_reflect.c \
 	include/transform.h include/scop.h include/math_utils.h include/scop.h \
 	| o/srcs/transform/
 o/srcs/transform/ft_transform_rotate.o: srcs/transform/ft_transform_rotate.c \
