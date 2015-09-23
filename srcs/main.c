@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 10:52:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 17:10:29 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,53 +111,28 @@ t_bool			load_scene(t_scop *scop)
 ** Shader def
 */
 
-static void		depth_glsl_pre(t_shader const *shader, t_scop *scop, t_obj *obj)
-{
-	glUniformMatrix4fv(shader->loc[0], 1, GL_TRUE, (float*)ft_transform_get(&(obj->transform)));
-	glUniformMatrix4fv(shader->loc[1], 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
-	glUniformMatrix4fv(shader->loc[2], 1, GL_TRUE, (float*)&(scop->projection_m));
-	glUniform3fv(shader->loc[3], 1, (float*)&(scop->camera.position));
-}
+// static void		depth_glsl_pre(t_shader const *shader, t_scop *scop, t_obj *obj)
+// {
+// 	glUniformMatrix4fv(shader->loc[0], 1, GL_TRUE, (float*)ft_transform_get(&(obj->transform)));
+// 	glUniformMatrix4fv(shader->loc[1], 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
+// 	glUniformMatrix4fv(shader->loc[2], 1, GL_TRUE, (float*)&(scop->projection_m));
+// 	glUniform3fv(shader->loc[3], 1, (float*)&(scop->camera.position));
+// }
 
-void			depth_renderer(t_scop *scop, t_obj *obj)
-{
-	int			i;
-	int			offset;
+// void			depth_renderer(t_scop *scop, t_obj *obj)
+// {
+// 	int			i;
+// 	int			offset;
 
-	glUseProgram(obj->shader->handle);
-	depth_glsl_pre(obj->shader, scop, obj);
-	glBindVertexArray(obj->mesh->vao);
-	offset = 0;
-	i = -1;
-	while (++i < obj->mesh->mtl_count)
-		offset += obj->mesh->mtl[i].count;
-	glDrawArrays(GL_TRIANGLES, 0, offset);
-}
-
-const t_shader_def	g_shader_def[] = {
-	SHADER_DEF("test.glsl", &simple_renderer, NULL, ((char const*[]){
-		[0] = "model",
-		[1] = "view",
-		[2] = "projection",
-		[3] = "camera_pos",
-		[4] = "lights",
-		[5] = "light_count",
-		[6] = "ambient_map",
-		[7] = "diffuse_map",
-		[8] = "specular_map",
-		[9] = "ambient_color",
-		[10] = "diffuse_color",
-		[11] = "specular_color",
-		[12] = "specular_exp",
-	})),
-	SHADER_DEF("depth.glsl", &depth_renderer, NULL, ((char const*[]){
-		[0] = "model",
-		[1] = "view",
-		[2] = "projection",
-		[3] = "camera_pos",
-	})),
-	SHADER_DEF_END()
-};
+// 	glUseProgram(obj->shader->handle);
+// 	depth_glsl_pre(obj->shader, scop, obj);
+// 	glBindVertexArray(obj->mesh->vao);
+// 	offset = 0;
+// 	i = -1;
+// 	while (++i < obj->mesh->mtl_count)
+// 		offset += obj->mesh->mtl[i].count;
+// 	glDrawArrays(GL_TRIANGLES, 0, offset);
+// }
 
 /*
 ** ========================================================================== **
@@ -166,7 +141,8 @@ const t_shader_def	g_shader_def[] = {
 
 void			render_obj(t_scop *scop, t_obj *obj)
 {
-	obj->shader->pre(scop, obj);
+	simple_renderer(scop, obj);
+	// obj->shader->pre(scop, obj);
 }
 
 void			render(t_scop *scop)
@@ -211,6 +187,41 @@ int				main(void)
 		return (1);
 	// glfwSwapInterval(0);
 	init_events(scop.window, &scop);
+
+/*
+** HMap power demo
+*/
+	// {
+	// 	ft_printf("TEST START\n");
+
+	// 	t_shader const	*shader = get_res(g_res_t.shader, SUBC("depth.glsl"));
+	// 	t_ulong			t;
+	// 	int				i;
+	// 	t_hmap			*locations;
+	// 	t_uint			loc;
+	// 	t_uint			*tmp = &loc;
+
+	// 	locations = ft_hmapnew(10, &ft_djb2);
+
+	// 	t = ft_clock(0);
+
+	// 	i = 10000000;
+	// 	while (--i >= 0)
+	// 	{
+	// 		if ((tmp = ft_hmapget(locations, SUBC("projection"))) == NULL)
+	// 		{
+	// 			loc = glGetUniformLocation(shader->handle, "projection");
+	// 			ft_hmapput(locations, SUBC("projection"), &loc, sizeof(t_uint));
+	// 		}
+	// 		// loc = glGetUniformLocation(shader->handle, "projection");
+	// 	}
+
+	// 	t = ft_clock(t);
+	// 	ft_printf("time: %lld us; loc: %u|%u\n", t, *tmp, loc);
+
+	// 	ft_printf("TEST END\n");
+	// }
+
 	fps = fps_init(200000);
 	last_flags = -1;
 	while (!glfwWindowShouldClose(scop.window))

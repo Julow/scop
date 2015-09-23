@@ -32,7 +32,8 @@ O_FILES :=	o/srcs/camera/camera_get_view.o o/srcs/camera/camera_look.o \
 			o/srcs/transform/ft_transform_scale.o \
 			o/srcs/transform/ft_transform_shear.o o/srcs/utils/fps.o \
 			o/srcs/utils/ft_error.o o/srcs/utils/ft_listremove_next.o \
-			o/srcs/utils/ft_substart.o o/srcs/utils/parse_fvec.o
+			o/srcs/utils/ft_subends.o o/srcs/utils/ft_substart.o \
+			o/srcs/utils/parse_fvec.o
 
 LIBS_DEPEND := libft/libft.a
 
@@ -177,6 +178,8 @@ o/srcs/utils/fps.o: srcs/utils/fps.c include/utils.h | o/srcs/utils/
 o/srcs/utils/ft_error.o: srcs/utils/ft_error.c include/utils.h | o/srcs/utils/
 o/srcs/utils/ft_listremove_next.o: srcs/utils/ft_listremove_next.c \
 	include/utils.h | o/srcs/utils/
+o/srcs/utils/ft_subends.o: srcs/utils/ft_subends.c include/utils.h \
+	| o/srcs/utils/
 o/srcs/utils/ft_substart.o: srcs/utils/ft_substart.c include/utils.h \
 	| o/srcs/utils/
 o/srcs/utils/parse_fvec.o: srcs/utils/parse_fvec.c include/utils.h \

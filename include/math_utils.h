@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 10:23:30 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 10:56:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,22 @@ t_mat4			ft_mat4look_at(t_vec3 pos, t_vec3 target, t_vec3 up);
 /*
 ** mat4 transformations
 */
+void			ft_mat4translate(t_mat4 *m, t_vec3 translate);
 void			ft_mat4scale(t_mat4 *m, float scale);
 void			ft_mat4scale3(t_mat4 *m_a, t_vec3 scale);
-void			ft_mat4rotate(t_mat4 *m, t_vec3 rotate);
-void			ft_mat4rotate_inv(t_mat4 *mat, t_vec3 rotate);
-void			ft_mat4translate(t_mat4 *m, t_vec3 translate);
-
-void			ft_mat4reflect(t_mat4 *mat, int flags);
-void			ft_mat4reflect_inv(t_mat4 *mat, int flags);
-
 void			ft_mat4shear(t_mat4 *mat, t_vec3 shear);
-void			ft_mat4shear_inv(t_mat4 *mat, t_vec3 shear);
+void			ft_mat4rotate(t_mat4 *m, t_vec3 rotate);
+void			ft_mat4reflect(t_mat4 *mat, int flags);
 
-void			ft_mat4transpose(t_mat4 *m);
+void			ft_mat4rotate_inv(t_mat4 *mat, t_vec3 rotate);
+void			ft_mat4reflect_inv(t_mat4 *mat, int flags);
 
 /*
 ** mat4 operations
 */
 void			ft_mat4mult(t_mat4 *a, t_mat4 b);
+
+void			ft_mat4transpose(t_mat4 *m);
 
 /*
 ** vec3 init

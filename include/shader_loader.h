@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:29:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 16:52:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,36 @@
 
 # include "scop.h"
 
-# define LOAD_SHADER_BUFFER		256
+# define LOAD_SHADER_BUFFER		512
+# define LOAD_UNIFORM_BUFFER	128
 # define ERR_SHADER_BUFFER 		1024
 
 # define SHADER_START		(SUBC("//#shader "))
 
+/*
+** Represent a shader program
+*/
 struct			s_shader
 {
-	t_uint			*loc;
-	void			(*pre)();
-	void			(*mtl)();
+	t_hmap const	*uniforms;
 	t_uint			handle;
 };
 
-struct			s_shader_def
+/*
+** Represent an uniform
+*/
+struct			s_uniform
 {
-	char const		*file_name;
-	void			(*pre)();
-	void			(*mtl)();
-	char const		**uniforms;
-	int				uniform_count;
+	t_uint			loc;
+	int				size;
+	t_uint			type;
 };
 
-# define SHADER_DEF(f,a,b,u)	{SHADERS_DIR f, a, b, u, sizeof(u) / sizeof(u[0])}
-# define SHADER_DEF_END()		{NULL, NULL, NULL, NULL, 0}
-
 /*
-** g_shader_def have to be declared by the user
+** Warning: Crash if 'name' is not found
+** TODO: fix
 */
-extern const t_shader_def	g_shader_def[];
+# define UNIFORM(shader,name)	(((t_uniform const*)ft_hmapget((shader)->uniforms, SUBC(name)))->loc)
 
 /*
 ** Load a shader program

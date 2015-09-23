@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 08:34:01 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 16:21:10 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define SCOP_H
 
 # include "libft.h"
+
+/*
+** TODO:
+** mesh_loader options (as string)
+** scene loading from file
+** renderer
+*/
 
 # define WIN_RATIO			(1.f)
 # define WIN_HEIGHT			900
@@ -39,7 +46,7 @@ typedef struct s_mat4		t_mat4;
 typedef struct s_transform	t_transform;
 
 typedef struct s_shader		t_shader;
-typedef struct s_shader_def	t_shader_def;
+typedef struct s_uniform	t_uniform;
 
 typedef struct s_key_event	t_key_event;
 

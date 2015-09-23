@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:07:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:23:49 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/23 17:09:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ t_bool			parse_fvec(t_sub line, float *vec, int len);
 void			ft_listremove_next(t_list *lst, void *node, int n);
 
 /*
-** Return true if 'sub' starts with 'start'
-** false otherwise
+** sub utils
 */
 t_bool			ft_substart(t_sub sub, t_sub start);
+t_bool			ft_subends(t_sub sub, t_sub with);
 
 /*
 ** Print an error
