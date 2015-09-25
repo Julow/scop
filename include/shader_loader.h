@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 23:55:46 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/24 08:07:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ struct			s_uniform
 
 // # define _UNIFORM(s,n)		(glGetUniformLocation((s)->handle, n))
 // # define _UNIFORM(s,n)		(((t_uniform const*)ft_hmapget((s)->uniforms, SUBC(n)))->loc)
-# define _UNIFORM(s,n)		(shader_get_uniform(s, n))
+# define _UNIFORM(s,n)		(shader_get_uniform(s,SUBC(n)))
 
 t_uint			shader_get_uniform(t_shader const *shader, t_sub name);
 
