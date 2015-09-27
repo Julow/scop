@@ -1,4 +1,5 @@
-O_FILES :=	o/srcs/callbacks.o o/srcs/camera/camera_get_view.o \
+O_FILES :=	o/srcs/anim/anim_start.o o/srcs/anim/anim_update.o \
+			o/srcs/callbacks.o o/srcs/camera/camera_get_view.o \
 			o/srcs/camera/camera_look.o o/srcs/camera/camera_move.o \
 			o/srcs/events/events.o o/srcs/init.o o/srcs/init_window.o \
 			o/srcs/main.o o/srcs/math_utils/ft_mat4look_at.o \
@@ -45,6 +46,10 @@ libs:
 	make -C libft
 .PHONY: libs
 
+o/srcs/anim/anim_start.o: srcs/anim/anim_start.c include/anim.h include/scop.h \
+	| o/srcs/anim/
+o/srcs/anim/anim_update.o: srcs/anim/anim_update.c include/anim.h \
+	include/scop.h | o/srcs/anim/
 o/srcs/callbacks.o: srcs/callbacks.c include/main.h include/scop.h \
 	include/gl.h include/camera.h include/scop.h include/math_utils.h \
 	include/scop.h | o/srcs/
@@ -69,8 +74,8 @@ o/srcs/main.o: srcs/main.c include/main.h include/scop.h include/gl.h \
 	include/mesh_loader.h include/scop.h include/resources.h include/scop.h \
 	include/obj.h include/scop.h include/math_utils.h include/scop.h \
 	include/transform.h include/scop.h include/math_utils.h include/scop.h \
-	include/math_utils.h include/scop.h include/events.h include/scop.h \
-	include/gl.h include/utils.h | o/srcs/
+	include/anim.h include/scop.h include/math_utils.h include/scop.h \
+	include/events.h include/scop.h include/gl.h include/utils.h | o/srcs/
 o/srcs/math_utils/ft_mat4look_at.o: srcs/math_utils/ft_mat4look_at.c \
 	include/math_utils.h include/scop.h | o/srcs/math_utils/
 o/srcs/math_utils/ft_mat4mult.o: srcs/math_utils/ft_mat4mult.c \
@@ -156,7 +161,8 @@ o/srcs/shader_loader/load_shader.o: srcs/shader_loader/load_shader.c \
 	include/shader_loader.h include/scop.h include/utils.h include/gl.h \
 	| o/srcs/shader_loader/
 o/srcs/shader_loader/load_uniforms.o: srcs/shader_loader/load_uniforms.c \
-	include/shader_loader.h include/scop.h include/gl.h | o/srcs/shader_loader/
+	include/shader_loader.h include/scop.h include/gl.h include/utils.h \
+	| o/srcs/shader_loader/
 o/srcs/shader_loader/read_shader.o: srcs/shader_loader/read_shader.c \
 	include/shader_loader.h include/scop.h include/utils.h include/gl.h \
 	| o/srcs/shader_loader/

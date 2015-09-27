@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj.h                                              :+:      :+:    :+:   */
+/*   anim_start.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/27 19:15:58 by juloo            ###   ########.fr       */
+/*   Created: 2015/09/27 19:12:00 by juloo             #+#    #+#             */
+/*   Updated: 2015/09/27 19:12:09 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJ_H
-# define OBJ_H
+#include "anim.h"
 
-# include "scop.h"
-# include "math_utils.h"
-# include "transform.h"
-
-/*
-** Represent an object
-*/
-struct			s_obj
+void			anim_start(t_anim *anim)
 {
-	t_mesh const	*mesh;
-	t_renderer		renderer;
-	t_anim			*anim;
-	t_transform		transform;
-};
-
-#endif
+	anim->start_time = ft_clock(0);
+}

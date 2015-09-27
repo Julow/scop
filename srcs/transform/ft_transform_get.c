@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 08:40:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/27 14:54:45 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/27 19:45:49 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_mat4 const	*ft_transform_get(t_transform *t)
 {
 	if (!(t->flags & F_TRANSFORM_OK))
 	{
-		// ft_printf("Warning: updating matrix\n");
 		t->matrix[0] = MAT4_I();
 		ft_mat4translate(t->matrix, t->position);
 		ft_mat4scale(t->matrix, t->scale);

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/27 17:38:54 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/27 19:56:07 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "mesh_loader.h"
 #include "resources.h"
 #include "obj.h"
+#include "anim.h"
 #include "math_utils.h"
 #include "events.h"
 #include "utils.h"
@@ -28,92 +29,68 @@
 ** TODO: smooth
 */
 
-#define F_ANIM_END			(1 << 1)
-#define F_ANIM_REPEAT		(1 << 2)
-#define F_ANIM_REPEAT_REV	(1 << 3)
-
-#define F_ANIM_ONREPEAT_REV	(1 << 4)
-
-struct			s_anim
-{
-	t_ulong			start_time;
-	float			duration;
-	int				flags;
-	void			(*callback)(void *env, t_obj *obj, float delta);
-};
-
-void			anim_update(void *env, t_obj *obj, t_anim *anim, t_ulong now)
-{
-	float			delta;
-
-	if (anim->flags & F_ANIM_END)
-		return ;
-	delta = (float)(now - anim->start_time) / anim->duration / 1000.f;
-	if (delta >= 1.f)
-	{
-		if (anim->flags & (F_ANIM_REPEAT | F_ANIM_REPEAT_REV))
-		{
-			delta -= 1.f;
-			if (anim->flags & F_ANIM_ONREPEAT_REV)
-				anim->flags &= ~F_ANIM_ONREPEAT_REV;
-			else if (anim->flags & F_ANIM_REPEAT_REV)
-				anim->flags |= F_ANIM_ONREPEAT_REV;
-		}
-		else
-		{
-			anim->flags |= F_ANIM_END;
-			delta = 1.f;
-		}
-		anim->start_time = now;
-	}
-	if (anim->flags & F_ANIM_ONREPEAT_REV)
-		delta = 1.f - delta;
-	ft_printf("\rdelta: %f", delta);
-	anim->callback(env, obj, delta);
-}
-
-void			anim_start(t_anim *anim)
-{
-	anim->start_time = ft_clock(0);
-}
-
-/*
-** Create an anim
-** -
-** d		duration (in ms)
-** f		flags
-** c		callback
-*/
-#define ANIM(d,f,c)	(&(t_anim){0, d, f, c})
-
-struct			s_anim_move
+struct			s_anim_obj
 {
 	t_anim			anim;
 	t_vec3			from;
 	t_vec3			to;
 };
 
-void			anim_f_move(void *env, t_obj *obj, float delta)
+void			anim_c_move(t_obj *obj, float delta)
 {
-	struct s_anim_move *const	anim = (struct s_anim_move*)obj->anim;
+	struct s_anim_obj *const	anim = (struct s_anim_obj*)obj->anim;
 	t_vec3						pos;
 
-	pos.x = (anim->to.x - anim->from.x) * delta;
-	pos.y = (anim->to.y - anim->from.y) * delta;
-	pos.z = (anim->to.z - anim->from.z) * delta;
+	pos.x = (anim->to.x - anim->from.x) * delta + anim->from.x;
+	pos.y = (anim->to.y - anim->from.y) * delta + anim->from.y;
+	pos.z = (anim->to.z - anim->from.z) * delta + anim->from.z;
 	ft_transform_move(&(obj->transform), pos);
-	(void)env;
+}
+
+void			anim_c_rot(t_obj *obj, float delta)
+{
+	struct s_anim_obj *const	anim = (struct s_anim_obj*)obj->anim;
+	t_vec3						rot;
+
+	rot.x = (anim->to.x - anim->from.x) * delta + anim->from.x;
+	rot.y = (anim->to.y - anim->from.y) * delta + anim->from.y;
+	rot.z = (anim->to.z - anim->from.z) * delta + anim->from.z;
+	ft_transform_rotate(&(obj->transform), rot);
+}
+
+void			anim_c_shear(t_obj *obj, float delta)
+{
+	struct s_anim_obj *const	anim = (struct s_anim_obj*)obj->anim;
+	t_vec3						shear;
+
+	shear.x = (anim->to.x - anim->from.x) * delta + anim->from.x;
+	shear.y = (anim->to.y - anim->from.y) * delta + anim->from.y;
+	shear.z = (anim->to.z - anim->from.z) * delta + anim->from.z;
+	ft_transform_shear(&(obj->transform), shear);
+}
+
+void			anim_c_scale(t_obj *obj, float delta)
+{
+	struct s_anim_obj *const	anim = (struct s_anim_obj*)obj->anim;
+	float						scale;
+
+	scale = (anim->to.x - anim->from.x) * delta + anim->from.x;
+	ft_printf("\rscale: %f", scale);
+	ft_transform_scale(&(obj->transform), scale);
 }
 
 /*
-** Create a move anim
+** Create an obj anim
 ** -
 ** d		duration
 ** l		flags
 ** f		from (x, y, z)
 ** t		to (x, y, z)
 */
-#define ANIM_MOVE(d,l,f,t)	(t_anim*)(&(struct s_anim_move){{0,d,l,&anim_f_move},VEC3 f,VEC3 t})
+#define ANIM_MOVE(d,l,f,t)	(t_anim*)(&(struct s_anim_obj){ANIM(d,l,&anim_c_move),VEC3 f,VEC3 t})
+#define ANIM_ROT(d,l,f,t)	(t_anim*)(&(struct s_anim_obj){ANIM(d,l,&anim_c_rot),VEC3 f,VEC3 t})
+#define ANIM_SHEAR(d,l,f,t)	(t_anim*)(&(struct s_anim_obj){ANIM(d,l,&anim_c_shear),VEC3 f,VEC3 t})
+#define ANIM_SCALE(d,l,f,t)	(t_anim*)(&(struct s_anim_obj){ANIM(d,l,&anim_c_scale),VEC3(f, 0.f, 0.f),VEC3(t, 0.f, 0.f)})
 
 /*
 ** ========================================================================== **
@@ -134,12 +111,12 @@ typedef struct	s_scene_obj
 #define S_OBJ(m,e,a,p,r,h,k,f)	((t_scene_obj){SUBC(m),e,a,VEC3 p,VEC3 r,VEC3 h,k,f})
 
 static const t_scene_obj	g_scene[] = {
-	S_OBJ("42.obj", &simple_renderer, NULL, (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("42.obj", &simple_renderer, ANIM_SCALE(1200, F_ANIM_REPEAT_REV, 0.8f, 2.f), (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
 	S_OBJ("cube.obj", &simple_renderer, NULL, (20.f, 0.f, 20.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
 	S_OBJ("cube.obj", &simple_renderer, NULL, (-700.f, 120.f, -750.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
-	S_OBJ("teapot.obj", &simple_renderer, ANIM_MOVE(2000, F_ANIM_REPEAT, (20.f, 0.f, -30.f), (20.f, -7.f, 30.f)), (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), (0.f, 0.f, 0.f), 1.f, REFLECT_Y),
-	S_OBJ("teapot2.obj", &simple_renderer, NULL, (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.1f, 0),
-	S_OBJ("cube.obj", &simple_renderer, NULL, (300.f, -10.f, -50.f), (0.f, 0.f, 0.f), (0.f, 0.5f, 0.5f), 50.f, 0),
+	S_OBJ("teapot.obj", &simple_renderer, ANIM_ROT(2000, F_ANIM_REPEAT, (0.f, 0.f, 0.f), (0.f, M_PI * 2.f, 0.f)), (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("teapot2.obj", &simple_renderer, ANIM_MOVE(1800, F_ANIM_REPEAT_REV, (0.f, -10.f, 0.f), (0.f, 10.f, 0.f)), (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.1f, 0),
+	S_OBJ("cube.obj", &simple_renderer, ANIM_SHEAR(4000, F_ANIM_REPEAT_REV, (0.5f, 0.f, 0.f), (-0.5f, 0.5f, -0.5f)), (300.f, -10.f, -50.f), (0.f, 0.f, 0.f), (0.f, 0.5f, 0.5f), 50.f, 0),
 	S_OBJ("venice.obj", &simple_renderer, NULL, (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
 };
 
@@ -204,7 +181,8 @@ t_bool			load_scene(t_scop *scop)
 static void		anim_obj(t_scop *scop, t_obj *obj, t_ulong now)
 {
 	if (obj->anim != NULL)
-		anim_update(scop, obj, obj->anim, now);
+		anim_update(obj, obj->anim, now);
+	(void)scop;
 }
 
 void			anim(t_scop *scop)
@@ -265,6 +243,8 @@ int				main(void)
 	scop.camera = CAMERA(VEC3_0(), VEC2_0());
 	scop.projection_m = ft_mat4perspective(PERSPECTIVE_FOV, WIN_RATIO,
 		PERSPECTIVE_NEAR, PERSPECTIVE_FAR);
+	camera_move(&(scop.camera), VEC3(-57.2f, -6.7f, 10.6f));
+	camera_look(&(scop.camera), VEC2(2.9f, 0.01f));
 	if (!init_window(&scop) || !load_scene(&scop))
 		return (1);
 	init_events(scop.window, &scop);
