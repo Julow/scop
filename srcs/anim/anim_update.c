@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 19:12:19 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/27 19:45:45 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/27 23:16:04 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ void			anim_update(void *env, t_anim *anim, t_ulong now)
 	}
 	if (anim->flags & F_ANIM_ONREPEAT_REV)
 		delta = 1.f - delta;
-	anim->callback(env, delta);
+	anim->callback(env, anim->smooth(delta));
 }
