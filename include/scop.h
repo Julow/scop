@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 12:49:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 18:42:29 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/27 16:11:55 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 typedef struct s_scop		t_scop;
 
 typedef struct s_obj		t_obj;
-typedef void				(*t_renderer)(t_scop*, t_obj*);
+typedef void				(*t_renderer)();
+typedef struct s_anim		t_anim;
 
 typedef struct s_mtl		t_mtl;
 
