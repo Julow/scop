@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/27 19:56:07 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/27 20:50:01 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,80 +17,12 @@
 #include "resources.h"
 #include "obj.h"
 #include "anim.h"
+#include "obj_anim.h"
 #include "math_utils.h"
 #include "events.h"
 #include "utils.h"
 #include <stdlib.h>
 #include <math.h>
-
-/*
-** ========================================================================== **
-** Animation
-** TODO: smooth
-*/
-
-struct			s_anim_obj
-{
-	t_anim			anim;
-	t_vec3			from;
-	t_vec3			to;
-};
-
-void			anim_c_move(t_obj *obj, float delta)
-{
-	struct s_anim_obj *const	anim = (struct s_anim_obj*)obj->anim;
-	t_vec3						pos;
-
-	pos.x = (anim->to.x - anim->from.x) * delta + anim->from.x;
-	pos.y = (anim->to.y - anim->from.y) * delta + anim->from.y;
-	pos.z = (anim->to.z - anim->from.z) * delta + anim->from.z;
-	ft_transform_move(&(obj->transform), pos);
-}
-
-void			anim_c_rot(t_obj *obj, float delta)
-{
-	struct s_anim_obj *const	anim = (struct s_anim_obj*)obj->anim;
-	t_vec3						rot;
-
-	rot.x = (anim->to.x - anim->from.x) * delta + anim->from.x;
-	rot.y = (anim->to.y - anim->from.y) * delta + anim->from.y;
-	rot.z = (anim->to.z - anim->from.z) * delta + anim->from.z;
-	ft_transform_rotate(&(obj->transform), rot);
-}
-
-void			anim_c_shear(t_obj *obj, float delta)
-{
-	struct s_anim_obj *const	anim = (struct s_anim_obj*)obj->anim;
-	t_vec3						shear;
-
-	shear.x = (anim->to.x - anim->from.x) * delta + anim->from.x;
-	shear.y = (anim->to.y - anim->from.y) * delta + anim->from.y;
-	shear.z = (anim->to.z - anim->from.z) * delta + anim->from.z;
-	ft_transform_shear(&(obj->transform), shear);
-}
-
-void			anim_c_scale(t_obj *obj, float delta)
-{
-	struct s_anim_obj *const	anim = (struct s_anim_obj*)obj->anim;
-	float						scale;
-
-	scale = (anim->to.x - anim->from.x) * delta + anim->from.x;
-	ft_printf("\rscale: %f", scale);
-	ft_transform_scale(&(obj->transform), scale);
-}
-
-/*
-** Create an obj anim
-** -
-** d		duration
-** l		flags
-** f		from (x, y, z)
-** t		to (x, y, z)
-*/
-#define ANIM_MOVE(d,l,f,t)	(t_anim*)(&(struct s_anim_obj){ANIM(d,l,&anim_c_move),VEC3 f,VEC3 t})
-#define ANIM_ROT(d,l,f,t)	(t_anim*)(&(struct s_anim_obj){ANIM(d,l,&anim_c_rot),VEC3 f,VEC3 t})
-#define ANIM_SHEAR(d,l,f,t)	(t_anim*)(&(struct s_anim_obj){ANIM(d,l,&anim_c_shear),VEC3 f,VEC3 t})
-#define ANIM_SCALE(d,l,f,t)	(t_anim*)(&(struct s_anim_obj){ANIM(d,l,&anim_c_scale),VEC3(f, 0.f, 0.f),VEC3(t, 0.f, 0.f)})
 
 /*
 ** ========================================================================== **

@@ -21,6 +21,8 @@ O_FILES :=	o/srcs/anim/anim_start.o o/srcs/anim/anim_update.o \
 			o/srcs/mtl_loader/load_mtl.o o/srcs/mtl_loader/parse_mtl.o \
 			o/srcs/mtl_loader/parse_mtl_tokens.o \
 			o/srcs/mtl_loader/parse_mtl_tokens_map.o \
+			o/srcs/obj_anim/anim_c_move.o o/srcs/obj_anim/anim_c_rot.o \
+			o/srcs/obj_anim/anim_c_scale.o o/srcs/obj_anim/anim_c_shear.o \
 			o/srcs/renderer/simple_renderer.o o/srcs/resources/get_res.o \
 			o/srcs/shader_loader/compile_shader.o \
 			o/srcs/shader_loader/load_shader.o \
@@ -74,6 +76,7 @@ o/srcs/main.o: srcs/main.c include/main.h include/scop.h include/gl.h \
 	include/mesh_loader.h include/scop.h include/resources.h include/scop.h \
 	include/obj.h include/scop.h include/math_utils.h include/scop.h \
 	include/transform.h include/scop.h include/math_utils.h include/scop.h \
+	include/anim.h include/scop.h include/obj_anim.h include/scop.h \
 	include/anim.h include/scop.h include/math_utils.h include/scop.h \
 	include/events.h include/scop.h include/gl.h include/utils.h | o/srcs/
 o/srcs/math_utils/ft_mat4look_at.o: srcs/math_utils/ft_mat4look_at.c \
@@ -140,6 +143,10 @@ o/srcs/mtl_loader/parse_mtl_tokens_map.o: \
 	srcs/mtl_loader/parse_mtl_tokens_map.c include/mtl_loader.h include/scop.h \
 	include/math_utils.h include/scop.h include/resources.h include/scop.h \
 	| o/srcs/mtl_loader/
+o/srcs/obj_anim/anim_c_move.o: srcs/obj_anim/anim_c_move.c | o/srcs/obj_anim/
+o/srcs/obj_anim/anim_c_rot.o: srcs/obj_anim/anim_c_rot.c | o/srcs/obj_anim/
+o/srcs/obj_anim/anim_c_scale.o: srcs/obj_anim/anim_c_scale.c | o/srcs/obj_anim/
+o/srcs/obj_anim/anim_c_shear.o: srcs/obj_anim/anim_c_shear.c | o/srcs/obj_anim/
 o/srcs/renderer/simple_renderer.o: srcs/renderer/simple_renderer.c \
 	include/scop.h include/main.h include/scop.h include/gl.h include/camera.h \
 	include/scop.h include/math_utils.h include/scop.h include/shader_loader.h \
