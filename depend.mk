@@ -23,6 +23,7 @@ O_FILES :=	o/srcs/callbacks.o o/srcs/camera/camera_get_view.o \
 			o/srcs/renderer/simple_renderer.o o/srcs/resources/get_res.o \
 			o/srcs/shader_loader/compile_shader.o \
 			o/srcs/shader_loader/load_shader.o \
+			o/srcs/shader_loader/load_uniforms.o \
 			o/srcs/shader_loader/read_shader.o \
 			o/srcs/shader_loader/shader_get_uniform.o \
 			o/srcs/texture_loader/ft_loadimage.o \
@@ -154,6 +155,8 @@ o/srcs/shader_loader/compile_shader.o: srcs/shader_loader/compile_shader.c \
 o/srcs/shader_loader/load_shader.o: srcs/shader_loader/load_shader.c \
 	include/shader_loader.h include/scop.h include/utils.h include/gl.h \
 	| o/srcs/shader_loader/
+o/srcs/shader_loader/load_uniforms.o: srcs/shader_loader/load_uniforms.c \
+	include/shader_loader.h include/scop.h include/gl.h | o/srcs/shader_loader/
 o/srcs/shader_loader/read_shader.o: srcs/shader_loader/read_shader.c \
 	include/shader_loader.h include/scop.h include/utils.h include/gl.h \
 	| o/srcs/shader_loader/

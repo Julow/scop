@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/15 14:06:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 17:09:43 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/27 12:12:26 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,31 +74,6 @@ static t_bool	load_shaders_file(char const *file, t_uint *dst)
 		if (shaders[tmp] > 0)
 			glDeleteShader(shaders[tmp]);
 	return (success);
-}
-
-// TODO: GL_ACTIVE_UNIFORM_MAX_LENGTH
-static void		load_uniforms(t_uint handle, t_hmap *uniforms)
-{
-	int				count;
-	char			uniform_buffer[LOAD_UNIFORM_BUFFER];
-	t_sub			uniform_name;
-	int				size;
-	t_uint			type;
-
-	glGetProgramiv(handle, GL_ACTIVE_UNIFORMS, &count);
-	uniform_name = SUB(uniform_buffer, 0);
-	while (--count >= 0)
-	{
-		glGetActiveUniform(handle, count, LOAD_UNIFORM_BUFFER,
-			&(uniform_name.length), &size, &type, uniform_buffer);
-		if (ft_subends(uniform_name, SUBC("[0]")))
-			uniform_name.length -= 3;
-		ft_hmapput(uniforms, uniform_name, &(t_uniform){
-			glGetUniformLocation(handle, uniform_name.str),
-			size,
-			type
-		}, sizeof(t_uniform));
-	}
 }
 
 t_bool			load_shader(char const *file, t_shader *dst)

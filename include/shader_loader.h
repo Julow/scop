@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/24 08:07:30 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/09/27 12:12:48 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,7 @@ extern struct s_enum_shader_t const		g_shader_t;
 t_bool			read_shader(int fd, t_list *lines, t_uint *s, t_shader_t t);
 
 t_bool			compile_shader(t_list *lines, t_uint *dst, t_shader_t t);
+
+void			load_uniforms(t_uint handle, t_hmap *uniforms);
 
 #endif
