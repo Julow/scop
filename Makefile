@@ -30,6 +30,19 @@ endif
 # Jobs
 JOBS := 4
 
+# Column output
+COLUMN_OUTPUT := 1
+
+ifeq ($(COLUMN_OUTPUT),0)
+	COLUMN_INIT :=
+	PRINT_OK = printf '\033[32m$<\033[0m\n'
+	PRINT_LINK = printf '\033[32m$@\033[0m\n'
+else
+	COLUMN_INIT := column_init
+	PRINT_OK = echo $< >> $(PRINT_FILE)
+	PRINT_LINK = printf '\n\033[32m$@\033[0m\n'
+endif
+
 # Objects directory
 O_DIR := o
 
@@ -42,7 +55,38 @@ PRINT_FILE := .tmp_print
 SHELL := /bin/bash
 
 # Default rule (need to be before any include)
-all: $(MODULE_RULES) libs
+all: $(MODULE_RULES) libs $(COLUMN_INIT)
+	make -j$(JOBS) $(NAME)
+# 	kill -9 `jobs -p`
+# 	rm -f $(PRINT_FILE)
+
+# Include $(O_FILES) and dependencies
+-include $(DEPEND)
+
+# Run omg scripts
+omg:
+	omg include/shader_loader.h srcs/shader_loader/load_shader.c | python
+	omg include/resources.h srcs/resources/get_res.c | python
+
+# Linking
+$(NAME): $(LIBS_DEPEND) $(O_FILES)
+	clang $(FLAGS) -o $@ $(O_FILES) $(LINKS) && $(PRINT_LINK)
+
+# Compiling
+$(O_DIR)/%.o:
+	clang $(FLAGS) $(HEADS) -c $< -o $@ && $(PRINT_OK)
+
+# Init submodules
+$(MODULE_RULES):
+	git submodule init $(@:.git=)
+	git submodule update $(@:.git=)
+
+# Create obj directories
+$(O_DIR)/%/:
+	mkdir -p $@
+
+# Column output
+column_init:
 	MAX_LEN=1
 	for o in $(O_FILES)
 	do
@@ -65,35 +109,6 @@ all: $(MODULE_RULES) libs
 		CURR=$$(($$CURR + 1))
 		printf '\033[32m%-*s\033[0m ' $$MAX_LEN "$$l"
 	done &
-	make -j$(JOBS) $(NAME)
-	kill -9 `jobs -p`
-	rm -f $(PRINT_FILE)
-
-# Include $(O_FILES) and dependencies
--include $(DEPEND)
-
-# Run omg scripts
-omg:
-	omg include/shader_loader.h srcs/shader_loader/load_shader.c | python
-	omg include/resources.h srcs/resources/get_res.c | python
-
-# Linking
-$(NAME): $(LIBS_DEPEND) $(O_FILES)
-	echo
-	clang $(FLAGS) -o $@ $(O_FILES) $(LINKS) && printf '\033[32m$@\033[0m\n'
-
-# Compiling
-$(O_DIR)/%.o:
-	clang $(FLAGS) $(HEADS) -c $< -o $@ && echo $< >> $(PRINT_FILE)
-
-# Init submodules
-$(MODULE_RULES):
-	git submodule init $(@:.git=)
-	git submodule update $(@:.git=)
-
-# Create obj directories
-$(O_DIR)/%/:
-	mkdir -p $@
 
 # Set debug mode and make
 debug: _debug all
