@@ -27,6 +27,9 @@ else
 	LINKS := -Llibft -lft -lglfw -lGL -lGLEW -lm
 endif
 
+# Jobs
+JOBS := 4
+
 # Objects directory
 O_DIR := o
 
@@ -35,9 +38,36 @@ DEPEND := depend.mk
 
 # tmp
 MODULE_RULES := $(addsuffix /.git,$(MODULES))
+PRINT_FILE := .tmp_print
+SHELL := /bin/bash
 
 # Default rule (need to be before any include)
-all: $(MODULE_RULES) libs $(NAME)
+all: $(MODULE_RULES) libs
+	MAX_LEN=1
+	for o in $(O_FILES)
+	do
+		if [[ $${#o} -gt $$MAX_LEN ]]
+		then
+			MAX_LEN=$${#o}
+		fi
+	done
+	PER_LINE=$$((`tput cols` / $$(($$MAX_LEN + 1))))
+	CURR=0
+	rm -f $(PRINT_FILE)
+	touch $(PRINT_FILE)
+	tail --pid=$$PPID -n0 -f $(PRINT_FILE) | while read l
+	do
+		if [[ $$CURR -ge $$PER_LINE ]]
+		then
+			CURR=0
+			echo
+		fi
+		CURR=$$(($$CURR + 1))
+		printf '\033[32m%-*s\033[0m ' $$MAX_LEN "$$l"
+	done &
+	make -j$(JOBS) $(NAME)
+	kill -9 `jobs -p`
+	rm -f $(PRINT_FILE)
 
 # Include $(O_FILES) and dependencies
 -include $(DEPEND)
@@ -49,11 +79,12 @@ omg:
 
 # Linking
 $(NAME): $(LIBS_DEPEND) $(O_FILES)
+	echo
 	clang $(FLAGS) -o $@ $(O_FILES) $(LINKS) && printf '\033[32m$@\033[0m\n'
 
 # Compiling
 $(O_DIR)/%.o:
-	clang $(FLAGS) $(HEADS) -c $< -o $@ && printf '\033[32m$<\033[0m\n'
+	clang $(FLAGS) $(HEADS) -c $< -o $@ && echo $< >> $(PRINT_FILE)
 
 # Init submodules
 $(MODULE_RULES):
@@ -72,6 +103,7 @@ rebug: fclean debug
 
 # Clean obj files
 clean:
+	rm -f $(PRINT_FILE)
 	rm -f $(O_FILES)
 
 # Clean everything
@@ -90,4 +122,5 @@ _debug:
 	$(eval FLAGS := $(DEBUG_FLAGS))
 
 .SILENT:
+.ONESHELL:
 .PHONY: all $(LIBS) clean fclean re debug rebug _debug
