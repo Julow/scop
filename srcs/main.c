@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/28 00:08:09 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/29 17:41:47 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ typedef struct	s_scene_obj
 #define S_OBJ(m,e,a,p,r,h,k,f)	((t_scene_obj){SUBC(m),e,a,VEC3 p,VEC3 r,VEC3 h,k,f})
 
 static const t_scene_obj	g_scene[] = {
-	S_OBJ("42.obj", &simple_renderer, ANIM_SCALE(1200, F_ANIM_REPEAT_REV, 0.8f, 2.f, &smooth_elastic), (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("42.obj", &simple_renderer, ANIM_SCALE(1200, F_ANIM_REPEAT, 0.8f, 2.f, &smooth_elastic), (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
 	S_OBJ("cube.obj", &simple_renderer, NULL, (20.f, 0.f, 20.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
 	S_OBJ("cube.obj", &simple_renderer, NULL, (-700.f, 120.f, -750.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
-	S_OBJ("teapot.obj", &simple_renderer, ANIM_ROT(2000, F_ANIM_REPEAT, (0.f, 0.f, 0.f), (0.f, M_PI * 2.f, 0.f), &smooth_out), (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
-	S_OBJ("teapot2.obj", &simple_renderer, ANIM_MOVE(1800, F_ANIM_REPEAT_REV, (0.f, -10.f, 0.f), (0.f, 10.f, 0.f), &smooth_back_in_out), (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.5f, 0),
-	S_OBJ("cube.obj", &simple_renderer, ANIM_SHEAR(4000, F_ANIM_REPEAT_REV, (0.5f, 0.f, 0.f), (-0.5f, 0.5f, -0.5f), &smooth_in_out), (300.f, -10.f, -50.f), (0.f, 0.f, 0.f), (0.f, 0.5f, 0.5f), 50.f, 0),
+	S_OBJ("teapot.obj", &simple_renderer, ANIM_ROT(2000, F_ANIM_RESTART, (0.f, 0.f, 0.f), (0.f, M_PI * 2.f, 0.f), &smooth_out), (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("teapot2.obj", &simple_renderer, ANIM_MOVE(1800, F_ANIM_RESTART, (10.f, -10.f, 0.f), (10.f, 10.f, 0.f), &smooth_bounce), (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.5f, 0),
+	S_OBJ("teapot2.obj", &simple_renderer, ANIM_MOVE(1800, F_ANIM_REPEAT, (20.f, -10.f, 0.f), (20.f, 10.f, 0.f), &smooth_bounce), (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.5f, 0),
+	S_OBJ("teapot2.obj", &simple_renderer, ANIM_MOVE(1800, F_ANIM_REVERSE, (0.f, -10.f, 0.f), (0.f, 10.f, 0.f), &smooth_bounce), (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.5f, 0),
+	S_OBJ("cube.obj", &simple_renderer, ANIM_SHEAR(4000, F_ANIM_REPEAT, (0.5f, 0.f, 0.f), (-0.5f, 0.5f, -0.5f), &smooth_in_out), (300.f, -10.f, -50.f), (0.f, 0.f, 0.f), (0.f, 0.5f, 0.5f), 50.f, 0),
 	S_OBJ("venice.obj", &simple_renderer, NULL, (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
 };
 
@@ -191,7 +193,7 @@ int				main(void)
 		if (fps_end(&fps) || scop.flags != last_flags)
 		{
 			last_flags = scop.flags;
-			ft_printf("\r%30 FPS: %-2lld t: %-3lld flags: %016b "
+			ft_printf("\rFPS: %-2lld t: %-3lld flags: %016b "
 				"pos: [ %f, %f, %f ] look: [ %f, %f ]%5 ",
 				fps.average_fps, fps.average_time, scop.flags,
 				scop.camera.position.x, scop.camera.position.y,

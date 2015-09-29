@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 19:10:10 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/28 00:06:08 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/29 17:14:50 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
 */
 
 # define F_ANIM_END				(1 << 1)
-# define F_ANIM_REPEAT			(1 << 2)
-# define F_ANIM_REPEAT_REV		(1 << 3)
+# define F_ANIM_RESTART			(1 << 2)
+# define F_ANIM_REPEAT			(1 << 3)
+# define F_ANIM_REVERSE			(F_ANIM_REPEAT | _F_ANIM_REVERSE)
 
-# define F_ANIM_ONREPEAT_REV	(1 << 4)
+# define _F_ANIM_REPEAT			(1 << 4)
+# define _F_ANIM_REVERSE		(1 << 5)
 
 struct			s_anim
 {

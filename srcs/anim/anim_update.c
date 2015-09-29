@@ -6,11 +6,22 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 19:12:19 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/27 23:16:04 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/29 17:28:30 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "anim.h"
+
+static float	anim_smooth(t_anim *anim, float delta)
+{
+	if (!(anim->flags & _F_ANIM_REVERSE))
+		delta = anim->smooth(delta);
+	if (anim->flags & _F_ANIM_REPEAT)
+		delta = 1.f - delta;
+	if (anim->flags & _F_ANIM_REVERSE)
+		delta = anim->smooth(delta);
+	return (delta);
+}
 
 void			anim_update(void *env, t_anim *anim, t_ulong now)
 {
@@ -21,13 +32,13 @@ void			anim_update(void *env, t_anim *anim, t_ulong now)
 	delta = (float)(now - anim->start_time) / anim->duration / 1000.f;
 	if (delta >= 1.f)
 	{
-		if (anim->flags & (F_ANIM_REPEAT | F_ANIM_REPEAT_REV))
+		if (anim->flags & (F_ANIM_RESTART | F_ANIM_REPEAT))
 		{
 			delta -= 1.f;
-			if (anim->flags & F_ANIM_ONREPEAT_REV)
-				anim->flags &= ~F_ANIM_ONREPEAT_REV;
-			else if (anim->flags & F_ANIM_REPEAT_REV)
-				anim->flags |= F_ANIM_ONREPEAT_REV;
+			if (anim->flags & _F_ANIM_REPEAT)
+				anim->flags &= ~_F_ANIM_REPEAT;
+			else if (anim->flags & F_ANIM_REPEAT)
+				anim->flags |= _F_ANIM_REPEAT;
 		}
 		else
 		{
@@ -36,7 +47,5 @@ void			anim_update(void *env, t_anim *anim, t_ulong now)
 		}
 		anim->start_time = now;
 	}
-	if (anim->flags & F_ANIM_ONREPEAT_REV)
-		delta = 1.f - delta;
-	anim->callback(env, anim->smooth(delta));
+	anim->callback(env, anim_smooth(anim, delta));
 }
