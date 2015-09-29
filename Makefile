@@ -39,7 +39,7 @@ ifeq ($(COLUMN_OUTPUT),0)
 	PRINT_LINK = printf '\033[32m$@\033[0m\n'
 else
 	COLUMN_INIT := column_init
-	PRINT_OK = echo $< >> $(PRINT_FILE)
+	PRINT_OK = echo $(patsubst $(firstword $(DIRS))/%,%,$<) >> $(PRINT_FILE)
 	PRINT_LINK = printf '\n\033[32m$@\033[0m\n'
 endif
 
@@ -88,14 +88,14 @@ $(O_DIR)/%/:
 # Column output
 column_init:
 	MAX_LEN=1
-	for o in $(O_FILES)
+	for o in $(patsubst $(O_DIR)/$(firstword $(DIRS))/%,%,$(O_FILES))
 	do
 		if [[ $${#o} -gt $$MAX_LEN ]]
 		then
 			MAX_LEN=$${#o}
 		fi
 	done
-	PER_LINE=$$((`tput cols` / $$(($$MAX_LEN + 1))))
+	PER_LINE=$$((`tput cols` / $$(($$MAX_LEN + 2))))
 	CURR=0
 	rm -f $(PRINT_FILE)
 	touch $(PRINT_FILE)
@@ -107,7 +107,7 @@ column_init:
 			echo
 		fi
 		CURR=$$(($$CURR + 1))
-		printf '\033[32m%-*s\033[0m ' $$MAX_LEN "$$l"
+		printf '\033[32m%-*s\033[0m  ' $$MAX_LEN "$$l"
 	done &
 
 # Set debug mode and make

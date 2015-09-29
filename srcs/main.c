@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/29 17:41:47 by juloo            ###   ########.fr       */
+/*   Updated: 2015/09/29 21:18:20 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,38 @@
 #include "utils.h"
 #include <stdlib.h>
 #include <math.h>
+
+/*
+** ========================================================================== **
+** Depth renderer
+*/
+
+static void		depth_glsl_pre(t_shader const *shader, t_scop *scop, t_obj *obj)
+{
+	UNIFORM(Matrix4fv, shader, "model", 1, GL_TRUE, (float*)ft_transform_get(&(obj->transform)));
+	UNIFORM(Matrix4fv, shader, "view", 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
+	UNIFORM(Matrix4fv, shader, "projection", 1, GL_TRUE, (float*)&(scop->projection_m));
+	UNIFORM(3fv, shader, "camera_pos", 1, (float*)&(scop->camera.position));
+}
+
+void			depth_renderer(t_scop *scop, t_obj *obj)
+{
+	static t_shader const	*shader = NULL;
+	int						i;
+	int						offset;
+
+	if (shader == NULL
+		&& (shader = get_res(g_res_t.shader, SUBC("depth.glsl"))) == NULL)
+		return ;
+	glUseProgram(shader->handle);
+	depth_glsl_pre(shader, scop, obj);
+	glBindVertexArray(obj->mesh->vao);
+	offset = 0;
+	i = -1;
+	while (++i < obj->mesh->mtl_count)
+		offset += obj->mesh->mtl[i].count;
+	glDrawArrays(GL_TRIANGLES, 0, offset);
+}
 
 /*
 ** ========================================================================== **
@@ -52,6 +84,7 @@ static const t_scene_obj	g_scene[] = {
 	S_OBJ("teapot2.obj", &simple_renderer, ANIM_MOVE(1800, F_ANIM_REVERSE, (0.f, -10.f, 0.f), (0.f, 10.f, 0.f), &smooth_bounce), (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.5f, 0),
 	S_OBJ("cube.obj", &simple_renderer, ANIM_SHEAR(4000, F_ANIM_REPEAT, (0.5f, 0.f, 0.f), (-0.5f, 0.5f, -0.5f), &smooth_in_out), (300.f, -10.f, -50.f), (0.f, 0.f, 0.f), (0.f, 0.5f, 0.5f), 50.f, 0),
 	S_OBJ("venice.obj", &simple_renderer, NULL, (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	// S_OBJ("venice.obj", &depth_renderer, NULL, (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
 };
 
 t_bool			load_scene(t_scop *scop)
@@ -78,34 +111,6 @@ t_bool			load_scene(t_scop *scop)
 	}
 	return (true);
 }
-
-/*
-** ========================================================================== **
-** Shader def
-*/
-
-// static void		depth_glsl_pre(t_shader const *shader, t_scop *scop, t_obj *obj)
-// {
-// 	glUniformMatrix4fv(shader->loc[0], 1, GL_TRUE, (float*)ft_transform_get(&(obj->transform)));
-// 	glUniformMatrix4fv(shader->loc[1], 1, GL_TRUE, (float*)camera_get_view(&(scop->camera)));
-// 	glUniformMatrix4fv(shader->loc[2], 1, GL_TRUE, (float*)&(scop->projection_m));
-// 	glUniform3fv(shader->loc[3], 1, (float*)&(scop->camera.position));
-// }
-
-// void			depth_renderer(t_scop *scop, t_obj *obj)
-// {
-// 	int			i;
-// 	int			offset;
-
-// 	glUseProgram(obj->shader->handle);
-// 	depth_glsl_pre(obj->shader, scop, obj);
-// 	glBindVertexArray(obj->mesh->vao);
-// 	offset = 0;
-// 	i = -1;
-// 	while (++i < obj->mesh->mtl_count)
-// 		offset += obj->mesh->mtl[i].count;
-// 	glDrawArrays(GL_TRIANGLES, 0, offset);
-// }
 
 /*
 ** ========================================================================== **
