@@ -34,11 +34,9 @@ JOBS := 4
 COLUMN_OUTPUT := 1
 
 ifeq ($(COLUMN_OUTPUT),0)
-	COLUMN_INIT :=
 	PRINT_OK = printf '\033[32m$<\033[0m\n'
 	PRINT_LINK = printf '\033[32m$@\033[0m\n'
 else
-	COLUMN_INIT := column_init
 	PRINT_OK = echo $(patsubst $(firstword $(DIRS))/%,%,$<) >> $(PRINT_FILE)
 	PRINT_LINK = printf '\n\033[32m$@\033[0m\n'
 endif
@@ -55,10 +53,38 @@ PRINT_FILE := .tmp_print
 SHELL := /bin/bash
 
 # Default rule (need to be before any include)
-all: $(MODULE_RULES) libs $(COLUMN_INIT)
+all: $(MODULE_RULES) libs
+ifeq ($(COLUMN_OUTPUT),0)
 	make -j$(JOBS) $(NAME)
-# 	kill -9 `jobs -p`
-# 	rm -f $(PRINT_FILE)
+else
+	MAX_LEN=1;															\
+	for o in $(patsubst $(O_DIR)/$(firstword $(DIRS))/%,%,$(O_FILES));	\
+	do																	\
+		if [[ $${#o} -gt $$MAX_LEN ]];									\
+		then															\
+			MAX_LEN=$${#o};												\
+		fi;																\
+	done;																\
+	PER_LINE=$$((`tput cols` / $$(($$MAX_LEN + 2))));					\
+	CURR=0;																\
+	rm -f $(PRINT_FILE);												\
+	touch $(PRINT_FILE);												\
+	tail -n0 -f $(PRINT_FILE) | while read l;							\
+	do																	\
+		if [[ $$CURR -ge $$PER_LINE ]];									\
+		then															\
+			CURR=0;														\
+			echo;														\
+		fi;																\
+		CURR=$$(($$CURR + 1));											\
+		printf '\033[32m%-*s\033[0m  ' $$MAX_LEN "$$l";					\
+	done &																\
+	make -j$(JOBS) $(NAME);												\
+	STATUS=$$?															\
+	kill -9 `jobs -p`;													\
+	rm -f $(PRINT_FILE)													\
+	exit $$STATUS
+endif
 
 # Include $(O_FILES) and dependencies
 -include $(DEPEND)
@@ -85,31 +111,6 @@ $(MODULE_RULES):
 $(O_DIR)/%/:
 	mkdir -p $@
 
-# Column output
-column_init:
-	MAX_LEN=1
-	for o in $(patsubst $(O_DIR)/$(firstword $(DIRS))/%,%,$(O_FILES))
-	do
-		if [[ $${#o} -gt $$MAX_LEN ]]
-		then
-			MAX_LEN=$${#o}
-		fi
-	done
-	PER_LINE=$$((`tput cols` / $$(($$MAX_LEN + 2))))
-	CURR=0
-	rm -f $(PRINT_FILE)
-	touch $(PRINT_FILE)
-	tail --pid=$$PPID -n0 -f $(PRINT_FILE) | while read l
-	do
-		if [[ $$CURR -ge $$PER_LINE ]]
-		then
-			CURR=0
-			echo
-		fi
-		CURR=$$(($$CURR + 1))
-		printf '\033[32m%-*s\033[0m  ' $$MAX_LEN "$$l"
-	done &
-
 # Set debug mode and make
 debug: _debug all
 
@@ -128,14 +129,9 @@ fclean: clean
 # Clean and make
 re: fclean all
 
-# Update $(DEPEND) file
-$(DEPEND): Makefile
-	makemake || printf "\033[31mCannot remake $(DEPEND)\033[0m\n"
-
 # Set debug flags
 _debug:
 	$(eval FLAGS := $(DEBUG_FLAGS))
 
 .SILENT:
-.ONESHELL:
 .PHONY: all $(LIBS) clean fclean re debug rebug _debug
