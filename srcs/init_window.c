@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:50:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:32:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/01 17:59:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_bool			init_window(t_scop *scop)
 {
 	if (!init_glfw(scop))
 		return (false);
+	glfwSetWindowUserPointer(scop->window, scop);
 	if (!INIT_GLEW)
 		return (ft_error(false, "Cannot init GLEW"));
 	if (!init_gl(scop))

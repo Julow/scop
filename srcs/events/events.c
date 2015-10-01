@@ -6,27 +6,34 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 18:50:07 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/01 17:59:21 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "main.h"
 #include "events.h"
 #include "utils.h"
 #include "gl.h"
 
-static void		*save_env(void *env)
-{
-	static void	*save = NULL;
-
-	if (env != NULL)
-		save = env;
-	return (save);
-}
+t_key_event const		g_events[] = {
+	E_KEY_FLAG(GLFW_KEY_W, t_scop, flags, FLAG_MOVE_FRONT),
+	E_KEY_FLAG(GLFW_KEY_W, t_scop, flags, FLAG_MOVE_FRONT),
+	E_KEY_FLAG(GLFW_KEY_D, t_scop, flags, FLAG_MOVE_LEFT),
+	E_KEY_FLAG(GLFW_KEY_S, t_scop, flags, FLAG_MOVE_BACK),
+	E_KEY_FLAG(GLFW_KEY_A, t_scop, flags, FLAG_MOVE_RIGHT),
+	E_KEY_FLAG(GLFW_KEY_LEFT_CONTROL, t_scop, flags, FLAG_ACCELERATE),
+	E_KEY_FLAG(GLFW_KEY_LEFT_SHIFT, t_scop, flags, FLAG_MOVE_DOWN),
+	E_KEY_FLAG(GLFW_KEY_SPACE, t_scop, flags, FLAG_MOVE_UP),
+	E_KEY_CALLBACK(GLFW_KEY_ESCAPE, &on_esc),
+	E_MOUSE_MOVE(&on_mouse_move),
+	E_END()
+};
 
 static void		key_callback(GLFWwindow *window, int key, int scancode,
 		int action, int mode)
 {
 	int				i;
+	void *const		env = glfwGetWindowUserPointer(window);
 
 	i = -1;
 	while (g_events[++i].key_code != K_END)
@@ -34,15 +41,14 @@ static void		key_callback(GLFWwindow *window, int key, int scancode,
 		if (g_events[i].key_code != key)
 			continue ;
 		if (g_events[i].flags & F_KEY_CALLBACK && action == GLFW_RELEASE)
-			((void(*)())g_events[i].action)(save_env(NULL), key);
+			((void(*)())g_events[i].action)(window, key);
 		else if (g_events[i].flags & F_KEY_FLAG && action == GLFW_RELEASE)
-			(*(int*)(save_env(NULL) + (g_events[i].action >> 32))) &=
+			(*(int*)(env + (g_events[i].action >> 32))) &=
 				~(g_events[i].action & 0xFFFFFFFF);
 		else if (g_events[i].flags & F_KEY_FLAG && action == GLFW_PRESS)
-			(*(int*)(save_env(NULL) + (g_events[i].action >> 32))) |=
+			(*(int*)(env + (g_events[i].action >> 32))) |=
 				g_events[i].action & 0xFFFFFFFF;
 	}
-	(void)window;
 	(void)scancode;
 	(void)mode;
 }
@@ -54,13 +60,11 @@ static void		mouse_move_callback(GLFWwindow *window, double x, double y)
 	i = -1;
 	while (g_events[++i].key_code != K_END)
 		if (g_events[i].key_code == K_MOUSE_CALLBACK)
-			((void(*)())g_events[i].action)(save_env(NULL), x, y);
-	(void)window;
+			((void(*)())g_events[i].action)(window, x, y);
 }
 
-void			init_events(GLFWwindow *window, void *env)
+void			init_events(GLFWwindow *window)
 {
-	save_env(env);
 	glfwSetKeyCallback(window, &key_callback);
 	glfwSetCursorPosCallback(window, &mouse_move_callback);
 }

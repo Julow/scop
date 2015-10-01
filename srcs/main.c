@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/29 21:18:20 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/01 17:59:42 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ int				main(void)
 	camera_look(&(scop.camera), VEC2(2.9f, 0.01f));
 	if (!init_window(&scop) || !load_scene(&scop))
 		return (1);
-	init_events(scop.window, &scop);
+	init_events(scop.window);
 	fps = fps_init(200000);
 	last_flags = -1;
 	while (!glfwWindowShouldClose(scop.window))

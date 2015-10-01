@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:47:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 18:58:16 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/01 17:59:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ extern t_key_event const		g_events[];
 /*
 ** Init events
 */
-void			init_events(GLFWwindow *window, void *scop);
+void			init_events(GLFWwindow *window);
+
+/*
+** callbacks
+*/
+void			on_mouse_move(GLFWwindow *window, double x, double y);
+void			on_esc(GLFWwindow *window, int key_code);
 
 #endif

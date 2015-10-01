@@ -3,9 +3,9 @@ O_FILES :=	o/srcs/anim/anim_start.o o/srcs/anim/anim_update.o \
 			o/srcs/anim/smooth_back_out.o o/srcs/anim/smooth_bounce.o \
 			o/srcs/anim/smooth_elastic.o o/srcs/anim/smooth_in.o \
 			o/srcs/anim/smooth_in_out.o o/srcs/anim/smooth_linear.o \
-			o/srcs/anim/smooth_out.o o/srcs/callbacks.o \
-			o/srcs/camera/camera_get_view.o o/srcs/camera/camera_look.o \
-			o/srcs/camera/camera_move.o o/srcs/events/events.o o/srcs/init.o \
+			o/srcs/anim/smooth_out.o o/srcs/camera/camera_get_view.o \
+			o/srcs/camera/camera_look.o o/srcs/camera/camera_move.o \
+			o/srcs/events/callbacks.o o/srcs/events/events.o \
 			o/srcs/init_window.o o/srcs/main.o \
 			o/srcs/math_utils/ft_mat4look_at.o o/srcs/math_utils/ft_mat4mult.o \
 			o/srcs/math_utils/ft_mat4perspective.o \
@@ -74,18 +74,18 @@ o/srcs/anim/smooth_linear.o: srcs/anim/smooth_linear.c include/anim.h \
 	include/scop.h | o/srcs/anim/
 o/srcs/anim/smooth_out.o: srcs/anim/smooth_out.c include/anim.h include/scop.h \
 	| o/srcs/anim/
-o/srcs/callbacks.o: srcs/callbacks.c include/camera.h include/gl.h \
-	include/main.h include/math_utils.h include/scop.h | o/srcs/
 o/srcs/camera/camera_get_view.o: srcs/camera/camera_get_view.c \
 	include/camera.h include/math_utils.h include/scop.h | o/srcs/camera/
 o/srcs/camera/camera_look.o: srcs/camera/camera_look.c include/camera.h \
 	include/math_utils.h include/scop.h | o/srcs/camera/
 o/srcs/camera/camera_move.o: srcs/camera/camera_move.c include/camera.h \
 	include/math_utils.h include/scop.h | o/srcs/camera/
-o/srcs/events/events.o: srcs/events/events.c include/events.h include/gl.h \
-	include/scop.h include/utils.h | o/srcs/events/
-o/srcs/init.o: srcs/init.c include/camera.h include/gl.h include/main.h \
-	include/math_utils.h include/scop.h include/events.h | o/srcs/
+o/srcs/events/callbacks.o: srcs/events/callbacks.c include/camera.h \
+	include/gl.h include/main.h include/math_utils.h include/scop.h \
+	| o/srcs/events/
+o/srcs/events/events.o: srcs/events/events.c include/camera.h include/gl.h \
+	include/main.h include/math_utils.h include/scop.h include/events.h \
+	include/utils.h | o/srcs/events/
 o/srcs/init_window.o: srcs/init_window.c include/camera.h include/gl.h \
 	include/main.h include/math_utils.h include/scop.h include/utils.h | o/srcs/
 o/srcs/main.o: srcs/main.c include/camera.h include/gl.h include/main.h \
