@@ -3,5 +3,5 @@ newmtl cube
 	Kd 1 1 1
 	Ks 1 1 1
 	Ns 256
-	map_Kd container2.tga
-	map_Ks container2_specular.tga
+	map_Kd res/tga/container2.tga
+	map_Ks res/tga/container2_specular.tga

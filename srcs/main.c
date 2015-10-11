@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/01 17:59:42 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/11 20:51:54 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "scop.h"
 #include "shader_loader.h"
 #include "mesh_loader.h"
-#include "resources.h"
 #include "obj.h"
 #include "anim.h"
 #include "obj_anim.h"
@@ -44,7 +43,7 @@ void			depth_renderer(t_scop *scop, t_obj *obj)
 	int						offset;
 
 	if (shader == NULL
-		&& (shader = get_res(g_res_t.shader, SUBC("depth.glsl"))) == NULL)
+		&& (shader = load_shader(SUBC("depth.glsl"))) == NULL)
 		return ;
 	glUseProgram(shader->handle);
 	depth_glsl_pre(shader, scop, obj);
@@ -75,15 +74,15 @@ typedef struct	s_scene_obj
 #define S_OBJ(m,e,a,p,r,h,k,f)	((t_scene_obj){SUBC(m),e,a,VEC3 p,VEC3 r,VEC3 h,k,f})
 
 static const t_scene_obj	g_scene[] = {
-	S_OBJ("42.obj", &simple_renderer, ANIM_SCALE(1200, F_ANIM_REPEAT, 0.8f, 2.f, &smooth_elastic), (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
-	S_OBJ("cube.obj", &simple_renderer, NULL, (20.f, 0.f, 20.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
-	S_OBJ("cube.obj", &simple_renderer, NULL, (-700.f, 120.f, -750.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
-	S_OBJ("teapot.obj", &simple_renderer, ANIM_ROT(2000, F_ANIM_RESTART, (0.f, 0.f, 0.f), (0.f, M_PI * 2.f, 0.f), &smooth_out), (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
-	S_OBJ("teapot2.obj", &simple_renderer, ANIM_MOVE(1800, F_ANIM_RESTART, (10.f, -10.f, 0.f), (10.f, 10.f, 0.f), &smooth_bounce), (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.5f, 0),
-	S_OBJ("teapot2.obj", &simple_renderer, ANIM_MOVE(1800, F_ANIM_REPEAT, (20.f, -10.f, 0.f), (20.f, 10.f, 0.f), &smooth_bounce), (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.5f, 0),
-	S_OBJ("teapot2.obj", &simple_renderer, ANIM_MOVE(1800, F_ANIM_REVERSE, (0.f, -10.f, 0.f), (0.f, 10.f, 0.f), &smooth_bounce), (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.5f, 0),
-	S_OBJ("cube.obj", &simple_renderer, ANIM_SHEAR(4000, F_ANIM_REPEAT, (0.5f, 0.f, 0.f), (-0.5f, 0.5f, -0.5f), &smooth_in_out), (300.f, -10.f, -50.f), (0.f, 0.f, 0.f), (0.f, 0.5f, 0.5f), 50.f, 0),
-	S_OBJ("venice.obj", &simple_renderer, NULL, (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("res/obj/42.obj", &simple_renderer, ANIM_SCALE(1200, F_ANIM_REPEAT, 0.8f, 2.f, &smooth_elastic), (-20.f, 0.f, 5.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("res/obj/cube.obj", &simple_renderer, NULL, (20.f, 0.f, 20.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("res/obj/cube.obj", &simple_renderer, NULL, (-700.f, 120.f, -750.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("res/obj/teapot.obj", &simple_renderer, ANIM_ROT(2000, F_ANIM_RESTART, (0.f, 0.f, 0.f), (0.f, M_PI * 2.f, 0.f), &smooth_out), (-35.f, -7.f, 0.f), (0.f, M_PI / 2.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
+	S_OBJ("res/obj/teapot2.obj", &simple_renderer, ANIM_MOVE(1800, F_ANIM_RESTART, (10.f, -10.f, 0.f), (10.f, 10.f, 0.f), &smooth_bounce), (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.5f, 0),
+	S_OBJ("res/obj/teapot2.obj", &simple_renderer, ANIM_MOVE(1800, F_ANIM_REPEAT, (20.f, -10.f, 0.f), (20.f, 10.f, 0.f), &smooth_bounce), (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.5f, 0),
+	S_OBJ("res/obj/teapot2.obj", &simple_renderer, ANIM_MOVE(1800, F_ANIM_REVERSE, (0.f, -10.f, 0.f), (0.f, 10.f, 0.f), &smooth_bounce), (-40.f, -5.f, -5.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), 0.5f, 0),
+	S_OBJ("res/obj/cube.obj", &simple_renderer, ANIM_SHEAR(4000, F_ANIM_REPEAT, (0.5f, 0.f, 0.f), (-0.5f, 0.5f, -0.5f), &smooth_in_out), (300.f, -10.f, -50.f), (0.f, 0.f, 0.f), (0.f, 0.5f, 0.5f), 50.f, 0),
+	S_OBJ("res/obj/venice.obj", &simple_renderer, NULL, (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
 	// S_OBJ("venice.obj", &depth_renderer, NULL, (0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), 1.f, 0),
 };
 
@@ -96,7 +95,7 @@ t_bool			load_scene(t_scop *scop)
 	while (++i < G_ARRAY_LEN(g_scene))
 	{
 		ft_bzero(&obj, sizeof(t_obj));
-		if ((obj.mesh = get_res(g_res_t.mesh, g_scene[i].mesh)) == NULL)
+		if ((obj.mesh = load_mesh(g_scene[i].mesh)) == NULL)
 			continue ;
 		obj.renderer = g_scene[i].renderer;
 		obj.anim = g_scene[i].anim;

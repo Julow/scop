@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 15:08:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:17:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/11 20:20:06 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "scop.h"
 # include "math_utils.h"
+
+# define MTLLIB_SIZE		20
+# define MTL_CACHE_SIZE		10
 
 /*
 ** newmtl <name>				Create a mtl
@@ -40,8 +43,10 @@ struct			s_mtl
 
 /*
 ** Load mtls from a file
+** -
+** Return NULL on error
 */
-t_bool			load_mtl(char const *file, t_hmap **mtl);
+t_hmap const	*load_mtl(t_sub file_name);
 
 /*
 ** internal

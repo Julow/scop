@@ -6,12 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:19:41 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/11 20:39:30 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mesh_loader.h"
 #include "math_utils.h"
+#include "ft_hmap.h"
 
 static void		init_mesh_data(t_mesh_data *data)
 {
@@ -38,7 +39,7 @@ static void		clear_mesh_data(t_mesh_data *data)
 	ft_vclear(&(data->ebo_data));
 }
 
-t_bool			load_mesh(char const *file, t_mesh *dst)
+static t_bool	load_mesh_file(char const *file, t_mesh *dst)
 {
 	t_mesh_data		data;
 	t_bool			success;
@@ -63,4 +64,22 @@ t_bool			load_mesh(char const *file, t_mesh *dst)
 		parse_t, build_t, send_t);
 	clear_mesh_data(&data);
 	return (success);
+}
+
+t_mesh const	*load_mesh(t_sub file_name)
+{
+	static t_hmap	*cache = NULL;
+	t_hpair			mesh;
+
+	if (cache == NULL)
+		cache = ft_hmapnew(MESH_CACHE_SIZE, &ft_djb2);
+	if ((mesh = ft_hmapget(cache, file_name)).value != NULL)
+		return (mesh.value);
+	mesh = ft_hmapput(cache, file_name, NULL, sizeof(t_mesh));
+	if (!load_mesh_file(mesh.key, mesh.value))
+	{
+		ft_hmaprem(cache, file_name, NULL);
+		return (NULL);
+	}
+	return (mesh.value);
 }

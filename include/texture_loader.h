@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:54:03 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:18:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/11 19:25:36 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "scop.h"
 
+# define TEXTURE_CACHE_SIZE	10
+
 struct			s_texture
 {
 	t_uint			handle;
@@ -22,8 +24,10 @@ struct			s_texture
 
 /*
 ** Load a texture from a file
+** -
+** Return NULL on error
 */
-t_bool			load_texture(char const *file, t_texture *texture);
+t_texture const	*load_texture(t_sub file_name);
 
 /*
 ** ========================================================================== **
@@ -58,5 +62,11 @@ t_bool			ft_loadimage(char const *file, t_img *img);
 ** Load a .tga file
 */
 t_bool			tga_parser(t_buff *buff, t_img *img);
+
+/*
+** Internal
+*/
+t_texture		*texture_cache_get(char const *file);
+void			texture_cache_new(char const *file, t_texture *texture);
 
 #endif

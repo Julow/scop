@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/27 12:12:48 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/11 19:25:45 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 
 # include "scop.h"
 
+# define SHADER_CACHE_SIZE		10
+# define SHADER_LOC_SIZE		25
+
 # define LOAD_SHADER_BUFFER		512
 # define LOAD_UNIFORM_BUFFER	128
 # define ERR_SHADER_BUFFER 		1024
 
-# define SHADER_START		(SUBC("//#shader "))
+# define SHADER_START			(SUBC("//#shader "))
 
 /*
 ** Represent a shader program
@@ -69,8 +72,10 @@ t_uint			shader_get_uniform(t_shader const *shader, t_sub name);
 **  // code for geom shader
 ** -
 ** a //#shader cannot be repeated (except 'all')
+** -
+** Return NULL on error
 */
-t_bool			load_shader(char const *file, t_shader *p);
+t_shader const	*load_shader(t_sub file_name);
 
 /*
 ** internal

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:11:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:45:08 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/11 20:20:17 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "scop.h"
 # include "ft_vector.h"
+
+# define MESH_CACHE_SIZE	10
 
 struct			s_mesh
 {
@@ -33,8 +35,10 @@ struct			s_mesh_mtl
 
 /*
 ** Load a mesh from a file (.obj)
+** -
+** Return NULL on error
 */
-t_bool			load_mesh(char const *file, t_mesh *dst);
+t_mesh const	*load_mesh(t_sub file_name);
 
 /*
 ** internal

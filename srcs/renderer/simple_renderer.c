@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/23 23:27:26 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/11 21:18:21 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 #include "mesh_loader.h"
 #include "mtl_loader.h"
 #include "obj.h"
-#include "resources.h"
 #include "camera.h"
+#include "utils.h"
 #include "ft_hmap.h"
+#include <stdlib.h>
 
 /*
 ** -
@@ -77,11 +78,8 @@ void			simple_renderer(t_scop *scop, t_obj *obj)
 	int						offset;
 
 	if (shader == NULL
-		&& (shader = get_res(g_res_t.shader, SUBC("test.glsl"))) == NULL)
-	{
-		ft_printf("load shader\n\n");
-		return ;
-	}
+		&& (shader = load_shader(SUBC("res/shaders/test.glsl"))) == NULL)
+		exit(ft_error(1, "Cannot load shader"));
 	glUseProgram(shader->handle);
 	test_glsl_pre(shader, scop, obj);
 	glBindVertexArray(obj->mesh->vao);

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/15 14:06:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/27 12:12:26 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/11 20:44:31 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,25 @@ static t_bool	load_shaders_file(char const *file, t_uint *dst)
 	return (success);
 }
 
-t_bool			load_shader(char const *file, t_shader *dst)
+t_shader const	*load_shader(t_sub file_name)
 {
+	static t_hmap	*cache = NULL;
 	t_hmap			*uniforms;
+	t_hpair			tmp;
 	t_uint			handle;
 
-	if (!load_shaders_file(file, &handle))
-		return (false);
-	uniforms = ft_hmapnew(20, &ft_djb2);
+	if (cache == NULL)
+		cache = ft_hmapnew(SHADER_CACHE_SIZE, &ft_djb2);
+	if ((tmp = ft_hmapget(cache, file_name)).value != NULL)
+		return (tmp.value);
+	tmp = ft_hmapput(cache, file_name, NULL, sizeof(t_shader));
+	if (!load_shaders_file(tmp.key, &handle))
+	{
+		ft_hmaprem(cache, file_name, NULL);
+		return (NULL);
+	}
+	uniforms = ft_hmapnew(SHADER_LOC_SIZE, &ft_djb2);
 	load_uniforms(handle, uniforms);
-	*dst = (t_shader){uniforms, handle};
-	return (true);
+	ft_memcpy(tmp.value, &(t_shader){uniforms, handle}, sizeof(t_shader));
+	return (tmp.value);
 }

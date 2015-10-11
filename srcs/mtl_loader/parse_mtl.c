@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:13:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:43:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/11 20:42:52 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_bool	new_mtl_token(t_sub line, t_hmap *mtl_lib, t_mtl **dst)
 
 	if (!ft_subnextc(&line, ' '))
 		return (false);
-	*dst = ft_hmapput(mtl_lib, line, &default_mtl, sizeof(t_mtl));
+	*dst = ft_hmapput(mtl_lib, line, &default_mtl, sizeof(t_mtl)).value;
 	return (true);
 }
 
