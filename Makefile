@@ -4,7 +4,7 @@
 NAME		:= scop
 
 # Project directories
-DIRS		:= srcs include
+DIRS := srcs
 
 # Git submodule to init
 MODULES		:= libft
@@ -13,7 +13,7 @@ LIBS		:= libft
 
 # Base flags
 BASE_FLAGS	= -Wall -Wextra
-HEAD_FLAGS	= $(addprefix -I,$(DIRS)) -Ilibft
+HEAD_FLAGS	= $(addprefix -I,$(DIRS) $(wildcard srcs/*/include) $(wildcard srcs/*/)) -Ilibft
 
 # Compilation flags (per language)
 C_FLAGS		= $(HEAD_FLAGS) $(BASE_FLAGS)
@@ -33,7 +33,7 @@ else
 	CPP_FLAGS	+=
 endif
 
-DEBUG_MODE	?= 0
+DEBUG_MODE		?= 0
 export DEBUG_MODE
 
 # External libs
@@ -47,7 +47,7 @@ else
 endif
 
 # Jobs
-JOBS		:= 4
+JOBS			:= 4
 
 # Column output
 COLUMN_OUTPUT	:= 1
@@ -61,10 +61,10 @@ else
 endif
 
 # Objects directory
-O_DIR		:= o
+O_DIR			:= o
 
 # Depend file name
-DEPEND		:= depend.mk
+DEPEND			:= depend.mk
 
 # tmp
 MODULE_RULES	:= $(addsuffix /.git,$(MODULES))

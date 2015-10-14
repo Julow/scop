@@ -6,12 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:50:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/01 17:59:01 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/14 17:39:48 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-#include "scop.h"
 #include "utils.h"
 
 #ifdef MAC_OS_MODE

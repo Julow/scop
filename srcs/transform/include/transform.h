@@ -6,14 +6,18 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 08:34:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 23:09:30 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/14 15:09:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TRANSFORM_H
 # define TRANSFORM_H
 
-# include "scop.h"
+typedef struct s_transform	t_transform;
+
+// module: transform
+// public require math_utils
+
 # include "math_utils.h"
 
 /*

@@ -6,11 +6,10 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/10/11 21:18:21 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/14 17:39:43 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "scop.h"
 #include "main.h"
 #include "shader_loader.h"
 #include "texture_loader.h"

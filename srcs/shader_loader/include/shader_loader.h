@@ -6,14 +6,26 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:24:55 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/11 19:25:45 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/14 15:15:06 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHADER_LOADER_H
 # define SHADER_LOADER_H
 
-# include "scop.h"
+typedef struct s_shader		t_shader;
+typedef struct s_uniform	t_uniform;
+
+// module: shader_loader
+// public require libft
+// public require libft::hmap
+// private require gl
+// private require utils
+// private require libft::list
+// private extern require unistd
+// private extern require fcntl
+
+# include "libft.h"
 
 # define SHADER_CACHE_SIZE		10
 # define SHADER_LOC_SIZE		25

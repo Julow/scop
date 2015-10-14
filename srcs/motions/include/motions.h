@@ -6,14 +6,19 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 18:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/27 12:11:17 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/14 14:53:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MOTIONS_H
 # define MOTIONS_H
 
-# include "scop.h"
+// module: motions
+// public require libft
+// public require math_utils
+// private extern require math
+// private ambiguous require main
+
 # include "math_utils.h"
 
 /*

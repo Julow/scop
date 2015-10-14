@@ -6,14 +6,21 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:47:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/01 17:59:50 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/14 17:39:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEY_EVENTS_H
 # define KEY_EVENTS_H
 
-# include "scop.h"
+// module: events
+// public require gl
+// public require libft
+// ambiguous private require main
+// require utils
+
+typedef struct s_key_event	t_key_event;
+
 # include "gl.h"
 
 # define F_KEY_CALLBACK		(1 << 1)

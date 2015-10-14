@@ -6,14 +6,25 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:54:03 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/11 19:25:36 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/14 15:15:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEXTURE_LOADER_H
 # define TEXTURE_LOADER_H
 
-# include "scop.h"
+typedef struct s_texture	t_texture;
+
+// module: texture_loader
+// public require libft
+// private require utils
+// private require gl
+// private require libft::buff
+// private require libft::hmap
+// private extern require stdlib
+// private extern require fcntl
+
+# include "libft.h"
 
 # define TEXTURE_CACHE_SIZE	10
 
