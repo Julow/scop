@@ -4,7 +4,7 @@
 NAME		:= scop
 
 # Project directories
-DIRS := srcs
+DIRS		:= srcs srcs/anim/include srcs/camera/include srcs/events/include srcs/gl/include srcs/main/include srcs/math_utils/include srcs/mesh_loader/include srcs/motions/include srcs/mtl_loader/include srcs/obj/include srcs/obj_anim/include srcs/renderer/include srcs/shader_loader/include srcs/texture_loader/include srcs/transform/include srcs/utils/include
 
 # Git submodule to init
 MODULES		:= libft
@@ -13,7 +13,7 @@ LIBS		:= libft
 
 # Base flags
 BASE_FLAGS	= -Wall -Wextra
-HEAD_FLAGS	= $(addprefix -I,$(DIRS) $(wildcard srcs/*/include) $(wildcard srcs/*/)) -Ilibft
+HEAD_FLAGS	= $(addprefix -I,$(DIRS) $(wildcard srcs/*/)) -Ilibft
 
 # Compilation flags (per language)
 C_FLAGS		= $(HEAD_FLAGS) $(BASE_FLAGS)

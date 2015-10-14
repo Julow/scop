@@ -1,37 +1,44 @@
 
 #
-# module module_name:			# Declare a module
+# module declaration goes to a 'module' file
+# these files are searched recursively
 #
-#								# Everything is optionnal
+# There can be several module declaration per file
 #
-#	dir srcs/module					# Module dir (default: current directory)
+# module module_name: module_dir	# Declare a module
 #
-#	include include/				# path to public headers dir (or file)
+#										module_dir is the base dir of the module
+#										(default: current dir)
 #
-#	public require module1			# Declare a public dependency
+#									# Everything is optionnal
 #
-#	private require module2			# Same but the dependency is private
-#	require module3					# Default visibility is 'private'
+#	include include/					# path to public headers dir (or file)
 #
-#	put LINK_FLAGS -lm				# Put (without dupplicate) '-lm'
-#										to the variable LINK_FLAGS
+#	public require module1				# Declare a public dependency
 #
-#	local DEBUG_FLAGS += -DDEBUG	# Target only variable
+#	private require module2				# Same but the dependency is private
+#	require module3						# Default visibility is 'private'
 #
-#	recipe $(CC) $(FLAGS) -o $@ $^	# Override default recipe
-#	recipe echo $@ done				# or add one
+#	put LINK_FLAGS -lm					# Put (without dupplicate) '-lm'
+#											to the variable LINK_FLAGS
 #
-#	disable auto					# Disable automatic search for source
-#										and creation of a target for each
+#	local DEBUG_FLAGS += -DDEBUG		# Target only variable
 #
-#	target test.o: test.c test.h	# Add a target
+#	recipe $(CC) $(FLAGS) -o $@ $^		# Override default recipe
+#	recipe echo $@ done					# or add one
 #
-#	recipe clang $^ -o $@			# Add a recipe to the target
+#	disable auto						# Disable automatic search for source
+#											and creation of a target for each
 #
-#								# The indentation is not important
+#	target test.o: test.c test.h		# Add a target
+#
+#	recipe clang $^ -o $@				# Add a recipe to the target
+#
+#									# The indentation is not important
 #
 
-module libft:
+module libft: libft
+
 	include ./
 
 	put LINK_FLAGS -Llibft -llibft
@@ -46,21 +53,24 @@ module libft:
 
 #
 
-module anim:
+module anim: srcs/anim
+
 	include include/
 
 	public require libft
 
 	put LINK_FLAGS -lm
 
-module camera:
+module camera: srcs/camera
+
 	include include/
 
 	public require math_utils
 
 	put LINK_FLAGS -lm
 
-module events:
+module events: srcs/events
+
 	include include/
 
 	public require gl
@@ -69,12 +79,14 @@ module events:
 	private require main
 	private require utils
 
-module math_utils:
+module math_utils: srcs/math_utils
+
 	include include/
 
 	put LINK_FLAGS -lm
 
-module mesh_loader:
+module mesh_loader: srcs/mesh_loader
+
 	include include/
 
 	public require libft
@@ -83,7 +95,8 @@ module mesh_loader:
 	private require math_utils
 	private require utils
 
-module motions:
+module motions: srcs/motions
+
 	include include/
 
 	public require libft
@@ -93,7 +106,8 @@ module motions:
 
 	put LINK_FLAGS -lm
 
-module mtl_loader:
+module mtl_loader: srcs/mtl_loader
+
 	include include/
 
 	public require math_utils
@@ -101,7 +115,8 @@ module mtl_loader:
 	public require libft
 	private require utils
 
-module obj:
+module obj: srcs/obj
+
 	include include/
 
 	public require math_utils
@@ -110,44 +125,51 @@ module obj:
 	public require anim
 	public require renderer
 
-module obj_anim:
+module obj_anim: srcs/obj_anim
+
 	include include/
 
 	public require obj
 	public require math_utils
 	public require anim
 
-module renderer:
+module renderer: srcs/renderer
+
 	include include/
 
 
-module shader_loader:
+module shader_loader: srcs/shader_loader
+
 	include include/
 
 	public require libft
 	private require gl
 	private require utils
 
-module texture_loader:
+module texture_loader: srcs/texture_loader
+
 	include include/
 
 	public require libft
 	private require utils
 	private require gl
 
-module transform:
+module transform: srcs/transform
+
 	include include/
 
 	public require math_utils
 
-module utils:
+module utils: srcs/utils
+
 	include include/
 
 	public require libft
 
 #
 
-module main:
+module main: srcs/main
+
 	public require libft
 	public require gl
 	public require camera
