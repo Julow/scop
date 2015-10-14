@@ -6,16 +6,27 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/01 17:56:52 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/14 15:11:37 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_H
 # define MAIN_H
 
+typedef struct s_scop		t_scop;
+
+// module: main
+// public require libft::vector
+// public require gl
+// public require camera
+// public require obj
+// private extern require stdlib
+// private extern require math
+
 # include "scop.h"
 # include "ft_vector.h"
 # include "gl.h"
+# include "obj.h"
 # include "camera.h"
 
 # define FLAG_MOVE_FRONT	(1 << 1)

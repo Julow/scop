@@ -6,15 +6,29 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:11:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/11 20:20:17 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/14 15:11:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MESH_LOADER_H
 # define MESH_LOADER_H
 
-# include "scop.h"
+typedef struct s_mesh		t_mesh;
+typedef struct s_mesh_mtl	t_mesh_mtl;
+
+// module: mesh_loader
+// public require libft
+// public require libft::vector
+// public require libft::hmpa
+// public require mtl_loader
+// private require gl
+// private require math_utils
+// private require utils
+// private extern require fcntl
+// private extern require unistd
+
 # include "ft_vector.h"
+# include "mtl_loader.h"
 
 # define MESH_CACHE_SIZE	10
 

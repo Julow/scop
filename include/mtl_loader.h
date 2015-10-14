@@ -6,15 +6,27 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 15:08:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/11 20:20:06 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/14 15:14:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MTL_LOADER_H
 # define MTL_LOADER_H
 
-# include "scop.h"
+typedef struct s_mtl		t_mtl;
+
+// module: mtl_loader
+// public require math_utils
+// public require texture_loader
+// public require libft
+// public require libft::hmap
+// private require utils
+// private extern require fcntl
+// private extern require unistd
+
+# include "libft.h"
 # include "math_utils.h"
+# include "texture_loader.h"
 
 # define MTLLIB_SIZE		20
 # define MTL_CACHE_SIZE		10

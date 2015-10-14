@@ -6,14 +6,20 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 10:56:01 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/14 14:50:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATH_UTILS_H
 # define MATH_UTILS_H
 
-# include "scop.h"
+// module: math_utils
+// private extern require math
+
+typedef struct s_vec2		t_vec2;
+typedef struct s_vec3		t_vec3;
+typedef struct s_vec4		t_vec4;
+typedef struct s_mat4		t_mat4;
 
 struct			s_vec2
 {

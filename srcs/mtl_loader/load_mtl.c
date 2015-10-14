@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 15:07:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/11 21:03:39 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/14 15:18:37 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_hmap const	*load_mtl(t_sub file_name)
 	if ((fd = open(mtllib.key, O_RDONLY)) < 0)
 	{
 		ft_hmaprem(cache, file_name, &lol);
-		ft_error(false, "Cannot open %.*s", file_name.length, file_name.str);
+		ft_error(false, "Cannot open %.*r - %r", file_name.length, file_name.str, mtllib.key);
 		return (NULL);
 	}
 	ret = parse_mtl(fd, mtllib.value);

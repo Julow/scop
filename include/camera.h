@@ -6,14 +6,19 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 11:24:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:16:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/14 14:44:36 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CAMERA_H
 # define CAMERA_H
 
-# include "scop.h"
+// module: camera
+// public require math_utils
+// require std::math
+
+typedef struct s_camera		t_camera;
+
 # include "math_utils.h"
 
 # define F_CAMERA_UPDATED	(1 << 1)
