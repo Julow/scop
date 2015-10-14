@@ -1,0 +1,157 @@
+
+#
+# module module_name:			# Declare a module
+#
+#								# Everything is optionnal
+#
+#	dir srcs/module					# Module dir (default: current directory)
+#
+#	include include/				# path to public headers dir (or file)
+#
+#	public require module1			# Declare a public dependency
+#
+#	private require module2			# Same but the dependency is private
+#	require module3					# Default visibility is 'private'
+#
+#	put LINK_FLAGS -lm				# Put (without dupplicate) '-lm'
+#										to the variable LINK_FLAGS
+#
+#	local DEBUG_FLAGS += -DDEBUG	# Target only variable
+#
+#	recipe $(CC) $(FLAGS) -o $@ $^	# Override default recipe
+#	recipe echo $@ done				# or add one
+#
+#	disable auto					# Disable automatic search for source
+#										and creation of a target for each
+#
+#	target test.o: test.c test.h	# Add a target
+#
+#	recipe clang $^ -o $@			# Add a recipe to the target
+#
+#								# The indentation is not important
+#
+
+module libft:
+	include ./
+
+	put LINK_FLAGS -Llibft -llibft
+
+	disable auto
+
+	put LINK_DEPENDS libft.a
+	put INIT_RULES libft
+
+	target libft:
+	recipe make -C $@
+
+#
+
+module anim:
+	include include/
+
+	public require libft
+
+	put LINK_FLAGS -lm
+
+module camera:
+	include include/
+
+	public require math_utils
+
+	put LINK_FLAGS -lm
+
+module events:
+	include include/
+
+	public require gl
+	public require libft
+
+	private require main
+	private require utils
+
+module math_utils:
+	include include/
+
+	put LINK_FLAGS -lm
+
+module mesh_loader:
+	include include/
+
+	public require libft
+	public require mtl_loader
+	private require gl
+	private require math_utils
+	private require utils
+
+module motions:
+	include include/
+
+	public require libft
+	public require math_utils
+
+	private require main		# Will throw an error
+
+	put LINK_FLAGS -lm
+
+module mtl_loader:
+	include include/
+
+	public require math_utils
+	public require texture_loader
+	public require libft
+	private require utils
+
+module obj:
+	include include/
+
+	public require math_utils
+	public require transform
+	public require mesh_loader
+	public require anim
+	public require renderer
+
+module obj_anim:
+	include include/
+
+	public require obj
+	public require math_utils
+	public require anim
+
+module renderer:
+	include include/
+
+
+module shader_loader:
+	include include/
+
+	public require libft
+	private require gl
+	private require utils
+
+module texture_loader:
+	include include/
+
+	public require libft
+	private require utils
+	private require gl
+
+module transform:
+	include include/
+
+	public require math_utils
+
+module utils:
+	include include/
+
+	public require libft
+
+#
+
+module main:
+	public require libft
+	public require gl
+	public require camera
+	public require obj
+	private require motions
+
+	put LINK_FLAGS -lm
