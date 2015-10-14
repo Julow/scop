@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:47:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/14 14:46:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/14 17:39:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 
 typedef struct s_key_event	t_key_event;
 
-# include "scop.h"
 # include "gl.h"
 
 # define F_KEY_CALLBACK		(1 << 1)

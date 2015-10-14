@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2015/10/14 15:14:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/14 17:39:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_obj		t_obj;
 # include "mesh_loader.h"
 # include "transform.h"
 # include "anim.h"
-# include "scop.h" // TODO renderer
+# include "renderer.h"
 
 /*
 ** Represent an object

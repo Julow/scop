@@ -6,12 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/14 15:21:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/14 17:39:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-#include "scop.h"
 #include "shader_loader.h"
 #include "mesh_loader.h"
 #include "obj.h"

@@ -4,7 +4,7 @@
 NAME := scop
 
 # Project directories
-DIRS := srcs include
+DIRS := srcs
 
 # Git submodule to init
 MODULES := libft
@@ -17,7 +17,7 @@ FLAGS := -Wall -Wextra -O2
 # Same but used in debug mode
 DEBUG_FLAGS := -Wall -Wextra -g
 # Compilation flags
-HEADS := $(addprefix -I,$(DIRS)) -Ilibft
+HEADS := $(addprefix -I,$(DIRS) $(wildcard srcs/*/include) $(wildcard srcs/*/)) -Ilibft
 # Linking flags
 ifeq ($(shell uname),Darwin)
 	FLAGS += -DMAC_OS_MODE=1
