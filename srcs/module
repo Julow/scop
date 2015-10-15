@@ -1,0 +1,133 @@
+
+module libft: ../libft
+
+	include ./
+
+	put LINK_FLAGS -Llibft -llibft
+
+	disable auto
+
+	put LINK_DEPENDS libft.a
+	put INIT_RULES libft
+
+	target libft:
+	recipe make -C $@
+
+#
+
+module camera: camera
+
+	include include/
+
+	public require math_utils
+
+	put LINK_FLAGS -lm
+
+module events: events
+
+	include include/
+
+	public require gl
+	public require libft
+
+	private require main
+	private require utils
+
+module math_utils: math_utils
+
+	include include/
+
+	put LINK_FLAGS -lm
+
+module mesh_loader: mesh_loader
+
+	include include/
+
+	public require libft
+	public require mtl_loader
+	private require gl
+	private require math_utils
+	private require utils
+
+module motions: motions
+
+	include include/
+
+	public require libft
+	public require math_utils
+
+	private require main		# Will throw an error
+
+	put LINK_FLAGS -lm
+
+module mtl_loader: mtl_loader
+
+	include include/
+
+	public require math_utils
+	public require texture_loader
+	public require libft
+	private require utils
+
+module obj: obj
+
+	include include/
+
+	public require math_utils
+	public require transform
+	public require mesh_loader
+	public require anim
+	public require renderer
+
+module obj_anim: obj_anim
+
+	include include/
+
+	public require obj
+	public require math_utils
+	public require anim
+
+module renderer: renderer
+
+	include include/
+
+
+module shader_loader: shader_loader
+
+	include include/
+
+	public require libft
+	private require gl
+	private require utils
+
+module texture_loader: texture_loader
+
+	include include/
+
+	public require libft
+	private require utils
+	private require gl
+
+module transform: transform
+
+	include include/
+
+	public require math_utils
+
+module utils: utils
+
+	include include/
+
+	public require libft
+
+#
+
+module main: main
+
+	public require libft
+	public require gl
+	public require camera
+	public require obj
+	private require motions
+
+	put LINK_FLAGS -lm

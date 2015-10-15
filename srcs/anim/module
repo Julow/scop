@@ -1,0 +1,8 @@
+
+module anim:
+
+	include include/
+
+	public require libft
+
+	put LINK_FLAGS -lm
