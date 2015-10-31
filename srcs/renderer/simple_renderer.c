@@ -6,16 +6,17 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/10/14 17:39:43 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/31 14:53:09 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "renderer.h"
 #include "shader_loader.h"
 #include "texture_loader.h"
 #include "mesh_loader.h"
 #include "mtl_loader.h"
 #include "obj.h"
+#include "gl.h"
 #include "camera.h"
 #include "utils.h"
 #include "ft_hmap.h"
@@ -32,21 +33,22 @@ static t_vec2 const	g_lights[] = {
 	SPOT(-700.f, 120.f, -750.f, 1000.f, 0.6f, 0.12f, -0.79f, -0.5f, -0.6f),
 };
 
-static void		test_glsl_pre(t_shader const *shader, t_scop *scop, t_obj *obj)
+static void		test_glsl_pre(t_shader const *shader, t_renderer_params *params,
+					t_obj *obj)
 {
 	UNIFORM(Matrix4fv, shader, "model", 2, true,
 		(float*)ft_transform_get(&(obj->transform)));
 	UNIFORM(Matrix4fv, shader, "view", 1, true,
-		(float*)camera_get_view(&(scop->camera)));
+		(float*)camera_get_view(params->camera));
 	UNIFORM(Matrix4fv, shader, "projection", 1, true,
-		(float*)&(scop->projection_m));
-	UNIFORM(3fv, shader, "camera_pos", 1, (float*)&(scop->camera.position));
+		(float*)params->projection_m);
+	UNIFORM(3fv, shader, "camera_pos", 1, (float*)&(params->camera->position));
 	UNIFORM(2fv, shader, "lights", G_ARRAY_LEN(g_lights), (float*)g_lights);
 	UNIFORM(1i, shader, "light_count", G_ARRAY_LEN(g_lights));
 }
 
-static void		test_glsl_mtl(t_shader const *shader, t_scop *scop, t_obj *obj,
-	t_mtl const *mtl)
+static void		test_glsl_mtl(t_shader const *shader, t_renderer_params *params,
+					t_obj *obj, t_mtl const *mtl)
 {
 	if (mtl == NULL)
 		return ;
@@ -66,11 +68,11 @@ static void		test_glsl_mtl(t_shader const *shader, t_scop *scop, t_obj *obj,
 	UNIFORM(1i, shader, "specular_map", 2);
 	UNIFORM(3fv, shader, "specular_color", 1, (float*)&(mtl->specular_color));
 	UNIFORM(1i, shader, "specular_exp", mtl->specular_exp);
-	(void)scop;
+	(void)params;
 	(void)obj;
 }
 
-void			simple_renderer(t_scop *scop, t_obj *obj)
+void			simple_renderer(t_renderer_params *params, t_obj *obj)
 {
 	static t_shader const	*shader = NULL;
 	int						i;
@@ -80,13 +82,13 @@ void			simple_renderer(t_scop *scop, t_obj *obj)
 		&& (shader = load_shader(SUBC("res/shaders/test.glsl"))) == NULL)
 		exit(ft_error(1, "Cannot load shader"));
 	glUseProgram(shader->handle);
-	test_glsl_pre(shader, scop, obj);
+	test_glsl_pre(shader, params, obj);
 	glBindVertexArray(obj->mesh->vao);
 	offset = 0;
 	i = -1;
 	while (++i < obj->mesh->mtl_count)
 	{
-		test_glsl_mtl(shader, scop, obj, obj->mesh->mtl[i].mtl);
+		test_glsl_mtl(shader, params, obj, obj->mesh->mtl[i].mtl);
 		glDrawArrays(GL_TRIANGLES, offset, obj->mesh->mtl[i].count);
 		offset += obj->mesh->mtl[i].count;
 	}

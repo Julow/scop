@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/14 17:40:42 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/31 14:52:05 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 # define MAIN_H
 
 typedef struct s_scop		t_scop;
+typedef struct s_render_obj	t_render_obj;
 
 // module: main
 // public require libft::vector
 // public require gl
+// public require renderer
 // public require camera
 // public require obj
 // private extern require stdlib
@@ -25,6 +27,7 @@ typedef struct s_scop		t_scop;
 
 # include "ft_vector.h"
 # include "gl.h"
+# include "renderer.h"
 # include "obj.h"
 # include "camera.h"
 
@@ -51,6 +54,12 @@ typedef struct s_scop		t_scop;
 # define CURSOR_SPEED		3.f
 # define ACCELERATION		10.f
 
+struct			s_render_obj
+{
+	t_obj			obj;
+	t_renderer		renderer;
+};
+
 struct			s_scop
 {
 	GLFWwindow		*window;
@@ -73,6 +82,23 @@ void			simple_renderer(t_scop *scop, t_obj *obj);
 /*
 ** update
 */
+t_bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos);
+t_bool			handle_cursor_move(t_scop *scop, t_vec2 *look);
+
+/*
+** callbacks
+*/
+void			on_mouse_move(t_scop *scop, double x, double y);
+void			on_esc(t_scop *scop, int key_code);
+
+/*
+** motions
+** TODO: maybe a 'motions' module
+*/
+void			move_front(t_vec2 dir, t_vec3 *move, float inv);
+void			move_lateral(t_vec2 dir, t_vec3 *move, float inv);
+void			move_vertical(t_vec2 dir, t_vec3 *move, float inv);
+
 t_bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos);
 t_bool			handle_cursor_move(t_scop *scop, t_vec2 *look);
 

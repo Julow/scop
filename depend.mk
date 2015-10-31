@@ -5,8 +5,8 @@ O_FILES :=	o/srcs/anim/anim_start.o o/srcs/anim/anim_update.o \
 			o/srcs/anim/smooth_in_out.o o/srcs/anim/smooth_linear.o \
 			o/srcs/anim/smooth_out.o o/srcs/camera/camera_get_view.o \
 			o/srcs/camera/camera_look.o o/srcs/camera/camera_move.o \
-			o/srcs/events/callbacks.o o/srcs/events/events.o \
-			o/srcs/main/init_window.o o/srcs/main/main.o \
+			o/srcs/events/events.o o/srcs/main/callbacks.o \
+			o/srcs/main/init_window.o o/srcs/main/main.o o/srcs/main/motions.o \
 			o/srcs/math_utils/ft_mat4look_at.o o/srcs/math_utils/ft_mat4mult.o \
 			o/srcs/math_utils/ft_mat4perspective.o \
 			o/srcs/math_utils/ft_mat4reflect.o \
@@ -21,9 +21,8 @@ O_FILES :=	o/srcs/anim/anim_start.o o/srcs/anim/anim_update.o \
 			o/srcs/mesh_loader/load_mesh.o o/srcs/mesh_loader/parse_mesh.o \
 			o/srcs/mesh_loader/parse_mesh_tokens.o \
 			o/srcs/mesh_loader/parse_mesh_tokens_mtl.o \
-			o/srcs/mesh_loader/send_mesh.o o/srcs/motions/motions.o \
-			o/srcs/mtl_loader/load_mtl.o o/srcs/mtl_loader/parse_mtl.o \
-			o/srcs/mtl_loader/parse_mtl_tokens.o \
+			o/srcs/mesh_loader/send_mesh.o o/srcs/mtl_loader/load_mtl.o \
+			o/srcs/mtl_loader/parse_mtl.o o/srcs/mtl_loader/parse_mtl_tokens.o \
 			o/srcs/mtl_loader/parse_mtl_tokens_map.o \
 			o/srcs/obj_anim/anim_c_move.o o/srcs/obj_anim/anim_c_rot.o \
 			o/srcs/obj_anim/anim_c_scale.o o/srcs/obj_anim/anim_c_shear.o \
@@ -86,15 +85,9 @@ o/srcs/camera/camera_look.o: srcs/camera/camera_look.c \
 o/srcs/camera/camera_move.o: srcs/camera/camera_move.c \
 	srcs/camera/include/camera.h srcs/math_utils/include/math_utils.h \
 	| o/srcs/camera/
-o/srcs/events/callbacks.o: srcs/events/callbacks.c srcs/anim/include/anim.h \
-	srcs/camera/include/camera.h srcs/main/include/main.h \
-	srcs/math_utils/include/math_utils.h \
-	srcs/mesh_loader/include/mesh_loader.h \
-	srcs/mtl_loader/include/mtl_loader.h srcs/obj/include/obj.h \
-	srcs/renderer/include/renderer.h \
-	srcs/texture_loader/include/texture_loader.h \
-	srcs/transform/include/transform.h | o/srcs/events/
-o/srcs/events/events.o: srcs/events/events.c srcs/anim/include/anim.h \
+o/srcs/events/events.o: srcs/events/events.c srcs/events/include/events.h \
+	srcs/utils/include/utils.h | o/srcs/events/
+o/srcs/main/callbacks.o: srcs/main/callbacks.c srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/main/include/main.h \
 	srcs/math_utils/include/math_utils.h \
 	srcs/mesh_loader/include/mesh_loader.h \
@@ -102,7 +95,7 @@ o/srcs/events/events.o: srcs/events/events.c srcs/anim/include/anim.h \
 	srcs/renderer/include/renderer.h \
 	srcs/texture_loader/include/texture_loader.h \
 	srcs/transform/include/transform.h srcs/events/include/events.h \
-	srcs/utils/include/utils.h | o/srcs/events/
+	| o/srcs/main/
 o/srcs/main/init_window.o: srcs/main/init_window.c srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/main/include/main.h \
 	srcs/math_utils/include/math_utils.h \
@@ -122,6 +115,15 @@ o/srcs/main/main.o: srcs/main/main.c srcs/anim/include/anim.h \
 	srcs/shader_loader/include/shader_loader.h \
 	srcs/obj_anim/include/obj_anim.h srcs/events/include/events.h \
 	srcs/utils/include/utils.h | o/srcs/main/
+o/srcs/main/motions.o: srcs/main/motions.c srcs/anim/include/anim.h \
+	srcs/camera/include/camera.h srcs/main/include/main.h \
+	srcs/math_utils/include/math_utils.h \
+	srcs/mesh_loader/include/mesh_loader.h \
+	srcs/mtl_loader/include/mtl_loader.h srcs/obj/include/obj.h \
+	srcs/renderer/include/renderer.h \
+	srcs/texture_loader/include/texture_loader.h \
+	srcs/transform/include/transform.h srcs/main/include/motions.h \
+	| o/srcs/main/
 o/srcs/math_utils/ft_mat4look_at.o: srcs/math_utils/ft_mat4look_at.c \
 	srcs/math_utils/include/math_utils.h | o/srcs/math_utils/
 o/srcs/math_utils/ft_mat4mult.o: srcs/math_utils/ft_mat4mult.c \
@@ -192,9 +194,6 @@ o/srcs/mesh_loader/send_mesh.o: srcs/mesh_loader/send_mesh.c \
 	srcs/mesh_loader/include/mesh_loader.h \
 	srcs/mtl_loader/include/mtl_loader.h \
 	srcs/texture_loader/include/texture_loader.h | o/srcs/mesh_loader/
-o/srcs/motions/motions.o: srcs/motions/motions.c \
-	srcs/math_utils/include/math_utils.h srcs/motions/include/motions.h \
-	| o/srcs/motions/
 o/srcs/mtl_loader/load_mtl.o: srcs/mtl_loader/load_mtl.c \
 	srcs/math_utils/include/math_utils.h srcs/mtl_loader/include/mtl_loader.h \
 	srcs/texture_loader/include/texture_loader.h srcs/utils/include/utils.h \
@@ -215,33 +214,33 @@ o/srcs/obj_anim/anim_c_move.o: srcs/obj_anim/anim_c_move.c \
 	srcs/anim/include/anim.h srcs/math_utils/include/math_utils.h \
 	srcs/mesh_loader/include/mesh_loader.h \
 	srcs/mtl_loader/include/mtl_loader.h srcs/obj/include/obj.h \
-	srcs/obj_anim/include/obj_anim.h srcs/renderer/include/renderer.h \
+	srcs/obj_anim/include/obj_anim.h \
 	srcs/texture_loader/include/texture_loader.h \
 	srcs/transform/include/transform.h | o/srcs/obj_anim/
 o/srcs/obj_anim/anim_c_rot.o: srcs/obj_anim/anim_c_rot.c \
 	srcs/anim/include/anim.h srcs/math_utils/include/math_utils.h \
 	srcs/mesh_loader/include/mesh_loader.h \
 	srcs/mtl_loader/include/mtl_loader.h srcs/obj/include/obj.h \
-	srcs/obj_anim/include/obj_anim.h srcs/renderer/include/renderer.h \
+	srcs/obj_anim/include/obj_anim.h \
 	srcs/texture_loader/include/texture_loader.h \
 	srcs/transform/include/transform.h | o/srcs/obj_anim/
 o/srcs/obj_anim/anim_c_scale.o: srcs/obj_anim/anim_c_scale.c \
 	srcs/anim/include/anim.h srcs/math_utils/include/math_utils.h \
 	srcs/mesh_loader/include/mesh_loader.h \
 	srcs/mtl_loader/include/mtl_loader.h srcs/obj/include/obj.h \
-	srcs/obj_anim/include/obj_anim.h srcs/renderer/include/renderer.h \
+	srcs/obj_anim/include/obj_anim.h \
 	srcs/texture_loader/include/texture_loader.h \
 	srcs/transform/include/transform.h | o/srcs/obj_anim/
 o/srcs/obj_anim/anim_c_shear.o: srcs/obj_anim/anim_c_shear.c \
 	srcs/anim/include/anim.h srcs/math_utils/include/math_utils.h \
 	srcs/mesh_loader/include/mesh_loader.h \
 	srcs/mtl_loader/include/mtl_loader.h srcs/obj/include/obj.h \
-	srcs/obj_anim/include/obj_anim.h srcs/renderer/include/renderer.h \
+	srcs/obj_anim/include/obj_anim.h \
 	srcs/texture_loader/include/texture_loader.h \
 	srcs/transform/include/transform.h | o/srcs/obj_anim/
 o/srcs/renderer/simple_renderer.o: srcs/renderer/simple_renderer.c \
 	srcs/anim/include/anim.h srcs/camera/include/camera.h \
-	srcs/main/include/main.h srcs/math_utils/include/math_utils.h \
+	srcs/math_utils/include/math_utils.h \
 	srcs/mesh_loader/include/mesh_loader.h \
 	srcs/mtl_loader/include/mtl_loader.h srcs/obj/include/obj.h \
 	srcs/renderer/include/renderer.h \

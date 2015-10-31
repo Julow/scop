@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:47:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/14 17:39:50 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/31 13:23:40 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 // module: events
 // public require gl
 // public require libft
-// ambiguous private require main
 // require utils
 
 typedef struct s_key_event	t_key_event;
 
 # include "gl.h"
+# include "libft.h"
 
 # define F_KEY_CALLBACK		(1 << 1)
 # define F_KEY_FLAG			(1 << 2)
@@ -70,11 +70,5 @@ extern t_key_event const		g_events[];
 ** Init events
 */
 void			init_events(GLFWwindow *window);
-
-/*
-** callbacks
-*/
-void			on_mouse_move(GLFWwindow *window, double x, double y);
-void			on_esc(GLFWwindow *window, int key_code);
 
 #endif

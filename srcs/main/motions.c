@@ -3,18 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   motions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/09 18:45:57 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/23 18:54:50 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/10/31 12:24:00 by juloo             #+#    #+#             */
+/*   Updated: 2015/10/31 13:26:50 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h" // TODO: move
+#include "main.h"
 #include "motions.h"
 #include <math.h>
 
-static void		move_front(t_vec2 dir, t_vec3 *move, float inv)
+t_motion_def const	g_moves[] = {
+	{FLAG_MOVE_FRONT, &move_front, -1.f},
+	{FLAG_MOVE_BACK, &move_front, 1.f},
+	{FLAG_MOVE_RIGHT, &move_lateral, -1.f},
+	{FLAG_MOVE_LEFT, &move_lateral, 1.f},
+	{FLAG_MOVE_DOWN, &move_vertical, -1.f},
+	{FLAG_MOVE_UP, &move_vertical, 1.f}
+};
+
+void			move_front(t_vec2 dir, t_vec3 *move, float inv)
 {
 	float			sin_pitch;
 
@@ -25,26 +34,17 @@ static void		move_front(t_vec2 dir, t_vec3 *move, float inv)
 	move->x += cosf(dir.x) * sin_pitch;
 }
 
-static void		move_lateral(t_vec2 dir, t_vec3 *move, float inv)
+void			move_lateral(t_vec2 dir, t_vec3 *move, float inv)
 {
 	move->z += sinf(dir.x - (M_PI / 2.f)) * inv;
 	move->x += cosf(dir.x - (M_PI / 2.f)) * inv;
 }
 
-static void		move_vertical(t_vec2 dir, t_vec3 *move, float inv)
+void			move_vertical(t_vec2 dir, t_vec3 *move, float inv)
 {
 	move->y += 1.f * inv;
 	(void)dir;
 }
-
-static t_motion_def const	g_moves[] = {
-	{FLAG_MOVE_FRONT, &move_front, -1.f},
-	{FLAG_MOVE_BACK, &move_front, 1.f},
-	{FLAG_MOVE_RIGHT, &move_lateral, -1.f},
-	{FLAG_MOVE_LEFT, &move_lateral, 1.f},
-	{FLAG_MOVE_DOWN, &move_vertical, -1.f},
-	{FLAG_MOVE_UP, &move_vertical, 1.f}
-};
 
 t_bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos)
 {

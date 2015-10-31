@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/14 17:39:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/31 14:52:19 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "obj.h"
 #include "anim.h"
 #include "obj_anim.h"
+#include "renderer.h"
 #include "math_utils.h"
 #include "events.h"
 #include "utils.h"
@@ -88,24 +89,24 @@ static const t_scene_obj	g_scene[] = {
 
 t_bool			load_scene(t_scop *scop)
 {
-	t_obj			obj;
+	t_render_obj	obj;
 	int				i;
 
 	i = -1;
 	while (++i < G_ARRAY_LEN(g_scene))
 	{
-		ft_bzero(&obj, sizeof(t_obj));
-		if ((obj.mesh = load_mesh(g_scene[i].mesh)) == NULL)
+		ft_bzero(&obj, sizeof(t_render_obj));
+		if ((obj.obj.mesh = load_mesh(g_scene[i].mesh)) == NULL)
 			continue ;
 		obj.renderer = g_scene[i].renderer;
-		obj.anim = g_scene[i].anim;
-		if (obj.anim != NULL)
-			anim_start(obj.anim);
-		ft_transform_move(&(obj.transform), g_scene[i].pos);
-		ft_transform_rotate(&(obj.transform), g_scene[i].rot);
-		ft_transform_scale(&(obj.transform), g_scene[i].scale);
-		ft_transform_reflect(&(obj.transform), g_scene[i].reflect);
-		ft_transform_shear(&(obj.transform), g_scene[i].shear);
+		obj.obj.anim = g_scene[i].anim;
+		if (obj.obj.anim != NULL)
+			anim_start(obj.obj.anim);
+		ft_transform_move(&(obj.obj.transform), g_scene[i].pos);
+		ft_transform_rotate(&(obj.obj.transform), g_scene[i].rot);
+		ft_transform_scale(&(obj.obj.transform), g_scene[i].scale);
+		ft_transform_reflect(&(obj.obj.transform), g_scene[i].reflect);
+		ft_transform_shear(&(obj.obj.transform), g_scene[i].shear);
 		ft_vpush_back(&(scop->objects), &obj, 1);
 	}
 	return (true);
@@ -116,21 +117,19 @@ t_bool			load_scene(t_scop *scop)
 ** Anim obj
 */
 
-static void		anim_obj(t_scop *scop, t_obj *obj, t_ulong now)
-{
-	if (obj->anim != NULL)
-		anim_update(obj, obj->anim, now);
-	(void)scop;
-}
-
 void			anim(t_scop *scop)
 {
 	const t_ulong	now = ft_clock(0);
+	t_render_obj	*obj;
 	int				i;
 
 	i = -1;
 	while (++i < scop->objects.length)
-		anim_obj(scop, VECTOR_GET(scop->objects, i), now);
+	{
+		obj = VECTOR_GET(scop->objects, i);
+		if (obj->obj.anim != NULL)
+			anim_update(&(obj->obj), obj->obj.anim, now);
+	}
 }
 
 /*
@@ -138,20 +137,21 @@ void			anim(t_scop *scop)
 ** Render obj
 */
 
-static void		render_obj(t_scop *scop, t_obj *obj)
-{
-	obj->renderer(scop, obj);
-}
-
 void			render(t_scop *scop)
 {
-	int				i;
+	t_renderer_params	params;
+	t_render_obj		*obj;
+	int					i;
 
+	params = (t_renderer_params){&(scop->camera), &(scop->projection_m)};
 	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	i = -1;
 	while (++i < scop->objects.length)
-		render_obj(scop, VECTOR_GET(scop->objects, i));
+	{
+		obj = VECTOR_GET(scop->objects, i);
+		obj->renderer(&params, &obj->obj);
+	}
 }
 
 /*
@@ -177,7 +177,7 @@ int				main(void)
 	int				last_flags;
 
 	ft_bzero(&scop, sizeof(scop));
-	scop.objects = VECTOR(t_obj);
+	scop.objects = VECTOR(t_render_obj);
 	scop.camera = CAMERA(VEC3_0(), VEC2_0());
 	scop.projection_m = ft_mat4perspective(PERSPECTIVE_FOV, WIN_RATIO,
 		PERSPECTIVE_NEAR, PERSPECTIVE_FAR);

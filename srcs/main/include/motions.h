@@ -6,18 +6,16 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 18:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/14 14:53:50 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/31 12:28:34 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MOTIONS_H
 # define MOTIONS_H
 
-// module: motions
-// public require libft
-// public require math_utils
-// private extern require math
-// private ambiguous require main
+/*
+** TODO: improve this shit
+*/
 
 # include "math_utils.h"
 

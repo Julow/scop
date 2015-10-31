@@ -49,17 +49,6 @@ module mesh_loader: mesh_loader
 	private require math_utils
 	private require utils
 
-module motions: motions
-
-	include include/
-
-	public require libft
-	public require math_utils
-
-	private require main		# Will throw an error
-
-	put LINK_FLAGS -lm
-
 module mtl_loader: mtl_loader
 
 	include include/
@@ -77,7 +66,6 @@ module obj: obj
 	public require transform
 	public require mesh_loader
 	public require anim
-	public require renderer
 
 module obj_anim: obj_anim
 
@@ -91,6 +79,12 @@ module renderer: renderer
 
 	include include/
 
+	public require camera
+	public require math_utils
+	public require obj
+	private require shader_loader
+	private require utils
+	private require gl
 
 module shader_loader: shader_loader
 
@@ -124,10 +118,16 @@ module utils: utils
 
 module main: main
 
+	include include/
+
 	public require libft
 	public require gl
+	public require renderer
 	public require camera
 	public require obj
-	private require motions
+	private require events
+	private require utils
+	private require shader_loader
+	private require obj_anim
 
 	put LINK_FLAGS -lm

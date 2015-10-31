@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2015/10/14 17:39:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/10/31 12:40:51 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ typedef struct s_obj		t_obj;
 // public require transform
 // public require mesh_loader
 // public require anim
-// public require renderer
 
 # include "math_utils.h"
 # include "mesh_loader.h"
 # include "transform.h"
 # include "anim.h"
-# include "renderer.h"
 
 /*
 ** Represent an object
@@ -34,7 +32,6 @@ typedef struct s_obj		t_obj;
 struct			s_obj
 {
 	t_mesh const	*mesh;
-	t_renderer		renderer;
 	t_anim			*anim;
 	t_transform		transform;
 };
