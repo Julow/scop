@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/31 14:52:05 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/31 22:50:10 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,6 @@ struct			s_scop
 ** init
 */
 t_bool			init_window(t_scop *scop);
-
-/*
-** renderer
-*/
-void			simple_renderer(t_scop *scop, t_obj *obj);
 
 /*
 ** update

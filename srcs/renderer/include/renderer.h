@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/14 17:38:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/31 14:50:07 by juloo            ###   ########.fr       */
+/*   Updated: 2015/10/31 22:50:05 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ struct	s_renderer_params
 	t_camera		*camera;
 	t_mat4			*projection_m;
 };
+
+void			simple_renderer(t_renderer_params *scop, t_obj *obj);
 
 #endif
