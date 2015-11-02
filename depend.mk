@@ -81,12 +81,8 @@ $(O_DIR)/srcs/camera/camera_move.o: srcs/camera/camera_move.c \
 	| $(O_DIR)/srcs/camera/
 
 # module events
-$(O_DIR)/srcs/events/events.o: INCLUDE_FLAGS += -Ilibft -Isrcs/anim/include \
-	-Isrcs/camera/include -Isrcs/events/include -Isrcs/gl \
-	-Isrcs/math_utils/include -Isrcs/mesh_loader/include \
-	-Isrcs/mtl_loader/include -Isrcs/obj/include -Isrcs/renderer/include \
-	-Isrcs/texture_loader/include -Isrcs/transform/include \
-	-Isrcs/utils/include
+$(O_DIR)/srcs/events/events.o: INCLUDE_FLAGS += -Ilibft -Isrcs/events/include \
+	-Isrcs/gl -Isrcs/utils/include
 $(O_DIR)/srcs/events/events.o: srcs/events/events.c libft/libft.h \
 	srcs/events/include/events.h srcs/gl/gl.h srcs/gl/gl.h \
 	srcs/utils/include/utils.h | $(O_DIR)/srcs/events/
@@ -521,6 +517,8 @@ $(O_DIR)/srcs/main/motions.o: srcs/main/motions.c libft/ft_vector.h \
 	srcs/texture_loader/include/texture_loader.h \
 	srcs/transform/include/transform.h | $(O_DIR)/srcs/main/
 
+# module gl
+
 # module anim
 $(O_DIR)/srcs/anim/anim_start.o: INCLUDE_FLAGS += -Ilibft -Isrcs/anim/include
 $(O_DIR)/srcs/anim/anim_start.o: srcs/anim/anim_start.c libft/libft.h \
@@ -562,5 +560,3 @@ $(O_DIR)/srcs/anim/smooth_linear.o: srcs/anim/smooth_linear.c libft/libft.h \
 $(O_DIR)/srcs/anim/smooth_out.o: INCLUDE_FLAGS += -Ilibft -Isrcs/anim/include
 $(O_DIR)/srcs/anim/smooth_out.o: srcs/anim/smooth_out.c libft/libft.h \
 	srcs/anim/include/anim.h | $(O_DIR)/srcs/anim/
-
-# module gl

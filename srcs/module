@@ -31,7 +31,6 @@ module events: events
 	public require gl
 	public require libft
 
-	private require main
 	private require utils
 
 module math_utils: math_utils
