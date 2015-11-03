@@ -6,17 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:47:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/31 13:23:40 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/03 10:44:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef KEY_EVENTS_H
 # define KEY_EVENTS_H
-
-// module: events
-// public require gl
-// public require libft
-// require utils
 
 typedef struct s_key_event	t_key_event;
 

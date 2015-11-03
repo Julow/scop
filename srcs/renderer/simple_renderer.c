@@ -6,15 +6,16 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/10/31 14:53:09 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/03 14:25:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "renderer.h"
+#include "shader.h"
 #include "shader_loader.h"
-#include "texture_loader.h"
-#include "mesh_loader.h"
-#include "mtl_loader.h"
+#include "texture.h"
+#include "mesh.h"
+#include "mtl.h"
 #include "obj.h"
 #include "gl.h"
 #include "camera.h"

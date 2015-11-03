@@ -6,11 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:50:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:22:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/03 14:28:41 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "texture_loader.h"
+#include "ft_img.h"
 #include "ft_buff.h"
 #include <fcntl.h>
 

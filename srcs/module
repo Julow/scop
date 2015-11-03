@@ -16,6 +16,14 @@ module libft: ../libft
 
 #
 
+module anim: anim
+
+	public include include/
+
+	public require libft
+
+	put LINK_FLAGS -lm
+
 module camera: camera
 
 	public include include/
@@ -39,32 +47,13 @@ module math_utils: math_utils
 
 	put LINK_FLAGS -lm
 
-module mesh_loader: mesh_loader
-
-	public include include/
-
-	public require libft
-	public require mtl_loader
-	private require gl
-	private require math_utils
-	private require utils
-
-module mtl_loader: mtl_loader
-
-	public include include/
-
-	public require math_utils
-	public require texture_loader
-	public require libft
-	private require utils
-
 module obj: obj
 
 	public include include/
 
 	public require math_utils
 	public require transform
-	public require mesh_loader
+	public require mesh
 	public require anim
 
 module obj_anim: obj_anim
@@ -82,23 +71,11 @@ module renderer: renderer
 	public require camera
 	public require math_utils
 	public require obj
+	private require shader
+	private require texture
+	private require mesh
+	private require mtl
 	private require shader_loader
-	private require utils
-	private require gl
-
-module shader_loader: shader_loader
-
-	public include include/
-
-	public require libft
-	private require gl
-	private require utils
-
-module texture_loader: texture_loader
-
-	public include include/
-
-	public require libft
 	private require utils
 	private require gl
 
@@ -114,6 +91,74 @@ module utils: utils
 
 	public require libft
 
+module shader: shader
+
+	public include .
+
+	public require libft
+
+module shader_loader: shader_loader
+
+	public include include/public
+	private include include
+
+	public require libft
+	public require shader
+	private require gl
+	private require utils
+
+module mesh: mesh
+
+	public include .
+
+	public require libft
+	public require mtl
+
+module mesh_loader: mesh_loader
+
+	public include include/public
+	private include include
+
+	public require libft
+	public require mesh
+	private require mtl_loader
+	private require gl
+	private require math_utils
+	private require utils
+
+module mtl: mtl
+	
+	public include .
+
+	public require texture
+	public require math_utils
+
+module mtl_loader: mtl_loader
+
+	public include include/public
+	private include include/
+
+	public require libft
+	private require mtl
+	private require texture_loader
+	private require utils
+
+module texture: texture
+
+	public include .
+
+	public require libft
+
+module texture_loader: texture_loader
+
+	public include include/public
+	private include include/
+
+	public require libft
+	public require texture
+	private require utils
+	private require gl
+
 #
 
 module main: main
@@ -122,14 +167,17 @@ module main: main
 
 	local MDR += lol
 
-	public require libft
-	public require gl
-	public require renderer
-	public require camera
-	public require obj
+	private require libft
+	private require gl
+	private require renderer
+	private require camera
+	private require obj
 	private require events
 	private require utils
+	private require shader
 	private require shader_loader
+	private require mesh
+	private require mesh_loader
 	private require obj_anim
 
 	put LINK_FLAGS -lm

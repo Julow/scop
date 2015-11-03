@@ -6,11 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:13:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/11 20:42:52 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/03 14:17:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mtl_loader.h"
+#include "internal.h"
 #include "utils.h"
 #include "ft_hmap.h"
 

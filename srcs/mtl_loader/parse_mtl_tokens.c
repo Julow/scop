@@ -6,11 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:12:53 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/19 17:26:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/03 14:17:52 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mtl_loader.h"
+#include "internal.h"
 #include "utils.h"
 
 t_bool			ambient_color_token(t_sub line, t_mtl *mtl)

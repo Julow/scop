@@ -6,11 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:54:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/11 19:13:38 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/03 13:09:29 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mesh_loader.h"
+#include "internal.h"
 #include "utils.h"
 
 t_bool			parse_v(t_sub line, t_mesh_data *data)

@@ -1,62 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mesh_loader.h                                      :+:      :+:    :+:   */
+/*   internal.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/25 12:11:38 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/14 15:11:31 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/11/03 13:06:50 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/11/03 13:08:19 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MESH_LOADER_H
-# define MESH_LOADER_H
+#ifndef INTERNAL_H
+# define INTERNAL_H
 
-typedef struct s_mesh		t_mesh;
-typedef struct s_mesh_mtl	t_mesh_mtl;
-
-// module: mesh_loader
-// public require libft
-// public require libft::vector
-// public require libft::hmpa
-// public require mtl_loader
-// private require gl
-// private require math_utils
-// private require utils
-// private extern require fcntl
-// private extern require unistd
-
+# include "mesh_loader.h"
+# include "libft.h"
 # include "ft_vector.h"
-# include "mtl_loader.h"
+# include "ft_hmap.h"
 
 # define MESH_CACHE_SIZE	10
 
-struct			s_mesh
-{
-	t_uint				vao;
-	t_uint				vbo;
-	t_uint				ebo;
-	t_mesh_mtl const	*mtl;
-	int					mtl_count;
-};
-
-struct			s_mesh_mtl
-{
-	t_mtl const		*mtl;
-	int				count;
-};
-
-/*
-** Load a mesh from a file (.obj)
-** -
-** Return NULL on error
-*/
-t_mesh const	*load_mesh(t_sub file_name);
-
-/*
-** internal
-*/
 /*
 ** vbo_data:
 ** float[8]

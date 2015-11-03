@@ -6,11 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:49:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/11 21:00:23 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/03 13:09:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mesh_loader.h"
+#include "internal.h"
 #include "utils.h"
 #include <fcntl.h>
 #include <unistd.h>

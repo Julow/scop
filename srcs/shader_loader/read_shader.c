@@ -6,11 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:20:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:24:47 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/03 10:30:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shader_loader.h"
+#include "internal.h"
 #include "utils.h"
 #include "gl.h"
 #include "ft_list.h"

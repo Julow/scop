@@ -6,11 +6,11 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 17:04:22 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/08 19:17:34 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/03 13:09:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mesh_loader.h"
+#include "internal.h"
 #include "gl.h"
 
 #define VERTEX_SIZE		S(float, 8)

@@ -6,11 +6,11 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/07 20:24:14 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/14 15:25:53 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/03 13:09:36 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mesh_loader.h"
+#include "internal.h"
 
 t_bool			build_mtl(t_mesh_data *data, t_mesh *dst)
 {

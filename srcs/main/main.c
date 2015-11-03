@@ -6,12 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/31 14:52:19 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/03 14:25:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+#include "shader.h"
 #include "shader_loader.h"
+#include "mesh.h"
 #include "mesh_loader.h"
 #include "obj.h"
 #include "anim.h"

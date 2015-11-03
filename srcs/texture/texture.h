@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj.h                                              :+:      :+:    :+:   */
+/*   texture.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2015/11/03 13:10:20 by jaguillo         ###   ########.fr       */
+/*   Created: 2015/11/03 14:20:23 by jaguillo          #+#    #+#             */
+/*   Updated: 2015/11/03 14:23:21 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJ_H
-# define OBJ_H
+#ifndef TEXTURE_H
+# define TEXTURE_H
 
-typedef struct s_obj		t_obj;
+typedef struct s_texture	t_texture;
 
-# include "math_utils.h"
-# include "mesh.h"
-# include "transform.h"
-# include "anim.h"
+# include "libft.h"
 
-/*
-** Represent an object
-*/
-struct			s_obj
+struct			s_texture
 {
-	t_mesh const	*mesh;
-	t_anim			*anim;
-	t_transform		transform;
+	t_uint			handle;
 };
 
 #endif

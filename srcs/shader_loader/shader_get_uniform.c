@@ -6,11 +6,11 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 23:42:44 by juloo             #+#    #+#             */
-/*   Updated: 2015/10/11 20:45:28 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/03 10:30:41 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shader_loader.h"
+#include "internal.h"
 #include "ft_hmap.h"
 
 t_uint			shader_get_uniform(t_shader const *shader, t_sub name)
