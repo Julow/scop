@@ -10,9 +10,7 @@ module libft: ../libft
 	put LINK_DEPENDS libft/libft.a
 	put LIBS_RULES libft
 
-	target libft:
-	recipe make -C libft
-	target .PHONY: libft
+	makefile import ../srcs/libft.mk # TODO: move
 
 #
 
