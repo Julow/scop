@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/11/03 14:25:01 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/04 20:15:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void		test_glsl_mtl(t_shader const *shader, t_renderer_params *params,
 	(void)obj;
 }
 
-void			simple_renderer(t_renderer_params *params, t_obj *obj)
+static void		simple_renderer(t_renderer_params *params, t_obj *obj)
 {
 	static t_shader const	*shader = NULL;
 	int						i;
@@ -93,4 +93,9 @@ void			simple_renderer(t_renderer_params *params, t_obj *obj)
 		glDrawArrays(GL_TRIANGLES, offset, obj->mesh->mtl[i].count);
 		offset += obj->mesh->mtl[i].count;
 	}
+}
+
+t_obj			*simple_renderer_init(void)
+{
+	return (NULL);
 }

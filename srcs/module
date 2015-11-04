@@ -55,6 +55,7 @@ module obj: obj
 	public require transform
 	public require mesh
 	public require anim
+	public require camera
 
 module obj_anim: obj_anim
 
@@ -66,11 +67,11 @@ module obj_anim: obj_anim
 
 module renderer: renderer
 
-	public include include/
+	public include include/public/
 
-	public require camera
-	public require math_utils
 	public require obj
+	private require camera
+	private require math_utils
 	private require shader
 	private require texture
 	private require mesh

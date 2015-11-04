@@ -6,28 +6,23 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/14 17:38:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/31 22:50:05 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/04 20:17:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDERER_H
 # define RENDERER_H
 
-// module: renderer
-
 # include "obj.h"
-# include "camera.h"
-# include "math_utils.h"
 
-typedef struct s_renderer_params	t_renderer_params;
-typedef void						(*t_renderer)(t_renderer_params*, t_obj*);
-
-struct	s_renderer_params
+enum	u_renderer
 {
-	t_camera		*camera;
-	t_mat4			*projection_m;
+	SIMPLE_RENDERER,
+	DEPTH_RENDERER
 };
 
-void			simple_renderer(t_renderer_params *scop, t_obj *obj);
+# define RENDERER(NAME)		(g_renderers[(NAME #_RENDERER)])
+
+extern t_obj	*(*g_renderers[])(void);
 
 #endif
