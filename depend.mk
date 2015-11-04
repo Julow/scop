@@ -26,6 +26,7 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/srcs/math_utils/ft_vec3sub.o $(O_DIR)/srcs/obj_anim/anim_c_move.o \
 	$(O_DIR)/srcs/obj_anim/anim_c_rot.o $(O_DIR)/srcs/obj_anim/anim_c_scale.o \
 	$(O_DIR)/srcs/obj_anim/anim_c_shear.o \
+	$(O_DIR)/srcs/renderer/depth_renderer.o $(O_DIR)/srcs/renderer/renderers.o \
 	$(O_DIR)/srcs/renderer/simple_renderer.o \
 	$(O_DIR)/srcs/transform/ft_transform_get.o \
 	$(O_DIR)/srcs/transform/ft_transform_move.o \
@@ -197,58 +198,86 @@ $(O_DIR)/srcs/math_utils/ft_vec3sub.o: srcs/math_utils/ft_vec3sub.c \
 
 # module obj_anim
 $(O_DIR)/srcs/obj_anim/anim_c_move.o: INCLUDE_FLAGS += -Ilibft \
-	-Isrcs/anim/include -Isrcs/math_utils/include -Isrcs/mesh -Isrcs/mtl \
-	-Isrcs/obj/include -Isrcs/obj_anim/include -Isrcs/texture \
-	-Isrcs/transform/include
+	-Isrcs/anim/include -Isrcs/camera/include -Isrcs/math_utils/include \
+	-Isrcs/mesh -Isrcs/mtl -Isrcs/obj/include -Isrcs/obj_anim/include \
+	-Isrcs/texture -Isrcs/transform/include
 $(O_DIR)/srcs/obj_anim/anim_c_move.o: srcs/obj_anim/anim_c_move.c \
-	libft/libft.h srcs/anim/include/anim.h \
+	libft/libft.h srcs/anim/include/anim.h srcs/camera/include/camera.h \
 	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj/include/obj.h \
 	srcs/obj_anim/include/obj_anim.h srcs/texture/texture.h \
 	srcs/transform/include/transform.h | $(O_DIR)/srcs/obj_anim/
 $(O_DIR)/srcs/obj_anim/anim_c_rot.o: INCLUDE_FLAGS += -Ilibft \
-	-Isrcs/anim/include -Isrcs/math_utils/include -Isrcs/mesh -Isrcs/mtl \
-	-Isrcs/obj/include -Isrcs/obj_anim/include -Isrcs/texture \
-	-Isrcs/transform/include
+	-Isrcs/anim/include -Isrcs/camera/include -Isrcs/math_utils/include \
+	-Isrcs/mesh -Isrcs/mtl -Isrcs/obj/include -Isrcs/obj_anim/include \
+	-Isrcs/texture -Isrcs/transform/include
 $(O_DIR)/srcs/obj_anim/anim_c_rot.o: srcs/obj_anim/anim_c_rot.c libft/libft.h \
-	srcs/anim/include/anim.h srcs/math_utils/include/math_utils.h \
-	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
-	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
-	srcs/texture/texture.h srcs/transform/include/transform.h \
-	| $(O_DIR)/srcs/obj_anim/
+	srcs/anim/include/anim.h srcs/camera/include/camera.h \
+	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/obj/include/obj.h \
+	srcs/obj_anim/include/obj_anim.h srcs/texture/texture.h \
+	srcs/transform/include/transform.h | $(O_DIR)/srcs/obj_anim/
 $(O_DIR)/srcs/obj_anim/anim_c_scale.o: INCLUDE_FLAGS += -Ilibft \
-	-Isrcs/anim/include -Isrcs/math_utils/include -Isrcs/mesh -Isrcs/mtl \
-	-Isrcs/obj/include -Isrcs/obj_anim/include -Isrcs/texture \
-	-Isrcs/transform/include
+	-Isrcs/anim/include -Isrcs/camera/include -Isrcs/math_utils/include \
+	-Isrcs/mesh -Isrcs/mtl -Isrcs/obj/include -Isrcs/obj_anim/include \
+	-Isrcs/texture -Isrcs/transform/include
 $(O_DIR)/srcs/obj_anim/anim_c_scale.o: srcs/obj_anim/anim_c_scale.c \
-	libft/libft.h srcs/anim/include/anim.h \
+	libft/libft.h srcs/anim/include/anim.h srcs/camera/include/camera.h \
 	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj/include/obj.h \
 	srcs/obj_anim/include/obj_anim.h srcs/texture/texture.h \
 	srcs/transform/include/transform.h | $(O_DIR)/srcs/obj_anim/
 $(O_DIR)/srcs/obj_anim/anim_c_shear.o: INCLUDE_FLAGS += -Ilibft \
-	-Isrcs/anim/include -Isrcs/math_utils/include -Isrcs/mesh -Isrcs/mtl \
-	-Isrcs/obj/include -Isrcs/obj_anim/include -Isrcs/texture \
-	-Isrcs/transform/include
+	-Isrcs/anim/include -Isrcs/camera/include -Isrcs/math_utils/include \
+	-Isrcs/mesh -Isrcs/mtl -Isrcs/obj/include -Isrcs/obj_anim/include \
+	-Isrcs/texture -Isrcs/transform/include
 $(O_DIR)/srcs/obj_anim/anim_c_shear.o: srcs/obj_anim/anim_c_shear.c \
-	libft/libft.h srcs/anim/include/anim.h \
+	libft/libft.h srcs/anim/include/anim.h srcs/camera/include/camera.h \
 	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj/include/obj.h \
 	srcs/obj_anim/include/obj_anim.h srcs/texture/texture.h \
 	srcs/transform/include/transform.h | $(O_DIR)/srcs/obj_anim/
 
 # module renderer
+$(O_DIR)/srcs/renderer/depth_renderer.o: INCLUDE_FLAGS += -Ilibft \
+	-Isrcs/anim/include -Isrcs/camera/include -Isrcs/gl \
+	-Isrcs/math_utils/include -Isrcs/mesh -Isrcs/mtl -Isrcs/obj/include \
+	-Isrcs/renderer/include -Isrcs/renderer/include/public -Isrcs/shader \
+	-Isrcs/shader_loader/include/public -Isrcs/texture \
+	-Isrcs/transform/include -Isrcs/utils/include
+$(O_DIR)/srcs/renderer/depth_renderer.o: srcs/renderer/depth_renderer.c \
+	libft/libft.h srcs/anim/include/anim.h srcs/camera/include/camera.h \
+	srcs/camera/include/camera.h srcs/gl/gl.h \
+	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/renderer/include/public/renderer.h \
+	srcs/renderer/include/renderers.h srcs/shader/shader.h \
+	srcs/shader/shader.h srcs/shader_loader/include/public/shader_loader.h \
+	srcs/texture/texture.h srcs/transform/include/transform.h \
+	| $(O_DIR)/srcs/renderer/
+$(O_DIR)/srcs/renderer/renderers.o: INCLUDE_FLAGS += -Ilibft \
+	-Isrcs/anim/include -Isrcs/camera/include -Isrcs/gl \
+	-Isrcs/math_utils/include -Isrcs/mesh -Isrcs/mtl -Isrcs/obj/include \
+	-Isrcs/renderer/include -Isrcs/renderer/include/public -Isrcs/shader \
+	-Isrcs/shader_loader/include/public -Isrcs/texture \
+	-Isrcs/transform/include -Isrcs/utils/include
+$(O_DIR)/srcs/renderer/renderers.o: srcs/renderer/renderers.c libft/libft.h \
+	srcs/anim/include/anim.h srcs/camera/include/camera.h \
+	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/renderer/include/public/renderer.h \
+	srcs/renderer/include/renderers.h srcs/texture/texture.h \
+	srcs/transform/include/transform.h | $(O_DIR)/srcs/renderer/
 $(O_DIR)/srcs/renderer/simple_renderer.o: INCLUDE_FLAGS += -Ilibft \
 	-Isrcs/anim/include -Isrcs/camera/include -Isrcs/gl \
 	-Isrcs/math_utils/include -Isrcs/mesh -Isrcs/mtl -Isrcs/obj/include \
-	-Isrcs/renderer/include -Isrcs/shader -Isrcs/shader_loader/include/public \
-	-Isrcs/texture -Isrcs/transform/include -Isrcs/utils/include
+	-Isrcs/renderer/include -Isrcs/renderer/include/public -Isrcs/shader \
+	-Isrcs/shader_loader/include/public -Isrcs/texture \
+	-Isrcs/transform/include -Isrcs/utils/include
 $(O_DIR)/srcs/renderer/simple_renderer.o: srcs/renderer/simple_renderer.c \
 	libft/ft_hmap.h libft/libft.h srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/camera/include/camera.h srcs/gl/gl.h \
 	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mesh/mesh.h \
 	srcs/mtl/mtl.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
-	srcs/obj/include/obj.h srcs/renderer/include/renderer.h \
+	srcs/obj/include/obj.h srcs/renderer/include/public/renderer.h \
 	srcs/shader/shader.h srcs/shader_loader/include/public/shader_loader.h \
 	srcs/texture/texture.h srcs/texture/texture.h \
 	srcs/transform/include/transform.h srcs/utils/include/utils.h \
@@ -487,24 +516,26 @@ $(O_DIR)/srcs/texture_loader/ft_loadimage.o: INCLUDE_FLAGS += -Ilibft \
 	-Isrcs/gl -Isrcs/texture -Isrcs/texture_loader/include \
 	-Isrcs/texture_loader/include/public -Isrcs/utils/include
 $(O_DIR)/srcs/texture_loader/ft_loadimage.o: \
-	srcs/texture_loader/ft_loadimage.c libft/ft_buff.h libft/libft.h \
-	srcs/texture/texture.h srcs/texture_loader/include/public/texture_loader.h \
+	srcs/texture_loader/ft_loadimage.c libft/ft_buff.h libft/ft_buff.h \
+	libft/libft.h srcs/texture_loader/include/ft_img.h \
 	| $(O_DIR)/srcs/texture_loader/
 $(O_DIR)/srcs/texture_loader/load_texture.o: INCLUDE_FLAGS += -Ilibft \
 	-Isrcs/gl -Isrcs/texture -Isrcs/texture_loader/include \
 	-Isrcs/texture_loader/include/public -Isrcs/utils/include
 $(O_DIR)/srcs/texture_loader/load_texture.o: \
-	srcs/texture_loader/load_texture.c libft/ft_hmap.h libft/libft.h \
-	srcs/gl/gl.h srcs/texture/texture.h \
+	srcs/texture_loader/load_texture.c libft/ft_buff.h libft/ft_hmap.h \
+	libft/libft.h srcs/gl/gl.h srcs/texture/texture.h \
+	srcs/texture_loader/include/ft_img.h \
+	srcs/texture_loader/include/internal.h \
 	srcs/texture_loader/include/public/texture_loader.h \
 	| $(O_DIR)/srcs/texture_loader/
 $(O_DIR)/srcs/texture_loader/tga_parser.o: INCLUDE_FLAGS += -Ilibft -Isrcs/gl \
 	-Isrcs/texture -Isrcs/texture_loader/include \
 	-Isrcs/texture_loader/include/public -Isrcs/utils/include
 $(O_DIR)/srcs/texture_loader/tga_parser.o: srcs/texture_loader/tga_parser.c \
-	libft/ft_buff.h libft/libft.h srcs/texture/texture.h \
-	srcs/texture_loader/include/public/texture_loader.h \
-	srcs/utils/include/utils.h | $(O_DIR)/srcs/texture_loader/
+	libft/ft_buff.h libft/ft_buff.h libft/libft.h \
+	srcs/texture_loader/include/ft_img.h srcs/utils/include/utils.h \
+	| $(O_DIR)/srcs/texture_loader/
 
 # module main
 $(O_DIR)/srcs/main/callbacks.o: MDR += lol
@@ -512,13 +543,13 @@ $(O_DIR)/srcs/main/callbacks.o: INCLUDE_FLAGS += -Ilibft -Isrcs/anim/include \
 	-Isrcs/camera/include -Isrcs/events/include -Isrcs/gl -Isrcs/main/include \
 	-Isrcs/math_utils/include -Isrcs/mesh -Isrcs/mesh_loader/include/public \
 	-Isrcs/mtl -Isrcs/obj/include -Isrcs/obj_anim/include \
-	-Isrcs/renderer/include -Isrcs/shader -Isrcs/shader_loader/include/public \
-	-Isrcs/texture -Isrcs/transform/include -Isrcs/utils/include
+	-Isrcs/renderer/include/public -Isrcs/shader -Isrcs/texture \
+	-Isrcs/transform/include -Isrcs/utils/include
 $(O_DIR)/srcs/main/callbacks.o: srcs/main/callbacks.c libft/ft_vector.h \
 	libft/libft.h srcs/anim/include/anim.h srcs/camera/include/camera.h \
 	srcs/events/include/events.h srcs/gl/gl.h srcs/main/include/main.h \
 	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
-	srcs/obj/include/obj.h srcs/renderer/include/renderer.h \
+	srcs/obj/include/obj.h srcs/renderer/include/public/renderer.h \
 	srcs/texture/texture.h srcs/transform/include/transform.h \
 	| $(O_DIR)/srcs/main/
 $(O_DIR)/srcs/main/init_window.o: MDR += lol
@@ -526,13 +557,13 @@ $(O_DIR)/srcs/main/init_window.o: INCLUDE_FLAGS += -Ilibft -Isrcs/anim/include \
 	-Isrcs/camera/include -Isrcs/events/include -Isrcs/gl -Isrcs/main/include \
 	-Isrcs/math_utils/include -Isrcs/mesh -Isrcs/mesh_loader/include/public \
 	-Isrcs/mtl -Isrcs/obj/include -Isrcs/obj_anim/include \
-	-Isrcs/renderer/include -Isrcs/shader -Isrcs/shader_loader/include/public \
-	-Isrcs/texture -Isrcs/transform/include -Isrcs/utils/include
+	-Isrcs/renderer/include/public -Isrcs/shader -Isrcs/texture \
+	-Isrcs/transform/include -Isrcs/utils/include
 $(O_DIR)/srcs/main/init_window.o: srcs/main/init_window.c libft/ft_vector.h \
 	libft/libft.h srcs/anim/include/anim.h srcs/camera/include/camera.h \
 	srcs/gl/gl.h srcs/main/include/main.h srcs/math_utils/include/math_utils.h \
 	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
-	srcs/renderer/include/renderer.h srcs/texture/texture.h \
+	srcs/renderer/include/public/renderer.h srcs/texture/texture.h \
 	srcs/transform/include/transform.h srcs/utils/include/utils.h \
 	| $(O_DIR)/srcs/main/
 $(O_DIR)/srcs/main/main.o: MDR += lol
@@ -540,8 +571,8 @@ $(O_DIR)/srcs/main/main.o: INCLUDE_FLAGS += -Ilibft -Isrcs/anim/include \
 	-Isrcs/camera/include -Isrcs/events/include -Isrcs/gl -Isrcs/main/include \
 	-Isrcs/math_utils/include -Isrcs/mesh -Isrcs/mesh_loader/include/public \
 	-Isrcs/mtl -Isrcs/obj/include -Isrcs/obj_anim/include \
-	-Isrcs/renderer/include -Isrcs/shader -Isrcs/shader_loader/include/public \
-	-Isrcs/texture -Isrcs/transform/include -Isrcs/utils/include
+	-Isrcs/renderer/include/public -Isrcs/shader -Isrcs/texture \
+	-Isrcs/transform/include -Isrcs/utils/include
 $(O_DIR)/srcs/main/main.o: srcs/main/main.c libft/ft_vector.h libft/libft.h \
 	srcs/anim/include/anim.h srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/events/include/events.h srcs/gl/gl.h \
@@ -549,23 +580,22 @@ $(O_DIR)/srcs/main/main.o: srcs/main/main.c libft/ft_vector.h libft/libft.h \
 	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mesh/mesh.h \
 	srcs/mesh_loader/include/public/mesh_loader.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj/include/obj.h \
-	srcs/obj_anim/include/obj_anim.h srcs/renderer/include/renderer.h \
-	srcs/renderer/include/renderer.h srcs/shader/shader.h \
-	srcs/shader_loader/include/public/shader_loader.h srcs/texture/texture.h \
-	srcs/transform/include/transform.h srcs/utils/include/utils.h \
-	| $(O_DIR)/srcs/main/
+	srcs/obj_anim/include/obj_anim.h srcs/renderer/include/public/renderer.h \
+	srcs/renderer/include/public/renderer.h srcs/shader/shader.h \
+	srcs/texture/texture.h srcs/transform/include/transform.h \
+	srcs/utils/include/utils.h | $(O_DIR)/srcs/main/
 $(O_DIR)/srcs/main/motions.o: MDR += lol
 $(O_DIR)/srcs/main/motions.o: INCLUDE_FLAGS += -Ilibft -Isrcs/anim/include \
 	-Isrcs/camera/include -Isrcs/events/include -Isrcs/gl -Isrcs/main/include \
 	-Isrcs/math_utils/include -Isrcs/mesh -Isrcs/mesh_loader/include/public \
 	-Isrcs/mtl -Isrcs/obj/include -Isrcs/obj_anim/include \
-	-Isrcs/renderer/include -Isrcs/shader -Isrcs/shader_loader/include/public \
-	-Isrcs/texture -Isrcs/transform/include -Isrcs/utils/include
+	-Isrcs/renderer/include/public -Isrcs/shader -Isrcs/texture \
+	-Isrcs/transform/include -Isrcs/utils/include
 $(O_DIR)/srcs/main/motions.o: srcs/main/motions.c libft/ft_vector.h \
 	libft/libft.h srcs/anim/include/anim.h srcs/camera/include/camera.h \
 	srcs/gl/gl.h srcs/main/include/main.h srcs/main/include/motions.h \
 	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
-	srcs/obj/include/obj.h srcs/renderer/include/renderer.h \
+	srcs/obj/include/obj.h srcs/renderer/include/public/renderer.h \
 	srcs/texture/texture.h srcs/transform/include/transform.h \
 	| $(O_DIR)/srcs/main/
 

@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/11/04 20:15:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/04 23:54:55 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static t_vec2 const	g_lights[] = {
 	SPOT(-700.f, 120.f, -750.f, 1000.f, 0.6f, 0.12f, -0.79f, -0.5f, -0.6f),
 };
 
-static void		test_glsl_pre(t_shader const *shader, t_renderer_params *params,
-					t_obj *obj)
+static void		test_glsl_pre(t_shader const *shader,
+					t_render_params const *params, t_obj *obj)
 {
 	UNIFORM(Matrix4fv, shader, "model", 2, true,
 		(float*)ft_transform_get(&(obj->transform)));
@@ -48,8 +48,8 @@ static void		test_glsl_pre(t_shader const *shader, t_renderer_params *params,
 	UNIFORM(1i, shader, "light_count", G_ARRAY_LEN(g_lights));
 }
 
-static void		test_glsl_mtl(t_shader const *shader, t_renderer_params *params,
-					t_obj *obj, t_mtl const *mtl)
+static void		test_glsl_mtl(t_shader const *shader,
+					t_render_params const *params, t_obj *obj, t_mtl const *mtl)
 {
 	if (mtl == NULL)
 		return ;
@@ -73,7 +73,7 @@ static void		test_glsl_mtl(t_shader const *shader, t_renderer_params *params,
 	(void)obj;
 }
 
-static void		simple_renderer(t_renderer_params *params, t_obj *obj)
+static void		simple_renderer(t_render_params const *params, t_obj *obj)
 {
 	static t_shader const	*shader = NULL;
 	int						i;
@@ -97,5 +97,8 @@ static void		simple_renderer(t_renderer_params *params, t_obj *obj)
 
 t_obj			*simple_renderer_init(void)
 {
-	return (NULL);
+	t_obj *const	obj = MAL1(t_obj);
+
+	obj->render = &simple_renderer;
+	return (obj);
 }

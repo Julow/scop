@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/31 22:50:10 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/04 23:51:27 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,6 @@
 # define MAIN_H
 
 typedef struct s_scop		t_scop;
-typedef struct s_render_obj	t_render_obj;
-
-// module: main
-// public require libft::vector
-// public require gl
-// public require renderer
-// public require camera
-// public require obj
-// private extern require stdlib
-// private extern require math
 
 # include "ft_vector.h"
 # include "gl.h"
@@ -53,12 +43,6 @@ typedef struct s_render_obj	t_render_obj;
 # define MOVE_SPEED			0.00002f
 # define CURSOR_SPEED		3.f
 # define ACCELERATION		10.f
-
-struct			s_render_obj
-{
-	t_obj			obj;
-	t_renderer		renderer;
-};
 
 struct			s_scop
 {

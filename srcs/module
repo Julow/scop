@@ -68,6 +68,7 @@ module obj_anim: obj_anim
 module renderer: renderer
 
 	public include include/public/
+	private include include/
 
 	public require obj
 	private require camera
@@ -176,7 +177,6 @@ module main: main
 	private require events
 	private require utils
 	private require shader
-	private require shader_loader
 	private require mesh
 	private require mesh_loader
 	private require obj_anim
