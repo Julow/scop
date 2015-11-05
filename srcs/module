@@ -161,14 +161,14 @@ module texture_loader: texture_loader
 
 #
 
-module main: main
+main module main: main
 
 	private include include/
 
 	local MDR += lol
 
-	private require libft
-	private require gl
+	# private require libft
+	# private require gl
 	private require renderer
 	private require camera
 	private require obj
@@ -177,6 +177,8 @@ module main: main
 	private require shader
 	private require mesh
 	private require mesh_loader
+	# private require mtl_loader # useless
+	# private require shader_loader # useless
 	private require obj_anim
 
 	put LINK_FLAGS -lm
