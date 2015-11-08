@@ -1,24 +1,9 @@
 
-module libft: ../libft
-
-	public include ./
-
-	put LINK_FLAGS -Llibft -lft
-
-	disable auto
-
-	put LINK_DEPENDS libft/libft.a
-	put LIBS_RULES libft
-
-	makefile import ../srcs/libft.mk # TODO: move
-
-#
-
 module anim: anim
 
 	public include include/
 
-	public require libft
+	public require ft::base
 
 	put LINK_FLAGS -lm
 
@@ -35,7 +20,7 @@ module events: events
 	public include include/
 
 	public require gl
-	public require libft
+	public require ft::base
 
 	private require utils
 
@@ -69,6 +54,7 @@ module renderer: renderer
 	private include include/
 
 	public require obj
+	private require ft::hmap
 	private require camera
 	private require math_utils
 	private require shader
@@ -89,29 +75,36 @@ module utils: utils
 
 	public include include/
 
-	public require libft
+	public require ft::base
+	private require ft::list
+	private require ft::printf
+	private require ft::out
 
 module shader: shader
 
 	public include .
 
-	public require libft
+	public require ft::base
 
 module shader_loader: shader_loader
 
 	public include include/public
 	private include include
 
-	public require libft
+	public require ft::base
 	public require shader
+	private require ft::get_next_line
+	private require ft::printf
 	private require gl
+	private require ft::list
+	private require ft::hmap
 	private require utils
 
 module mesh: mesh
 
 	public include .
 
-	public require libft
+	public require ft::base
 	public require mtl
 
 module mesh_loader: mesh_loader
@@ -119,9 +112,13 @@ module mesh_loader: mesh_loader
 	public include include/public
 	private include include
 
-	public require libft
+	public require ft::base
 	public require mesh
 	private require mtl_loader
+	private require ft::hmap
+	private require ft::vector
+	private require ft::get_next_line
+	private require ft::printf
 	private require gl
 	private require math_utils
 	private require utils
@@ -138,7 +135,10 @@ module mtl_loader: mtl_loader
 	public include include/public
 	private include include/
 
-	public require libft
+	public require ft::base
+	public require ft::hmap
+	private require ft::get_next_line
+	private require ft::printf
 	private require mtl
 	private require texture_loader
 	private require utils
@@ -147,16 +147,18 @@ module texture: texture
 
 	public include .
 
-	public require libft
+	public require ft::base
 
 module texture_loader: texture_loader
 
 	public include include/public
 	private include include/
 
-	public require libft
+	public require ft::base
 	public require texture
 	private require utils
+	private require ft::buff
+	private require ft::hmap
 	private require gl
 
 #
@@ -167,18 +169,20 @@ main module main: main
 
 	local MDR += lol
 
-	# private require libft
-	# private require gl
+	# private require ft::base
+	private require ft::printf
+	private require gl
 	private require renderer
+	private require ft::vector
 	private require camera
+	private require math_utils
 	private require obj
+	private require anim
 	private require events
 	private require utils
 	private require shader
 	private require mesh
 	private require mesh_loader
-	# private require mtl_loader # useless
-	# private require shader_loader # useless
 	private require obj_anim
 
 	put LINK_FLAGS -lm

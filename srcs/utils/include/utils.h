@@ -6,15 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:07:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/14 15:09:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/07 16:34:56 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
-
-// module: utils
-// public require libft
 
 # include "libft.h"
 
@@ -51,7 +48,7 @@ t_bool			ft_subends(t_sub sub, t_sub with);
 ** Print an error
 ** Return ret
 */
-int				ft_error(int ret, char const *format, ...);
+int				ft_error(int ret, char const *str);
 
 /*
 ** Fps monitor

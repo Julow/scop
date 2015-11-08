@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:21:09 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 10:30:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/07 16:24:20 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "gl.h"
 #include "ft_colors.h"
 #include "ft_list.h"
+#include "ft_printf.h"
 
 static void		shader_error(t_uint id, t_shader_t t)
 {

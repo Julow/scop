@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:20:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 10:30:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/07 16:24:31 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "utils.h"
 #include "gl.h"
 #include "ft_list.h"
+#include "get_next_line.h"
 
 static t_bool	get_shader_type(t_sub line, t_shader_t *t)
 {

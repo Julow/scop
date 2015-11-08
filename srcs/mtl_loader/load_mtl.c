@@ -6,13 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 15:07:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 14:18:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/07 16:38:46 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 #include "utils.h"
 #include "ft_hmap.h"
+#include "ft_printf.h"
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -36,7 +37,7 @@ t_hmap const	*load_mtl(t_sub file_name)
 	if ((fd = open(mtllib.key, O_RDONLY)) < 0)
 	{
 		ft_hmaprem(cache, file_name, &lol);
-		ft_error(false, "Cannot open %.*r - %r", file_name.length, file_name.str, mtllib.key);
+		ft_fdprintf(2, "Error: Cannot open %s\n", mtllib.key);
 		return (NULL);
 	}
 	ret = parse_mtl(fd, mtllib.value);
