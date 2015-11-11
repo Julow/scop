@@ -6,16 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 11:24:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/14 14:44:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/11 16:18:54 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CAMERA_H
 # define CAMERA_H
-
-// module: camera
-// public require math_utils
-// require std::math
 
 typedef struct s_camera		t_camera;
 

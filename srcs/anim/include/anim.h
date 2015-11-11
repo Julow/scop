@@ -6,16 +6,12 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 19:10:10 by juloo             #+#    #+#             */
-/*   Updated: 2015/10/14 14:43:22 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/11 16:18:49 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ANIM_H
 # define ANIM_H
-
-// module: anim
-// public require libft
-// require std::math
 
 typedef struct s_anim		t_anim;
 

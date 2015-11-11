@@ -6,12 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:12:53 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 14:17:52 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/11 19:38:55 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 #include "utils.h"
+#include "ft_sub.h"
 
 t_bool			ambient_color_token(t_sub line, t_mtl *mtl)
 {

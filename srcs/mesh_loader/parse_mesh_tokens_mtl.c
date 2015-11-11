@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/08 19:15:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 13:09:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/11 19:38:08 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "mtl_loader.h"
 #include "utils.h"
 #include "ft_hmap.h"
+#include "ft_sub.h"
 
 t_bool			parse_mtllib(t_sub line, t_mesh_data *data)
 {

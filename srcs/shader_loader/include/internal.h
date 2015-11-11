@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 10:29:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 10:58:46 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/11 19:53:03 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define INTERNAL_H
 
 # include "shader_loader.h"
+# include "ft_list.h"
 
 /*
 ** ?enum shader_t

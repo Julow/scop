@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 08:34:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/14 15:09:08 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/11 16:18:57 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define TRANSFORM_H
 
 typedef struct s_transform	t_transform;
-
-// module: transform
-// public require math_utils
 
 # include "math_utils.h"
 

@@ -6,15 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/14 14:50:11 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/11 16:19:01 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATH_UTILS_H
 # define MATH_UTILS_H
-
-// module: math_utils
-// private extern require math
 
 typedef struct s_vec2		t_vec2;
 typedef struct s_vec3		t_vec3;

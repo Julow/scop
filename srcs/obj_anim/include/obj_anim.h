@@ -6,17 +6,12 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 20:08:09 by juloo             #+#    #+#             */
-/*   Updated: 2015/10/14 14:57:29 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/11 16:18:47 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJ_ANIM_H
 # define OBJ_ANIM_H
-
-// module: obj_anim
-// public require obj
-// public require math_utils
-// public require anim
 
 # include "obj.h"
 # include "math_utils.h"
