@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:07:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/11 19:52:07 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/15 21:22:00 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_bool			ft_subends(t_sub sub, t_sub with);
 ** Print an error
 ** Return ret
 */
-int				ft_error(int ret, char const *str);
+int				ft_error(int ret, char const *format, ...);
 
 /*
 ** Fps monitor

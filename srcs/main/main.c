@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/07 16:22:55 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/15 21:37:13 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,8 @@ int				main(void)
 		if (fps_end(&fps) || scop.flags != last_flags)
 		{
 			last_flags = scop.flags;
-			ft_printf("\rFPS: %-2lld t: %-3lld flags: %016b "
-				"pos: [ %f, %f, %f ] look: [ %f, %f ]%5 ",
+			ft_printf("\rFPS: %-2lld t: %-3lld flags: %.16b "
+				"pos: [ %f, %f, %f ] look: [ %f, %f ]%5 %!",
 				fps.average_fps, fps.average_time, scop.flags,
 				scop.camera.position.x, scop.camera.position.y,
 				scop.camera.position.z, scop.camera.look.x, scop.camera.look.y);
