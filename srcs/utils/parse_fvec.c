@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 18:38:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/11 19:38:19 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:15 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-#include "ft_printf.h"
-#include "ft_sub.h"
+#include "ft/ft_printf.h"
+#include "ft/ft_sub.h"
 
 t_bool			parse_fvec(t_sub line, float *vec, int len)
 {

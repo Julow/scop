@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:54:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/11 19:39:01 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:55 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 #include "utils.h"
-#include "ft_sub.h"
+#include "ft/ft_sub.h"
 
 t_bool			parse_v(t_sub line, t_mesh_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 19:10:10 by juloo             #+#    #+#             */
-/*   Updated: 2015/11/11 16:18:49 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/27 23:40:03 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_anim		t_anim;
 
-# include "libft.h"
+# include "ft/libft.h"
 
 /*
 ** Animation

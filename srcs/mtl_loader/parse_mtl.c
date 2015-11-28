@@ -6,15 +6,15 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:13:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/11 19:37:55 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/28 00:12:36 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 #include "utils.h"
-#include "ft_hmap.h"
-#include "ft_sub.h"
-#include "get_next_line.h"
+#include "ft/ft_hmap.h"
+#include "ft/ft_sub.h"
+#include "ft/get_next_line.h"
 
 static t_mtl_token const	g_mtl_tokens[] = {
 	{SUBC("Ka"), &ambient_color_token},

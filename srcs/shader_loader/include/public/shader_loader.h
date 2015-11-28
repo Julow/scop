@@ -6,14 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 10:27:57 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 10:58:40 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:27 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHADER_LOADER_H
 # define SHADER_LOADER_H
 
-# include "libft.h"
+# include "ft/libft.h"
 # include "shader.h"
 
 /*

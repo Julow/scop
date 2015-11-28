@@ -6,15 +6,15 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:07:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/15 21:22:00 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:13 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# include "libft.h"
-# include "ft_list.h"
+# include "ft/libft.h"
+# include "ft/ft_list.h"
 
 # define MEM_EQU(a,b,s)		(ft_memcmp((a), (b), (s)) == 0)
 

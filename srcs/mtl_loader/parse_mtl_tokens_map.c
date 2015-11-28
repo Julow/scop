@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/19 17:25:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/11 19:40:51 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:22 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 #include "texture_loader.h"
-#include "ft_sub.h"
+#include "ft/ft_sub.h"
 
 t_bool			map_ka_token(t_sub line, t_mtl *mtl)
 {

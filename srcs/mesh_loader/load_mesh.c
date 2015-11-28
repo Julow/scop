@@ -6,14 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/15 21:26:18 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/27 23:40:01 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 #include "math_utils.h"
-#include "ft_hmap.h"
-#include "ft_printf.h"
+#include "ft/ft_hmap.h"
+#include "ft/ft_printf.h"
 
 static void		init_mesh_data(t_mesh_data *data)
 {

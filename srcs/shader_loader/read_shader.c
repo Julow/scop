@@ -6,16 +6,16 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:20:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/11 19:37:14 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/28 00:13:05 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 #include "utils.h"
 #include "gl.h"
-#include "ft_sub.h"
-#include "ft_list.h"
-#include "get_next_line.h"
+#include "ft/ft_sub.h"
+#include "ft/ft_list.h"
+#include "ft/get_next_line.h"
 
 static t_bool	get_shader_type(t_sub line, t_shader_t *t)
 {

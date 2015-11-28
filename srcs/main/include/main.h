@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/04 23:51:27 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/27 23:40:13 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_scop		t_scop;
 
-# include "ft_vector.h"
+# include "ft/ft_vector.h"
 # include "gl.h"
 # include "renderer.h"
 # include "obj.h"

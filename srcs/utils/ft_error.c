@@ -6,15 +6,15 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/19 18:03:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/15 21:23:46 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:12 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-#include "ft_out.h"
-#include "ft_colors.h"
-#include "ft_printf.h"
-#include "ft_vprintf.h"
+#include "ft/ft_out.h"
+#include "ft/ft_colors.h"
+#include "ft/ft_printf.h"
+#include "ft/ft_vprintf.h"
 
 int				ft_error(int ret, char const *format, ...)
 {

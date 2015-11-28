@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/17 11:51:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 14:28:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/28 00:13:25 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_img.h"
 #include "utils.h"
-#include "ft_buff.h"
+#include "ft/ft_buff.h"
 #include <stdlib.h>
 
 #define AT(t,p,i)			((t*)(((void*)(p)) + (i)))

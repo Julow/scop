@@ -6,15 +6,15 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 15:08:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 14:17:05 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:24 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MTL_LOADER_H
 # define MTL_LOADER_H
 
-# include "libft.h"
-# include "ft_hmap.h"
+# include "ft/libft.h"
+# include "ft/ft_hmap.h"
 
 /*
 ** newmtl <name>				Create a mtl

@@ -6,12 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 15:23:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:24:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:08 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-#include "ft_list.h"
+#include "ft/ft_list.h"
 
 void			ft_listremove_next(t_list *lst, void *node, int n)
 {

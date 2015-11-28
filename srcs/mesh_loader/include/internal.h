@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 13:06:50 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 13:08:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:57 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define INTERNAL_H
 
 # include "mesh_loader.h"
-# include "libft.h"
-# include "ft_vector.h"
-# include "ft_hmap.h"
+# include "ft/libft.h"
+# include "ft/ft_vector.h"
+# include "ft/ft_hmap.h"
 
 # define MESH_CACHE_SIZE	10
 

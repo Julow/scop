@@ -6,12 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:15:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 14:28:37 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:42 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
-#include "ft_hmap.h"
+#include "ft/ft_hmap.h"
 #include "gl.h"
 #include <stdlib.h>
 

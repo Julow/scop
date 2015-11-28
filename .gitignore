@@ -1,2 +1,2 @@
 scop
-*.o
+_objs/*

@@ -6,14 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 15:07:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/15 21:17:23 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:26 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 #include "utils.h"
-#include "ft_hmap.h"
-#include "ft_printf.h"
+#include "ft/ft_hmap.h"
+#include "ft/ft_printf.h"
 #include <fcntl.h>
 #include <unistd.h>
 

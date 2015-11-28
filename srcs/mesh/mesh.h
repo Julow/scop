@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 13:02:27 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 14:12:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:32 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 typedef struct s_mesh		t_mesh;
 typedef struct s_mesh_mtl	t_mesh_mtl;
 
-# include "libft.h"
+# include "ft/libft.h"
 # include "mtl.h"
 
 struct			s_mesh

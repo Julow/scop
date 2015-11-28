@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 10:50:57 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/11 19:52:40 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:18 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 typedef struct s_shader		t_shader;
 typedef struct s_uniform	t_uniform;
 
-# include "libft.h"
-# include "ft_hmap.h"
+# include "ft/libft.h"
+# include "ft/ft_hmap.h"
 
 # define SHADER_CACHE_SIZE		10
 # define SHADER_LOC_SIZE		25

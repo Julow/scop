@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 14:16:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 14:17:34 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:23 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define INTERNAL_H
 
 # include "mtl_loader.h"
-# include "libft.h"
+# include "ft/libft.h"
 # include "mtl.h"
 
 # define MTLLIB_SIZE		20

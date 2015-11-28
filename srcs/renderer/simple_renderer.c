@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/11/04 23:54:55 by juloo            ###   ########.fr       */
+/*   Updated: 2015/11/27 23:39:49 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "gl.h"
 #include "camera.h"
 #include "utils.h"
-#include "ft_hmap.h"
+#include "ft/ft_hmap.h"
 #include <stdlib.h>
 
 /*
