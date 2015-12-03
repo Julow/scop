@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:40:13 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/03 14:50:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ struct			s_scop
 	t_vector		objects;
 	t_camera		camera;
 	t_mat4			projection_m;
+	t_vec2			cursor;
 	int				flags;
 };
 

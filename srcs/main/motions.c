@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/31 12:24:00 by juloo             #+#    #+#             */
-/*   Updated: 2015/10/31 13:26:50 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/03 15:01:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ t_bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos)
 		}
 	if (length == 0)
 		return (false);
-	pos->x = move.x * elapsed * MOVE_SPEED / (float)length;
-	pos->y = move.y * elapsed * MOVE_SPEED / (float)length;
-	pos->z = move.z * elapsed * MOVE_SPEED / (float)length;
+	pos->x += move.x * elapsed * MOVE_SPEED / (float)length;
+	pos->y += move.y * elapsed * MOVE_SPEED / (float)length;
+	pos->z += move.z * elapsed * MOVE_SPEED / (float)length;
 	return (true);
 }
 
@@ -81,9 +81,9 @@ t_bool			handle_cursor_move(t_scop *scop, t_vec2 *look)
 	if (!(scop->flags & FLAG_CURSOR_MOVE))
 		return (false);
 	glfwGetCursorPos(scop->window, &x, &y);
-	x = fmod(x / WIN_WIDTH * CURSOR_SPEED, M_PI * 2.0);
-	y = fmod(y / WIN_HEIGHT * CURSOR_SPEED, M_PI * 2.0);
+	look->x += fmod((x - scop->cursor.x) / WIN_WIDTH * CURSOR_SPEED, M_PI * 2.0);
+	look->y += fmod((y - scop->cursor.y) / WIN_HEIGHT * CURSOR_SPEED, M_PI * 2.0);
+	scop->cursor = VEC2((float)x, (float)y);
 	scop->flags &= ~FLAG_CURSOR_MOVE;
-	*look = VEC2((float)x, (float)y);
 	return (true);
 }
