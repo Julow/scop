@@ -1,0 +1,15 @@
+module render:
+
+	public include public/
+
+	public require camera
+	public require math_utils
+	public require obj
+	private require ft::hmap
+	private require shader
+	private require texture
+	private require mesh
+	private require mtl
+	private require shader_loader
+	private require utils
+	private require gl

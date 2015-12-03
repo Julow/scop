@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simple_renderer.c                                  :+:      :+:    :+:   */
+/*   simple_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:49 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/03 17:00:42 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "renderer.h"
+#include "render.h"
 #include "shader.h"
 #include "shader_loader.h"
 #include "texture.h"
@@ -73,7 +73,7 @@ static void		test_glsl_mtl(t_shader const *shader,
 	(void)obj;
 }
 
-static void		simple_renderer(t_render_params const *params, t_obj *obj)
+void			simple_render(t_render_params const *params, t_obj *obj)
 {
 	static t_shader const	*shader = NULL;
 	int						i;
@@ -93,12 +93,4 @@ static void		simple_renderer(t_render_params const *params, t_obj *obj)
 		glDrawArrays(GL_TRIANGLES, offset, obj->mesh->mtl[i].count);
 		offset += obj->mesh->mtl[i].count;
 	}
-}
-
-t_obj			*simple_renderer_init(void)
-{
-	t_obj *const	obj = MAL1(t_obj);
-
-	obj->render = &simple_renderer;
-	return (obj);
 }

@@ -6,11 +6,11 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/04 23:27:24 by juloo             #+#    #+#             */
-/*   Updated: 2015/11/04 23:54:33 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/03 16:57:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "renderers.h"
+#include "render.h"
 #include "gl.h"
 #include "shader_loader.h"
 #include "shader.h"
@@ -25,7 +25,7 @@ static void		depth_glsl_pre(t_shader const *shader,
 	UNIFORM(3fv, shader, "camera_pos", 1, (float*)&(params->camera->position));
 }
 
-static void		depth_renderer(t_render_params const *params, t_obj *obj)
+void			depth_render(t_render_params const *params, t_obj *obj)
 {
 	static t_shader const	*shader = NULL;
 	int						i;
@@ -42,12 +42,4 @@ static void		depth_renderer(t_render_params const *params, t_obj *obj)
 	while (++i < obj->mesh->mtl_count)
 		offset += obj->mesh->mtl[i].count;
 	glDrawArrays(GL_TRIANGLES, 0, offset);
-}
-
-t_obj			*depth_renderer_init(void)
-{
-	t_obj *const	obj = MAL1(t_obj);
-
-	obj->render = &depth_renderer;
-	return (obj);
 }

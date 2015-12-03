@@ -48,23 +48,6 @@ module obj_anim: obj_anim
 	public require math_utils
 	public require anim
 
-module renderer: renderer
-
-	public include include/public/
-	private include include/
-
-	public require obj
-	private require ft::hmap
-	private require camera
-	private require math_utils
-	private require shader
-	private require texture
-	private require mesh
-	private require mtl
-	private require shader_loader
-	private require utils
-	private require gl
-
 module transform: transform
 
 	public include include/
@@ -177,7 +160,8 @@ main module main: main
 	# private require ft::base
 	private require ft::printf
 	private require gl
-	private require renderer
+	private require render
+	private require transform
 	private require ft::vector
 	private require camera
 	private require math_utils
