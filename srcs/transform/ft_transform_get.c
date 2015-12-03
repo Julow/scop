@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 08:40:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/27 19:45:49 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/03 17:23:59 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_mat4 const	*ft_transform_get(t_transform *t)
 	{
 		t->matrix[0] = MAT4_I();
 		ft_mat4translate(t->matrix, t->position);
-		ft_mat4scale(t->matrix, t->scale);
+		ft_mat4scale3(t->matrix, t->scale);
 		ft_mat4shear(t->matrix, t->shear);
 		ft_mat4rotate(t->matrix, t->rotation);
 		ft_mat4reflect(t->matrix, t->flags);
@@ -36,7 +36,8 @@ t_mat4 const	*ft_transform_get(t_transform *t)
 		ft_mat4rotate_inv(t->matrix + 1, t->rotation);
 		ft_mat4shear(t->matrix + 1,
 			VEC3(0.f - t->shear.x, 0.f - t->shear.y, 0.f - t->shear.z));
-		ft_mat4scale(t->matrix + 1, 1.f / t->scale);
+		ft_mat4scale3(t->matrix + 1,
+			VEC3(1.f / t->scale.x, 1.f / t->scale.y, 1.f / t->scale.z));
 		ft_mat4translate(t->matrix + 1, ft_vec3sub(VEC3_0(), t->position));
 		ft_mat4transpose(t->matrix + 1);
 		t->flags |= F_TRANSFORM_OK;
