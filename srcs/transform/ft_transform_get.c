@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 08:40:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/03 17:23:59 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/04 00:21:28 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_mat4 const	*ft_transform_get(t_transform *t)
 		ft_mat4shear(t->matrix, t->shear);
 		ft_mat4rotate(t->matrix, t->rotation);
 		ft_mat4reflect(t->matrix, t->flags);
+		ft_mat4translate(t->matrix, t->origin);
 		t->matrix[1] = MAT4_I();
 		ft_mat4reflect_inv(t->matrix + 1, t->flags);
 		ft_mat4rotate_inv(t->matrix + 1, t->rotation);

@@ -120,6 +120,7 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/srcs/texture_loader/tga_parser.o \
 	$(O_DIR)/srcs/transform/ft_transform_get.o \
 	$(O_DIR)/srcs/transform/ft_transform_move.o \
+	$(O_DIR)/srcs/transform/ft_transform_origin.o \
 	$(O_DIR)/srcs/transform/ft_transform_reflect.o \
 	$(O_DIR)/srcs/transform/ft_transform_rotate.o \
 	$(O_DIR)/srcs/transform/ft_transform_scale.o \
@@ -128,8 +129,8 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/srcs/utils/ft_subends.o $(O_DIR)/srcs/utils/ft_substart.o \
 	$(O_DIR)/srcs/utils/parse_fvec.o
 PUBLIC_LINKS += $(O_DIR)/_public/anim.h $(O_DIR)/_public/camera.h \
-	$(O_DIR)/_public/events.h $(O_DIR)/_public/ft/ft_colors.h \
-	$(O_DIR)/_public/ft/ft_wchar.h $(O_DIR)/_public/ft/libft.h \
+	$(O_DIR)/_public/events.h $(O_DIR)/_public/ft/libft.h \
+	$(O_DIR)/_public/ft/ft_colors.h $(O_DIR)/_public/ft/ft_wchar.h \
 	$(O_DIR)/_public/ft/ft_buff.h $(O_DIR)/_public/ft/ft_count_out.h \
 	$(O_DIR)/_public/ft/get_next_line.h $(O_DIR)/_public/ft/ft_hmap.h \
 	$(O_DIR)/_public/ft/ft_list.h $(O_DIR)/_public/ft/ft_out.h \
@@ -772,6 +773,9 @@ $(O_DIR)/srcs/transform/ft_transform_get.o: srcs/transform/ft_transform_get.c \
 	srcs/math_utils/include/math_utils.h srcs/transform/include/transform.h
 $(O_DIR)/srcs/transform/ft_transform_move.o: \
 	srcs/transform/ft_transform_move.c srcs/math_utils/include/math_utils.h \
+	srcs/transform/include/transform.h
+$(O_DIR)/srcs/transform/ft_transform_origin.o: \
+	srcs/transform/ft_transform_origin.c srcs/math_utils/include/math_utils.h \
 	srcs/transform/include/transform.h
 $(O_DIR)/srcs/transform/ft_transform_reflect.o: \
 	srcs/transform/ft_transform_reflect.c srcs/math_utils/include/math_utils.h \
