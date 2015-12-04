@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/04 13:34:20 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/04 19:13:25 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static const t_scene_obj	g_scene[] = {
 	S_OBJ(NULL, ANIM_MOVE(1800, F_ANIM_REVERSE, (0.f, 0.f, 0.f), (10.f, 0.f, 10.f), &smooth_linear), TRANSFORM0(), ((t_scene_obj[]){
 		S_OBJ("res/obj/cube.obj", NULL, ((0.f, -15.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (100.f, 10.f, 100.f), 0), NULL),
 		S_OBJ("res/obj/cube.obj", ANIM_SCALE3(1000, F_ANIM_REVERSE, (1.5f, 0.5f, 1.0f), (1.f, 1.f, 1.f), &smooth_elastic),
-			((0.f, 10.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0), NULL),
+			((0.f, -5.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0), NULL),
 	})),
 	S_OBJ("res/obj/42.obj", ANIM_SCALE3(1000, F_ANIM_REVERSE, (1.5f, 0.5f, 1.0f), (1.f, 1.f, 1.f), &smooth_elastic), ((-20.f, 0.f, 5.f), (0.f, 0.f, 0.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0), NULL),
 	// S_OBJ("res/obj/42.obj", ANIM_SCALE(1200, F_ANIM_REPEAT, (0.8f, 0.8f, 0.8f), (2.f, 2.f, 2.f), &smooth_elastic), ((-20.f, 0.f, 5.f), (0.f, 0.f, 0.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)),
@@ -129,10 +129,11 @@ void			anim(t_scop *scop)
 /*
 ** ========================================================================== **
 ** Render obj
+** TODO: module scene
 */
 
 void			render_objs(t_vector *objs, t_render_params *params,
-					t_mat4 const *parent_mat)
+					t_mat4 const *const parent_mat)
 {
 	t_mat4				top_matrix;
 	t_obj				*obj;
@@ -142,24 +143,28 @@ void			render_objs(t_vector *objs, t_render_params *params,
 	while (++i < objs->length)
 	{
 		obj = *(t_obj**)VECTOR_GET(*objs, i);
-		ft_mat4mult(parent_mat, ft_transform_get(&(obj->transform)), &top_matrix);
-		params->top_matrix = &top_matrix;
+		if (parent_mat == NULL)
+			params->top_matrix = ft_transform_get(&(obj->transform));
+		else
+			params->top_matrix = ft_mat4mult(ft_transform_get(&(obj->transform)),
+				parent_mat, &top_matrix);
 		if (obj->mesh != NULL)
 			simple_render(params, obj->mesh);
 		if (obj->childs.length > 0)
-			render_objs(&(obj->childs), params, &top_matrix);
+			render_objs(&(obj->childs), params, params->top_matrix);
 	}
 }
 
 void			render(t_scop *scop)
 {
 	t_render_params		params;
-	t_mat4 const		top_matrix = MAT4_I();
 
+	// ft_mat4mult(&scop->projection_m, camera_get_view(&(scop->camera)), &top_matrix);
+	// ft_mat4transpose(&top_matrix);
 	params = (t_render_params){&(scop->camera), &(scop->projection_m), NULL};
 	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	render_objs(&(scop->objects), &params, &top_matrix);
+	render_objs(&(scop->objects), &params, NULL);
 }
 
 /*

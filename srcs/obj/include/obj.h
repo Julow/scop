@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/04 12:46:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/04 18:59:10 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ struct			s_obj
 	t_anim			*anim; // TODO: remove
 	t_transform		transform;
 	t_vector		childs;
+	uint32_t		flags;
 };
 
 #endif
