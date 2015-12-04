@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/18 12:48:06 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/11 16:19:01 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/04 13:13:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,9 @@ void			ft_mat4reflect_inv(t_mat4 *mat, int flags);
 
 /*
 ** mat4 operations
+** return 'dst'
 */
-void			ft_mat4mult(t_mat4 *a, t_mat4 b);
+t_mat4			*ft_mat4mult(t_mat4 const *a, t_mat4 const *b, t_mat4 *dst);
 
 void			ft_mat4transpose(t_mat4 *m);
 
@@ -106,7 +107,7 @@ t_vec3			ft_vec3front(t_vec2 a);
 void			ft_vec3rotate(t_vec3 *v, t_vec3 rotate);
 
 /*
-** vec3 opeartions
+** vec3 operations
 */
 t_vec3			ft_vec3norm(t_vec3 v);
 t_vec3			ft_vec3sub(t_vec3 a, t_vec3 b);

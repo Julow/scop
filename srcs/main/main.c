@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/04 00:22:45 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/04 13:34:20 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,63 @@
 ** ========================================================================== **
 ** Scene
 */
-typedef struct	s_scene_obj
+typedef struct s_scene_obj		t_scene_obj;
+
+struct	s_scene_obj
 {
 	t_sub			mesh;
 	t_anim			*anim;
 	t_transform		transform;
-}				t_scene_obj;
+	t_scene_obj		*childs;
+	int				child_count;
+};
 
 #define TRANSFORM(p,o,r,h,s,f)	((t_transform){{},VEC3 p,VEC3 o,VEC3 r,VEC3 h, VEC3 s,f})
-#define S_OBJ(m,a,t)			((t_scene_obj){SUBC(m),a,TRANSFORM t})
+#define TRANSFORM0()			((0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)
+#define S_OBJ(m,a,t,c)			((t_scene_obj){SUBC(m),a,TRANSFORM t,(t_scene_obj*)c,(c == NULL) ? 0 : G_ARRAY_LEN(c)})
 
 static const t_scene_obj	g_scene[] = {
-	S_OBJ("res/obj/cube.obj", NULL, ((0.f, -15.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (100.f, 10.f, 100.f), 0)),
-	S_OBJ("res/obj/42.obj", ANIM_SCALE3(1000, F_ANIM_REVERSE, (1.5f, 0.5f, 1.0f), (1.f, 1.f, 1.f), &smooth_elastic), ((-20.f, 0.f, 5.f), (0.f, 0.f, 0.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)),
+	S_OBJ(NULL, ANIM_MOVE(1800, F_ANIM_REVERSE, (0.f, 0.f, 0.f), (10.f, 0.f, 10.f), &smooth_linear), TRANSFORM0(), ((t_scene_obj[]){
+		S_OBJ("res/obj/cube.obj", NULL, ((0.f, -15.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (100.f, 10.f, 100.f), 0), NULL),
+		S_OBJ("res/obj/cube.obj", ANIM_SCALE3(1000, F_ANIM_REVERSE, (1.5f, 0.5f, 1.0f), (1.f, 1.f, 1.f), &smooth_elastic),
+			((0.f, 10.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0), NULL),
+	})),
+	S_OBJ("res/obj/42.obj", ANIM_SCALE3(1000, F_ANIM_REVERSE, (1.5f, 0.5f, 1.0f), (1.f, 1.f, 1.f), &smooth_elastic), ((-20.f, 0.f, 5.f), (0.f, 0.f, 0.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0), NULL),
 	// S_OBJ("res/obj/42.obj", ANIM_SCALE(1200, F_ANIM_REPEAT, (0.8f, 0.8f, 0.8f), (2.f, 2.f, 2.f), &smooth_elastic), ((-20.f, 0.f, 5.f), (0.f, 0.f, 0.f), (1.f, 0.2f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)),
 	// S_OBJ("res/obj/cube.obj", NULL, ((20.f, 0.f, 20.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)),
 	// S_OBJ("res/obj/cube.obj", NULL, ((-700.f, 120.f, -750.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)),
-	S_OBJ("res/obj/teapot.obj", ANIM_ROT(2000, F_ANIM_RESTART, (0.f, 0.f, 0.f), (M_PI * 2.f, M_PI * 2.f, M_PI * 2.f), &smooth_linear), ((-35.f, 10.f, 0.f), (5.f, 5.f, 5.f), (0.f, M_PI / 2.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)),
+	S_OBJ("res/obj/teapot.obj", ANIM_ROT(2000, F_ANIM_RESTART, (0.f, 0.f, 0.f), (M_PI * 2.f, M_PI * 2.f, M_PI * 2.f), &smooth_linear), ((-35.f, 10.f, 0.f), (5.f, 5.f, 5.f), (0.f, M_PI / 2.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0), NULL),
 	// S_OBJ("res/obj/teapot2.obj", ANIM_MOVE(1800, F_ANIM_RESTART, (10.f, -10.f, 0.f), (10.f, 10.f, 0.f), &smooth_bounce), ((-40.f, -5.f, -5.f), (0.f, 0.f, 0.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), (0.5f, 0.5f, 0.5f), 0)),
 	// S_OBJ("res/obj/teapot2.obj", ANIM_MOVE(1800, F_ANIM_REPEAT, (20.f, -10.f, 0.f), (20.f, 10.f, 0.f), &smooth_bounce), ((-40.f, -5.f, -5.f), (0.f, 0.f, 0.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), (0.5f, 0.5f, 0.5f), 0)),
 	// S_OBJ("res/obj/teapot2.obj", ANIM_MOVE(1800, F_ANIM_REVERSE, (0.f, -10.f, 0.f), (0.f, 10.f, 0.f), &smooth_bounce), ((-40.f, -5.f, -5.f), (0.f, 0.f, 0.f), (0.f, 2.f, 0.f), (0.f, 0.f, 0.f), (0.5f, 0.5f, 0.5f), 0)),
 	// S_OBJ("res/obj/cube.obj", ANIM_SHEAR(4000, F_ANIM_REPEAT, (0.5f, 0.f, 0.f), (-0.5f, 0.5f, -0.5f), &smooth_in_out), ((300.f, -10.f, -50.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.5f, 0.5f), (50.f, 50.f, 50.f), 0)),
 	// S_OBJ("res/obj/venice.obj", NULL, ((0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)),
 };
+
+static t_obj	*load_obj(t_scene_obj const *data)
+{
+	t_obj			*obj;
+	t_mesh const	*mesh;
+	t_obj			*tmp;
+	int				i;
+
+	if (data->mesh.str == NULL)
+		mesh = NULL;
+	else
+		mesh = load_mesh(data->mesh);
+	obj = MAL1(t_obj);
+	obj->anim = data->anim;
+	obj->mesh = mesh;
+	if (obj->anim != NULL)
+		anim_start(obj->anim); // TODO: move to scene
+	obj->transform = data->transform;
+	obj->childs = VECTOR(t_obj*);
+	i = -1;
+	while (++i < data->child_count)
+		if ((tmp = load_obj(data->childs + i)) != NULL)
+			ft_vpush_back(&(obj->childs), &tmp, 1);
+	return (obj);
+}
 
 t_bool			load_scene(t_scop *scop)
 {
@@ -61,16 +95,8 @@ t_bool			load_scene(t_scop *scop)
 
 	i = -1;
 	while (++i < G_ARRAY_LEN(g_scene))
-	{
-		obj = MAL1(t_obj);
-		if ((obj->mesh = load_mesh(g_scene[i].mesh)) == NULL)
-			continue ;
-		obj->anim = g_scene[i].anim;
-		if (obj->anim != NULL)
-			anim_start(obj->anim); // TODO: move to scene
-		obj->transform = g_scene[i].transform;
-		ft_vpush_back(&(scop->objects), &obj, 1);
-	}
+		if ((obj = load_obj(g_scene + i)) != NULL)
+			ft_vpush_back(&(scop->objects), &obj, 1);
 	return (true);
 }
 
@@ -79,19 +105,25 @@ t_bool			load_scene(t_scop *scop)
 ** Anim obj
 */
 
-void			anim(t_scop *scop)
+static void		anim_objs(t_vector *objs, t_ulong now)
 {
-	const t_ulong	now = ft_clock(0);
 	t_obj			*obj;
 	int				i;
 
 	i = -1;
-	while (++i < scop->objects.length)
+	while (++i < objs->length)
 	{
-		obj = *(t_obj**)VECTOR_GET(scop->objects, i);
+		obj = *(t_obj**)VECTOR_GET(*objs, i);
 		if (obj->anim != NULL)
 			anim_update(obj, obj->anim, now);
+		if (obj->childs.length > 0)
+			anim_objs(&(obj->childs), now);
 	}
+}
+
+void			anim(t_scop *scop)
+{
+	anim_objs(&(scop->objects), ft_clock(0));
 }
 
 /*
@@ -99,21 +131,35 @@ void			anim(t_scop *scop)
 ** Render obj
 */
 
-void			render(t_scop *scop)
+void			render_objs(t_vector *objs, t_render_params *params,
+					t_mat4 const *parent_mat)
 {
-	t_render_params		params;
+	t_mat4				top_matrix;
 	t_obj				*obj;
 	int					i;
 
-	params = (t_render_params){&(scop->camera), &(scop->projection_m)};
+	i = -1;
+	while (++i < objs->length)
+	{
+		obj = *(t_obj**)VECTOR_GET(*objs, i);
+		ft_mat4mult(parent_mat, ft_transform_get(&(obj->transform)), &top_matrix);
+		params->top_matrix = &top_matrix;
+		if (obj->mesh != NULL)
+			simple_render(params, obj->mesh);
+		if (obj->childs.length > 0)
+			render_objs(&(obj->childs), params, &top_matrix);
+	}
+}
+
+void			render(t_scop *scop)
+{
+	t_render_params		params;
+	t_mat4 const		top_matrix = MAT4_I();
+
+	params = (t_render_params){&(scop->camera), &(scop->projection_m), NULL};
 	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	i = -1;
-	while (++i < scop->objects.length)
-	{
-		obj = *(t_obj**)VECTOR_GET(scop->objects, i);
-		simple_render(&params, obj);
-	}
+	render_objs(&(scop->objects), &params, &top_matrix);
 }
 
 /*
@@ -171,7 +217,7 @@ int				main(void)
 		handle_input(&scop, fps.elapsed);
 		anim(&scop);
 	}
-	ft_printf("\n");
+	ft_printf("\n%!");
 	glfwTerminate();
 	return (0);
 }

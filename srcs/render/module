@@ -4,11 +4,10 @@ module render:
 
 	public require camera
 	public require math_utils
-	public require obj
+	public require mesh
 	private require ft::hmap
 	private require shader
 	private require texture
-	private require mesh
 	private require mtl
 	private require shader_loader
 	private require utils

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 08:34:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/03 23:57:47 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/04 12:28:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ typedef struct s_transform	t_transform;
 
 /*
 ** Hold transformation matrix
-** and it's transposed inverse
 ** -
 ** bzero can be used to reset transformations
 */
 
 struct			s_transform
 {
-	t_mat4			matrix[2];
+	t_mat4			_matrix;
 	t_vec3			position;
 	t_vec3			origin;
 	t_vec3			rotation;
@@ -41,6 +40,12 @@ struct			s_transform
 # define F_TRANSFORM_OK		(1 << 14)
 
 /*
+** Return the matrix
+** Update it if needed
+*/
+t_mat4 const	*ft_transform_get(t_transform *t);
+
+/*
 ** Set transformations
 */
 void			ft_transform_move(t_transform *t, t_vec3 pos);
@@ -50,11 +55,5 @@ void			ft_transform_scale(t_transform *t, float scale);
 void			ft_transform_scale3(t_transform *t, t_vec3 scale);
 void			ft_transform_reflect(t_transform *t, int reflects);
 void			ft_transform_shear(t_transform *t, t_vec3 shear);
-
-/*
-** Return the matrix and it's inverse
-** Update it if needed
-*/
-t_mat4 const	*ft_transform_get(t_transform *t);
 
 #endif

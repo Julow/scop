@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/10 11:44:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/21 10:53:01 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/04 12:20:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ layout (location = 2) in vec3	buff_nor;
 
 out T_VSHADER_OUT	vs_out;
 
-uniform mat4		model[2];
+uniform mat4		model;
 uniform mat4		view;
 uniform mat4		projection;
 
 void		main()
 {
-	vec4		pos = model[0] * vec4(buff_pos, 1.f);
+	vec4		pos = model * vec4(buff_pos, 1.f);
 
 	vs_out.pos = pos.xyz;
 	vs_out.tex = buff_tex;
-	vs_out.nor = normalize(mat3(model[1]) * buff_nor);
+	vs_out.nor = normalize(inverse(mat3(model)) * buff_nor); // TODO: remove inverse
 
 	gl_Position = projection * view * pos;
 }

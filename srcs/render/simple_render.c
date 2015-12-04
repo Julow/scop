@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/03 17:00:42 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/04 13:34:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "texture.h"
 #include "mesh.h"
 #include "mtl.h"
-#include "obj.h"
 #include "gl.h"
 #include "camera.h"
 #include "utils.h"
@@ -35,10 +34,9 @@ static t_vec2 const	g_lights[] = {
 };
 
 static void		test_glsl_pre(t_shader const *shader,
-					t_render_params const *params, t_obj *obj)
+					t_render_params const *params)
 {
-	UNIFORM(Matrix4fv, shader, "model", 2, true,
-		(float*)ft_transform_get(&(obj->transform)));
+	UNIFORM(Matrix4fv, shader, "model", 1, false, (float*)params->top_matrix);
 	UNIFORM(Matrix4fv, shader, "view", 1, true,
 		(float*)camera_get_view(params->camera));
 	UNIFORM(Matrix4fv, shader, "projection", 1, true,
@@ -48,8 +46,7 @@ static void		test_glsl_pre(t_shader const *shader,
 	UNIFORM(1i, shader, "light_count", G_ARRAY_LEN(g_lights));
 }
 
-static void		test_glsl_mtl(t_shader const *shader,
-					t_render_params const *params, t_obj *obj, t_mtl const *mtl)
+static void		test_glsl_mtl(t_shader const *shader, t_mtl const *mtl)
 {
 	if (mtl == NULL)
 		return ;
@@ -69,11 +66,9 @@ static void		test_glsl_mtl(t_shader const *shader,
 	UNIFORM(1i, shader, "specular_map", 2);
 	UNIFORM(3fv, shader, "specular_color", 1, (float*)&(mtl->specular_color));
 	UNIFORM(1i, shader, "specular_exp", mtl->specular_exp);
-	(void)params;
-	(void)obj;
 }
 
-void			simple_render(t_render_params const *params, t_obj *obj)
+void			simple_render(t_render_params const *params, t_mesh const *mesh)
 {
 	static t_shader const	*shader = NULL;
 	int						i;
@@ -83,14 +78,14 @@ void			simple_render(t_render_params const *params, t_obj *obj)
 		&& (shader = load_shader(SUBC("res/shaders/test.glsl"))) == NULL)
 		exit(ft_error(1, "Cannot load shader"));
 	glUseProgram(shader->handle);
-	test_glsl_pre(shader, params, obj);
-	glBindVertexArray(obj->mesh->vao);
+	test_glsl_pre(shader, params);
+	glBindVertexArray(mesh->vao);
 	offset = 0;
 	i = -1;
-	while (++i < obj->mesh->mtl_count)
+	while (++i < mesh->mtl_count)
 	{
-		test_glsl_mtl(shader, params, obj, obj->mesh->mtl[i].mtl);
-		glDrawArrays(GL_TRIANGLES, offset, obj->mesh->mtl[i].count);
-		offset += obj->mesh->mtl[i].count;
+		test_glsl_mtl(shader, mesh->mtl[i].mtl);
+		glDrawArrays(GL_TRIANGLES, offset, mesh->mtl[i].count);
+		offset += mesh->mtl[i].count;
 	}
 }
