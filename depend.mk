@@ -4,13 +4,13 @@ OBJ_DIR_TREE += $(O_DIR)/srcs/utils/ $(O_DIR)/srcs/transform/ \
 	$(O_DIR)/srcs/texture_loader/ $(O_DIR)/srcs/shader_loader/ \
 	$(O_DIR)/srcs/render/ $(O_DIR)/srcs/obj_anim/ $(O_DIR)/srcs/mtl_loader/ \
 	$(O_DIR)/srcs/mesh_loader/ $(O_DIR)/srcs/math_utils/ $(O_DIR)/srcs/main/ \
-	$(O_DIR)/srcs/events/ $(O_DIR)/srcs/camera/ $(O_DIR)/srcs/anim/ \
-	$(O_DIR)/srcs/ $(O_DIR)/libft/get_next_line/ $(O_DIR)/libft/ft_vector/ \
-	$(O_DIR)/libft/ft_sub/ $(O_DIR)/libft/ft_printf/formats/ \
-	$(O_DIR)/libft/ft_printf/ $(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_list/ \
-	$(O_DIR)/libft/ft_hmap/ $(O_DIR)/libft/ft_count_out/ \
-	$(O_DIR)/libft/ft_buff/ $(O_DIR)/libft/ft_base/ $(O_DIR)/libft/ \
-	$(O_DIR)/_public/ft/ $(O_DIR)/_public/ $(O_DIR)/
+	$(O_DIR)/srcs/ft_image_loader/ $(O_DIR)/srcs/events/ $(O_DIR)/srcs/camera/ \
+	$(O_DIR)/srcs/anim/ $(O_DIR)/srcs/ $(O_DIR)/libft/get_next_line/ \
+	$(O_DIR)/libft/ft_vector/ $(O_DIR)/libft/ft_sub/ \
+	$(O_DIR)/libft/ft_printf/formats/ $(O_DIR)/libft/ft_printf/ \
+	$(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_list/ $(O_DIR)/libft/ft_in/ \
+	$(O_DIR)/libft/ft_hmap/ $(O_DIR)/libft/ft_dstr/ $(O_DIR)/libft/ft_base/ \
+	$(O_DIR)/libft/ $(O_DIR)/_public/ft/ $(O_DIR)/_public/ $(O_DIR)/
 O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/srcs/anim/smooth_back_in.o \
 	$(O_DIR)/srcs/anim/smooth_back_in_out.o \
@@ -34,31 +34,28 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/libft/ft_base/ft_strlen.o $(O_DIR)/libft/ft_base/ft_sub.o \
 	$(O_DIR)/libft/ft_base/ft_unescape.o $(O_DIR)/libft/ft_base/ft_widetoa.o \
 	$(O_DIR)/libft/ft_base/ft_wstrconv.o $(O_DIR)/libft/ft_base/ft_wstrlen.o \
-	$(O_DIR)/libft/ft_base/ft_wstrnconv.o \
-	$(O_DIR)/libft/ft_buff/ft_buffclear.o $(O_DIR)/libft/ft_buff/ft_buffget.o \
-	$(O_DIR)/libft/ft_buff/ft_parse.o $(O_DIR)/libft/ft_buff/ft_parsebase.o \
-	$(O_DIR)/libft/ft_buff/ft_parsedouble.o \
-	$(O_DIR)/libft/ft_buff/ft_parseendl.o $(O_DIR)/libft/ft_buff/ft_parsef.o \
-	$(O_DIR)/libft/ft_buff/ft_parseint.o $(O_DIR)/libft/ft_buff/ft_parselong.o \
-	$(O_DIR)/libft/ft_buff/ft_parsen.o $(O_DIR)/libft/ft_buff/ft_parsenot.o \
-	$(O_DIR)/libft/ft_buff/ft_parsespace.o \
-	$(O_DIR)/libft/ft_buff/ft_parsestr.o \
-	$(O_DIR)/libft/ft_buff/ft_parsewhite.o \
-	$(O_DIR)/libft/ft_buff/ft_readbuff.o \
-	$(O_DIR)/libft/ft_count_out/ft_count_out.o \
+	$(O_DIR)/libft/ft_base/ft_wstrnconv.o $(O_DIR)/libft/ft_dstr/ft_dstradd.o \
+	$(O_DIR)/libft/ft_dstr/ft_dstrclear.o \
+	$(O_DIR)/libft/ft_dstr/ft_dstrextend.o \
+	$(O_DIR)/libft/ft_dstr/ft_dstrspan.o \
 	$(O_DIR)/libft/get_next_line/get_next_line.o \
 	$(O_DIR)/libft/ft_hmap/ft_djb2.o $(O_DIR)/libft/ft_hmap/ft_hmapdatas.o \
 	$(O_DIR)/libft/ft_hmap/ft_hmapdestroy.o \
 	$(O_DIR)/libft/ft_hmap/ft_hmapget.o $(O_DIR)/libft/ft_hmap/ft_hmapkeys.o \
 	$(O_DIR)/libft/ft_hmap/ft_hmapnew.o $(O_DIR)/libft/ft_hmap/ft_hmapput.o \
 	$(O_DIR)/libft/ft_hmap/ft_hmapputp.o $(O_DIR)/libft/ft_hmap/ft_hmaprem.o \
-	$(O_DIR)/libft/ft_hmap/hmap_puth.o $(O_DIR)/libft/ft_list/ft_listadd.o \
-	$(O_DIR)/libft/ft_list/ft_listremove.o \
-	$(O_DIR)/libft/ft_list/ft_listsort.o $(O_DIR)/libft/ft_out/ft_putchar.o \
-	$(O_DIR)/libft/ft_out/ft_putendl.o $(O_DIR)/libft/ft_out/ft_putfloat.o \
-	$(O_DIR)/libft/ft_out/ft_putint.o $(O_DIR)/libft/ft_out/ft_putnchar.o \
-	$(O_DIR)/libft/ft_out/ft_putpad.o $(O_DIR)/libft/ft_out/ft_putstr.o \
-	$(O_DIR)/libft/ft_out/ft_putsub.o $(O_DIR)/libft/ft_out/ft_putuint.o \
+	$(O_DIR)/libft/ft_hmap/hmap_puth.o \
+	$(O_DIR)/srcs/ft_image_loader/ft_load_image.o \
+	$(O_DIR)/srcs/ft_image_loader/tga_loader.o $(O_DIR)/libft/ft_in/file_in.o \
+	$(O_DIR)/libft/ft_in/file_in_open.o $(O_DIR)/libft/ft_in/ft_in_refresh.o \
+	$(O_DIR)/libft/ft_in/ft_read.o $(O_DIR)/libft/ft_in/ft_readto.o \
+	$(O_DIR)/libft/ft_list/ft_listadd.o $(O_DIR)/libft/ft_list/ft_listremove.o \
+	$(O_DIR)/libft/ft_list/ft_listsort.o $(O_DIR)/libft/ft_out/ft_count_out.o \
+	$(O_DIR)/libft/ft_out/ft_putchar.o $(O_DIR)/libft/ft_out/ft_putendl.o \
+	$(O_DIR)/libft/ft_out/ft_putfloat.o $(O_DIR)/libft/ft_out/ft_putint.o \
+	$(O_DIR)/libft/ft_out/ft_putnchar.o $(O_DIR)/libft/ft_out/ft_putpad.o \
+	$(O_DIR)/libft/ft_out/ft_putstr.o $(O_DIR)/libft/ft_out/ft_putsub.o \
+	$(O_DIR)/libft/ft_out/ft_putuint.o $(O_DIR)/libft/ft_out/ft_str_out.o \
 	$(O_DIR)/libft/ft_out/ft_write.o $(O_DIR)/libft/ft_out/ft_write_char.o \
 	$(O_DIR)/libft/ft_out/ft_write_nchar.o $(O_DIR)/libft/ft_out/out_formats.o \
 	$(O_DIR)/libft/ft_printf/args_utils.o \
@@ -115,9 +112,7 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/srcs/shader_loader/load_uniforms.o \
 	$(O_DIR)/srcs/shader_loader/read_shader.o \
 	$(O_DIR)/srcs/shader_loader/shader_get_uniform.o \
-	$(O_DIR)/srcs/texture_loader/ft_loadimage.o \
 	$(O_DIR)/srcs/texture_loader/load_texture.o \
-	$(O_DIR)/srcs/texture_loader/tga_parser.o \
 	$(O_DIR)/srcs/transform/ft_transform_get.o \
 	$(O_DIR)/srcs/transform/ft_transform_move.o \
 	$(O_DIR)/srcs/transform/ft_transform_origin.o \
@@ -131,9 +126,11 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 PUBLIC_LINKS += $(O_DIR)/_public/anim.h $(O_DIR)/_public/camera.h \
 	$(O_DIR)/_public/events.h $(O_DIR)/_public/ft/libft.h \
 	$(O_DIR)/_public/ft/ft_colors.h $(O_DIR)/_public/ft/ft_wchar.h \
-	$(O_DIR)/_public/ft/ft_buff.h $(O_DIR)/_public/ft/ft_count_out.h \
-	$(O_DIR)/_public/ft/get_next_line.h $(O_DIR)/_public/ft/ft_hmap.h \
+	$(O_DIR)/_public/ft/ft_dstr.h $(O_DIR)/_public/ft/get_next_line.h \
+	$(O_DIR)/_public/ft/ft_hmap.h $(O_DIR)/_public/ft/ft_image_loader.h \
+	$(O_DIR)/_public/ft/ft_in.h $(O_DIR)/_public/ft/ft_file_in.h \
 	$(O_DIR)/_public/ft/ft_list.h $(O_DIR)/_public/ft/ft_out.h \
+	$(O_DIR)/_public/ft/ft_count_out.h $(O_DIR)/_public/ft/ft_str_out.h \
 	$(O_DIR)/_public/ft/ft_printf.h $(O_DIR)/_public/ft/ft_vprintf.h \
 	$(O_DIR)/_public/ft/ft_sub.h $(O_DIR)/_public/ft/ft_vector.h \
 	$(O_DIR)/_public/gl.h $(O_DIR)/_public/math_utils.h \
@@ -244,42 +241,15 @@ $(O_DIR)/libft/ft_base/ft_wstrlen.o: libft/ft_base/ft_wstrlen.c \
 $(O_DIR)/libft/ft_base/ft_wstrnconv.o: libft/ft_base/ft_wstrnconv.c \
 	libft/ft_base/public/ft_wchar.h libft/ft_base/public/libft.h
 
-# module ft::buff
-$(O_DIR)/libft/ft_buff/ft_buffclear.o: libft/ft_buff/ft_buffclear.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_buffget.o: libft/ft_buff/ft_buffget.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_parse.o: libft/ft_buff/ft_parse.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_parsebase.o: libft/ft_buff/ft_parsebase.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_parsedouble.o: libft/ft_buff/ft_parsedouble.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_parseendl.o: libft/ft_buff/ft_parseendl.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_parsef.o: libft/ft_buff/ft_parsef.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_parseint.o: libft/ft_buff/ft_parseint.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_parselong.o: libft/ft_buff/ft_parselong.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_parsen.o: libft/ft_buff/ft_parsen.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_parsenot.o: libft/ft_buff/ft_parsenot.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_parsespace.o: libft/ft_buff/ft_parsespace.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_parsestr.o: libft/ft_buff/ft_parsestr.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_parsewhite.o: libft/ft_buff/ft_parsewhite.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-$(O_DIR)/libft/ft_buff/ft_readbuff.o: libft/ft_buff/ft_readbuff.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h
-
-# module ft::count_out
-$(O_DIR)/libft/ft_count_out/ft_count_out.o: libft/ft_count_out/ft_count_out.c \
-	libft/ft_base/public/libft.h libft/ft_count_out/public/ft_count_out.h \
-	libft/ft_out/public/ft_out.h
+# module ft::dstr
+$(O_DIR)/libft/ft_dstr/ft_dstradd.o: libft/ft_dstr/ft_dstradd.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h
+$(O_DIR)/libft/ft_dstr/ft_dstrclear.o: libft/ft_dstr/ft_dstrclear.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h
+$(O_DIR)/libft/ft_dstr/ft_dstrextend.o: libft/ft_dstr/ft_dstrextend.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h
+$(O_DIR)/libft/ft_dstr/ft_dstrspan.o: libft/ft_dstr/ft_dstrspan.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h
 
 # module ft::get_next_line
 $(O_DIR)/libft/get_next_line/get_next_line.o: \
@@ -329,6 +299,38 @@ $(O_DIR)/libft/ft_hmap/ft_hmapput.o $(O_DIR)/libft/ft_hmap/ft_hmapputp.o \
 $(O_DIR)/libft/ft_hmap/ft_hmaprem.o $(O_DIR)/libft/ft_hmap/hmap_puth.o: \
 	INCLUDE_FLAGS += -Ilibft/ft_hmap
 
+# module ft::image_loader
+$(O_DIR)/srcs/ft_image_loader/ft_load_image.o: \
+	srcs/ft_image_loader/ft_load_image.c libft/ft_base/public/libft.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_in/public/ft_file_in.h \
+	libft/ft_in/public/ft_in.h srcs/ft_image_loader/image_loader.h \
+	srcs/ft_image_loader/public/ft_image_loader.h
+$(O_DIR)/srcs/ft_image_loader/tga_loader.o: srcs/ft_image_loader/tga_loader.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h srcs/ft_image_loader/image_loader.h \
+	srcs/ft_image_loader/public/ft_image_loader.h
+
+$(O_DIR)/srcs/ft_image_loader/ft_load_image.o \
+$(O_DIR)/srcs/ft_image_loader/tga_loader.o: INCLUDE_FLAGS += \
+	-Isrcs/ft_image_loader
+
+# module ft::in
+$(O_DIR)/libft/ft_in/file_in.o: libft/ft_in/file_in.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_file_in.h libft/ft_in/public/ft_in.h
+$(O_DIR)/libft/ft_in/file_in_open.o: libft/ft_in/file_in_open.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_file_in.h libft/ft_in/public/ft_in.h
+$(O_DIR)/libft/ft_in/ft_in_refresh.o: libft/ft_in/ft_in_refresh.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h
+$(O_DIR)/libft/ft_in/ft_read.o: libft/ft_in/ft_read.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h
+$(O_DIR)/libft/ft_in/ft_readto.o: libft/ft_in/ft_readto.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h
+
 # module ft::list
 $(O_DIR)/libft/ft_list/ft_listadd.o: libft/ft_list/ft_listadd.c \
 	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h
@@ -338,6 +340,9 @@ $(O_DIR)/libft/ft_list/ft_listsort.o: libft/ft_list/ft_listsort.c \
 	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h
 
 # module ft::out
+$(O_DIR)/libft/ft_out/ft_count_out.o: libft/ft_out/ft_count_out.c \
+	libft/ft_base/public/libft.h libft/ft_out/public/ft_count_out.h \
+	libft/ft_out/public/ft_out.h
 $(O_DIR)/libft/ft_out/ft_putchar.o: libft/ft_out/ft_putchar.c \
 	libft/ft_base/public/libft.h libft/ft_out/out_internal.h \
 	libft/ft_out/public/ft_out.h
@@ -365,6 +370,9 @@ $(O_DIR)/libft/ft_out/ft_putsub.o: libft/ft_out/ft_putsub.c \
 $(O_DIR)/libft/ft_out/ft_putuint.o: libft/ft_out/ft_putuint.c \
 	libft/ft_base/public/libft.h libft/ft_out/out_internal.h \
 	libft/ft_out/public/ft_out.h
+$(O_DIR)/libft/ft_out/ft_str_out.o: libft/ft_out/ft_str_out.c \
+	libft/ft_base/public/libft.h libft/ft_out/public/ft_out.h \
+	libft/ft_out/public/ft_str_out.h
 $(O_DIR)/libft/ft_out/ft_write.o: libft/ft_out/ft_write.c \
 	libft/ft_base/public/libft.h libft/ft_out/out_internal.h \
 	libft/ft_out/public/ft_out.h
@@ -378,11 +386,12 @@ $(O_DIR)/libft/ft_out/out_formats.o: libft/ft_out/out_formats.c \
 	libft/ft_base/public/libft.h libft/ft_out/out_internal.h \
 	libft/ft_out/public/ft_out.h
 
-$(O_DIR)/libft/ft_out/ft_putchar.o $(O_DIR)/libft/ft_out/ft_putendl.o \
-$(O_DIR)/libft/ft_out/ft_putfloat.o $(O_DIR)/libft/ft_out/ft_putint.o \
-$(O_DIR)/libft/ft_out/ft_putnchar.o $(O_DIR)/libft/ft_out/ft_putpad.o \
-$(O_DIR)/libft/ft_out/ft_putstr.o $(O_DIR)/libft/ft_out/ft_putsub.o \
-$(O_DIR)/libft/ft_out/ft_putuint.o $(O_DIR)/libft/ft_out/ft_write.o \
+$(O_DIR)/libft/ft_out/ft_count_out.o $(O_DIR)/libft/ft_out/ft_putchar.o \
+$(O_DIR)/libft/ft_out/ft_putendl.o $(O_DIR)/libft/ft_out/ft_putfloat.o \
+$(O_DIR)/libft/ft_out/ft_putint.o $(O_DIR)/libft/ft_out/ft_putnchar.o \
+$(O_DIR)/libft/ft_out/ft_putpad.o $(O_DIR)/libft/ft_out/ft_putstr.o \
+$(O_DIR)/libft/ft_out/ft_putsub.o $(O_DIR)/libft/ft_out/ft_putuint.o \
+$(O_DIR)/libft/ft_out/ft_str_out.o $(O_DIR)/libft/ft_out/ft_write.o \
 $(O_DIR)/libft/ft_out/ft_write_char.o $(O_DIR)/libft/ft_out/ft_write_nchar.o \
 $(O_DIR)/libft/ft_out/out_formats.o: INCLUDE_FLAGS += -Ilibft/ft_out
 
@@ -396,7 +405,7 @@ $(O_DIR)/libft/ft_printf/exec_format.o: libft/ft_printf/exec_format.c \
 	libft/ft_printf/printf_internal.h libft/ft_printf/public/ft_printf.h \
 	libft/ft_printf/public/ft_vprintf.h
 $(O_DIR)/libft/ft_printf/exec_subformat.o: libft/ft_printf/exec_subformat.c \
-	libft/ft_base/public/libft.h libft/ft_count_out/public/ft_count_out.h \
+	libft/ft_base/public/libft.h libft/ft_out/public/ft_count_out.h \
 	libft/ft_out/public/ft_out.h libft/ft_printf/printf_internal.h \
 	libft/ft_printf/public/ft_printf.h libft/ft_printf/public/ft_vprintf.h
 $(O_DIR)/libft/ft_printf/formats/char.o: libft/ft_printf/formats/char.c \
@@ -652,7 +661,7 @@ $(O_DIR)/srcs/mtl_loader/parse_mtl_tokens_map.o: \
 	srcs/math_utils/include/math_utils.h srcs/mtl/mtl.h \
 	srcs/mtl_loader/include/internal.h \
 	srcs/mtl_loader/include/public/mtl_loader.h srcs/texture/texture.h \
-	srcs/texture_loader/include/public/texture_loader.h
+	srcs/texture_loader/public/texture_loader.h
 
 $(O_DIR)/srcs/mtl_loader/load_mtl.o $(O_DIR)/srcs/mtl_loader/parse_mtl.o \
 $(O_DIR)/srcs/mtl_loader/parse_mtl_tokens.o \
@@ -663,46 +672,44 @@ $(O_DIR)/srcs/mtl_loader/parse_mtl_tokens_map.o: INCLUDE_FLAGS += \
 
 # module obj_anim
 $(O_DIR)/srcs/obj_anim/anim_c_move.o: srcs/obj_anim/anim_c_move.c \
-	libft/ft_base/public/libft.h srcs/anim/include/anim.h \
-	srcs/camera/include/camera.h srcs/math_utils/include/math_utils.h \
-	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
-	srcs/obj_anim/include/obj_anim.h srcs/texture/texture.h \
-	srcs/transform/include/transform.h
+	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h \
+	srcs/anim/include/anim.h srcs/camera/include/camera.h \
+	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
+	srcs/texture/texture.h srcs/transform/include/transform.h
 $(O_DIR)/srcs/obj_anim/anim_c_rot.o: srcs/obj_anim/anim_c_rot.c \
-	libft/ft_base/public/libft.h srcs/anim/include/anim.h \
-	srcs/camera/include/camera.h srcs/math_utils/include/math_utils.h \
-	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
-	srcs/obj_anim/include/obj_anim.h srcs/texture/texture.h \
-	srcs/transform/include/transform.h
+	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h \
+	srcs/anim/include/anim.h srcs/camera/include/camera.h \
+	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
+	srcs/texture/texture.h srcs/transform/include/transform.h
 $(O_DIR)/srcs/obj_anim/anim_c_scale.o: srcs/obj_anim/anim_c_scale.c \
-	libft/ft_base/public/libft.h srcs/anim/include/anim.h \
-	srcs/camera/include/camera.h srcs/math_utils/include/math_utils.h \
-	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
-	srcs/obj_anim/include/obj_anim.h srcs/texture/texture.h \
-	srcs/transform/include/transform.h
+	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h \
+	srcs/anim/include/anim.h srcs/camera/include/camera.h \
+	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
+	srcs/texture/texture.h srcs/transform/include/transform.h
 $(O_DIR)/srcs/obj_anim/anim_c_shear.o: srcs/obj_anim/anim_c_shear.c \
-	libft/ft_base/public/libft.h srcs/anim/include/anim.h \
-	srcs/camera/include/camera.h srcs/math_utils/include/math_utils.h \
-	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
-	srcs/obj_anim/include/obj_anim.h srcs/texture/texture.h \
-	srcs/transform/include/transform.h
+	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h \
+	srcs/anim/include/anim.h srcs/camera/include/camera.h \
+	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
+	srcs/texture/texture.h srcs/transform/include/transform.h
 
 # module render
 $(O_DIR)/srcs/render/depth_render.o: srcs/render/depth_render.c \
 	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	srcs/anim/include/anim.h srcs/camera/include/camera.h srcs/gl/gl.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
-	srcs/obj/include/obj.h srcs/render/public/render.h srcs/shader/shader.h \
-	srcs/shader_loader/include/public/shader_loader.h srcs/texture/texture.h \
-	srcs/transform/include/transform.h
-$(O_DIR)/srcs/render/simple_render.o: srcs/render/simple_render.c \
-	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	libft/ft_list/public/ft_list.h srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/gl/gl.h \
 	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
-	srcs/obj/include/obj.h srcs/render/public/render.h srcs/shader/shader.h \
+	srcs/render/public/render.h srcs/shader/shader.h \
+	srcs/shader_loader/include/public/shader_loader.h srcs/texture/texture.h
+$(O_DIR)/srcs/render/simple_render.o: srcs/render/simple_render.c \
+	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
+	libft/ft_list/public/ft_list.h srcs/camera/include/camera.h srcs/gl/gl.h \
+	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/render/public/render.h srcs/shader/shader.h \
 	srcs/shader_loader/include/public/shader_loader.h srcs/texture/texture.h \
-	srcs/transform/include/transform.h srcs/utils/include/utils.h
+	srcs/utils/include/utils.h
 
 # module shader
 
@@ -749,23 +756,13 @@ $(O_DIR)/srcs/shader_loader/shader_get_uniform.o: INCLUDE_FLAGS += \
 # module texture
 
 # module texture_loader
-$(O_DIR)/srcs/texture_loader/ft_loadimage.o: \
-	srcs/texture_loader/ft_loadimage.c libft/ft_base/public/libft.h \
-	libft/ft_buff/public/ft_buff.h srcs/texture_loader/include/ft_img.h
 $(O_DIR)/srcs/texture_loader/load_texture.o: \
 	srcs/texture_loader/load_texture.c libft/ft_base/public/libft.h \
-	libft/ft_buff/public/ft_buff.h libft/ft_hmap/public/ft_hmap.h srcs/gl/gl.h \
-	srcs/texture/texture.h srcs/texture_loader/include/ft_img.h \
-	srcs/texture_loader/include/internal.h \
-	srcs/texture_loader/include/public/texture_loader.h
-$(O_DIR)/srcs/texture_loader/tga_parser.o: srcs/texture_loader/tga_parser.c \
-	libft/ft_base/public/libft.h libft/ft_buff/public/ft_buff.h \
-	libft/ft_list/public/ft_list.h srcs/texture_loader/include/ft_img.h \
-	srcs/utils/include/utils.h
+	libft/ft_hmap/public/ft_hmap.h \
+	srcs/ft_image_loader/public/ft_image_loader.h srcs/gl/gl.h \
+	srcs/texture/texture.h srcs/texture_loader/public/texture_loader.h
 
-$(O_DIR)/srcs/texture_loader/ft_loadimage.o \
-$(O_DIR)/srcs/texture_loader/load_texture.o \
-$(O_DIR)/srcs/texture_loader/tga_parser.o: INCLUDE_FLAGS += \
+$(O_DIR)/srcs/texture_loader/load_texture.o: INCLUDE_FLAGS += \
 	-Isrcs/texture_loader/include
 
 # module transform
@@ -816,13 +813,18 @@ $(O_DIR)/srcs/utils/parse_fvec.o: srcs/utils/parse_fvec.c \
 $(O_DIR)/_public/anim.h: srcs/anim/include/anim.h
 $(O_DIR)/_public/camera.h: srcs/camera/include/camera.h
 $(O_DIR)/_public/events.h: srcs/events/include/events.h
-$(O_DIR)/_public/ft/ft_buff.h: libft/ft_buff/public/ft_buff.h
 $(O_DIR)/_public/ft/ft_colors.h: libft/ft_base/public/ft_colors.h
-$(O_DIR)/_public/ft/ft_count_out.h: libft/ft_count_out/public/ft_count_out.h
+$(O_DIR)/_public/ft/ft_count_out.h: libft/ft_out/public/ft_count_out.h
+$(O_DIR)/_public/ft/ft_dstr.h: libft/ft_dstr/public/ft_dstr.h
+$(O_DIR)/_public/ft/ft_file_in.h: libft/ft_in/public/ft_file_in.h
 $(O_DIR)/_public/ft/ft_hmap.h: libft/ft_hmap/public/ft_hmap.h
+$(O_DIR)/_public/ft/ft_image_loader.h: \
+srcs/ft_image_loader/public/ft_image_loader.h
+$(O_DIR)/_public/ft/ft_in.h: libft/ft_in/public/ft_in.h
 $(O_DIR)/_public/ft/ft_list.h: libft/ft_list/public/ft_list.h
 $(O_DIR)/_public/ft/ft_out.h: libft/ft_out/public/ft_out.h
 $(O_DIR)/_public/ft/ft_printf.h: libft/ft_printf/public/ft_printf.h
+$(O_DIR)/_public/ft/ft_str_out.h: libft/ft_out/public/ft_str_out.h
 $(O_DIR)/_public/ft/ft_sub.h: libft/ft_sub/public/ft_sub.h
 $(O_DIR)/_public/ft/ft_vector.h: libft/ft_vector/public/ft_vector.h
 $(O_DIR)/_public/ft/ft_vprintf.h: libft/ft_printf/public/ft_vprintf.h
@@ -843,7 +845,6 @@ $(O_DIR)/_public/shader.h: srcs/shader/shader.h
 $(O_DIR)/_public/shader_loader.h: \
 srcs/shader_loader/include/public/shader_loader.h
 $(O_DIR)/_public/texture.h: srcs/texture/texture.h
-$(O_DIR)/_public/texture_loader.h: \
-srcs/texture_loader/include/public/texture_loader.h
+$(O_DIR)/_public/texture_loader.h: srcs/texture_loader/public/texture_loader.h
 $(O_DIR)/_public/transform.h: srcs/transform/include/transform.h
 $(O_DIR)/_public/utils.h: srcs/utils/include/utils.h

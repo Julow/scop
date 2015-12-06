@@ -138,18 +138,6 @@ module texture: texture
 
 	public require ft::base
 
-module texture_loader: texture_loader
-
-	public include include/public
-	private include include/
-
-	public require ft::base
-	public require texture
-	private require utils
-	private require ft::buff
-	private require ft::hmap
-	private require gl
-
 #
 
 main module main: main

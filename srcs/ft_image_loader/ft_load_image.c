@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_loadimage.c                                     :+:      :+:    :+:   */
+/*   ft_load_image.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/17 11:50:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/28 00:13:12 by juloo            ###   ########.fr       */
+/*   Created: 2015/12/06 13:27:31 by juloo             #+#    #+#             */
+/*   Updated: 2015/12/06 13:39:58 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_img.h"
-#include "ft/ft_buff.h"
-#include <fcntl.h>
+#include "ft/ft_image_loader.h"
+#include "ft/ft_file_in.h"
+#include "image_loader.h"
 
-t_imgtype const	g_imgtypes[] = {
-	{SUBC(".tga"), &tga_parser},
+static t_imgtype const	g_imgtypes[] = {
+	{SUBC(".tga"), &load_tga_image},
 	{SUB("", 0), NULL}
 };
 
-t_bool			ft_loadimage(char const *file, t_img *img)
+t_bool			ft_load_image(char const *file_name, t_img *dst)
 {
 	t_sub			ext;
-	char			buff[LOAD_IMAGE_BUFF];
 	int				i;
-	int				fd;
+	t_file_in		*in;
+	t_bool			ret;
 
-	ext = ft_sub((char*)file, -1, -1);
-	while (--(ext.str) >= file)
+	ext = ft_sub((char*)file_name, -1, -1);
+	while (--(ext.str) >= file_name)
 	{
 		ext.length++;
 		if (ext.str[0] == '.')
@@ -37,10 +37,11 @@ t_bool			ft_loadimage(char const *file, t_img *img)
 				if (g_imgtypes[i].ext.length == ext.length
 					&& !ft_memcmp(g_imgtypes[i].ext.str, ext.str, ext.length))
 				{
-					if ((fd = open(file, O_RDONLY)) < 0)
+					if ((in = ft_in_open(file_name)) == NULL)
 						return (false);
-					return (g_imgtypes[i].f(&BUFF(fd, buff, LOAD_IMAGE_BUFF),
-						img));
+					ret = g_imgtypes[i].f((void*)in, dst);
+					ft_in_close(in);
+					return (ret);
 				}
 		}
 	}

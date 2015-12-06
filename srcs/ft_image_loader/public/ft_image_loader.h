@@ -1,55 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_img.h                                           :+:      :+:    :+:   */
+/*   ft_image_loader.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/03 14:27:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:44 by juloo            ###   ########.fr       */
+/*   Created: 2015/12/06 13:16:16 by juloo             #+#    #+#             */
+/*   Updated: 2015/12/06 13:34:55 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_IMG_H
-# define FT_IMG_H
+#ifndef FT_IMAGE_LOADER_H
+# define FT_IMAGE_LOADER_H
 
 # include "ft/libft.h"
-# include "ft/ft_buff.h"
 
 /*
 ** ========================================================================== **
-** Load an image file
+** Image loader
 ** -
-** Formats:
+** Supported formats:
 ** .tga		24 or 32 bits		no color map and no compression
 ** -
-** TODO: move it in it's module
+** Output 32 bits color map
 */
 
 typedef struct	s_img
 {
-	t_byte			*data;
+	uint32_t		*data;
 	int				width;
 	int				height;
 }				t_img;
 
-# define LOAD_IMAGE_BUFF	512
-
-typedef struct	s_imgtype
-{
-	t_sub			ext;
-	t_bool			(*f)(t_buff *buff, t_img *img);
-}				t_imgtype;
-
 /*
-** Load an image file and fill 'img'
-** Return false if an error occur
+** dst->data is allocated and can be free using free() function
+** -
+** Return true on success, false on error
 */
-t_bool			ft_loadimage(char const *file, t_img *img);
-
-/*
-** Load a .tga file
-*/
-t_bool			tga_parser(t_buff *buff, t_img *img);
+t_bool			ft_load_image(char const *file_name, t_img *dst);
 
 #endif

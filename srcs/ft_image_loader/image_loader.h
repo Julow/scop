@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   internal.h                                         :+:      :+:    :+:   */
+/*   image_loader.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/03 14:21:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/28 00:12:59 by juloo            ###   ########.fr       */
+/*   Created: 2015/12/06 13:29:46 by juloo             #+#    #+#             */
+/*   Updated: 2015/12/06 13:30:59 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INTERNAL_H
-# define INTERNAL_H
+#ifndef IMAGE_LOADER_H
+# define IMAGE_LOADER_H
 
-# include "texture_loader.h"
-# include "texture.h"
-# include "ft_img.h"
+# include "ft/ft_image_loader.h"
+# include "ft/ft_in.h"
 
-# define TEXTURE_CACHE_SIZE	10
+typedef struct	s_imgtype
+{
+	t_sub			ext;
+	t_bool			(*f)(t_in *in, t_img *dst);
+}				t_imgtype;
 
-t_texture		*texture_cache_get(char const *file);
-void			texture_cache_new(char const *file, t_texture *texture);
+t_bool			load_tga_image(t_in *in, t_img *dst);
 
 #endif
