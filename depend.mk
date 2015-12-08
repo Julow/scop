@@ -3,14 +3,15 @@ LINK_FLAGS += -lm
 OBJ_DIR_TREE += $(O_DIR)/srcs/utils/ $(O_DIR)/srcs/transform/ \
 	$(O_DIR)/srcs/texture_loader/ $(O_DIR)/srcs/shader_loader/ \
 	$(O_DIR)/srcs/render/ $(O_DIR)/srcs/obj_anim/ $(O_DIR)/srcs/mtl_loader/ \
-	$(O_DIR)/srcs/mesh_loader/ $(O_DIR)/srcs/math_utils/ $(O_DIR)/srcs/main/ \
+	$(O_DIR)/srcs/mesh_loader/ $(O_DIR)/srcs/main/ \
 	$(O_DIR)/srcs/ft_image_loader/ $(O_DIR)/srcs/events/ $(O_DIR)/srcs/camera/ \
 	$(O_DIR)/srcs/anim/ $(O_DIR)/srcs/ $(O_DIR)/libft/get_next_line/ \
 	$(O_DIR)/libft/ft_vector/ $(O_DIR)/libft/ft_sub/ \
 	$(O_DIR)/libft/ft_printf/formats/ $(O_DIR)/libft/ft_printf/ \
-	$(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_list/ $(O_DIR)/libft/ft_in/ \
-	$(O_DIR)/libft/ft_hmap/ $(O_DIR)/libft/ft_dstr/ $(O_DIR)/libft/ft_base/ \
-	$(O_DIR)/libft/ $(O_DIR)/_public/ft/ $(O_DIR)/_public/ $(O_DIR)/
+	$(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_math/ $(O_DIR)/libft/ft_list/ \
+	$(O_DIR)/libft/ft_in/ $(O_DIR)/libft/ft_hmap/ $(O_DIR)/libft/ft_dstr/ \
+	$(O_DIR)/libft/ft_base/ $(O_DIR)/libft/ $(O_DIR)/_public/ft/ \
+	$(O_DIR)/_public/ $(O_DIR)/
 O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/srcs/anim/smooth_back_in.o \
 	$(O_DIR)/srcs/anim/smooth_back_in_out.o \
@@ -50,13 +51,26 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/libft/ft_in/file_in_open.o $(O_DIR)/libft/ft_in/ft_in_refresh.o \
 	$(O_DIR)/libft/ft_in/ft_read.o $(O_DIR)/libft/ft_in/ft_readto.o \
 	$(O_DIR)/libft/ft_list/ft_listadd.o $(O_DIR)/libft/ft_list/ft_listremove.o \
-	$(O_DIR)/libft/ft_list/ft_listsort.o $(O_DIR)/libft/ft_out/ft_count_out.o \
-	$(O_DIR)/libft/ft_out/ft_putchar.o $(O_DIR)/libft/ft_out/ft_putendl.o \
-	$(O_DIR)/libft/ft_out/ft_putfloat.o $(O_DIR)/libft/ft_out/ft_putint.o \
-	$(O_DIR)/libft/ft_out/ft_putnchar.o $(O_DIR)/libft/ft_out/ft_putpad.o \
-	$(O_DIR)/libft/ft_out/ft_putstr.o $(O_DIR)/libft/ft_out/ft_putsub.o \
-	$(O_DIR)/libft/ft_out/ft_putuint.o $(O_DIR)/libft/ft_out/ft_str_out.o \
-	$(O_DIR)/libft/ft_out/ft_write.o $(O_DIR)/libft/ft_out/ft_write_char.o \
+	$(O_DIR)/libft/ft_list/ft_listsort.o \
+	$(O_DIR)/libft/ft_math/ft_mat4look_at.o \
+	$(O_DIR)/libft/ft_math/ft_mat4mult.o \
+	$(O_DIR)/libft/ft_math/ft_mat4perspective.o \
+	$(O_DIR)/libft/ft_math/ft_mat4reflect.o \
+	$(O_DIR)/libft/ft_math/ft_mat4rotate.o \
+	$(O_DIR)/libft/ft_math/ft_mat4scale.o \
+	$(O_DIR)/libft/ft_math/ft_mat4shear.o \
+	$(O_DIR)/libft/ft_math/ft_mat4translate.o \
+	$(O_DIR)/libft/ft_math/ft_mat4transpose.o \
+	$(O_DIR)/libft/ft_math/ft_vec3cross.o $(O_DIR)/libft/ft_math/ft_vec3dot.o \
+	$(O_DIR)/libft/ft_math/ft_vec3front.o $(O_DIR)/libft/ft_math/ft_vec3norm.o \
+	$(O_DIR)/libft/ft_math/ft_vec3rotate.o $(O_DIR)/libft/ft_math/ft_vec3sub.o \
+	$(O_DIR)/libft/ft_out/ft_count_out.o $(O_DIR)/libft/ft_out/ft_putchar.o \
+	$(O_DIR)/libft/ft_out/ft_putendl.o $(O_DIR)/libft/ft_out/ft_putfloat.o \
+	$(O_DIR)/libft/ft_out/ft_putint.o $(O_DIR)/libft/ft_out/ft_putnchar.o \
+	$(O_DIR)/libft/ft_out/ft_putpad.o $(O_DIR)/libft/ft_out/ft_putstr.o \
+	$(O_DIR)/libft/ft_out/ft_putsub.o $(O_DIR)/libft/ft_out/ft_putuint.o \
+	$(O_DIR)/libft/ft_out/ft_str_out.o $(O_DIR)/libft/ft_out/ft_write.o \
+	$(O_DIR)/libft/ft_out/ft_write_char.o \
 	$(O_DIR)/libft/ft_out/ft_write_nchar.o $(O_DIR)/libft/ft_out/out_formats.o \
 	$(O_DIR)/libft/ft_printf/args_utils.o \
 	$(O_DIR)/libft/ft_printf/exec_format.o \
@@ -78,22 +92,7 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/libft/ft_vector/ft_vremove.o \
 	$(O_DIR)/libft/ft_vector/ft_vreserve.o $(O_DIR)/srcs/main/callbacks.o \
 	$(O_DIR)/srcs/main/init_window.o $(O_DIR)/srcs/main/main.o \
-	$(O_DIR)/srcs/main/motions.o $(O_DIR)/srcs/math_utils/ft_mat4look_at.o \
-	$(O_DIR)/srcs/math_utils/ft_mat4mult.o \
-	$(O_DIR)/srcs/math_utils/ft_mat4perspective.o \
-	$(O_DIR)/srcs/math_utils/ft_mat4reflect.o \
-	$(O_DIR)/srcs/math_utils/ft_mat4rotate.o \
-	$(O_DIR)/srcs/math_utils/ft_mat4scale.o \
-	$(O_DIR)/srcs/math_utils/ft_mat4shear.o \
-	$(O_DIR)/srcs/math_utils/ft_mat4translate.o \
-	$(O_DIR)/srcs/math_utils/ft_mat4transpose.o \
-	$(O_DIR)/srcs/math_utils/ft_vec3cross.o \
-	$(O_DIR)/srcs/math_utils/ft_vec3dot.o \
-	$(O_DIR)/srcs/math_utils/ft_vec3front.o \
-	$(O_DIR)/srcs/math_utils/ft_vec3norm.o \
-	$(O_DIR)/srcs/math_utils/ft_vec3rotate.o \
-	$(O_DIR)/srcs/math_utils/ft_vec3sub.o \
-	$(O_DIR)/srcs/mesh_loader/build_mesh.o \
+	$(O_DIR)/srcs/main/motions.o $(O_DIR)/srcs/mesh_loader/build_mesh.o \
 	$(O_DIR)/srcs/mesh_loader/build_mtl.o \
 	$(O_DIR)/srcs/mesh_loader/load_mesh.o \
 	$(O_DIR)/srcs/mesh_loader/parse_mesh.o \
@@ -127,13 +126,13 @@ PUBLIC_LINKS += $(O_DIR)/_public/anim.h $(O_DIR)/_public/camera.h \
 	$(O_DIR)/_public/events.h $(O_DIR)/_public/ft/libft.h \
 	$(O_DIR)/_public/ft/ft_colors.h $(O_DIR)/_public/ft/ft_wchar.h \
 	$(O_DIR)/_public/ft/ft_dstr.h $(O_DIR)/_public/ft/get_next_line.h \
-	$(O_DIR)/_public/ft/ft_hmap.h $(O_DIR)/_public/ft/ft_image_loader.h \
-	$(O_DIR)/_public/ft/ft_in.h $(O_DIR)/_public/ft/ft_file_in.h \
-	$(O_DIR)/_public/ft/ft_list.h $(O_DIR)/_public/ft/ft_out.h \
+	$(O_DIR)/_public/ft/gl.h $(O_DIR)/_public/ft/ft_hmap.h \
+	$(O_DIR)/_public/ft/ft_image_loader.h $(O_DIR)/_public/ft/ft_in.h \
+	$(O_DIR)/_public/ft/ft_file_in.h $(O_DIR)/_public/ft/ft_list.h \
+	$(O_DIR)/_public/ft/math.h $(O_DIR)/_public/ft/ft_out.h \
 	$(O_DIR)/_public/ft/ft_count_out.h $(O_DIR)/_public/ft/ft_str_out.h \
 	$(O_DIR)/_public/ft/ft_printf.h $(O_DIR)/_public/ft/ft_vprintf.h \
 	$(O_DIR)/_public/ft/ft_sub.h $(O_DIR)/_public/ft/ft_vector.h \
-	$(O_DIR)/_public/gl.h $(O_DIR)/_public/math_utils.h \
 	$(O_DIR)/_public/mesh.h $(O_DIR)/_public/mesh_loader.h \
 	$(O_DIR)/_public/mtl.h $(O_DIR)/_public/mtl_loader.h \
 	$(O_DIR)/_public/obj.h $(O_DIR)/_public/obj_anim.h \
@@ -168,16 +167,17 @@ $(O_DIR)/srcs/anim/smooth_out.o: srcs/anim/smooth_out.c \
 
 # module camera
 $(O_DIR)/srcs/camera/camera_get_view.o: srcs/camera/camera_get_view.c \
-	srcs/camera/include/camera.h srcs/math_utils/include/math_utils.h
+	libft/ft_math/public/math.h srcs/camera/include/camera.h
 $(O_DIR)/srcs/camera/camera_look.o: srcs/camera/camera_look.c \
-	srcs/camera/include/camera.h srcs/math_utils/include/math_utils.h
+	libft/ft_math/public/math.h srcs/camera/include/camera.h
 $(O_DIR)/srcs/camera/camera_move.o: srcs/camera/camera_move.c \
-	srcs/camera/include/camera.h srcs/math_utils/include/math_utils.h
+	libft/ft_math/public/math.h srcs/camera/include/camera.h
 
 # module events
 $(O_DIR)/srcs/events/events.o: srcs/events/events.c \
-	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h \
-	srcs/events/include/events.h srcs/gl/gl.h srcs/utils/include/utils.h
+	libft/ft_base/public/libft.h libft/ft_gl/gl.h \
+	libft/ft_list/public/ft_list.h srcs/events/include/events.h \
+	srcs/utils/include/utils.h
 
 # module ft::base
 $(O_DIR)/libft/ft_base/ft_abs.o: libft/ft_base/ft_abs.c \
@@ -260,6 +260,14 @@ $(O_DIR)/libft/get_next_line/get_next_line.o: \
 $(O_DIR)/libft/get_next_line/get_next_line.o: INCLUDE_FLAGS += \
 	-Ilibft/get_next_line
 
+# module ft::gl
+ifeq ($(shell uname),Darwin)
+  BASE_FLAGS += -DMAC_OS_MODE=1
+  LINK_FLAGS += -lglfw3 -framework OpenGL
+else
+  LINK_FLAGS += -lglfw -lGL -lGLEW
+endif
+
 # module ft::hmap
 $(O_DIR)/libft/ft_hmap/ft_djb2.o: libft/ft_hmap/ft_djb2.c \
 	libft/ft_base/public/libft.h libft/ft_hmap/hmap_internal.h \
@@ -338,6 +346,38 @@ $(O_DIR)/libft/ft_list/ft_listremove.o: libft/ft_list/ft_listremove.c \
 	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h
 $(O_DIR)/libft/ft_list/ft_listsort.o: libft/ft_list/ft_listsort.c \
 	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h
+
+# module ft::math
+$(O_DIR)/libft/ft_math/ft_mat4look_at.o: libft/ft_math/ft_mat4look_at.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_mat4mult.o: libft/ft_math/ft_mat4mult.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_mat4perspective.o: \
+	libft/ft_math/ft_mat4perspective.c libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_mat4reflect.o: libft/ft_math/ft_mat4reflect.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_mat4rotate.o: libft/ft_math/ft_mat4rotate.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_mat4scale.o: libft/ft_math/ft_mat4scale.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_mat4shear.o: libft/ft_math/ft_mat4shear.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_mat4translate.o: libft/ft_math/ft_mat4translate.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_mat4transpose.o: libft/ft_math/ft_mat4transpose.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_vec3cross.o: libft/ft_math/ft_vec3cross.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_vec3dot.o: libft/ft_math/ft_vec3dot.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_vec3front.o: libft/ft_math/ft_vec3front.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_vec3norm.o: libft/ft_math/ft_vec3norm.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_vec3rotate.o: libft/ft_math/ft_vec3rotate.c \
+	libft/ft_math/public/math.h
+$(O_DIR)/libft/ft_math/ft_vec3sub.o: libft/ft_math/ft_vec3sub.c \
+	libft/ft_math/public/math.h
 
 # module ft::out
 $(O_DIR)/libft/ft_out/ft_count_out.o: libft/ft_out/ft_count_out.c \
@@ -487,45 +527,39 @@ $(O_DIR)/libft/ft_vector/ft_vremove.o: libft/ft_vector/ft_vremove.c \
 $(O_DIR)/libft/ft_vector/ft_vreserve.o: libft/ft_vector/ft_vreserve.c \
 	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h
 
-# module gl
-ifeq ($(shell uname),Darwin)
-  BASE_FLAGS += -DMAC_OS_MODE=1
-  LINK_FLAGS += -lglfw3 -framework OpenGL
-else
-  LINK_FLAGS += -lglfw -lGL -lGLEW
-endif
-
 # module main
 $(O_DIR)/srcs/main/callbacks.o: srcs/main/callbacks.c \
-	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h \
-	srcs/anim/include/anim.h srcs/camera/include/camera.h \
-	srcs/events/include/events.h srcs/gl/gl.h srcs/main/include/main.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	libft/ft_base/public/libft.h libft/ft_gl/gl.h libft/ft_math/public/math.h \
+	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
+	srcs/camera/include/camera.h srcs/events/include/events.h \
+	srcs/main/include/main.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/render/public/render.h srcs/texture/texture.h \
 	srcs/transform/include/transform.h
 $(O_DIR)/srcs/main/init_window.o: srcs/main/init_window.c \
-	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h \
+	libft/ft_base/public/libft.h libft/ft_gl/gl.h \
+	libft/ft_list/public/ft_list.h libft/ft_math/public/math.h \
 	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
-	srcs/camera/include/camera.h srcs/gl/gl.h srcs/main/include/main.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
-	srcs/obj/include/obj.h srcs/render/public/render.h srcs/texture/texture.h \
-	srcs/transform/include/transform.h srcs/utils/include/utils.h
+	srcs/camera/include/camera.h srcs/main/include/main.h srcs/mesh/mesh.h \
+	srcs/mtl/mtl.h srcs/obj/include/obj.h srcs/render/public/render.h \
+	srcs/texture/texture.h srcs/transform/include/transform.h \
+	srcs/utils/include/utils.h
 $(O_DIR)/srcs/main/main.o: srcs/main/main.c libft/ft_base/public/libft.h \
-	libft/ft_hmap/public/ft_hmap.h libft/ft_list/public/ft_list.h \
+	libft/ft_gl/gl.h libft/ft_hmap/public/ft_hmap.h \
+	libft/ft_list/public/ft_list.h libft/ft_math/public/math.h \
 	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
 	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
-	srcs/camera/include/camera.h srcs/events/include/events.h srcs/gl/gl.h \
-	srcs/main/include/main.h srcs/math_utils/include/math_utils.h \
-	srcs/mesh/mesh.h srcs/mesh_loader/include/public/mesh_loader.h \
-	srcs/mtl/mtl.h srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
+	srcs/camera/include/camera.h srcs/events/include/events.h \
+	srcs/main/include/main.h srcs/mesh/mesh.h \
+	srcs/mesh_loader/include/public/mesh_loader.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
 	srcs/render/public/render.h srcs/shader/shader.h srcs/texture/texture.h \
 	srcs/transform/include/transform.h srcs/utils/include/utils.h
 $(O_DIR)/srcs/main/motions.o: srcs/main/motions.c libft/ft_base/public/libft.h \
+	libft/ft_gl/gl.h libft/ft_math/public/math.h \
 	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
-	srcs/camera/include/camera.h srcs/gl/gl.h srcs/main/include/main.h \
-	srcs/main/include/motions.h srcs/math_utils/include/math_utils.h \
-	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
-	srcs/render/public/render.h srcs/texture/texture.h \
+	srcs/camera/include/camera.h srcs/main/include/main.h \
+	srcs/main/include/motions.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/render/public/render.h srcs/texture/texture.h \
 	srcs/transform/include/transform.h
 
 $(O_DIR)/srcs/main/callbacks.o $(O_DIR)/srcs/main/init_window.o \
@@ -534,91 +568,58 @@ $(O_DIR)/srcs/main/callbacks.o $(O_DIR)/srcs/main/init_window.o \
 $(O_DIR)/srcs/main/main.o $(O_DIR)/srcs/main/motions.o: INCLUDE_FLAGS += \
 	-Isrcs/main/include
 
-# module math_utils
-$(O_DIR)/srcs/math_utils/ft_mat4look_at.o: srcs/math_utils/ft_mat4look_at.c \
-	srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_mat4mult.o: srcs/math_utils/ft_mat4mult.c \
-	srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_mat4perspective.o: \
-	srcs/math_utils/ft_mat4perspective.c srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_mat4reflect.o: srcs/math_utils/ft_mat4reflect.c \
-	srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_mat4rotate.o: srcs/math_utils/ft_mat4rotate.c \
-	srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_mat4scale.o: srcs/math_utils/ft_mat4scale.c \
-	srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_mat4shear.o: srcs/math_utils/ft_mat4shear.c \
-	srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_mat4translate.o: \
-	srcs/math_utils/ft_mat4translate.c srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_mat4transpose.o: \
-	srcs/math_utils/ft_mat4transpose.c srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_vec3cross.o: srcs/math_utils/ft_vec3cross.c \
-	srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_vec3dot.o: srcs/math_utils/ft_vec3dot.c \
-	srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_vec3front.o: srcs/math_utils/ft_vec3front.c \
-	srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_vec3norm.o: srcs/math_utils/ft_vec3norm.c \
-	srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_vec3rotate.o: srcs/math_utils/ft_vec3rotate.c \
-	srcs/math_utils/include/math_utils.h
-$(O_DIR)/srcs/math_utils/ft_vec3sub.o: srcs/math_utils/ft_vec3sub.c \
-	srcs/math_utils/include/math_utils.h
-
 # module mesh
 
 # module mesh_loader
 $(O_DIR)/srcs/mesh_loader/build_mesh.o: srcs/mesh_loader/build_mesh.c \
 	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	libft/ft_list/public/ft_list.h libft/ft_vector/public/ft_vector.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h \
+	libft/ft_list/public/ft_list.h libft/ft_math/public/math.h \
+	libft/ft_vector/public/ft_vector.h srcs/mesh/mesh.h \
 	srcs/mesh_loader/include/internal.h \
 	srcs/mesh_loader/include/public/mesh_loader.h srcs/mtl/mtl.h \
 	srcs/texture/texture.h srcs/utils/include/utils.h
 $(O_DIR)/srcs/mesh_loader/build_mtl.o: srcs/mesh_loader/build_mtl.c \
 	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	libft/ft_vector/public/ft_vector.h srcs/math_utils/include/math_utils.h \
+	libft/ft_math/public/math.h libft/ft_vector/public/ft_vector.h \
 	srcs/mesh/mesh.h srcs/mesh_loader/include/internal.h \
 	srcs/mesh_loader/include/public/mesh_loader.h srcs/mtl/mtl.h \
 	srcs/texture/texture.h
 $(O_DIR)/srcs/mesh_loader/load_mesh.o: srcs/mesh_loader/load_mesh.c \
 	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
-	libft/ft_vector/public/ft_vector.h srcs/math_utils/include/math_utils.h \
+	libft/ft_math/public/math.h libft/ft_out/public/ft_out.h \
+	libft/ft_printf/public/ft_printf.h libft/ft_vector/public/ft_vector.h \
 	srcs/mesh/mesh.h srcs/mesh_loader/include/internal.h \
 	srcs/mesh_loader/include/public/mesh_loader.h srcs/mtl/mtl.h \
 	srcs/texture/texture.h
 $(O_DIR)/srcs/mesh_loader/parse_mesh.o: srcs/mesh_loader/parse_mesh.c \
 	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	libft/ft_list/public/ft_list.h libft/ft_sub/public/ft_sub.h \
-	libft/ft_vector/public/ft_vector.h \
-	libft/get_next_line/public/get_next_line.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h \
+	libft/ft_list/public/ft_list.h libft/ft_math/public/math.h \
+	libft/ft_sub/public/ft_sub.h libft/ft_vector/public/ft_vector.h \
+	libft/get_next_line/public/get_next_line.h srcs/mesh/mesh.h \
 	srcs/mesh_loader/include/internal.h \
 	srcs/mesh_loader/include/public/mesh_loader.h srcs/mtl/mtl.h \
 	srcs/texture/texture.h srcs/utils/include/utils.h
 $(O_DIR)/srcs/mesh_loader/parse_mesh_tokens.o: \
 	srcs/mesh_loader/parse_mesh_tokens.c libft/ft_base/public/libft.h \
 	libft/ft_hmap/public/ft_hmap.h libft/ft_list/public/ft_list.h \
-	libft/ft_sub/public/ft_sub.h libft/ft_vector/public/ft_vector.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h \
+	libft/ft_math/public/math.h libft/ft_sub/public/ft_sub.h \
+	libft/ft_vector/public/ft_vector.h srcs/mesh/mesh.h \
 	srcs/mesh_loader/include/internal.h \
 	srcs/mesh_loader/include/public/mesh_loader.h srcs/mtl/mtl.h \
 	srcs/texture/texture.h srcs/utils/include/utils.h
 $(O_DIR)/srcs/mesh_loader/parse_mesh_tokens_mtl.o: \
 	srcs/mesh_loader/parse_mesh_tokens_mtl.c libft/ft_base/public/libft.h \
 	libft/ft_hmap/public/ft_hmap.h libft/ft_list/public/ft_list.h \
-	libft/ft_sub/public/ft_sub.h libft/ft_vector/public/ft_vector.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h \
+	libft/ft_math/public/math.h libft/ft_sub/public/ft_sub.h \
+	libft/ft_vector/public/ft_vector.h srcs/mesh/mesh.h \
 	srcs/mesh_loader/include/internal.h \
 	srcs/mesh_loader/include/public/mesh_loader.h srcs/mtl/mtl.h \
 	srcs/mtl_loader/include/public/mtl_loader.h srcs/texture/texture.h \
 	srcs/utils/include/utils.h
 $(O_DIR)/srcs/mesh_loader/send_mesh.o: srcs/mesh_loader/send_mesh.c \
-	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	libft/ft_vector/public/ft_vector.h srcs/gl/gl.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h \
+	libft/ft_base/public/libft.h libft/ft_gl/gl.h \
+	libft/ft_hmap/public/ft_hmap.h libft/ft_math/public/math.h \
+	libft/ft_vector/public/ft_vector.h srcs/mesh/mesh.h \
 	srcs/mesh_loader/include/internal.h \
 	srcs/mesh_loader/include/public/mesh_loader.h srcs/mtl/mtl.h \
 	srcs/texture/texture.h
@@ -635,30 +636,29 @@ $(O_DIR)/srcs/mesh_loader/send_mesh.o: INCLUDE_FLAGS += \
 # module mtl_loader
 $(O_DIR)/srcs/mtl_loader/load_mtl.o: srcs/mtl_loader/load_mtl.c \
 	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	libft/ft_list/public/ft_list.h libft/ft_out/public/ft_out.h \
-	libft/ft_printf/public/ft_printf.h srcs/math_utils/include/math_utils.h \
+	libft/ft_list/public/ft_list.h libft/ft_math/public/math.h \
+	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
 	srcs/mtl/mtl.h srcs/mtl_loader/include/internal.h \
 	srcs/mtl_loader/include/public/mtl_loader.h srcs/texture/texture.h \
 	srcs/utils/include/utils.h
 $(O_DIR)/srcs/mtl_loader/parse_mtl.o: srcs/mtl_loader/parse_mtl.c \
 	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	libft/ft_list/public/ft_list.h libft/ft_sub/public/ft_sub.h \
-	libft/get_next_line/public/get_next_line.h \
-	srcs/math_utils/include/math_utils.h srcs/mtl/mtl.h \
-	srcs/mtl_loader/include/internal.h \
+	libft/ft_list/public/ft_list.h libft/ft_math/public/math.h \
+	libft/ft_sub/public/ft_sub.h libft/get_next_line/public/get_next_line.h \
+	srcs/mtl/mtl.h srcs/mtl_loader/include/internal.h \
 	srcs/mtl_loader/include/public/mtl_loader.h srcs/texture/texture.h \
 	srcs/utils/include/utils.h
 $(O_DIR)/srcs/mtl_loader/parse_mtl_tokens.o: \
 	srcs/mtl_loader/parse_mtl_tokens.c libft/ft_base/public/libft.h \
 	libft/ft_hmap/public/ft_hmap.h libft/ft_list/public/ft_list.h \
-	libft/ft_sub/public/ft_sub.h srcs/math_utils/include/math_utils.h \
-	srcs/mtl/mtl.h srcs/mtl_loader/include/internal.h \
+	libft/ft_math/public/math.h libft/ft_sub/public/ft_sub.h srcs/mtl/mtl.h \
+	srcs/mtl_loader/include/internal.h \
 	srcs/mtl_loader/include/public/mtl_loader.h srcs/texture/texture.h \
 	srcs/utils/include/utils.h
 $(O_DIR)/srcs/mtl_loader/parse_mtl_tokens_map.o: \
 	srcs/mtl_loader/parse_mtl_tokens_map.c libft/ft_base/public/libft.h \
-	libft/ft_hmap/public/ft_hmap.h libft/ft_sub/public/ft_sub.h \
-	srcs/math_utils/include/math_utils.h srcs/mtl/mtl.h \
+	libft/ft_hmap/public/ft_hmap.h libft/ft_math/public/math.h \
+	libft/ft_sub/public/ft_sub.h srcs/mtl/mtl.h \
 	srcs/mtl_loader/include/internal.h \
 	srcs/mtl_loader/include/public/mtl_loader.h srcs/texture/texture.h \
 	srcs/texture_loader/public/texture_loader.h
@@ -672,42 +672,42 @@ $(O_DIR)/srcs/mtl_loader/parse_mtl_tokens_map.o: INCLUDE_FLAGS += \
 
 # module obj_anim
 $(O_DIR)/srcs/obj_anim/anim_c_move.o: srcs/obj_anim/anim_c_move.c \
-	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h \
-	srcs/anim/include/anim.h srcs/camera/include/camera.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	libft/ft_base/public/libft.h libft/ft_math/public/math.h \
+	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
+	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
 	srcs/texture/texture.h srcs/transform/include/transform.h
 $(O_DIR)/srcs/obj_anim/anim_c_rot.o: srcs/obj_anim/anim_c_rot.c \
-	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h \
-	srcs/anim/include/anim.h srcs/camera/include/camera.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	libft/ft_base/public/libft.h libft/ft_math/public/math.h \
+	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
+	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
 	srcs/texture/texture.h srcs/transform/include/transform.h
 $(O_DIR)/srcs/obj_anim/anim_c_scale.o: srcs/obj_anim/anim_c_scale.c \
-	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h \
-	srcs/anim/include/anim.h srcs/camera/include/camera.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	libft/ft_base/public/libft.h libft/ft_math/public/math.h \
+	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
+	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
 	srcs/texture/texture.h srcs/transform/include/transform.h
 $(O_DIR)/srcs/obj_anim/anim_c_shear.o: srcs/obj_anim/anim_c_shear.c \
-	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h \
-	srcs/anim/include/anim.h srcs/camera/include/camera.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	libft/ft_base/public/libft.h libft/ft_math/public/math.h \
+	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
+	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
 	srcs/texture/texture.h srcs/transform/include/transform.h
 
 # module render
 $(O_DIR)/srcs/render/depth_render.o: srcs/render/depth_render.c \
-	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	srcs/camera/include/camera.h srcs/gl/gl.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	libft/ft_base/public/libft.h libft/ft_gl/gl.h \
+	libft/ft_hmap/public/ft_hmap.h libft/ft_math/public/math.h \
+	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/render/public/render.h srcs/shader/shader.h \
 	srcs/shader_loader/include/public/shader_loader.h srcs/texture/texture.h
 $(O_DIR)/srcs/render/simple_render.o: srcs/render/simple_render.c \
-	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	libft/ft_list/public/ft_list.h srcs/camera/include/camera.h srcs/gl/gl.h \
-	srcs/math_utils/include/math_utils.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
-	srcs/render/public/render.h srcs/shader/shader.h \
+	libft/ft_base/public/libft.h libft/ft_gl/gl.h \
+	libft/ft_hmap/public/ft_hmap.h libft/ft_list/public/ft_list.h \
+	libft/ft_math/public/math.h srcs/camera/include/camera.h srcs/mesh/mesh.h \
+	srcs/mtl/mtl.h srcs/render/public/render.h srcs/shader/shader.h \
 	srcs/shader_loader/include/public/shader_loader.h srcs/texture/texture.h \
 	srcs/utils/include/utils.h
 
@@ -716,27 +716,28 @@ $(O_DIR)/srcs/render/simple_render.o: srcs/render/simple_render.c \
 # module shader_loader
 $(O_DIR)/srcs/shader_loader/compile_shader.o: \
 	srcs/shader_loader/compile_shader.c libft/ft_base/public/ft_colors.h \
-	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	libft/ft_list/public/ft_list.h libft/ft_out/public/ft_out.h \
-	libft/ft_printf/public/ft_printf.h srcs/gl/gl.h srcs/shader/shader.h \
-	srcs/shader_loader/include/internal.h \
+	libft/ft_base/public/libft.h libft/ft_gl/gl.h \
+	libft/ft_hmap/public/ft_hmap.h libft/ft_list/public/ft_list.h \
+	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
+	srcs/shader/shader.h srcs/shader_loader/include/internal.h \
 	srcs/shader_loader/include/public/shader_loader.h
 $(O_DIR)/srcs/shader_loader/load_shader.o: srcs/shader_loader/load_shader.c \
-	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	libft/ft_list/public/ft_list.h srcs/gl/gl.h srcs/shader/shader.h \
-	srcs/shader_loader/include/internal.h \
+	libft/ft_base/public/libft.h libft/ft_gl/gl.h \
+	libft/ft_hmap/public/ft_hmap.h libft/ft_list/public/ft_list.h \
+	srcs/shader/shader.h srcs/shader_loader/include/internal.h \
 	srcs/shader_loader/include/public/shader_loader.h \
 	srcs/utils/include/utils.h
 $(O_DIR)/srcs/shader_loader/load_uniforms.o: \
 	srcs/shader_loader/load_uniforms.c libft/ft_base/public/libft.h \
-	libft/ft_hmap/public/ft_hmap.h libft/ft_list/public/ft_list.h srcs/gl/gl.h \
-	srcs/shader/shader.h srcs/shader_loader/include/internal.h \
+	libft/ft_gl/gl.h libft/ft_hmap/public/ft_hmap.h \
+	libft/ft_list/public/ft_list.h srcs/shader/shader.h \
+	srcs/shader_loader/include/internal.h \
 	srcs/shader_loader/include/public/shader_loader.h \
 	srcs/utils/include/utils.h
 $(O_DIR)/srcs/shader_loader/read_shader.o: srcs/shader_loader/read_shader.c \
-	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
-	libft/ft_list/public/ft_list.h libft/ft_sub/public/ft_sub.h \
-	libft/get_next_line/public/get_next_line.h srcs/gl/gl.h \
+	libft/ft_base/public/libft.h libft/ft_gl/gl.h \
+	libft/ft_hmap/public/ft_hmap.h libft/ft_list/public/ft_list.h \
+	libft/ft_sub/public/ft_sub.h libft/get_next_line/public/get_next_line.h \
 	srcs/shader/shader.h srcs/shader_loader/include/internal.h \
 	srcs/shader_loader/include/public/shader_loader.h \
 	srcs/utils/include/utils.h
@@ -758,33 +759,33 @@ $(O_DIR)/srcs/shader_loader/shader_get_uniform.o: INCLUDE_FLAGS += \
 # module texture_loader
 $(O_DIR)/srcs/texture_loader/load_texture.o: \
 	srcs/texture_loader/load_texture.c libft/ft_base/public/libft.h \
-	libft/ft_hmap/public/ft_hmap.h \
-	srcs/ft_image_loader/public/ft_image_loader.h srcs/gl/gl.h \
-	srcs/texture/texture.h srcs/texture_loader/public/texture_loader.h
+	libft/ft_gl/gl.h libft/ft_hmap/public/ft_hmap.h \
+	srcs/ft_image_loader/public/ft_image_loader.h srcs/texture/texture.h \
+	srcs/texture_loader/public/texture_loader.h
 
 $(O_DIR)/srcs/texture_loader/load_texture.o: INCLUDE_FLAGS += \
 	-Isrcs/texture_loader/include
 
 # module transform
 $(O_DIR)/srcs/transform/ft_transform_get.o: srcs/transform/ft_transform_get.c \
-	srcs/math_utils/include/math_utils.h srcs/transform/include/transform.h
+	libft/ft_math/public/math.h srcs/transform/include/transform.h
 $(O_DIR)/srcs/transform/ft_transform_move.o: \
-	srcs/transform/ft_transform_move.c srcs/math_utils/include/math_utils.h \
+	srcs/transform/ft_transform_move.c libft/ft_math/public/math.h \
 	srcs/transform/include/transform.h
 $(O_DIR)/srcs/transform/ft_transform_origin.o: \
-	srcs/transform/ft_transform_origin.c srcs/math_utils/include/math_utils.h \
+	srcs/transform/ft_transform_origin.c libft/ft_math/public/math.h \
 	srcs/transform/include/transform.h
 $(O_DIR)/srcs/transform/ft_transform_reflect.o: \
-	srcs/transform/ft_transform_reflect.c srcs/math_utils/include/math_utils.h \
+	srcs/transform/ft_transform_reflect.c libft/ft_math/public/math.h \
 	srcs/transform/include/transform.h
 $(O_DIR)/srcs/transform/ft_transform_rotate.o: \
-	srcs/transform/ft_transform_rotate.c srcs/math_utils/include/math_utils.h \
+	srcs/transform/ft_transform_rotate.c libft/ft_math/public/math.h \
 	srcs/transform/include/transform.h
 $(O_DIR)/srcs/transform/ft_transform_scale.o: \
-	srcs/transform/ft_transform_scale.c srcs/math_utils/include/math_utils.h \
+	srcs/transform/ft_transform_scale.c libft/ft_math/public/math.h \
 	srcs/transform/include/transform.h
 $(O_DIR)/srcs/transform/ft_transform_shear.o: \
-	srcs/transform/ft_transform_shear.c srcs/math_utils/include/math_utils.h \
+	srcs/transform/ft_transform_shear.c libft/ft_math/public/math.h \
 	srcs/transform/include/transform.h
 
 # module utils
@@ -831,9 +832,9 @@ $(O_DIR)/_public/ft/ft_vprintf.h: libft/ft_printf/public/ft_vprintf.h
 $(O_DIR)/_public/ft/ft_wchar.h: libft/ft_base/public/ft_wchar.h
 $(O_DIR)/_public/ft/get_next_line.h: \
 libft/get_next_line/public/get_next_line.h
+$(O_DIR)/_public/ft/gl.h: libft/ft_gl/gl.h
 $(O_DIR)/_public/ft/libft.h: libft/ft_base/public/libft.h
-$(O_DIR)/_public/gl.h: srcs/gl/gl.h
-$(O_DIR)/_public/math_utils.h: srcs/math_utils/include/math_utils.h
+$(O_DIR)/_public/ft/math.h: libft/ft_math/public/math.h
 $(O_DIR)/_public/mesh.h: srcs/mesh/mesh.h
 $(O_DIR)/_public/mesh_loader.h: srcs/mesh_loader/include/public/mesh_loader.h
 $(O_DIR)/_public/mtl.h: srcs/mtl/mtl.h

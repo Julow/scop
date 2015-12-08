@@ -11,7 +11,7 @@ module camera: camera
 
 	public include include/
 
-	public require math_utils
+	public require ft::math
 
 	put LINK_FLAGS -lm
 
@@ -19,23 +19,17 @@ module events: events
 
 	public include include/
 
-	public require gl
+	public require ft::gl
 	public require ft::base
 
 	private require utils
-
-module math_utils: math_utils
-
-	public include include/
-
-	put LINK_FLAGS -lm
 
 module obj: obj
 
 	public include include/
 
 	public require ft::vector
-	public require math_utils
+	public require ft::math
 	public require transform
 	public require mesh
 	public require anim
@@ -46,14 +40,14 @@ module obj_anim: obj_anim
 	public include include/
 
 	public require obj
-	public require math_utils
+	public require ft::math
 	public require anim
 
 module transform: transform
 
 	public include include/
 
-	public require math_utils
+	public require ft::math
 
 module utils: utils
 
@@ -82,7 +76,7 @@ module shader_loader: shader_loader
 	private require ft::sub
 	private require ft::get_next_line
 	private require ft::printf
-	private require gl
+	private require ft::gl
 	private require ft::list
 	private require ft::hmap
 	private require utils
@@ -107,8 +101,8 @@ module mesh_loader: mesh_loader
 	private require ft::vector
 	private require ft::get_next_line
 	private require ft::printf
-	private require gl
-	private require math_utils
+	private require ft::gl
+	private require ft::math
 	private require utils
 
 module mtl: mtl
@@ -116,7 +110,7 @@ module mtl: mtl
 	public include .
 
 	public require texture
-	public require math_utils
+	public require ft::math
 
 module mtl_loader: mtl_loader
 
@@ -148,12 +142,12 @@ main module main: main
 
 	# private require ft::base
 	private require ft::printf
-	private require gl
+	private require ft::gl
 	private require render
 	private require transform
 	private require ft::vector
 	private require camera
-	private require math_utils
+	private require ft::math
 	private require obj
 	private require anim
 	private require events

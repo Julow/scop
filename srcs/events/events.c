@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/31 12:21:17 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/08 17:10:18 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events.h"
 #include "utils.h"
-#include "gl.h"
+#include "ft/gl.h"
 
 static void		key_callback(GLFWwindow *window, int key, int scancode,
 		int action, int mode)

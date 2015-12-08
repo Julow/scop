@@ -7,4 +7,4 @@ module texture_loader:
 	public require texture
 	private require ft::image_loader
 	private require ft::hmap
-	private require gl
+	private require ft::gl

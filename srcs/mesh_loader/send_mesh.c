@@ -6,12 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 17:04:22 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 13:09:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/08 17:10:10 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
-#include "gl.h"
+#include "ft/gl.h"
 
 #define VERTEX_SIZE		S(float, 8)
 #define OFFSET(n)		(void*)S(float, n)

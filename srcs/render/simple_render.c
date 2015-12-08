@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/04 13:34:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/08 17:10:16 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "texture.h"
 #include "mesh.h"
 #include "mtl.h"
-#include "gl.h"
+#include "ft/gl.h"
 #include "camera.h"
 #include "utils.h"
 #include "ft/ft_hmap.h"

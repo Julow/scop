@@ -6,13 +6,13 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 12:11:44 by juloo             #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:29 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/08 17:10:20 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 #include "ft/ft_hmap.h"
-#include "gl.h"
+#include "ft/gl.h"
 #include "utils.h"
 
 int				get_uniform_max_len(t_uint handle)

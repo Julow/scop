@@ -6,12 +6,12 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/04 23:27:24 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/04 13:35:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/08 17:10:17 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
-#include "gl.h"
+#include "ft/gl.h"
 #include "shader_loader.h"
 #include "shader.h"
 #include "camera.h"

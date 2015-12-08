@@ -6,12 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:59:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 13:09:38 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/08 17:05:16 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
-#include "math_utils.h"
+#include "ft/math.h"
 #include "utils.h"
 
 static t_bool	center_vertices(t_vector *vertices)

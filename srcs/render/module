@@ -3,7 +3,7 @@ module render:
 	public include public/
 
 	public require camera
-	public require math_utils
+	public require ft::math
 	public require mesh
 	private require ft::hmap
 	private require shader
@@ -11,4 +11,4 @@ module render:
 	private require mtl
 	private require shader_loader
 	private require utils
-	private require gl
+	private require ft::gl

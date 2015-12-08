@@ -6,12 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:21:09 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:31 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/08 17:10:21 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
-#include "gl.h"
+#include "ft/gl.h"
 #include "ft/ft_colors.h"
 #include "ft/ft_list.h"
 #include "ft/ft_printf.h"

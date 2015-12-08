@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 16:53:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/04 18:46:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/08 17:06:14 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RENDER_H
 
 # include "mesh.h"
-# include "math_utils.h"
+# include "ft/math.h"
 # include "camera.h"
 
 typedef struct s_render_params		t_render_params;

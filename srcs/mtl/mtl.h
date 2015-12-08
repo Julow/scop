@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 14:11:54 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/03 14:12:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/08 17:04:17 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_mtl		t_mtl;
 
-# include "math_utils.h"
+# include "ft/math.h"
 # include "texture.h"
 
 struct			s_mtl

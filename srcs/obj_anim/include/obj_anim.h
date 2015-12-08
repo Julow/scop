@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 20:08:09 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/03 19:52:03 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/08 17:05:40 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define OBJ_ANIM_H
 
 # include "obj.h"
-# include "math_utils.h"
+# include "ft/math.h"
 # include "anim.h"
 
 struct			s_anim_obj

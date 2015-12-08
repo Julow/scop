@@ -6,12 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:40:01 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/08 17:05:12 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
-#include "math_utils.h"
+#include "ft/math.h"
 #include "ft/ft_hmap.h"
 #include "ft/ft_printf.h"
 

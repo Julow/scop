@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 08:34:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/04 12:28:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/08 17:05:29 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_transform	t_transform;
 
-# include "math_utils.h"
+# include "ft/math.h"
 
 /*
 ** Hold transformation matrix

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 11:24:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/11 16:18:54 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/08 17:05:23 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_camera		t_camera;
 
-# include "math_utils.h"
+# include "ft/math.h"
 
 # define F_CAMERA_UPDATED	(1 << 1)
 

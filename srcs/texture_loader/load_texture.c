@@ -6,14 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:15:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/06 13:41:04 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/08 17:10:10 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "texture_loader.h"
 #include "ft/ft_hmap.h"
 #include "ft/ft_image_loader.h"
-#include "gl.h"
+#include "ft/gl.h"
 #include <stdlib.h>
 
 #define TEXTURE_CACHE_SIZE		10

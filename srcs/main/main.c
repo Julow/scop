@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/04 19:13:25 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/08 17:06:09 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "obj_anim.h"
 #include "render.h"
 #include "transform.h"
-#include "math_utils.h"
+#include "ft/math.h"
 #include "ft/ft_printf.h"
 #include "events.h"
 #include "utils.h"

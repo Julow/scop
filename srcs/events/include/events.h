@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:47:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:20 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/08 17:10:18 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_key_event	t_key_event;
 
-# include "gl.h"
+# include "ft/gl.h"
 # include "ft/libft.h"
 
 # define F_KEY_CALLBACK		(1 << 1)

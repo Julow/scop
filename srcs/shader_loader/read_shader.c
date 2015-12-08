@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:20:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/28 00:13:05 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/08 17:10:19 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 #include "utils.h"
-#include "gl.h"
+#include "ft/gl.h"
 #include "ft/ft_sub.h"
 #include "ft/ft_list.h"
 #include "ft/get_next_line.h"
