@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:07:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:13 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 /*
 ** Parse a float vector (separated by space)
 */
-t_bool			parse_fvec(t_sub line, float *vec, int len);
+bool			parse_fvec(t_sub line, float *vec, int len);
 
 /*
 ** Remove 'n' node after 'node'
@@ -42,8 +42,8 @@ void			ft_listremove_next(t_list *lst, void *node, int n);
 /*
 ** sub utils
 */
-t_bool			ft_substart(t_sub sub, t_sub start);
-t_bool			ft_subends(t_sub sub, t_sub with);
+bool			ft_substart(t_sub sub, t_sub start);
+bool			ft_subends(t_sub sub, t_sub with);
 
 /*
 ** Print an error
@@ -61,19 +61,19 @@ int				ft_error(int ret, char const *format, ...);
 
 typedef struct	s_fps
 {
-	t_ulong			last_update;
-	t_ulong			last_frame;
-	t_ulong			frame_start;
-	t_ulong			frames_time;
-	t_uint			update_interval;
-	t_uint			frames;
-	t_uint			elapsed;
-	t_uint			average_time;
-	t_uint			average_fps;
+	uint64_t			last_update;
+	uint64_t			last_frame;
+	uint64_t			frame_start;
+	uint64_t			frames_time;
+	uint32_t			update_interval;
+	uint32_t			frames;
+	uint32_t			elapsed;
+	uint32_t			average_time;
+	uint32_t			average_fps;
 }				t_fps;
 
-t_fps			fps_init(t_uint update_interval);
+t_fps			fps_init(uint32_t update_interval);
 void			fps_start(t_fps *fps);
-t_bool			fps_end(t_fps *fps);
+bool			fps_end(t_fps *fps);
 
 #endif

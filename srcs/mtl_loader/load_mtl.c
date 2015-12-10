@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 15:07:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:26 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_hmap const	*load_mtl(t_sub file_name)
 	static t_hmap	*cache = NULL;
 	t_hpair			mtllib;
 	int				fd;
-	t_bool			ret;
+	bool			ret;
 
 	if (cache == NULL)
 		cache = ft_hmapnew(MTL_CACHE_SIZE, &ft_djb2);

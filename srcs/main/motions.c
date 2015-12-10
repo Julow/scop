@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/31 12:24:00 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/03 15:01:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/10 19:52:05 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void			move_vertical(t_vec2 dir, t_vec3 *move, float inv)
 	(void)dir;
 }
 
-t_bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos)
+bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos)
 {
 	t_vec3			move;
 	int				length;
@@ -59,7 +59,7 @@ t_bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos)
 		elapsed *= ACCELERATION;
 	length = 0;
 	i = -1;
-	while (++i < G_ARRAY_LEN(g_moves))
+	while (++i < ARRAY_LEN(g_moves))
 		if (scop->flags & g_moves[i].flag)
 		{
 			g_moves[i].f(scop->camera.look, &move, g_moves[i].inv);
@@ -73,7 +73,7 @@ t_bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos)
 	return (true);
 }
 
-t_bool			handle_cursor_move(t_scop *scop, t_vec2 *look)
+bool			handle_cursor_move(t_scop *scop, t_vec2 *look)
 {
 	double			x;
 	double			y;
@@ -81,8 +81,10 @@ t_bool			handle_cursor_move(t_scop *scop, t_vec2 *look)
 	if (!(scop->flags & FLAG_CURSOR_MOVE))
 		return (false);
 	glfwGetCursorPos(scop->window, &x, &y);
-	look->x += fmod((x - scop->cursor.x) / WIN_WIDTH * CURSOR_SPEED, M_PI * 2.0);
-	look->y += fmod((y - scop->cursor.y) / WIN_HEIGHT * CURSOR_SPEED, M_PI * 2.0);
+	look->x += fmod((x - scop->cursor.x) / WIN_WIDTH * CURSOR_SPEED,
+		M_PI * 2.0);
+	look->y += fmod((y - scop->cursor.y) / WIN_HEIGHT * CURSOR_SPEED,
+		M_PI * 2.0);
 	scop->cursor = VEC2((float)x, (float)y);
 	scop->flags &= ~FLAG_CURSOR_MOVE;
 	return (true);

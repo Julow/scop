@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:15:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:10:10 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 #define TEXTURE_CACHE_SIZE		10
 
-static t_uint	send_texture(t_img const *img)
+static uint32_t	send_texture(t_img const *img)
 {
-	t_uint			handle;
+	uint32_t			handle;
 
 	glGenTextures(1, &handle);
 	glBindTexture(GL_TEXTURE_2D, handle);

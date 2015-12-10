@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:05:12 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:52:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ static void		clear_mesh_data(t_mesh_data *data)
 	ft_vclear(&(data->ebo_data));
 }
 
-static t_bool	load_mesh_file(char const *file, t_mesh *dst)
+static bool		load_mesh_file(char const *file, t_mesh *dst)
 {
 	t_mesh_data		data;
-	t_bool			success;
-	t_ulong			parse_t;
-	t_ulong			build_t;
-	t_ulong			send_t;
+	bool			success;
+	uint64_t		parse_t;
+	uint64_t		build_t;
+	uint64_t		send_t;
 
 	init_mesh_data(&data);
 	parse_t = ft_clock(0);

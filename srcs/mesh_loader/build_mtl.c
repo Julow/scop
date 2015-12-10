@@ -6,13 +6,13 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/07 20:24:14 by juloo             #+#    #+#             */
-/*   Updated: 2015/11/03 13:09:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 
-t_bool			build_mtl(t_mesh_data *data, t_mesh *dst)
+bool			build_mtl(t_mesh_data *data, t_mesh *dst)
 {
 	t_mesh_mtl		*mtl;
 	int				i;

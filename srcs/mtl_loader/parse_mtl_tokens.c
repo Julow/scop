@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:12:53 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:23 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 #include "utils.h"
 #include "ft/ft_sub.h"
 
-t_bool			ambient_color_token(t_sub line, t_mtl *mtl)
+bool			ambient_color_token(t_sub line, t_mtl *mtl)
 {
 	return (parse_fvec(line, (float*)&(mtl->ambient_color), 3));
 }
 
-t_bool			diffuse_color_token(t_sub line, t_mtl *mtl)
+bool			diffuse_color_token(t_sub line, t_mtl *mtl)
 {
 	return (parse_fvec(line, (float*)&(mtl->diffuse_color), 3));
 }
 
-t_bool			specular_color_token(t_sub line, t_mtl *mtl)
+bool			specular_color_token(t_sub line, t_mtl *mtl)
 {
 	return (parse_fvec(line, (float*)&(mtl->specular_color), 3));
 }
 
-t_bool			specular_exp_token(t_sub line, t_mtl *mtl)
+bool			specular_exp_token(t_sub line, t_mtl *mtl)
 {
 	float			ns;
 

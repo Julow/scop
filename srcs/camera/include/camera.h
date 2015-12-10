@@ -6,16 +6,16 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 11:24:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:05:23 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:49:25 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CAMERA_H
 # define CAMERA_H
 
-typedef struct s_camera		t_camera;
-
 # include "ft/math.h"
+
+typedef struct s_camera		t_camera;
 
 # define F_CAMERA_UPDATED	(1 << 1)
 

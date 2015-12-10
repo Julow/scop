@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/06 13:27:31 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/06 13:39:58 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static t_imgtype const	g_imgtypes[] = {
 	{SUB("", 0), NULL}
 };
 
-t_bool			ft_load_image(char const *file_name, t_img *dst)
+bool			ft_load_image(char const *file_name, t_img *dst)
 {
 	t_sub			ext;
 	int				i;
 	t_file_in		*in;
-	t_bool			ret;
+	bool			ret;
 
 	ext = ft_sub((char*)file_name, -1, -1);
 	while (--(ext.str) >= file_name)

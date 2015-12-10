@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/08 17:10:16 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:51 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static void		test_glsl_pre(t_shader const *shader,
 	UNIFORM(Matrix4fv, shader, "projection", 1, true,
 		(float*)params->projection_m);
 	UNIFORM(3fv, shader, "camera_pos", 1, (float*)&(params->camera->position));
-	UNIFORM(2fv, shader, "lights", G_ARRAY_LEN(g_lights), (float*)g_lights);
-	UNIFORM(1i, shader, "light_count", G_ARRAY_LEN(g_lights));
+	UNIFORM(2fv, shader, "lights", ARRAY_LEN(g_lights), (float*)g_lights);
+	UNIFORM(1i, shader, "light_count", ARRAY_LEN(g_lights));
 }
 
 static void		test_glsl_mtl(t_shader const *shader, t_mtl const *mtl)

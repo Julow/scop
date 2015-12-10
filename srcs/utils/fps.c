@@ -6,15 +6,15 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/10 18:27:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/22 08:34:14 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-t_fps			fps_init(t_uint update_interval)
+t_fps			fps_init(uint32_t update_interval)
 {
-	t_ulong const	now = ft_clock(0);
+	uint64_t const	now = ft_clock(0);
 
 	return ((t_fps){now, now, 0, 0, update_interval, 0, 0, 0, 0});
 }
@@ -33,9 +33,9 @@ void			fps_start(t_fps *fps)
 ** Return true every fps->update_interval
 */
 
-t_bool			fps_end(t_fps *fps)
+bool			fps_end(t_fps *fps)
 {
-	t_ulong			t;
+	uint64_t			t;
 
 	t = ft_clock(0);
 	fps->elapsed = t - fps->last_frame;
@@ -46,7 +46,7 @@ t_bool			fps_end(t_fps *fps)
 	if (t >= fps->update_interval)
 	{
 		fps->average_time = fps->frames_time / fps->frames;
-		fps->average_fps = ((t_ulong)fps->frames) * MICRO_SEC / t;
+		fps->average_fps = ((uint64_t)fps->frames) * MICRO_SEC / t;
 		fps->frames = 0;
 		fps->frames_time = 0;
 		fps->last_update += t;

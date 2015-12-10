@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/06 13:16:16 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/06 13:34:55 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ typedef struct	s_img
 ** -
 ** Return true on success, false on error
 */
-t_bool			ft_load_image(char const *file_name, t_img *dst);
+bool			ft_load_image(char const *file_name, t_img *dst);
 
 #endif

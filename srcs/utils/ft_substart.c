@@ -6,13 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 15:26:03 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/09/17 15:26:08 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-t_bool			ft_substart(t_sub sub, t_sub start)
+bool			ft_substart(t_sub sub, t_sub start)
 {
 	if (sub.length < start.length)
 		return (false);

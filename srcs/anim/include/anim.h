@@ -6,16 +6,16 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 19:10:10 by juloo             #+#    #+#             */
-/*   Updated: 2015/11/27 23:40:03 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:48:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ANIM_H
 # define ANIM_H
 
-typedef struct s_anim		t_anim;
-
 # include "ft/libft.h"
+
+typedef struct s_anim		t_anim;
 
 /*
 ** Animation
@@ -31,7 +31,7 @@ typedef struct s_anim		t_anim;
 
 struct			s_anim
 {
-	t_ulong			start_time;
+	uint64_t		start_time;
 	float			duration;
 	int				flags;
 	void			(*callback)(void *env, float delta);
@@ -51,7 +51,7 @@ struct			s_anim
 /*
 ** Update an anim
 */
-void			anim_update(void *env, t_anim *anim, t_ulong now);
+void			anim_update(void *env, t_anim *anim, uint64_t now);
 
 /*
 ** Init an anim

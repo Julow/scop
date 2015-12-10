@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:59:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:05:16 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:51:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft/math.h"
 #include "utils.h"
 
-static t_bool	center_vertices(t_vector *vertices)
+static bool		center_vertices(t_vector *vertices)
 {
 	int				i;
 	t_vec3			*vert;
@@ -43,7 +43,7 @@ static t_bool	center_vertices(t_vector *vertices)
 	return (true);
 }
 
-static t_bool	build_face(t_mesh_data *data, int *face, int *ebo_id)
+static bool		build_face(t_mesh_data *data, int *face, int *ebo_id)
 {
 	int				i;
 
@@ -64,7 +64,7 @@ static t_bool	build_face(t_mesh_data *data, int *face, int *ebo_id)
 	return (true);
 }
 
-t_bool			build_mesh(t_mesh_data *data)
+bool			build_mesh(t_mesh_data *data)
 {
 	int				i;
 	int				ebo_id;

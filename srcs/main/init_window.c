@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:50:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/10/14 17:39:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/12/10 19:51:27 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define HINT_DOUBLE_BUFFER	false
 #endif
 
-static t_bool	init_glfw(t_scop *scop)
+static bool		init_glfw(t_scop *scop)
 {
 	if (glfwInit() != GL_TRUE)
 		return (ft_error(false, "Cannot init GLFW"));
@@ -50,7 +50,7 @@ static t_bool	init_glfw(t_scop *scop)
 	return (true);
 }
 
-static t_bool	init_gl(t_scop *scop)
+static bool		init_gl(t_scop *scop)
 {
 	glViewport(0, 0, WIN_WIDTH, WIN_HEIGHT);
 	glEnable(GL_DEPTH_TEST);
@@ -62,7 +62,7 @@ static t_bool	init_gl(t_scop *scop)
 	(void)scop;
 }
 
-t_bool			init_window(t_scop *scop)
+bool			init_window(t_scop *scop)
 {
 	if (!init_glfw(scop))
 		return (false);

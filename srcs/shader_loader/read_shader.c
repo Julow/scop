@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:20:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:10:19 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:59:20 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "ft/ft_list.h"
 #include "ft/get_next_line.h"
 
-static t_bool	get_shader_type(t_sub line, t_shader_t *t)
+static bool		get_shader_type(t_sub line, t_shader_t *t)
 {
 	int				i;
 
@@ -34,7 +34,7 @@ static t_bool	get_shader_type(t_sub line, t_shader_t *t)
 	return (false);
 }
 
-static t_bool	read_shader_end(t_list *lines, t_uint *s, t_shader_t t)
+static bool		read_shader_end(t_list *lines, uint32_t *s, t_shader_t t)
 {
 	if (t != g_shader_t.all)
 	{
@@ -46,7 +46,7 @@ static t_bool	read_shader_end(t_list *lines, t_uint *s, t_shader_t t)
 	return (true);
 }
 
-t_bool			read_shader(int fd, t_list *lines, t_uint *s, t_shader_t t)
+bool			read_shader(int fd, t_list *lines, uint32_t *s, t_shader_t t)
 {
 	t_sub *const	start_line = lines->last;
 	t_sub			*tmp;

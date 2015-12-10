@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:10:18 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:50:20 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static void		mouse_move_callback(GLFWwindow *window, double x, double y)
 	i = -1;
 	while (g_events[++i].key_code != K_END)
 		if (g_events[i].key_code == K_MOUSE_CALLBACK)
-			((void(*)())g_events[i].action)(glfwGetWindowUserPointer(window), x, y);
+			((void(*)())g_events[i].action)(glfwGetWindowUserPointer(window),
+				x, y);
 }
 
 void			init_events(GLFWwindow *window)

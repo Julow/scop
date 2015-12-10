@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 10:29:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:27 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:58:33 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 /*
 ** ?enum shader_t
-** t_uint			index;
+** uint32_t			index;
 ** t_sub			name;
-** t_uint			gl_name;
+** uint32_t			gl_name;
 ** all(?id?, SUBC("?name?"), 0),
 ** vert(?id?, SUBC("?name?"), GL_VERTEX_SHADER),
 ** frag(?id?, SUBC("?name?"), GL_FRAGMENT_SHADER),
@@ -28,9 +28,9 @@
 
 struct			s_evalue_shader_t
 {
-	t_uint			index;
+	uint32_t		index;
 	t_sub			name;
-	t_uint			gl_name;
+	uint32_t		gl_name;
 };
 
 typedef struct s_evalue_shader_t const*		t_shader_t;
@@ -50,10 +50,10 @@ extern struct s_enum_shader_t const		g_shader_t;
 ** ?end
 */
 
-t_bool			read_shader(int fd, t_list *lines, t_uint *s, t_shader_t t);
+bool			read_shader(int fd, t_list *lines, uint32_t *s, t_shader_t t);
 
-t_bool			compile_shader(t_list *lines, t_uint *dst, t_shader_t t);
+bool			compile_shader(t_list *lines, uint32_t *dst, t_shader_t t);
 
-void			load_uniforms(t_uint handle, t_hmap *uniforms);
+void			load_uniforms(uint32_t handle, t_hmap *uniforms);
 
 #endif

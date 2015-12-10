@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/19 17:25:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:22 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "texture_loader.h"
 #include "ft/ft_sub.h"
 
-t_bool			map_ka_token(t_sub line, t_mtl *mtl)
+bool			map_ka_token(t_sub line, t_mtl *mtl)
 {
 	if (!ft_subnext(&line, IS_SPACE))
 		return (false);
@@ -22,7 +22,7 @@ t_bool			map_ka_token(t_sub line, t_mtl *mtl)
 	return (true);
 }
 
-t_bool			map_kd_token(t_sub line, t_mtl *mtl)
+bool			map_kd_token(t_sub line, t_mtl *mtl)
 {
 	if (!ft_subnext(&line, IS_SPACE))
 		return (false);
@@ -30,7 +30,7 @@ t_bool			map_kd_token(t_sub line, t_mtl *mtl)
 	return (true);
 }
 
-t_bool			map_ks_token(t_sub line, t_mtl *mtl)
+bool			map_ks_token(t_sub line, t_mtl *mtl)
 {
 	if (!ft_subnext(&line, IS_SPACE))
 		return (false);

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:13:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/28 00:12:36 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:53:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_mtl_token const	g_mtl_tokens[] = {
 	{SUBC("map_Ks"), &map_ks_token},
 };
 
-static t_bool	new_mtl_token(t_sub line, t_hmap *mtl_lib, t_mtl **dst)
+static bool		new_mtl_token(t_sub line, t_hmap *mtl_lib, t_mtl **dst)
 {
 	t_mtl const		default_mtl = {
 		NULL,
@@ -44,7 +44,7 @@ static t_bool	new_mtl_token(t_sub line, t_hmap *mtl_lib, t_mtl **dst)
 	return (true);
 }
 
-t_bool			parse_mtl(int fd, t_hmap *mtl_lib)
+bool			parse_mtl(int fd, t_hmap *mtl_lib)
 {
 	t_mtl			*curr_mtl;
 	t_sub			line;
@@ -62,7 +62,7 @@ t_bool			parse_mtl(int fd, t_hmap *mtl_lib)
 		if (curr_mtl == NULL)
 			continue ;
 		i = -1;
-		while (++i < G_ARRAY_LEN(g_mtl_tokens))
+		while (++i < ARRAY_LEN(g_mtl_tokens))
 			if (ft_subequ(g_mtl_tokens[i].name, line)
 				&& !g_mtl_tokens[i].f(SUB(line.str + line.length, 0), curr_mtl)
 				&& !IGNORE_ERROR)

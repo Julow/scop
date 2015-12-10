@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:49:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/28 00:12:19 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_mesh_token const	g_tokens[] = {
 	{SUB(NULL, 0), NULL}
 };
 
-t_bool			parse_mesh(char const *file, t_mesh_data *data)
+bool			parse_mesh(char const *file, t_mesh_data *data)
 {
 	t_sub			line;
 	int				fd;

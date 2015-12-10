@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:06:09 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ struct	s_scene_obj
 
 #define TRANSFORM(p,o,r,h,s,f)	((t_transform){{},VEC3 p,VEC3 o,VEC3 r,VEC3 h, VEC3 s,f})
 #define TRANSFORM0()			((0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)
-#define S_OBJ(m,a,t,c)			((t_scene_obj){SUBC(m),a,TRANSFORM t,(t_scene_obj*)c,(c == NULL) ? 0 : G_ARRAY_LEN(c)})
+#define S_OBJ(m,a,t,c)			((t_scene_obj){SUBC(m),a,TRANSFORM t,(t_scene_obj*)c,(c == NULL) ? 0 : ARRAY_LEN(c)})
 
 static const t_scene_obj	g_scene[] = {
 	S_OBJ(NULL, ANIM_MOVE(1800, F_ANIM_REVERSE, (0.f, 0.f, 0.f), (10.f, 0.f, 10.f), &smooth_linear), TRANSFORM0(), ((t_scene_obj[]){
@@ -88,13 +88,13 @@ static t_obj	*load_obj(t_scene_obj const *data)
 	return (obj);
 }
 
-t_bool			load_scene(t_scop *scop)
+bool			load_scene(t_scop *scop)
 {
 	t_obj			*obj;
 	int				i;
 
 	i = -1;
-	while (++i < G_ARRAY_LEN(g_scene))
+	while (++i < ARRAY_LEN(g_scene))
 		if ((obj = load_obj(g_scene + i)) != NULL)
 			ft_vpush_back(&(scop->objects), &obj, 1);
 	return (true);
@@ -105,7 +105,7 @@ t_bool			load_scene(t_scop *scop)
 ** Anim obj
 */
 
-static void		anim_objs(t_vector *objs, t_ulong now)
+static void		anim_objs(t_vector *objs, uint64_t now)
 {
 	t_obj			*obj;
 	int				i;

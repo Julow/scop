@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 12:11:44 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/08 17:10:20 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:01 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ft/gl.h"
 #include "utils.h"
 
-int				get_uniform_max_len(t_uint handle)
+int				get_uniform_max_len(uint32_t handle)
 {
 	int				max_len;
 
@@ -23,7 +23,7 @@ int				get_uniform_max_len(t_uint handle)
 	return (max_len);
 }
 
-void			load_uniforms(t_uint handle, t_hmap *uniforms)
+void			load_uniforms(uint32_t handle, t_hmap *uniforms)
 {
 	const int		max_len = get_uniform_max_len(handle);
 	int				count;

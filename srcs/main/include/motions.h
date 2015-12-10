@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 18:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:05:44 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ struct			s_motion_def
 	float			inv;
 };
 
-t_bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos);
-t_bool			handle_cursor_move(t_scop *scop, t_vec2 *look);
+bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos);
+bool			handle_cursor_move(t_scop *scop, t_vec2 *look);
 
 #endif

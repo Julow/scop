@@ -6,18 +6,18 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 10:50:57 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:18 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:57:42 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHADER_H
 # define SHADER_H
 
-typedef struct s_shader		t_shader;
-typedef struct s_uniform	t_uniform;
-
 # include "ft/libft.h"
 # include "ft/ft_hmap.h"
+
+typedef struct s_shader		t_shader;
+typedef struct s_uniform	t_uniform;
 
 # define SHADER_CACHE_SIZE		10
 # define SHADER_LOC_SIZE		25
@@ -34,7 +34,7 @@ typedef struct s_uniform	t_uniform;
 struct			s_shader
 {
 	t_hmap const	*uniforms;
-	t_uint			handle;
+	uint32_t		handle;
 };
 
 /*
@@ -42,9 +42,9 @@ struct			s_shader
 */
 struct			s_uniform
 {
-	t_uint			loc;
+	uint32_t		loc;
 	int				size;
-	t_uint			type;
+	uint32_t		type;
 };
 
 /*
@@ -60,6 +60,6 @@ struct			s_uniform
 // # define _UNIFORM(s,n)		(((t_uniform const*)ft_hmapget((s)->uniforms, SUBC(n)))->loc)
 # define _UNIFORM(s,n)		(shader_get_uniform(s,SUBC(n)))
 
-t_uint			shader_get_uniform(t_shader const *shader, t_sub name);
+uint32_t			shader_get_uniform(t_shader const *shader, t_sub name);
 
 #endif

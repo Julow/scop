@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 18:38:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:15 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft/ft_printf.h"
 #include "ft/ft_sub.h"
 
-t_bool			parse_fvec(t_sub line, float *vec, int len)
+bool			parse_fvec(t_sub line, float *vec, int len)
 {
 	int				i;
 

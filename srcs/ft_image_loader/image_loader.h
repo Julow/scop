@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/06 13:29:46 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/06 13:30:59 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 typedef struct	s_imgtype
 {
 	t_sub			ext;
-	t_bool			(*f)(t_in *in, t_img *dst);
+	bool			(*f)(t_in *in, t_img *dst);
 }				t_imgtype;
 
-t_bool			load_tga_image(t_in *in, t_img *dst);
+bool			load_tga_image(t_in *in, t_img *dst);
 
 #endif

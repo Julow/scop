@@ -6,20 +6,20 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:10:08 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:50:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_H
 # define MAIN_H
 
-typedef struct s_scop		t_scop;
-
 # include "ft/ft_vector.h"
 # include "ft/gl.h"
 # include "render.h"
 # include "obj.h"
 # include "camera.h"
+
+typedef struct s_scop		t_scop;
 
 # define WIN_RATIO			(1.f)
 # define WIN_HEIGHT			900
@@ -57,13 +57,13 @@ struct			s_scop
 /*
 ** init
 */
-t_bool			init_window(t_scop *scop);
+bool			init_window(t_scop *scop);
 
 /*
 ** update
 */
-t_bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos);
-t_bool			handle_cursor_move(t_scop *scop, t_vec2 *look);
+bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos);
+bool			handle_cursor_move(t_scop *scop, t_vec2 *look);
 
 /*
 ** callbacks
@@ -79,7 +79,7 @@ void			move_front(t_vec2 dir, t_vec3 *move, float inv);
 void			move_lateral(t_vec2 dir, t_vec3 *move, float inv);
 void			move_vertical(t_vec2 dir, t_vec3 *move, float inv);
 
-t_bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos);
-t_bool			handle_cursor_move(t_scop *scop, t_vec2 *look);
+bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos);
+bool			handle_cursor_move(t_scop *scop, t_vec2 *look);
 
 #endif

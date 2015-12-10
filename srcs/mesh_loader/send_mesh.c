@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 17:04:22 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:10:10 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #define VERTEX_SIZE		S(float, 8)
 #define OFFSET(n)		(void*)S(float, n)
 
-t_bool			send_mesh(t_mesh_data *data, t_mesh *mesh)
+bool			send_mesh(t_mesh_data *data, t_mesh *mesh)
 {
 	glGenVertexArrays(1, &(mesh->vao));
 	glGenBuffers(1, &(mesh->vbo));

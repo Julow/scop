@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:54:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:55 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:52:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 #include "utils.h"
 #include "ft/ft_sub.h"
 
-t_bool			parse_v(t_sub line, t_mesh_data *data)
+bool			parse_v(t_sub line, t_mesh_data *data)
 {
 	return (parse_fvec(line, ft_vpush_back(&(data->v), NULL, 1), 3));
 }
 
-t_bool			parse_vn(t_sub line, t_mesh_data *data)
+bool			parse_vn(t_sub line, t_mesh_data *data)
 {
 	return (parse_fvec(line, ft_vpush_back(&(data->vn), NULL, 1), 3));
 }
 
-t_bool			parse_vt(t_sub line, t_mesh_data *data)
+bool			parse_vt(t_sub line, t_mesh_data *data)
 {
 	return (parse_fvec(line, ft_vpush_back(&(data->vt), NULL, 1), 2));
 }
 
-static t_bool	parse_f_tri(t_sub *line, int *face)
+static bool		parse_f_tri(t_sub *line, int *face)
 {
 	int				tmp;
 	int				j;
@@ -51,7 +51,7 @@ static t_bool	parse_f_tri(t_sub *line, int *face)
 	return (true);
 }
 
-t_bool			parse_f(t_sub line, t_mesh_data *data)
+bool			parse_f(t_sub line, t_mesh_data *data)
 {
 	int				face[9];
 	int				i;

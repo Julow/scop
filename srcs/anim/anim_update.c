@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 19:12:19 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/29 17:28:30 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static float	anim_smooth(t_anim *anim, float delta)
 	return (delta);
 }
 
-void			anim_update(void *env, t_anim *anim, t_ulong now)
+void			anim_update(void *env, t_anim *anim, uint64_t now)
 {
 	float			delta;
 

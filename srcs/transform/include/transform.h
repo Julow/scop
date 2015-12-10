@@ -6,16 +6,16 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 08:34:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:05:29 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:59:30 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TRANSFORM_H
 # define TRANSFORM_H
 
-typedef struct s_transform	t_transform;
-
 # include "ft/math.h"
+
+typedef struct s_transform	t_transform;
 
 /*
 ** Hold transformation matrix

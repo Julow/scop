@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/06 13:27:30 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/06 13:44:51 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:50:34 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 #define OFFSET_WIDTH		12
 #define OFFSET_HEIGHT		14
 
-static t_bool	read_pixels(t_in *in, t_img *dst, int size, int pixel_size)
+static bool		read_pixels(t_in *in, t_img *dst, int size, int pixel_size)
 {
-	t_byte				*tmp;
-	const t_byte *const	end = (t_byte*)dst->data + size;
-	int					i;
+	uint8_t					*tmp;
+	const uint8_t *const	end = (uint8_t*)dst->data + size;
+	int						i;
 
-	tmp = (t_byte*)dst->data;
+	tmp = (uint8_t*)dst->data;
 	while (tmp < end)
 	{
 		i = 0;
@@ -41,22 +41,22 @@ static t_bool	read_pixels(t_in *in, t_img *dst, int size, int pixel_size)
 			tmp[i++] = in->buff[in->buff_i++];
 		}
 		while (i < 4)
-			tmp[i++] = (t_byte)-1;
+			tmp[i++] = (uint8_t)-1;
 		tmp += 4;
 	}
 	return (true);
 }
 
-t_bool			load_tga_image(t_in *in, t_img *dst)
+bool			load_tga_image(t_in *in, t_img *dst)
 {
-	t_byte			header[HEADER_SIZE];
+	uint8_t			header[HEADER_SIZE];
 	int				pixel_size;
 
 	if (!ft_read(in, (void*)header, HEADER_SIZE))
 		return (false);
-	pixel_size = (int)*AT(t_byte, header, OFFSET_PIX_SIZE);
-	if (*AT(t_byte, header, OFFSET_CM_TYPE) != 0
-		|| *AT(t_byte, header, OFFSET_IMG_TYPE) != 2
+	pixel_size = (int)*AT(uint8_t, header, OFFSET_PIX_SIZE);
+	if (*AT(uint8_t, header, OFFSET_CM_TYPE) != 0
+		|| *AT(uint8_t, header, OFFSET_IMG_TYPE) != 2
 		|| (pixel_size != 32 && pixel_size != 24))
 		return (false);
 	dst->width = (int)*AT(short, header, OFFSET_WIDTH);

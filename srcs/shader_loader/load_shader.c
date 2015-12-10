@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/15 14:06:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:10:20 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:58:56 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ struct s_enum_shader_t const	g_shader_t = {
 ** ?end
 */
 
-static t_bool	link_shader(t_uint *shaders, t_uint *dst)
+static bool		link_shader(uint32_t *shaders, uint32_t *dst)
 {
 	int				i;
 
@@ -54,16 +54,16 @@ static t_bool	link_shader(t_uint *shaders, t_uint *dst)
 	return (true);
 }
 
-static t_bool	load_shaders_file(char const *file, t_uint *dst)
+static bool		load_shaders_file(char const *file, uint32_t *dst)
 {
-	t_uint			shaders[g_shader_t.length];
+	uint32_t			shaders[g_shader_t.length];
 	int				tmp;
-	t_bool			success;
+	bool			success;
 	t_list			lines;
 
 	if ((tmp = open(file, O_RDONLY)) < 0)
 		return (false);
-	ft_bzero(shaders, sizeof(t_uint[g_shader_t.length]));
+	ft_bzero(shaders, sizeof(uint32_t[g_shader_t.length]));
 	lines = LIST(t_sub);
 	success = read_shader(tmp, &lines, shaders, g_shader_t.all);
 	close(tmp);
@@ -81,7 +81,7 @@ t_shader const	*load_shader(t_sub file_name)
 	static t_hmap	*cache = NULL;
 	t_hmap			*uniforms;
 	t_hpair			tmp;
-	t_uint			handle;
+	uint32_t			handle;
 
 	if (cache == NULL)
 		cache = ft_hmapnew(SHADER_CACHE_SIZE, &ft_djb2);

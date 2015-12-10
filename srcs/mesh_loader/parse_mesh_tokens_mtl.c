@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/08 19:15:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:56 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:52:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,17 @@
 #include "ft/ft_hmap.h"
 #include "ft/ft_sub.h"
 
-t_bool			parse_mtllib(t_sub line, t_mesh_data *data)
+bool			parse_mtllib(t_sub line, t_mesh_data *data)
 {
 	line.length = 0;
 	if (!ft_subnext(&line, IS_SPACE))
 		return (ft_error(false, "mtllib need an argument"));
 	if ((data->mtllib = load_mtl(line)) == NULL)
 		return (false);
-	// data->mtllib = *(t_hmap**)data->mtllib;
 	return (true);
 }
 
-t_bool			parse_usemtl(t_sub line, t_mesh_data *data)
+bool			parse_usemtl(t_sub line, t_mesh_data *data)
 {
 	t_mtl const		*mtl;
 	t_mesh_mtl		*tmp;

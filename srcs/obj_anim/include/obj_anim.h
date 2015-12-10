@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 20:08:09 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/08 17:05:40 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:56:35 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void			anim_c_scale3(t_obj *obj, float delta);
 ** f		from (x, y, z)
 ** t		to (x, y, z)
 */
-# define ANIM_MOVE(d,l,f,t,s)	_OBJ_ANIM(ANIM(d,l,&anim_c_move,s),VEC3 f,VEC3 t)
-# define ANIM_ROT(d,l,f,t,s)	_OBJ_ANIM(ANIM(d,l,&anim_c_rot,s),VEC3 f,VEC3 t)
-# define ANIM_SHEAR(d,l,f,t,s)	_OBJ_ANIM(ANIM(d,l,&anim_c_shear,s),VEC3 f,VEC3 t)
-# define ANIM_SCALE(d,l,f,t,s)	_OBJ_ANIM(ANIM(d,l,&anim_c_scale,s),VEC3 f,VEC3(t,0.f,0.f))
-# define ANIM_SCALE3(d,l,f,t,s)	_OBJ_ANIM(ANIM(d,l,&anim_c_scale3,s),VEC3 f,VEC3 t)
+# define ANIM_MOVE(d,l,f,t,s)	_OBJ_ANIM((d,l,&anim_c_move,s),f,VEC3 t)
+# define ANIM_ROT(d,l,f,t,s)	_OBJ_ANIM((d,l,&anim_c_rot,s),f,VEC3 t)
+# define ANIM_SHEAR(d,l,f,t,s)	_OBJ_ANIM((d,l,&anim_c_shear,s),f,VEC3 t)
+# define ANIM_SCALE(d,l,f,t,s)	_OBJ_ANIM((d,l,&anim_c_scale,s),f,VEC3(t,0,0))
+# define ANIM_SCALE3(d,l,f,t,s)	_OBJ_ANIM((d,l,&anim_c_scale3,s),f,VEC3 t)
 
-# define _OBJ_ANIM(a,f,t)		((t_anim*)(&(struct s_anim_obj){a,f,t}))
+# define _OBJ_ANIM(a,f,t)		((t_anim*)&(struct s_anim_obj){ANIM a,VEC3 f,t})
 
 #endif

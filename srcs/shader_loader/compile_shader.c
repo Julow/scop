@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:21:09 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/08 17:10:21 by juloo            ###   ########.fr       */
+/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "ft/ft_list.h"
 #include "ft/ft_printf.h"
 
-static void		shader_error(t_uint id, t_shader_t t)
+static void		shader_error(uint32_t id, t_shader_t t)
 {
 	char			err_buff[ERR_SHADER_BUFFER];
 
@@ -24,7 +24,7 @@ static void		shader_error(t_uint id, t_shader_t t)
 	ft_printf(C_RED "Shader Error (%s):" C_RESET " %s\n", t->name.str, err_buff);
 }
 
-t_bool			compile_shader(t_list *lines, t_uint *dst, t_shader_t t)
+bool			compile_shader(t_list *lines, uint32_t *dst, t_shader_t t)
 {
 	int				i;
 	char const		*strings[lines->length];
