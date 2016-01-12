@@ -6,27 +6,28 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:20:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:59:20 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/01/12 23:54:07 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "internal.h"
-#include "utils.h"
-#include "ft/gl.h"
-#include "ft/ft_sub.h"
 #include "ft/ft_list.h"
 #include "ft/get_next_line.h"
+#include "ft/gl.h"
+
+#include "internal.h"
+#include "utils.h"
 
 static bool		get_shader_type(t_sub line, t_shader_t *t)
 {
 	int				i;
+	t_sub			word;
 
-	line.length = MIN(SHADER_START.length, line.length);
-	if (!ft_subnext(&line, IS_SPACE))
+	word = SUB_LEN(line, MIN(SHADER_START.length, line.length));
+	if (!ft_subnext_is(line, &word, IS_SPACE))
 		return (false);
 	i = -1;
 	while (++i < g_shader_t.length)
-		if (ft_subequ(g_shader_t.values[i]->name, line))
+		if (ft_subequ(g_shader_t.values[i]->name, word))
 		{
 			*t = g_shader_t.values[i];
 			return (true);

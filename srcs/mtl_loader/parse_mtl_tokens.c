@@ -6,13 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:12:53 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/01/12 23:50:57 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 #include "utils.h"
-#include "ft/ft_sub.h"
 
 bool			ambient_color_token(t_sub line, t_mtl *mtl)
 {
@@ -32,8 +31,10 @@ bool			specular_color_token(t_sub line, t_mtl *mtl)
 bool			specular_exp_token(t_sub line, t_mtl *mtl)
 {
 	float			ns;
+	t_sub			word;
 
-	if (!ft_subnext(&line, IS_SPACE) || ft_subfloat(line, &ns) == 0)
+	word = SUB_START(line);
+	if (!ft_subnext_is(line, &word, IS_SPACE) || ft_subto_float(word, &ns) == 0)
 		return (false);
 	mtl->specular_exp = ROUND(ns);
 	return (true);

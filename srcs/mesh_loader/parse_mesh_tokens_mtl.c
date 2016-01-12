@@ -6,20 +6,22 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/08 19:15:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:52:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/01/12 23:45:40 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft/ft_hmap.h"
 
 #include "internal.h"
 #include "mtl_loader.h"
 #include "utils.h"
-#include "ft/ft_hmap.h"
-#include "ft/ft_sub.h"
 
 bool			parse_mtllib(t_sub line, t_mesh_data *data)
 {
-	line.length = 0;
-	if (!ft_subnext(&line, IS_SPACE))
+	t_sub			word;
+
+	word = SUB_START(line);
+	if (!ft_subnext_is(line, &word, IS_SPACE))
 		return (ft_error(false, "mtllib need an argument"));
 	if ((data->mtllib = load_mtl(line)) == NULL)
 		return (false);
@@ -30,13 +32,14 @@ bool			parse_usemtl(t_sub line, t_mesh_data *data)
 {
 	t_mtl const		*mtl;
 	t_mesh_mtl		*tmp;
+	t_sub			word;
 
-	line.length = 0;
 	if (data->mtllib == NULL)
 		return (false);
-	if (!ft_subnextc(&line, ' '))
-		return (ft_error(false, "usemtl need an argument\n"));
-	if ((mtl = ft_hmapget(data->mtllib, line).value) == NULL)
+	word = SUB_START(line);
+	if (!ft_subnext_is(line, &word, IS_SPACE))
+		return (ft_error(false, "usemtl need an argument"));
+	if ((mtl = ft_hmapget(data->mtllib, word).value) == NULL)
 		return (false);
 	tmp = VECTOR_GET(data->mtl, data->mtl.length - 1);
 	tmp->count = data->f.length;

@@ -6,13 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:54:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:52:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/01/13 00:27:04 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "internal.h"
 #include "utils.h"
-#include "ft/ft_sub.h"
 
 bool			parse_v(t_sub line, t_mesh_data *data)
 {
@@ -29,38 +28,38 @@ bool			parse_vt(t_sub line, t_mesh_data *data)
 	return (parse_fvec(line, ft_vpush_back(&(data->vt), NULL, 1), 2));
 }
 
-static bool		parse_f_tri(t_sub *line, int *face)
+static bool		parse_f_tri(t_sub line, int *face)
 {
-	int				tmp;
-	int				j;
+	uint32_t		tmp;
+	uint32_t		j;
 
-	j = -1;
-	while (++j < 3)
+	j = 0;
+	while (j < 3)
 	{
-		tmp = ft_subint(*line, face + j);
-		if (line->length <= tmp)
+		tmp = ft_subto_int(line, face + j);
+		j++;
+		if (line.length <= tmp)
 			break ;
-		if (line->str[tmp] != '/')
+		if (line.str[tmp] != '/')
 			return (ft_error(false, "Invalid separator"));
-		tmp++;
-		line->str += tmp;
-		line->length -= tmp;
+		line = SUB_FOR(line, tmp + 1);
 	}
-	while (++j < 3)
-		face[j] = 0;
+	while (j < 3)
+		face[j++] = 0;
 	return (true);
 }
 
 bool			parse_f(t_sub line, t_mesh_data *data)
 {
 	int				face[9];
+	t_sub			word;
 	int				i;
 
-	line.length = 0;
+	word = SUB_START(line);
 	i = 0;
-	while (ft_subnext(&line, IS_SPACE))
+	while (ft_subnext_is(line, &word, IS_SPACE))
 	{
-		if (!parse_f_tri(&line, face + i))
+		if (!parse_f_tri(word, face + i))
 			return (false);
 		if (i >= 6)
 		{

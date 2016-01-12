@@ -6,14 +6,15 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:49:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/01/12 23:41:03 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft/get_next_line.h"
+
 #include "internal.h"
 #include "utils.h"
-#include "ft/ft_sub.h"
-#include "ft/get_next_line.h"
+
 #include <fcntl.h>
 #include <unistd.h>
 
