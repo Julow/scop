@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 08:34:28 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:59:30 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/01/13 17:54:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ typedef struct s_transform	t_transform;
 ** Hold transformation matrix
 ** -
 ** bzero can be used to reset transformations
+** TODO: translate + rotate
+** TODO: remove reflect
+** TODO: remove origin
 */
 
 struct			s_transform

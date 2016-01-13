@@ -6,25 +6,27 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:45:55 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/01/13 19:23:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft/ft_printf.h"
+#include "ft/math.h"
+
+#include "anim.h"
+#include "events.h"
 #include "main.h"
-#include "shader.h"
 #include "mesh.h"
 #include "mesh_loader.h"
 #include "obj.h"
-#include "anim.h"
 #include "obj_anim.h"
 #include "render.h"
+#include "shader.h"
 #include "transform.h"
-#include "ft/math.h"
-#include "ft/ft_printf.h"
-#include "events.h"
 #include "utils.h"
-#include <stdlib.h>
+
 #include <math.h>
+#include <stdlib.h>
 
 /*
 ** ========================================================================== **
@@ -132,10 +134,8 @@ void			anim(t_scop *scop)
 ** TODO: module scene
 */
 
-void			render_objs(t_vector *objs, t_render_params *params,
-					t_mat4 const *const parent_mat)
+void			render_objs(t_vector *objs, t_render_params *params)
 {
-	t_mat4				top_matrix;
 	t_obj				*obj;
 	int					i;
 
@@ -143,15 +143,40 @@ void			render_objs(t_vector *objs, t_render_params *params,
 	while (++i < objs->length)
 	{
 		obj = *(t_obj**)VECTOR_GET(*objs, i);
-		if (parent_mat == NULL)
-			params->top_matrix = ft_transform_get(&(obj->transform));
-		else
-			params->top_matrix = ft_mat4mult(ft_transform_get(&(obj->transform)),
-				parent_mat, &top_matrix);
+		params->top_matrix = ft_transform_get(&(obj->world_transform));
 		if (obj->mesh != NULL)
 			simple_render(params, obj->mesh);
 		if (obj->childs.length > 0)
-			render_objs(&(obj->childs), params, params->top_matrix);
+			render_objs(&(obj->childs), params);
+	}
+}
+
+void			update_world_transform(t_vector *objs, t_transform const *parent)
+{
+	t_obj				*obj;
+	int					i;
+
+	i = -1;
+	while (++i < objs->length)
+	{
+		obj = *(t_obj**)VECTOR_GET(*objs, i);
+		if (parent != NULL)
+		{
+			obj->world_transform.position = VEC3_ADD(obj->transform.position, parent->position);
+			obj->world_transform.rotation = VEC3_ADD(obj->transform.rotation, parent->rotation);
+			obj->world_transform.scale = VEC3_MULT(obj->transform.scale, parent->scale);
+			obj->world_transform.shear = VEC3_ADD(obj->transform.shear, parent->shear);
+		}
+		else
+		{
+			obj->world_transform.position = obj->transform.position;
+			obj->world_transform.rotation = obj->transform.rotation;
+			obj->world_transform.scale = obj->transform.scale;
+			obj->world_transform.shear = obj->transform.shear;
+		}
+		obj->world_transform.flags &= ~F_TRANSFORM_OK;
+		if (obj->childs.length > 0)
+			update_world_transform(&obj->childs, &obj->world_transform);
 	}
 }
 
@@ -164,7 +189,8 @@ void			render(t_scop *scop)
 	params = (t_render_params){&(scop->camera), &(scop->projection_m), NULL};
 	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	render_objs(&(scop->objects), &params, NULL);
+	update_world_transform(&scop->objects, NULL);
+	render_objs(&scop->objects, &params);
 }
 
 /*
