@@ -30,7 +30,6 @@ module obj: obj
 
 	public require ft::vector
 	public require ft::math
-	public require transform
 	public require mesh
 	public require anim
 	public require camera
@@ -42,12 +41,6 @@ module obj_anim: obj_anim
 	public require obj
 	public require ft::math
 	public require anim
-
-module transform: transform
-
-	public include include/
-
-	public require ft::math
 
 module utils: utils
 
@@ -140,7 +133,6 @@ main module main: main
 	private require ft::printf
 	private require ft::gl
 	private require render
-	private require transform
 	private require ft::vector
 	private require camera
 	private require ft::math

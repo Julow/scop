@@ -6,12 +6,12 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 20:45:05 by juloo             #+#    #+#             */
-/*   Updated: 2015/09/27 20:51:10 by juloo            ###   ########.fr       */
+/*   Updated: 2016/01/15 23:15:41 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "obj_anim.h"
 #include "obj.h"
+#include "obj_anim.h"
 
 void			anim_c_rot(t_obj *obj, float delta)
 {
@@ -21,5 +21,5 @@ void			anim_c_rot(t_obj *obj, float delta)
 	rot.x = (anim->to.x - anim->from.x) * delta + anim->from.x;
 	rot.y = (anim->to.y - anim->from.y) * delta + anim->from.y;
 	rot.z = (anim->to.z - anim->from.z) * delta + anim->from.z;
-	ft_transform_rotate(&(obj->transform), rot);
+	ft_obj_rotate(obj, rot, true);
 }

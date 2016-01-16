@@ -1,16 +1,16 @@
 INCLUDE_FLAGS += -I$(O_DIR)/_public
 LINK_FLAGS += -lm
-OBJ_DIR_TREE += $(O_DIR)/srcs/utils/ $(O_DIR)/srcs/transform/ \
-	$(O_DIR)/srcs/texture_loader/ $(O_DIR)/srcs/shader_loader/ \
-	$(O_DIR)/srcs/render/ $(O_DIR)/srcs/obj_anim/ $(O_DIR)/srcs/mtl_loader/ \
-	$(O_DIR)/srcs/mesh_loader/ $(O_DIR)/srcs/main/ \
-	$(O_DIR)/srcs/ft_image_loader/ $(O_DIR)/srcs/events/ $(O_DIR)/srcs/camera/ \
-	$(O_DIR)/srcs/anim/ $(O_DIR)/srcs/ $(O_DIR)/libft/get_next_line/ \
-	$(O_DIR)/libft/ft_vector/ $(O_DIR)/libft/ft_printf/formats/ \
-	$(O_DIR)/libft/ft_printf/ $(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_math/ \
-	$(O_DIR)/libft/ft_list/ $(O_DIR)/libft/ft_in/ $(O_DIR)/libft/ft_hmap/ \
-	$(O_DIR)/libft/ft_dstr/ $(O_DIR)/libft/ft_base/ $(O_DIR)/libft/ \
-	$(O_DIR)/_public/ft/ $(O_DIR)/_public/ $(O_DIR)/
+OBJ_DIR_TREE += $(O_DIR)/srcs/utils/ $(O_DIR)/srcs/texture_loader/ \
+	$(O_DIR)/srcs/shader_loader/ $(O_DIR)/srcs/render/ $(O_DIR)/srcs/obj_anim/ \
+	$(O_DIR)/srcs/obj/ $(O_DIR)/srcs/mtl_loader/ $(O_DIR)/srcs/mesh_loader/ \
+	$(O_DIR)/srcs/main/ $(O_DIR)/srcs/ft_image_loader/ $(O_DIR)/srcs/events/ \
+	$(O_DIR)/srcs/camera/ $(O_DIR)/srcs/anim/ $(O_DIR)/srcs/ \
+	$(O_DIR)/libft/get_next_line/ $(O_DIR)/libft/ft_vector/ \
+	$(O_DIR)/libft/ft_printf/formats/ $(O_DIR)/libft/ft_printf/ \
+	$(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_math/ $(O_DIR)/libft/ft_list/ \
+	$(O_DIR)/libft/ft_in/ $(O_DIR)/libft/ft_hmap/ $(O_DIR)/libft/ft_dstr/ \
+	$(O_DIR)/libft/ft_base/ $(O_DIR)/libft/ $(O_DIR)/_public/ft/ \
+	$(O_DIR)/_public/ $(O_DIR)/
 O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/srcs/anim/smooth_back_in.o \
 	$(O_DIR)/srcs/anim/smooth_back_in_out.o \
@@ -96,22 +96,17 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/srcs/mtl_loader/parse_mtl.o \
 	$(O_DIR)/srcs/mtl_loader/parse_mtl_tokens.o \
 	$(O_DIR)/srcs/mtl_loader/parse_mtl_tokens_map.o \
-	$(O_DIR)/srcs/obj_anim/anim_c_move.o $(O_DIR)/srcs/obj_anim/anim_c_rot.o \
-	$(O_DIR)/srcs/obj_anim/anim_c_scale.o \
+	$(O_DIR)/srcs/obj/ft_obj_matrix.o $(O_DIR)/srcs/obj/ft_obj_rotate.o \
+	$(O_DIR)/srcs/obj/ft_obj_scale.o $(O_DIR)/srcs/obj/ft_obj_shear.o \
+	$(O_DIR)/srcs/obj/ft_obj_translate.o $(O_DIR)/srcs/obj_anim/anim_c_move.o \
+	$(O_DIR)/srcs/obj_anim/anim_c_rot.o $(O_DIR)/srcs/obj_anim/anim_c_scale.o \
 	$(O_DIR)/srcs/obj_anim/anim_c_shear.o $(O_DIR)/srcs/render/simple_render.o \
 	$(O_DIR)/srcs/shader_loader/compile_shader.o \
 	$(O_DIR)/srcs/shader_loader/load_shader.o \
 	$(O_DIR)/srcs/shader_loader/load_uniforms.o \
 	$(O_DIR)/srcs/shader_loader/read_shader.o \
 	$(O_DIR)/srcs/shader_loader/shader_get_uniform.o \
-	$(O_DIR)/srcs/texture_loader/load_texture.o \
-	$(O_DIR)/srcs/transform/ft_transform_get.o \
-	$(O_DIR)/srcs/transform/ft_transform_move.o \
-	$(O_DIR)/srcs/transform/ft_transform_origin.o \
-	$(O_DIR)/srcs/transform/ft_transform_reflect.o \
-	$(O_DIR)/srcs/transform/ft_transform_rotate.o \
-	$(O_DIR)/srcs/transform/ft_transform_scale.o \
-	$(O_DIR)/srcs/transform/ft_transform_shear.o $(O_DIR)/srcs/utils/fps.o \
+	$(O_DIR)/srcs/texture_loader/load_texture.o $(O_DIR)/srcs/utils/fps.o \
 	$(O_DIR)/srcs/utils/ft_error.o $(O_DIR)/srcs/utils/ft_listremove_next.o \
 	$(O_DIR)/srcs/utils/ft_subends.o $(O_DIR)/srcs/utils/ft_substart.o \
 	$(O_DIR)/srcs/utils/parse_fvec.o
@@ -130,8 +125,7 @@ PUBLIC_LINKS += $(O_DIR)/_public/anim.h $(O_DIR)/_public/camera.h \
 	$(O_DIR)/_public/obj.h $(O_DIR)/_public/obj_anim.h \
 	$(O_DIR)/_public/render.h $(O_DIR)/_public/shader.h \
 	$(O_DIR)/_public/shader_loader.h $(O_DIR)/_public/texture.h \
-	$(O_DIR)/_public/texture_loader.h $(O_DIR)/_public/transform.h \
-	$(O_DIR)/_public/utils.h
+	$(O_DIR)/_public/texture_loader.h $(O_DIR)/_public/utils.h
 
 # module anim
 $(O_DIR)/srcs/anim/anim_start.o: srcs/anim/anim_start.c \
@@ -506,16 +500,14 @@ $(O_DIR)/srcs/main/callbacks.o: srcs/main/callbacks.c \
 	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/events/include/events.h \
 	srcs/main/include/main.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
-	srcs/obj/include/obj.h srcs/render/public/render.h srcs/texture/texture.h \
-	srcs/transform/include/transform.h
+	srcs/obj/include/obj.h srcs/render/public/render.h srcs/texture/texture.h
 $(O_DIR)/srcs/main/init_window.o: srcs/main/init_window.c \
 	libft/ft_base/public/libft.h libft/ft_gl/gl.h \
 	libft/ft_list/public/ft_list.h libft/ft_math/public/math.h \
 	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/main/include/main.h srcs/mesh/mesh.h \
 	srcs/mtl/mtl.h srcs/obj/include/obj.h srcs/render/public/render.h \
-	srcs/texture/texture.h srcs/transform/include/transform.h \
-	srcs/utils/include/utils.h
+	srcs/texture/texture.h srcs/utils/include/utils.h
 $(O_DIR)/srcs/main/main.o: srcs/main/main.c libft/ft_base/public/libft.h \
 	libft/ft_gl/gl.h libft/ft_hmap/public/ft_hmap.h \
 	libft/ft_list/public/ft_list.h libft/ft_math/public/math.h \
@@ -526,14 +518,13 @@ $(O_DIR)/srcs/main/main.o: srcs/main/main.c libft/ft_base/public/libft.h \
 	srcs/mesh_loader/include/public/mesh_loader.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
 	srcs/render/public/render.h srcs/shader/shader.h srcs/texture/texture.h \
-	srcs/transform/include/transform.h srcs/utils/include/utils.h
+	srcs/utils/include/utils.h
 $(O_DIR)/srcs/main/motions.o: srcs/main/motions.c libft/ft_base/public/libft.h \
 	libft/ft_gl/gl.h libft/ft_math/public/math.h \
 	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/main/include/main.h \
 	srcs/main/include/motions.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
-	srcs/obj/include/obj.h srcs/render/public/render.h srcs/texture/texture.h \
-	srcs/transform/include/transform.h
+	srcs/obj/include/obj.h srcs/render/public/render.h srcs/texture/texture.h
 
 $(O_DIR)/srcs/main/callbacks.o $(O_DIR)/srcs/main/init_window.o \
 $(O_DIR)/srcs/main/main.o $(O_DIR)/srcs/main/motions.o: MDR += lol
@@ -639,6 +630,31 @@ $(O_DIR)/srcs/mtl_loader/parse_mtl_tokens_map.o: INCLUDE_FLAGS += \
 	-Isrcs/mtl_loader/include
 
 # module obj
+$(O_DIR)/srcs/obj/ft_obj_matrix.o: srcs/obj/ft_obj_matrix.c \
+	libft/ft_base/public/libft.h libft/ft_math/public/math.h \
+	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
+	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/texture/texture.h
+$(O_DIR)/srcs/obj/ft_obj_rotate.o: srcs/obj/ft_obj_rotate.c \
+	libft/ft_base/public/libft.h libft/ft_math/public/math.h \
+	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
+	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/texture/texture.h
+$(O_DIR)/srcs/obj/ft_obj_scale.o: srcs/obj/ft_obj_scale.c \
+	libft/ft_base/public/libft.h libft/ft_math/public/math.h \
+	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
+	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/texture/texture.h
+$(O_DIR)/srcs/obj/ft_obj_shear.o: srcs/obj/ft_obj_shear.c \
+	libft/ft_base/public/libft.h libft/ft_math/public/math.h \
+	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
+	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/texture/texture.h
+$(O_DIR)/srcs/obj/ft_obj_translate.o: srcs/obj/ft_obj_translate.c \
+	libft/ft_base/public/libft.h libft/ft_math/public/math.h \
+	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
+	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/texture/texture.h
 
 # module obj_anim
 $(O_DIR)/srcs/obj_anim/anim_c_move.o: srcs/obj_anim/anim_c_move.c \
@@ -646,25 +662,25 @@ $(O_DIR)/srcs/obj_anim/anim_c_move.o: srcs/obj_anim/anim_c_move.c \
 	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
-	srcs/texture/texture.h srcs/transform/include/transform.h
+	srcs/texture/texture.h
 $(O_DIR)/srcs/obj_anim/anim_c_rot.o: srcs/obj_anim/anim_c_rot.c \
 	libft/ft_base/public/libft.h libft/ft_math/public/math.h \
 	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
-	srcs/texture/texture.h srcs/transform/include/transform.h
+	srcs/texture/texture.h
 $(O_DIR)/srcs/obj_anim/anim_c_scale.o: srcs/obj_anim/anim_c_scale.c \
 	libft/ft_base/public/libft.h libft/ft_math/public/math.h \
 	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
-	srcs/texture/texture.h srcs/transform/include/transform.h
+	srcs/texture/texture.h
 $(O_DIR)/srcs/obj_anim/anim_c_shear.o: srcs/obj_anim/anim_c_shear.c \
 	libft/ft_base/public/libft.h libft/ft_math/public/math.h \
 	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/obj_anim/include/obj_anim.h \
-	srcs/texture/texture.h srcs/transform/include/transform.h
+	srcs/texture/texture.h
 
 # module render
 $(O_DIR)/srcs/render/simple_render.o: srcs/render/simple_render.c \
@@ -730,28 +746,6 @@ $(O_DIR)/srcs/texture_loader/load_texture.o: \
 $(O_DIR)/srcs/texture_loader/load_texture.o: INCLUDE_FLAGS += \
 	-Isrcs/texture_loader/include
 
-# module transform
-$(O_DIR)/srcs/transform/ft_transform_get.o: srcs/transform/ft_transform_get.c \
-	libft/ft_math/public/math.h srcs/transform/include/transform.h
-$(O_DIR)/srcs/transform/ft_transform_move.o: \
-	srcs/transform/ft_transform_move.c libft/ft_math/public/math.h \
-	srcs/transform/include/transform.h
-$(O_DIR)/srcs/transform/ft_transform_origin.o: \
-	srcs/transform/ft_transform_origin.c libft/ft_math/public/math.h \
-	srcs/transform/include/transform.h
-$(O_DIR)/srcs/transform/ft_transform_reflect.o: \
-	srcs/transform/ft_transform_reflect.c libft/ft_math/public/math.h \
-	srcs/transform/include/transform.h
-$(O_DIR)/srcs/transform/ft_transform_rotate.o: \
-	srcs/transform/ft_transform_rotate.c libft/ft_math/public/math.h \
-	srcs/transform/include/transform.h
-$(O_DIR)/srcs/transform/ft_transform_scale.o: \
-	srcs/transform/ft_transform_scale.c libft/ft_math/public/math.h \
-	srcs/transform/include/transform.h
-$(O_DIR)/srcs/transform/ft_transform_shear.o: \
-	srcs/transform/ft_transform_shear.c libft/ft_math/public/math.h \
-	srcs/transform/include/transform.h
-
 # module utils
 $(O_DIR)/srcs/utils/fps.o: srcs/utils/fps.c libft/ft_base/public/libft.h \
 	libft/ft_list/public/ft_list.h srcs/utils/include/utils.h
@@ -809,5 +803,4 @@ $(O_DIR)/_public/shader_loader.h: \
 srcs/shader_loader/include/public/shader_loader.h
 $(O_DIR)/_public/texture.h: srcs/texture/texture.h
 $(O_DIR)/_public/texture_loader.h: srcs/texture_loader/public/texture_loader.h
-$(O_DIR)/_public/transform.h: srcs/transform/include/transform.h
 $(O_DIR)/_public/utils.h: srcs/utils/include/utils.h

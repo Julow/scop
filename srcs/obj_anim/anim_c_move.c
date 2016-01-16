@@ -6,12 +6,12 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 20:44:58 by juloo             #+#    #+#             */
-/*   Updated: 2015/11/03 10:26:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/01/15 23:15:58 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "obj_anim.h"
 #include "obj.h"
+#include "obj_anim.h"
 
 void			anim_c_move(t_obj *obj, float delta)
 {
@@ -21,5 +21,5 @@ void			anim_c_move(t_obj *obj, float delta)
 	pos.x = (anim->to.x - anim->from.x) * delta + anim->from.x;
 	pos.y = (anim->to.y - anim->from.y) * delta + anim->from.y;
 	pos.z = (anim->to.z - anim->from.z) * delta + anim->from.z;
-	ft_transform_move(&(obj->transform), pos);
+	ft_obj_translate(obj, pos, true);
 }

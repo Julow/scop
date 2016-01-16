@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/01/13 19:23:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/01/16 01:31:50 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 #include "obj_anim.h"
 #include "render.h"
 #include "shader.h"
-#include "transform.h"
 #include "utils.h"
 
 #include <math.h>
@@ -43,7 +42,7 @@ struct	s_scene_obj
 	int				child_count;
 };
 
-#define TRANSFORM(p,o,r,h,s,f)	((t_transform){{},VEC3 p,VEC3 o,VEC3 r,VEC3 h, VEC3 s,f})
+#define TRANSFORM(p,o,r,h,s,f)	((t_transform){VEC3 p,VEC3 r,VEC3 h,VEC3 s})
 #define TRANSFORM0()			((0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)
 #define S_OBJ(m,a,t,c)			((t_scene_obj){SUBC(m),a,TRANSFORM t,(t_scene_obj*)c,(c == NULL) ? 0 : ARRAY_LEN(c)})
 
@@ -65,40 +64,38 @@ static const t_scene_obj	g_scene[] = {
 	// S_OBJ("res/obj/venice.obj", NULL, ((0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)),
 };
 
-static t_obj	*load_obj(t_scene_obj const *data)
+static void		load_obj(t_obj *dst, t_scene_obj const *data)
 {
-	t_obj			*obj;
-	t_mesh const	*mesh;
-	t_obj			*tmp;
-	int				i;
+	uint32_t		i;
 
-	if (data->mesh.str == NULL)
-		mesh = NULL;
-	else
-		mesh = load_mesh(data->mesh);
-	obj = MAL1(t_obj);
-	obj->anim = data->anim;
-	obj->mesh = mesh;
-	if (obj->anim != NULL)
-		anim_start(obj->anim); // TODO: move to scene
-	obj->transform = data->transform;
-	obj->childs = VECTOR(t_obj*);
-	i = -1;
-	while (++i < data->child_count)
-		if ((tmp = load_obj(data->childs + i)) != NULL)
-			ft_vpush_back(&(obj->childs), &tmp, 1);
-	return (obj);
+	ft_bzero(dst, sizeof(t_obj));
+	dst->anim = data->anim;
+	dst->mesh = (data->mesh.str == NULL) ? NULL : load_mesh(data->mesh);
+	if (dst->anim != NULL)
+		anim_start(dst->anim); // TODO: move to scene
+	dst->childs = VECTOR(t_obj);
+	i = 0;
+	while (i < data->child_count)
+	{
+		load_obj(ft_vpush_back(&(dst->childs), NULL, 1), data->childs + i);
+		i++;
+	}
+	ft_obj_translate(dst, data->transform.position, false);
+	ft_obj_rotate(dst, data->transform.rotation, false);
+	ft_obj_scale(dst, data->transform.scale, true);
+	ft_obj_shear(dst, data->transform.shear, false);
 }
 
 bool			load_scene(t_scop *scop)
 {
-	t_obj			*obj;
-	int				i;
+	uint32_t		i;
 
-	i = -1;
-	while (++i < ARRAY_LEN(g_scene))
-		if ((obj = load_obj(g_scene + i)) != NULL)
-			ft_vpush_back(&(scop->objects), &obj, 1);
+	i = 0;
+	while (i < ARRAY_LEN(g_scene))
+	{
+		load_obj(ft_vpush_back(&(scop->objects), NULL, 1), g_scene + i);
+		i++;
+	}
 	return (true);
 }
 
@@ -115,7 +112,7 @@ static void		anim_objs(t_vector *objs, uint64_t now)
 	i = -1;
 	while (++i < objs->length)
 	{
-		obj = *(t_obj**)VECTOR_GET(*objs, i);
+		obj = VECTOR_GET(*objs, i);
 		if (obj->anim != NULL)
 			anim_update(obj, obj->anim, now);
 		if (obj->childs.length > 0)
@@ -136,47 +133,18 @@ void			anim(t_scop *scop)
 
 void			render_objs(t_vector *objs, t_render_params *params)
 {
-	t_obj				*obj;
-	int					i;
+	t_obj			*obj;
+	int				i;
 
 	i = -1;
 	while (++i < objs->length)
 	{
-		obj = *(t_obj**)VECTOR_GET(*objs, i);
-		params->top_matrix = ft_transform_get(&(obj->world_transform));
+		obj = VECTOR_GET(*objs, i);
+		params->top_matrix = ft_obj_matrix(obj);
 		if (obj->mesh != NULL)
 			simple_render(params, obj->mesh);
 		if (obj->childs.length > 0)
 			render_objs(&(obj->childs), params);
-	}
-}
-
-void			update_world_transform(t_vector *objs, t_transform const *parent)
-{
-	t_obj				*obj;
-	int					i;
-
-	i = -1;
-	while (++i < objs->length)
-	{
-		obj = *(t_obj**)VECTOR_GET(*objs, i);
-		if (parent != NULL)
-		{
-			obj->world_transform.position = VEC3_ADD(obj->transform.position, parent->position);
-			obj->world_transform.rotation = VEC3_ADD(obj->transform.rotation, parent->rotation);
-			obj->world_transform.scale = VEC3_MULT(obj->transform.scale, parent->scale);
-			obj->world_transform.shear = VEC3_ADD(obj->transform.shear, parent->shear);
-		}
-		else
-		{
-			obj->world_transform.position = obj->transform.position;
-			obj->world_transform.rotation = obj->transform.rotation;
-			obj->world_transform.scale = obj->transform.scale;
-			obj->world_transform.shear = obj->transform.shear;
-		}
-		obj->world_transform.flags &= ~F_TRANSFORM_OK;
-		if (obj->childs.length > 0)
-			update_world_transform(&obj->childs, &obj->world_transform);
 	}
 }
 
@@ -189,7 +157,6 @@ void			render(t_scop *scop)
 	params = (t_render_params){&(scop->camera), &(scop->projection_m), NULL};
 	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	update_world_transform(&scop->objects, NULL);
 	render_objs(&scop->objects, &params);
 }
 
@@ -218,7 +185,7 @@ int				main(void)
 	int				last_flags;
 
 	ft_bzero(&scop, sizeof(scop));
-	scop.objects = VECTOR(t_obj*);
+	scop.objects = VECTOR(t_obj);
 	scop.camera = CAMERA(VEC3_0(), VEC2_0());
 	scop.projection_m = ft_mat4perspective(PERSPECTIVE_FOV, WIN_RATIO,
 		PERSPECTIVE_NEAR, PERSPECTIVE_FAR);
