@@ -82,8 +82,7 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/libft/ft_printf/formats/str.o $(O_DIR)/libft/ft_printf/ft_out.o \
 	$(O_DIR)/libft/ft_printf/ft_printf.o $(O_DIR)/libft/ft_printf/ft_putf.o \
 	$(O_DIR)/libft/ft_printf/ft_vprintf.o $(O_DIR)/libft/ft_vector/ft_vclear.o \
-	$(O_DIR)/libft/ft_vector/ft_vpush_back.o \
-	$(O_DIR)/libft/ft_vector/ft_vremove.o \
+	$(O_DIR)/libft/ft_vector/ft_vpush.o $(O_DIR)/libft/ft_vector/ft_vremove.o \
 	$(O_DIR)/libft/ft_vector/ft_vreserve.o $(O_DIR)/srcs/main/callbacks.o \
 	$(O_DIR)/srcs/main/init_window.o $(O_DIR)/srcs/main/main.o \
 	$(O_DIR)/srcs/main/motions.o $(O_DIR)/srcs/mesh_loader/build_mesh.o \
@@ -487,7 +486,7 @@ $(O_DIR)/libft/ft_printf/ft_putf.o $(O_DIR)/libft/ft_printf/ft_vprintf.o: \
 # module ft::vector
 $(O_DIR)/libft/ft_vector/ft_vclear.o: libft/ft_vector/ft_vclear.c \
 	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h
-$(O_DIR)/libft/ft_vector/ft_vpush_back.o: libft/ft_vector/ft_vpush_back.c \
+$(O_DIR)/libft/ft_vector/ft_vpush.o: libft/ft_vector/ft_vpush.c \
 	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h
 $(O_DIR)/libft/ft_vector/ft_vremove.o: libft/ft_vector/ft_vremove.c \
 	libft/ft_base/public/libft.h libft/ft_vector/public/ft_vector.h

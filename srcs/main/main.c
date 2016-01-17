@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/01/16 01:31:50 by juloo            ###   ########.fr       */
+/*   Updated: 2016/01/17 20:38:22 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,53 @@
 
 #include <math.h>
 #include <stdlib.h>
+
+// /*
+// ** ========================================================================== **
+// ** Component
+// */
+
+// typedef struct s_component		t_component;
+// typedef struct s_component_bind	t_component_bind;
+
+// struct		s_component
+// {
+// 	void		(*update)(t_component*);
+// };
+
+// struct		s_component_bind
+// {
+// 	t_component	*component;
+// };
+
+// /*
+// ** ========================================================================== **
+// ** Obj anim component
+// */
+
+// typedef t_component						t_anim_component;
+// typedef struct s_anim_component_bind	t_anim_component_bind;
+
+// struct			s_anim_component_bind
+// {
+// 	t_anim			anim;
+// 	t_vec3			from;
+// 	t_vec3			to;
+// };
+
+// void		anim_component_bind(t_anim_component *c, t_obj *obj,
+// 				t_anim_component_bind const *bind)
+// {
+// 	t_component_bind	bind;
+
+// 	bind = (t_component_bind){c};
+// }
+
+// void		anim_component_update(t_anim_component *c, t_obj *obj,
+// 				t_anim_component_bind *bind)
+// {
+// 	anim_update(bind, &bind->anim, ft_clock());
+// }
 
 /*
 ** ========================================================================== **
@@ -64,38 +111,37 @@ static const t_scene_obj	g_scene[] = {
 	// S_OBJ("res/obj/venice.obj", NULL, ((0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)),
 };
 
-static void		load_obj(t_obj *dst, t_scene_obj const *data)
+static void		load_obj(t_vector *dst, t_scene_obj const *data, uint32_t count)
 {
 	uint32_t		i;
+	t_obj			*obj;
+	uint32_t const	tmp_capacity = dst->capacity;
 
-	ft_bzero(dst, sizeof(t_obj));
-	dst->anim = data->anim;
-	dst->mesh = (data->mesh.str == NULL) ? NULL : load_mesh(data->mesh);
-	if (dst->anim != NULL)
-		anim_start(dst->anim); // TODO: move to scene
-	dst->childs = VECTOR(t_obj);
+	ft_vreserve(dst, count);
 	i = 0;
-	while (i < data->child_count)
+	while (i < count)
 	{
-		load_obj(ft_vpush_back(&(dst->childs), NULL, 1), data->childs + i);
+		obj = MAL1(t_obj);
+		ft_vpush(dst, &obj, 1);
+		ft_bzero(obj, sizeof(t_obj));
+		obj->anim = data[i].anim;
+		obj->mesh = (data[i].mesh.str == NULL) ? NULL : load_mesh(data[i].mesh);
+		if (obj->anim != NULL)
+			anim_start(obj->anim); // TODO: move to scene
+		obj->childs = VECTOR(t_obj*);
+		load_obj(&obj->childs, data[i].childs, data[i].child_count);
+		ft_obj_translate(obj, data[i].transform.position, false);
+		ft_obj_rotate(obj, data[i].transform.rotation, false);
+		ft_obj_scale(obj, data[i].transform.scale, false);
+		ft_obj_shear(obj, data[i].transform.shear, false);
 		i++;
 	}
-	ft_obj_translate(dst, data->transform.position, false);
-	ft_obj_rotate(dst, data->transform.rotation, false);
-	ft_obj_scale(dst, data->transform.scale, true);
-	ft_obj_shear(dst, data->transform.shear, false);
+	ft_printf("CAPACITY: %u -> %u%n", tmp_capacity, dst->capacity);
 }
 
 bool			load_scene(t_scop *scop)
 {
-	uint32_t		i;
-
-	i = 0;
-	while (i < ARRAY_LEN(g_scene))
-	{
-		load_obj(ft_vpush_back(&(scop->objects), NULL, 1), g_scene + i);
-		i++;
-	}
+	load_obj(&scop->objects, g_scene, ARRAY_LEN(g_scene));
 	return (true);
 }
 
@@ -112,7 +158,7 @@ static void		anim_objs(t_vector *objs, uint64_t now)
 	i = -1;
 	while (++i < objs->length)
 	{
-		obj = VECTOR_GET(*objs, i);
+		obj = *(t_obj**)VECTOR_GET(*objs, i);
 		if (obj->anim != NULL)
 			anim_update(obj, obj->anim, now);
 		if (obj->childs.length > 0)
@@ -139,7 +185,7 @@ void			render_objs(t_vector *objs, t_render_params *params)
 	i = -1;
 	while (++i < objs->length)
 	{
-		obj = VECTOR_GET(*objs, i);
+		obj = *(t_obj**)VECTOR_GET(*objs, i);
 		params->top_matrix = ft_obj_matrix(obj);
 		if (obj->mesh != NULL)
 			simple_render(params, obj->mesh);
@@ -185,7 +231,7 @@ int				main(void)
 	int				last_flags;
 
 	ft_bzero(&scop, sizeof(scop));
-	scop.objects = VECTOR(t_obj);
+	scop.objects = VECTOR(t_obj*);
 	scop.camera = CAMERA(VEC3_0(), VEC2_0());
 	scop.projection_m = ft_mat4perspective(PERSPECTIVE_FOV, WIN_RATIO,
 		PERSPECTIVE_NEAR, PERSPECTIVE_FAR);

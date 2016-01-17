@@ -6,13 +6,14 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2016/01/15 23:12:01 by juloo            ###   ########.fr       */
+/*   Updated: 2016/01/17 12:46:58 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJ_H
 # define OBJ_H
 
+# include "ft/ft_list.h"
 # include "ft/ft_vector.h"
 # include "ft/math.h"
 
@@ -45,9 +46,10 @@ struct			s_obj
 {
 	t_mesh const	*mesh;
 	t_anim			*anim;
-	t_transform		transform;
+	t_transform		transform; // TODO: remove this
 	t_transform		world_transform;
 	t_mat4			world_matrix;
+	t_list			components;
 	t_vector		childs;
 	uint32_t		flags;
 };

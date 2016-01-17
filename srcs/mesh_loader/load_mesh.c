@@ -6,27 +6,28 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:52:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/01/16 18:59:05 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "internal.h"
-#include "ft/math.h"
 #include "ft/ft_hmap.h"
 #include "ft/ft_printf.h"
+#include "ft/math.h"
+
+#include "internal.h"
 
 static void		init_mesh_data(t_mesh_data *data)
 {
 	data->v = VECTOR(t_vec3);
 	data->vn = VECTOR(t_vec3);
 	data->vt = VECTOR(t_vec2);
-	ft_vpush_back(&(data->v), NULL, 1);
-	ft_vpush_back(&(data->vn), NULL, 1);
-	ft_vpush_back(&(data->vt), NULL, 1);
+	ft_vpush(&(data->v), NULL, 1);
+	ft_vpush(&(data->vn), NULL, 1);
+	ft_vpush(&(data->vt), NULL, 1);
 	data->f = VECTOR(int[9]);
 	data->mtllib = NULL;
 	data->mtl = VECTOR(t_mesh_mtl);
-	ft_vpush_back(&(data->mtl), &(t_mesh_mtl){NULL, 0}, 1);
+	ft_vpush(&(data->mtl), &(t_mesh_mtl){NULL, 0}, 1);
 	data->vbo_data = VECTOR(float);
 	data->ebo_data = VECTOR(int);
 }

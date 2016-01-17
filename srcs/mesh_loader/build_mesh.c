@@ -6,12 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:59:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:51:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/01/16 18:59:23 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "internal.h"
 #include "ft/math.h"
+
+#include "internal.h"
 #include "utils.h"
 
 static bool		center_vertices(t_vector *vertices)
@@ -54,10 +55,10 @@ static bool		build_face(t_mesh_data *data, int *face, int *ebo_id)
 			|| data->vt.length <= face[1 + i]
 			|| data->vn.length <= face[2 + i])
 			return (ft_error(false, "Face out of bounds\n"));
-		ft_vpush_back(&(data->vbo_data), VECTOR_GET(data->v, face[0 + i]), 3);
-		ft_vpush_back(&(data->vbo_data), VECTOR_GET(data->vt, face[1 + i]), 2);
-		ft_vpush_back(&(data->vbo_data), VECTOR_GET(data->vn, face[2 + i]), 3);
-		ft_vpush_back(&(data->ebo_data), ebo_id, 1);
+		ft_vpush(&(data->vbo_data), VECTOR_GET(data->v, face[0 + i]), 3);
+		ft_vpush(&(data->vbo_data), VECTOR_GET(data->vt, face[1 + i]), 2);
+		ft_vpush(&(data->vbo_data), VECTOR_GET(data->vn, face[2 + i]), 3);
+		ft_vpush(&(data->ebo_data), ebo_id, 1);
 		i += 3;
 		(*ebo_id)++;
 	}

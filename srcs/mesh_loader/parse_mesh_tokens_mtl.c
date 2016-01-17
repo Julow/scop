@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/08 19:15:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/01/12 23:45:40 by juloo            ###   ########.fr       */
+/*   Updated: 2016/01/16 18:59:34 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ bool			parse_usemtl(t_sub line, t_mesh_data *data)
 		return (false);
 	tmp = VECTOR_GET(data->mtl, data->mtl.length - 1);
 	tmp->count = data->f.length;
-	ft_vpush_back(&(data->mtl), &(t_mesh_mtl){mtl, data->f.length}, 1);
+	ft_vpush(&(data->mtl), &(t_mesh_mtl){mtl, data->f.length}, 1);
 	return (true);
 }
