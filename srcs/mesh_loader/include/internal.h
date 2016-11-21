@@ -6,17 +6,18 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 13:06:50 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/21 17:39:10 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INTERNAL_H
 # define INTERNAL_H
 
-# include "mesh_loader.h"
-# include "ft/libft.h"
-# include "ft/ft_vector.h"
 # include "ft/ft_hmap.h"
+# include "ft/ft_vector.h"
+# include "ft/libft.h"
+
+# include "mesh_loader.h"
 
 # define MESH_CACHE_SIZE	10
 
@@ -29,7 +30,7 @@
 
 /*
 ** face:
-** int[9]
+** uint[9]
 ** v1       v2       v3
 ** v vt vn  v vt vn  v vt vn
 */

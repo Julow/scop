@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:15:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/02/17 12:01:25 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/21 17:55:23 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,9 @@ t_texture const	*load_texture(t_sub file_name)
 		cache = ft_hmapnew(TEXTURE_CACHE_SIZE, &ft_djb2);
 	if ((tmp = ft_hmapget(cache, file_name)).value != NULL)
 		return (tmp.value);
-	tmp = ft_hmapput(cache, file_name, NULL, sizeof(t_texture));
-	if (!ft_load_image(tmp.key, &img))
-	{
-		ft_hmaprem(cache, file_name, NULL);
+	if (!ft_load_img(file_name, &img))
 		return (NULL);
-	}
+	tmp = ft_hmapput(cache, file_name, NULL, sizeof(t_texture));
 	ft_memcpy(tmp.value, &(t_texture){send_texture(&img)}, sizeof(t_texture));
 	free(img.data);
 	return (tmp.value);

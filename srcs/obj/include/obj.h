@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2016/01/17 12:46:58 by juloo            ###   ########.fr       */
+/*   Updated: 2016/11/21 17:32:46 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "ft/ft_list.h"
 # include "ft/ft_vector.h"
-# include "ft/math.h"
+# include "ft/math_mat4.h"
+# include "ft/math_vec3.h"
 
 # include "anim.h"
 # include "camera.h"

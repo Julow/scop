@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:54:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/01/16 18:59:43 by juloo            ###   ########.fr       */
+/*   Updated: 2016/11/21 17:40:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool			parse_vt(t_sub line, t_mesh_data *data)
 	return (parse_fvec(line, ft_vpush(&(data->vt), NULL, 1), 2));
 }
 
-static bool		parse_f_tri(t_sub line, int *face)
+static bool		parse_f_tri(t_sub line, uint32_t *face)
 {
 	uint32_t		tmp;
 	uint32_t		j;
@@ -36,7 +36,7 @@ static bool		parse_f_tri(t_sub line, int *face)
 	j = 0;
 	while (j < 3)
 	{
-		tmp = ft_subto_int(line, face + j);
+		tmp = ft_subto_uint(line, face + j);
 		j++;
 		if (line.length <= tmp)
 			break ;
@@ -51,9 +51,9 @@ static bool		parse_f_tri(t_sub line, int *face)
 
 bool			parse_f(t_sub line, t_mesh_data *data)
 {
-	int				face[9];
+	uint32_t		face[9];
 	t_sub			word;
-	int				i;
+	uint32_t		i;
 
 	word = SUB_START(line);
 	i = 0;

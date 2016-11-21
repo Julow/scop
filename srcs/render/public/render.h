@@ -6,16 +6,17 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 16:53:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:57:04 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/21 17:32:23 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDER_H
 # define RENDER_H
 
-# include "mesh.h"
-# include "ft/math.h"
+# include "ft/math_mat4.h"
+
 # include "camera.h"
+# include "mesh.h"
 
 typedef struct s_render_params		t_render_params;
 

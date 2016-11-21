@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:49:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/01/12 23:41:03 by juloo            ###   ########.fr       */
+/*   Updated: 2016/11/21 17:39:48 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@ bool			parse_mesh(char const *file, t_mesh_data *data)
 {
 	t_sub			line;
 	int				fd;
-	int				i;
+	uint32_t		i;
 
 	if ((fd = open(file, O_RDONLY)) < 0)
 		return (false);
 	while (get_next_line(fd, &line) > 0)
 	{
-		i = -1;
-		while (g_tokens[++i].token.str != NULL)
+		i = 0;
+		while (g_tokens[i].token.str != NULL)
+		{
 			if (g_tokens[i].token.length <= line.length
 				&& MEM_EQU(g_tokens[i].token.str, line.str,
 					g_tokens[i].token.length))
@@ -52,6 +53,8 @@ bool			parse_mesh(char const *file, t_mesh_data *data)
 				}
 				break ;
 			}
+			i++;
+		}
 	}
 	close(fd);
 	return (true);

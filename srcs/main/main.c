@@ -6,12 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/01/17 20:38:22 by juloo            ###   ########.fr       */
+/*   Updated: 2016/11/21 17:52:17 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft/ft_printf.h"
-#include "ft/math.h"
+#include "ft/math_mat4.h"
+#include "ft/math_vec3.h"
 
 #include "anim.h"
 #include "events.h"
@@ -121,7 +122,7 @@ static void		load_obj(t_vector *dst, t_scene_obj const *data, uint32_t count)
 	i = 0;
 	while (i < count)
 	{
-		obj = MAL1(t_obj);
+		obj = NEW(t_obj);
 		ft_vpush(dst, &obj, 1);
 		ft_bzero(obj, sizeof(t_obj));
 		obj->anim = data[i].anim;
@@ -153,16 +154,17 @@ bool			load_scene(t_scop *scop)
 static void		anim_objs(t_vector *objs, uint64_t now)
 {
 	t_obj			*obj;
-	int				i;
+	uint32_t		i;
 
-	i = -1;
-	while (++i < objs->length)
+	i = 0;
+	while (i < objs->length)
 	{
 		obj = *(t_obj**)VECTOR_GET(*objs, i);
 		if (obj->anim != NULL)
 			anim_update(obj, obj->anim, now);
 		if (obj->childs.length > 0)
 			anim_objs(&(obj->childs), now);
+		i++;
 	}
 }
 
@@ -180,10 +182,10 @@ void			anim(t_scop *scop)
 void			render_objs(t_vector *objs, t_render_params *params)
 {
 	t_obj			*obj;
-	int				i;
+	uint32_t		i;
 
-	i = -1;
-	while (++i < objs->length)
+	i = 0;
+	while (i < objs->length)
 	{
 		obj = *(t_obj**)VECTOR_GET(*objs, i);
 		params->top_matrix = ft_obj_matrix(obj);
@@ -191,6 +193,7 @@ void			render_objs(t_vector *objs, t_render_params *params)
 			simple_render(params, obj->mesh);
 		if (obj->childs.length > 0)
 			render_objs(&(obj->childs), params);
+		i++;
 	}
 }
 

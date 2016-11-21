@@ -6,14 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 14:11:54 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:53:16 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/21 17:32:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MTL_H
 # define MTL_H
 
-# include "ft/math.h"
+# include "ft/math_vec3.h"
 # include "texture.h"
 
 typedef struct s_mtl		t_mtl;

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/10 18:27:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/21 17:53:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool			fps_end(t_fps *fps)
 	if (t >= fps->update_interval)
 	{
 		fps->average_time = fps->frames_time / fps->frames;
-		fps->average_fps = ((uint64_t)fps->frames) * MICRO_SEC / t;
+		fps->average_fps = ((uint64_t)fps->frames) * T_SEC / t;
 		fps->frames = 0;
 		fps->frames_time = 0;
 		fps->last_update += t;

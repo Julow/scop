@@ -6,14 +6,16 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 11:24:23 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:49:25 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/21 17:34:09 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CAMERA_H
 # define CAMERA_H
 
-# include "ft/math.h"
+# include "ft/math_mat4.h"
+# include "ft/math_vec2.h"
+# include "ft/math_vec3.h"
 
 typedef struct s_camera		t_camera;
 

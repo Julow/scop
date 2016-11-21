@@ -6,16 +6,17 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 20:08:09 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/10 19:56:35 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/21 17:32:32 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJ_ANIM_H
 # define OBJ_ANIM_H
 
-# include "obj.h"
-# include "ft/math.h"
+# include "ft/math_vec3.h"
+
 # include "anim.h"
+# include "obj.h"
 
 struct			s_anim_obj
 {
