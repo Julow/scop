@@ -6,20 +6,22 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 21:56:27 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/10 19:45:51 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/22 12:34:27 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft/ft_hmap.h"
+#include "ft/gl.h"
+
+#include "camera.h"
+#include "mesh.h"
+#include "mtl.h"
 #include "render.h"
 #include "shader.h"
 #include "shader_loader.h"
 #include "texture.h"
-#include "mesh.h"
-#include "mtl.h"
-#include "ft/gl.h"
-#include "camera.h"
 #include "utils.h"
-#include "ft/ft_hmap.h"
+
 #include <stdlib.h>
 
 /*

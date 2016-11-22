@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 19:13:37 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/01/13 00:43:11 by juloo            ###   ########.fr       */
+/*   Updated: 2016/11/22 12:28:29 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,24 @@ static t_mtl_token const	g_mtl_tokens[] = {
 	{SUBC("map_Ks"), &map_ks_token},
 };
 
+static t_mtl const			g_default_mtl = {
+	NULL,
+	NULL,
+	NULL,
+	VEC3(1.f, 1.f, 1.f),
+	VEC3(1.f, 1.f, 1.f),
+	VEC3(1.f, 1.f, 1.f),
+	1
+};
+
 static bool		new_mtl_token(t_sub line, t_hmap *mtl_lib, t_mtl **dst)
 {
 	t_sub			word;
-	t_mtl const		default_mtl = {
-		NULL,
-		NULL,
-		NULL,
-		VEC3(1.f, 1.f, 1.f),
-		VEC3(1.f, 1.f, 1.f),
-		VEC3(1.f, 1.f, 1.f),
-		1
-	};
 
 	word = SUB_START(line);
 	if (!ft_subnext_is(line, &word, IS_SPACE))
 		return (false);
-	*dst = ft_hmapput(mtl_lib, word, &default_mtl, sizeof(t_mtl)).value;
+	*dst = ft_hmapput(mtl_lib, word, &g_default_mtl, sizeof(t_mtl)).value;
 	return (true);
 }
 

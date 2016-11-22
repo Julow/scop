@@ -6,22 +6,24 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:21:09 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/22 12:35:28 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "internal.h"
-#include "ft/gl.h"
 #include "ft/ft_colors.h"
 #include "ft/ft_list.h"
 #include "ft/ft_printf.h"
+#include "ft/gl.h"
+
+#include "internal.h"
 
 static void		shader_error(uint32_t id, t_shader_t t)
 {
 	char			err_buff[ERR_SHADER_BUFFER];
 
 	glGetShaderInfoLog(id, ERR_SHADER_BUFFER, NULL, err_buff);
-	ft_printf(C_RED "Shader Error (%s):" C_RESET " %s\n", t->name.str, err_buff);
+	ft_printf(C_RED "Shader Error (%s):" C_RESET " %s\n",
+			t->name.str, err_buff);
 }
 
 bool			compile_shader(t_list *lines, uint32_t *dst, t_shader_t t)

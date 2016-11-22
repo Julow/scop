@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 16:53:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/21 17:32:23 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/22 12:31:52 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ struct			s_render_params
 	t_mat4 const	*top_matrix;
 };
 
-void			simple_render(t_render_params const *params, t_mesh const *mesh);
+void			simple_render(t_render_params const *params,
+					t_mesh const *mesh);
 
 #endif

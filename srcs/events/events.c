@@ -6,16 +6,17 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:50:20 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/22 12:16:19 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "events.h"
-#include "utils.h"
 #include "ft/gl.h"
 
+#include "events.h"
+#include "utils.h"
+
 static void		key_callback(GLFWwindow *window, int key, int scancode,
-		int action, int mode)
+		int action)
 {
 	int				i;
 	void *const		env = glfwGetWindowUserPointer(window);
@@ -35,7 +36,6 @@ static void		key_callback(GLFWwindow *window, int key, int scancode,
 				g_events[i].action & 0xFFFFFFFF;
 	}
 	(void)scancode;
-	(void)mode;
 }
 
 static void		mouse_move_callback(GLFWwindow *window, double x, double y)
@@ -51,6 +51,6 @@ static void		mouse_move_callback(GLFWwindow *window, double x, double y)
 
 void			init_events(GLFWwindow *window)
 {
-	glfwSetKeyCallback(window, &key_callback);
+	glfwSetKeyCallback(window, V(&key_callback));
 	glfwSetCursorPosCallback(window, &mouse_move_callback);
 }

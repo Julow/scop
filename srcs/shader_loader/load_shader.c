@@ -6,17 +6,19 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/15 14:06:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:58:56 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/22 13:38:46 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft/ft_hmap.h"
+#include "ft/ft_list.h"
+#include "ft/gl.h"
+
 #include "internal.h"
 #include "utils.h"
-#include "ft/gl.h"
-#include "ft/ft_list.h"
-#include "ft/ft_hmap.h"
-#include <unistd.h>
+
 #include <fcntl.h>
+#include <unistd.h>
 
 /*
 ** ?enum-def shader_t
@@ -56,7 +58,7 @@ static bool		link_shader(uint32_t *shaders, uint32_t *dst)
 
 static bool		load_shaders_file(char const *file, uint32_t *dst)
 {
-	uint32_t			shaders[g_shader_t.length];
+	uint32_t		shaders[g_shader_t.length];
 	int				tmp;
 	bool			success;
 	t_list			lines;
@@ -81,7 +83,7 @@ t_shader const	*load_shader(t_sub file_name)
 	static t_hmap	*cache = NULL;
 	t_hmap			*uniforms;
 	t_hpair			tmp;
-	uint32_t			handle;
+	uint32_t		handle;
 
 	if (cache == NULL)
 		cache = ft_hmapnew(SHADER_CACHE_SIZE, &ft_djb2);

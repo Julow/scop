@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:59:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/21 17:37:11 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/22 12:19:46 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,15 @@ static bool		center_vertices(t_vector *vertices)
 	while (i < vertices->length)
 	{
 		vert = VECTOR_GET(*vertices, i);
-		sum.x += vert->x;
-		sum.y += vert->y;
-		sum.z += vert->z;
+		sum = VEC3_ADD(sum, *vert);
 		i++;
 	}
-	sum.x /= vertices->length;
-	sum.y /= vertices->length;
-	sum.z /= vertices->length;
+	sum = VEC3_DIV1(sum, vertices->length);
 	i = 0;
 	while (i < vertices->length)
 	{
 		vert = VECTOR_GET(*vertices, i);
-		vert->x -= sum.x;
-		vert->y -= sum.y;
-		vert->z -= sum.z;
+		*vert = VEC3_SUB(*vert, sum);
 		i++;
 	}
 	return (true);

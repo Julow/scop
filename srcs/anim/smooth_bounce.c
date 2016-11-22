@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/28 00:06:17 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/10 19:49:16 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/22 12:13:33 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ float			smooth_bounce(float delta)
 {
 	float			a;
 	float			b;
+	float			tmp;
 
 	delta = 1.f - delta;
 	a = 0.f;
@@ -24,8 +25,10 @@ float			smooth_bounce(float delta)
 	while (true)
 	{
 		if (delta >= ((7.f - (4.f * a)) / 11.f))
-			return (1.f - (b * b - powf((11.f - (6.f * a) - (11.f * delta))
-				/ 4.f, 2.f)));
+		{
+			tmp = (11.f - (6.f * a) - (11.f * delta)) / 4.f;
+			return (1.f - (b * b - (tmp * tmp)));
+		}
 		a += b;
 		b /= 2.f;
 	}

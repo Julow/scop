@@ -6,15 +6,15 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 10:50:57 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:57:42 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/22 12:35:09 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHADER_H
 # define SHADER_H
 
-# include "ft/libft.h"
 # include "ft/ft_hmap.h"
+# include "ft/libft.h"
 
 typedef struct s_shader		t_shader;
 typedef struct s_uniform	t_uniform;
@@ -56,10 +56,8 @@ struct			s_uniform
 */
 # define UNIFORM(t,s,n,...)	(glUniform##t(_UNIFORM(s,n), ##__VA_ARGS__))
 
-// # define _UNIFORM(s,n)		(glGetUniformLocation((s)->handle, n))
-// # define _UNIFORM(s,n)		(((t_uniform const*)ft_hmapget((s)->uniforms, SUBC(n)))->loc)
 # define _UNIFORM(s,n)		(shader_get_uniform(s,SUBC(n)))
 
-uint32_t			shader_get_uniform(t_shader const *shader, t_sub name);
+uint32_t		shader_get_uniform(t_shader const *shader, t_sub name);
 
 #endif

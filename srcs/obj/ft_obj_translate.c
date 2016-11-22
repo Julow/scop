@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/15 15:46:53 by juloo             #+#    #+#             */
-/*   Updated: 2016/01/16 18:56:20 by juloo            ###   ########.fr       */
+/*   Updated: 2016/11/22 12:31:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void		child_translate(t_obj *obj, t_vec3 const *translate)
 	uint32_t		i;
 
 	obj->flags &= ~OBJ_F_MATRIX_OK;
-	obj->world_transform.position = VEC3_ADD(obj->world_transform.position, *translate);
+	obj->world_transform.position =
+		VEC3_ADD(obj->world_transform.position, *translate);
 	i = 0;
 	while (i < obj->childs.length)
 		child_translate(*(t_obj**)VECTOR_GET(obj->childs, i++), translate);
