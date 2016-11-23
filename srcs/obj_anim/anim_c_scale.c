@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 20:10:00 by juloo             #+#    #+#             */
-/*   Updated: 2016/01/15 23:14:52 by juloo            ###   ########.fr       */
+/*   Updated: 2016/11/23 11:29:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void			anim_c_scale(t_obj *obj, float delta)
 	float						scale;
 
 	scale = (anim->to.x - anim->from.x) * delta + anim->from.x;
-	ft_obj_scale(obj, VEC3(scale, scale, scale), true);
+	obj_scale(obj, VEC3(scale, scale, scale));
 }
 
 void			anim_c_scale3(t_obj *obj, float delta)
@@ -30,5 +30,5 @@ void			anim_c_scale3(t_obj *obj, float delta)
 	scale.x = (anim->to.x - anim->from.x) * delta + anim->from.x;
 	scale.y = (anim->to.y - anim->from.y) * delta + anim->from.y;
 	scale.z = (anim->to.z - anim->from.z) * delta + anim->from.z;
-	ft_obj_scale(obj, scale, true);
+	obj_scale(obj, scale);
 }

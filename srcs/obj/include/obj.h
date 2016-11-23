@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2016/11/21 17:32:46 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/23 11:27:04 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ struct			s_obj
 {
 	t_mesh const	*mesh;
 	t_anim			*anim;
-	t_transform		transform; // TODO: remove this
-	t_transform		world_transform;
-	t_mat4			world_matrix;
+	t_transform		transform;
+	t_mat4			transform_m;
 	t_list			components;
 	t_vector		childs;
 	uint32_t		flags;
@@ -61,14 +60,14 @@ struct			s_obj
 /*
 ** Return the transformation matrix
 */
-t_mat4 const	*ft_obj_matrix(t_obj *obj);
+t_mat4 const	*obj_matrix(t_obj *obj);
 
 /*
 ** Apply transform to an object
 */
-void			ft_obj_translate(t_obj *obj, t_vec3 translate, bool set);
-void			ft_obj_rotate(t_obj *obj, t_vec3 rotate, bool set);
-void			ft_obj_shear(t_obj *obj, t_vec3 shear, bool set);
-void			ft_obj_scale(t_obj *obj, t_vec3 scale, bool set);
+void			obj_translate(t_obj *obj, t_vec3 translate);
+void			obj_rotate(t_obj *obj, t_vec3 rotate);
+void			obj_shear(t_obj *obj, t_vec3 shear);
+void			obj_scale(t_obj *obj, t_vec3 scale);
 
 #endif

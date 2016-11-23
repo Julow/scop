@@ -105,10 +105,9 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/srcs/mtl_loader/parse_mtl.o \
 	$(O_DIR)/srcs/mtl_loader/parse_mtl_tokens.o \
 	$(O_DIR)/srcs/mtl_loader/parse_mtl_tokens_map.o \
-	$(O_DIR)/srcs/obj/ft_obj_matrix.o $(O_DIR)/srcs/obj/ft_obj_rotate.o \
-	$(O_DIR)/srcs/obj/ft_obj_scale.o $(O_DIR)/srcs/obj/ft_obj_shear.o \
-	$(O_DIR)/srcs/obj/ft_obj_translate.o $(O_DIR)/srcs/obj_anim/anim_c_move.o \
-	$(O_DIR)/srcs/obj_anim/anim_c_rot.o $(O_DIR)/srcs/obj_anim/anim_c_scale.o \
+	$(O_DIR)/srcs/obj/obj_matrix.o $(O_DIR)/srcs/obj/obj_transform.o \
+	$(O_DIR)/srcs/obj_anim/anim_c_move.o $(O_DIR)/srcs/obj_anim/anim_c_rot.o \
+	$(O_DIR)/srcs/obj_anim/anim_c_scale.o \
 	$(O_DIR)/srcs/obj_anim/anim_c_shear.o $(O_DIR)/srcs/render/simple_render.o \
 	$(O_DIR)/srcs/shader_loader/compile_shader.o \
 	$(O_DIR)/srcs/shader_loader/load_shader.o \
@@ -751,35 +750,14 @@ $(O_DIR)/srcs/mtl_loader/parse_mtl_tokens_map.o: INCLUDE_FLAGS += \
 	-Isrcs/mtl_loader/include
 
 # module obj
-$(O_DIR)/srcs/obj/ft_obj_matrix.o: srcs/obj/ft_obj_matrix.c \
+$(O_DIR)/srcs/obj/obj_matrix.o: srcs/obj/obj_matrix.c \
 	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h \
 	libft/ft_math/public/math_mat4.h libft/ft_math/public/math_vec2.h \
 	libft/ft_math/public/math_vec3.h libft/ft_math/public/math_vec4.h \
 	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
 	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/texture/texture.h
-$(O_DIR)/srcs/obj/ft_obj_rotate.o: srcs/obj/ft_obj_rotate.c \
-	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h \
-	libft/ft_math/public/math_mat4.h libft/ft_math/public/math_vec2.h \
-	libft/ft_math/public/math_vec3.h libft/ft_math/public/math_vec4.h \
-	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
-	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
-	srcs/obj/include/obj.h srcs/texture/texture.h
-$(O_DIR)/srcs/obj/ft_obj_scale.o: srcs/obj/ft_obj_scale.c \
-	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h \
-	libft/ft_math/public/math_mat4.h libft/ft_math/public/math_vec2.h \
-	libft/ft_math/public/math_vec3.h libft/ft_math/public/math_vec4.h \
-	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
-	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
-	srcs/obj/include/obj.h srcs/texture/texture.h
-$(O_DIR)/srcs/obj/ft_obj_shear.o: srcs/obj/ft_obj_shear.c \
-	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h \
-	libft/ft_math/public/math_mat4.h libft/ft_math/public/math_vec2.h \
-	libft/ft_math/public/math_vec3.h libft/ft_math/public/math_vec4.h \
-	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
-	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
-	srcs/obj/include/obj.h srcs/texture/texture.h
-$(O_DIR)/srcs/obj/ft_obj_translate.o: srcs/obj/ft_obj_translate.c \
+$(O_DIR)/srcs/obj/obj_transform.o: srcs/obj/obj_transform.c \
 	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h \
 	libft/ft_math/public/math_mat4.h libft/ft_math/public/math_vec2.h \
 	libft/ft_math/public/math_vec3.h libft/ft_math/public/math_vec4.h \

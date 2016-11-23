@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/22 12:15:03 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/23 11:28:38 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,10 @@ static void		load_obj(t_vector *dst, t_scene_obj const *data, uint32_t count)
 			anim_start(obj->anim); // TODO: move to scene
 		obj->childs = VECTOR(t_obj*);
 		load_obj(&obj->childs, data[i].childs, data[i].child_count);
-		ft_obj_translate(obj, data[i].transform.position, false);
-		ft_obj_rotate(obj, data[i].transform.rotation, false);
-		ft_obj_scale(obj, data[i].transform.scale, false);
-		ft_obj_shear(obj, data[i].transform.shear, false);
+		obj_translate(obj, data[i].transform.position);
+		obj_rotate(obj, data[i].transform.rotation);
+		obj_scale(obj, data[i].transform.scale);
+		obj_shear(obj, data[i].transform.shear);
 		i++;
 	}
 	ft_printf("CAPACITY: %u -> %u%n", tmp_capacity, dst->capacity);
@@ -179,16 +179,49 @@ void			anim(t_scop *scop)
 ** TODO: module scene
 */
 
-void			render_objs(t_vector *objs, t_render_params *params)
+// void			render_objs(t_vector *objs, t_render_params *params)
+// {
+// 	t_obj			*obj;
+// 	uint32_t		i;
+
+// 	i = 0;
+// 	while (i < objs->length)
+// 	{
+// 		obj = *(t_obj**)VECTOR_GET(*objs, i);
+// 		params->top_matrix = obj_matrix(obj);
+// 		if (obj->mesh != NULL)
+// 			simple_render(params, obj->mesh);
+// 		if (obj->childs.length > 0)
+// 			render_objs(&(obj->childs), params);
+// 		i++;
+// 	}
+// }
+
+// void			render(t_scop *scop)
+// {
+// 	t_render_params		params;
+
+// 	// ft_mat4mult(&scop->projection_m, camera_get_view(&(scop->camera)), &top_matrix);
+// 	// ft_mat4transpose(&top_matrix);
+// 	params = (t_render_params){&(scop->camera), &(scop->projection_m), NULL};
+// 	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
+// 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+// 	render_objs(&scop->objects, &params);
+// }
+
+static void		render_objs(t_vector *objs, t_render_params *params)
 {
-	t_obj			*obj;
+	t_mat4 const *const	parent_mat = params->top_matrix;
+	t_obj				*obj;
+	t_mat4				mat;
 	uint32_t		i;
 
 	i = 0;
 	while (i < objs->length)
 	{
 		obj = *(t_obj**)VECTOR_GET(*objs, i);
-		params->top_matrix = ft_obj_matrix(obj);
+		ft_mat4mult(obj_matrix(obj), parent_mat, &mat);
+		params->top_matrix = &mat;
 		if (obj->mesh != NULL)
 			simple_render(params, obj->mesh);
 		if (obj->childs.length > 0)
@@ -197,13 +230,17 @@ void			render_objs(t_vector *objs, t_render_params *params)
 	}
 }
 
+static t_mat4 const		g_mat4_identity = MAT4_I();
+
 void			render(t_scop *scop)
 {
 	t_render_params		params;
 
-	// ft_mat4mult(&scop->projection_m, camera_get_view(&(scop->camera)), &top_matrix);
-	// ft_mat4transpose(&top_matrix);
-	params = (t_render_params){&(scop->camera), &(scop->projection_m), NULL};
+	params = (t_render_params){
+		&(scop->camera),
+		&(scop->projection_m),
+		&g_mat4_identity
+	};
 	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	render_objs(&scop->objects, &params);
