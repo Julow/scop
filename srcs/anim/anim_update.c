@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 19:12:19 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/23 18:19:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static float	anim_smooth(t_anim *anim, float delta)
 	return (delta);
 }
 
-void			anim_update(void *env, t_anim *anim, uint64_t now)
+float			anim_update(t_anim *anim, uint64_t now)
 {
 	float			delta;
 
 	if (anim->flags & F_ANIM_END)
-		return ;
+		return (1.f);
 	delta = (float)(now - anim->start_time) / anim->duration / 1000.f;
 	if (delta >= 1.f)
 	{
@@ -47,5 +47,5 @@ void			anim_update(void *env, t_anim *anim, uint64_t now)
 		}
 		anim->start_time = now;
 	}
-	anim->callback(env, anim_smooth(anim, delta));
+	return (anim_smooth(anim, delta));
 }

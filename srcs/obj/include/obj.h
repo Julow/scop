@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2016/11/23 11:27:04 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/23 21:38:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 typedef struct s_obj			t_obj;
 typedef struct s_transform		t_transform;
+typedef struct s_obj_component	t_obj_component;
 
 /*
 ** ========================================================================== **
@@ -41,18 +42,29 @@ struct			s_transform
 };
 
 /*
+** obj's component base class
+*/
+struct			s_obj_component
+{
+	void			(*update)(t_obj_component *component, t_obj *obj);
+};
+
+# define OBJ_COMPONENT(UPDATE)	((t_obj_component){V(UPDATE)})
+
+/*
 ** Represent an object
 */
 struct			s_obj
 {
 	t_mesh const	*mesh;
-	t_anim			*anim;
 	t_transform		transform;
 	t_mat4			transform_m;
-	t_list			components;
+	t_vector		components;
 	t_vector		childs;
 	uint32_t		flags;
 };
+
+# define OBJ()	((t_obj){NULL,{},{},VECTOR(t_obj_component*),VECTOR(t_obj),0})
 
 # define OBJ_F_MATRIX_OK	(1 << 0)
 # define OBJ_F_HIDE			(1 << 1)

@@ -19,8 +19,8 @@ module events: events
 
 	public include include/
 
-	public require ft::gl
 	public require ft::base
+	public require ft::gl
 
 	private require utils
 
@@ -28,20 +28,12 @@ module obj: obj
 
 	public include include/
 
-	public require ft::vector
 	public require ft::list
 	public require ft::math
-	public require mesh
+	public require ft::vector
 	public require anim
 	public require camera
-
-module obj_anim: obj_anim
-
-	public include include/
-
-	public require obj
-	public require ft::math
-	public require anim
+	public require mesh
 
 module utils: utils
 
@@ -49,8 +41,9 @@ module utils: utils
 
 	public require ft::base
 	public require ft::list
-	private require ft::printf
+
 	private require ft::out
+	private require ft::printf
 
 module shader: shader
 
@@ -66,11 +59,12 @@ module shader_loader: shader_loader
 
 	public require ft::base
 	public require shader
+
 	private require ft::get_next_line
-	private require ft::printf
 	private require ft::gl
-	private require ft::list
 	private require ft::hmap
+	private require ft::list
+	private require ft::printf
 	private require utils
 
 module mesh: mesh
@@ -87,21 +81,22 @@ module mesh_loader: mesh_loader
 
 	public require ft::base
 	public require mesh
-	private require mtl_loader
-	private require ft::hmap
-	private require ft::vector
+
 	private require ft::get_next_line
-	private require ft::printf
 	private require ft::gl
+	private require ft::hmap
 	private require ft::math
+	private require ft::printf
+	private require ft::vector
+	private require mtl_loader
 	private require utils
 
 module mtl: mtl
 	
 	public include .
 
-	public require texture
 	public require ft::math
+	public require texture
 
 module mtl_loader: mtl_loader
 
@@ -110,6 +105,7 @@ module mtl_loader: mtl_loader
 
 	public require ft::base
 	public require ft::hmap
+
 	private require ft::get_next_line
 	private require ft::printf
 	private require mtl
@@ -131,19 +127,20 @@ main module main: main
 	local MDR += lol
 
 	# private require ft::base
-	private require ft::printf
 	private require ft::gl
-	private require render
-	private require ft::vector
-	private require camera
 	private require ft::math
-	private require obj
+	private require ft::printf
+	private require ft::vector
 	private require anim
+	private require anim_component
+	private require camera
 	private require events
-	private require utils
-	private require shader
+	private require mesh
 	private require mesh
 	private require mesh_loader
-	private require obj_anim
+	private require obj
+	private require render
+	private require shader
+	private require utils
 
 	put LINK_FLAGS -lm

@@ -1,0 +1,7 @@
+module anim_component:
+	public include public/
+
+	public require ft::base
+	public require ft::math
+	public require anim
+	public require obj

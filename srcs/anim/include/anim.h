@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/27 19:10:10 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/10 19:48:44 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/23 17:10:47 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ struct			s_anim
 	uint64_t		start_time;
 	float			duration;
 	int				flags;
-	void			(*callback)(void *env, float delta);
 	float			(*smooth)(float delta);
 };
 
@@ -43,15 +42,14 @@ struct			s_anim
 ** -
 ** d		duration (in ms)
 ** f		flags
-** c		callback
 ** s		smooth function
 */
-# define ANIM(d,f,c,s)			((t_anim){0,d,f,(void(*)(void*,float))c,s})
+# define ANIM(D,F,S)			((t_anim){0, (D), (F), (S)})
 
 /*
 ** Update an anim
 */
-void			anim_update(void *env, t_anim *anim, uint64_t now);
+float			anim_update(t_anim *anim, uint64_t now);
 
 /*
 ** Init an anim
