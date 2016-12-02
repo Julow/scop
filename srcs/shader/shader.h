@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 10:50:57 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/22 12:35:09 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/25 14:40:41 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 typedef struct s_shader		t_shader;
 typedef struct s_uniform	t_uniform;
+typedef int					t_uniform_loc;
 
 # define SHADER_CACHE_SIZE		10
 # define SHADER_LOC_SIZE		25
@@ -42,7 +43,7 @@ struct			s_shader
 */
 struct			s_uniform
 {
-	uint32_t		loc;
+	t_uniform_loc	loc;
 	int				size;
 	uint32_t		type;
 };
@@ -58,6 +59,6 @@ struct			s_uniform
 
 # define _UNIFORM(s,n)		(shader_get_uniform(s,SUBC(n)))
 
-uint32_t		shader_get_uniform(t_shader const *shader, t_sub name);
+t_uniform_loc	shader_get_uniform(t_shader const *shader, t_sub name);
 
 #endif

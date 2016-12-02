@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/23 22:12:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/12/02 11:58:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include "main.h"
 #include "mesh.h"
 #include "mesh_loader.h"
+#include "mesh_renderer.h"
 #include "obj.h"
-#include "render.h"
 #include "shader.h"
 #include "utils.h"
 
@@ -62,7 +62,7 @@ struct	s_scene_obj
 
 static const t_scene_obj	g_scene[] = {
 	S_OBJ(NULL, (TRANSLATE, 1800, F_ANIM_REVERSE, (0.f, 0.f, 0.f), (10.f, 0.f, 10.f), &smooth_linear), TRANSFORM0(), ((t_scene_obj[]){
-		S_OBJ("res/obj/cube.obj", (TRANSLATE, 0, 0, (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), &smooth_linear), ((0.f, -15.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (100.f, 10.f, 100.f), 0), NULL),
+		S_OBJ("res/obj/cube.obj", (TRANSLATE, 0, 0, (0.f, -15.f, 0.f), (0.f, -15.f, 0.f), &smooth_linear), ((0.f, -15.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (100.f, 10.f, 100.f), 0), NULL),
 		S_OBJ("res/obj/cube.obj", (SCALE, 1000, F_ANIM_REVERSE, (1.5f, 0.5f, 1.0f), (1.f, 1.f, 1.f), &smooth_elastic),
 			((0.f, -5.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0), NULL),
 	})),
@@ -78,7 +78,8 @@ static const t_scene_obj	g_scene[] = {
 	// S_OBJ("res/obj/venice.obj", NULL, ((0.f, -40.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (0.f, 0.f, 0.f), (1.f, 1.f, 1.f), 0)),
 };
 
-static void		load_obj(t_vector *dst, t_scene_obj const *data, uint32_t count)
+static void		load_obj(t_mesh_render *mesh_render, t_vector *dst,
+					t_scene_obj const *data, uint32_t count)
 {
 	uint32_t		i;
 	t_obj			*obj;
@@ -91,13 +92,13 @@ static void		load_obj(t_vector *dst, t_scene_obj const *data, uint32_t count)
 		obj = ft_vpush(dst, NULL, 1);
 		*obj = OBJ();
 		if (data[i].mesh.str != NULL)
-			obj->mesh = load_mesh(data[i].mesh);
+			obj->renderer = create_mesh_renderer(mesh_render, load_mesh(data[i].mesh));
 		comp = create_anim_component(data[i].anim.from, data[i].anim.to,
 			data[i].anim.duration, data[i].anim.smooth, data[i].anim.type,
 			data[i].anim.flags);
 		ft_vpush(&obj->components, &comp, 1);
 		if (data[i].child_count > 0)
-			load_obj(&obj->childs, data[i].childs, data[i].child_count);
+			load_obj(mesh_render, &obj->childs, data[i].childs, data[i].child_count);
 		obj_translate(obj, data[i].transform.position);
 		obj_rotate(obj, data[i].transform.rotation);
 		obj_scale(obj, data[i].transform.scale);
@@ -108,7 +109,7 @@ static void		load_obj(t_vector *dst, t_scene_obj const *data, uint32_t count)
 
 bool			load_scene(t_scop *scop)
 {
-	load_obj(&scop->objects, g_scene, ARRAY_LEN(g_scene));
+	load_obj(&scop->mesh_render, &scop->objects, g_scene, ARRAY_LEN(g_scene));
 	return (true);
 }
 
@@ -117,9 +118,8 @@ bool			load_scene(t_scop *scop)
 ** Render obj
 */
 
-static void		render_objs(t_vector *objs, t_render_params *params)
+static void		render_objs(t_vector *objs, t_mat4 const *parent_mat)
 {
-	t_mat4 const *const	parent_mat = params->top_matrix;
 	t_obj				*obj;
 	t_mat4				mat;
 
@@ -127,11 +127,10 @@ static void		render_objs(t_vector *objs, t_render_params *params)
 	while (VECTOR_NEXT(*objs, obj))
 	{
 		ft_mat4mult(obj_matrix(obj), parent_mat, &mat);
-		params->top_matrix = &mat;
-		if (obj->mesh != NULL)
-			simple_render(params, obj->mesh);
+		if (obj->renderer != NULL)
+			obj->renderer->render(obj->renderer, &mat);
 		if (obj->childs.length > 0)
-			render_objs(&(obj->childs), params);
+			render_objs(&(obj->childs), &mat);
 	}
 }
 
@@ -139,16 +138,13 @@ static t_mat4 const		g_mat4_identity = MAT4_I();
 
 void			render(t_scop *scop)
 {
-	t_render_params		params;
+	scop->mesh_render.view = camera_get_view(&scop->camera);
+	scop->mesh_render.proj = &scop->projection_m;
+	scop->mesh_render.camera_pos = scop->camera.position;
 
-	params = (t_render_params){
-		&(scop->camera),
-		&(scop->projection_m),
-		&g_mat4_identity
-	};
 	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	render_objs(&scop->objects, &params);
+	render_objs(&scop->objects, &g_mat4_identity);
 }
 
 /*
@@ -210,6 +206,7 @@ int				main(void)
 	camera_look(&(scop.camera), VEC2(2.9f, 0.01f));
 	if (!init_window(&scop) || !load_scene(&scop))
 		return (1);
+	mesh_render_init(&scop.mesh_render);
 	glfwSwapInterval(0); // TODO: tmp
 	init_events(scop.window);
 	fps = fps_init(200000);

@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   renderer_create.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/03 16:53:11 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/22 18:00:32 by jaguillo         ###   ########.fr       */
+/*   Created: 2016/11/25 11:14:01 by jaguillo          #+#    #+#             */
+/*   Updated: 2016/11/25 14:58:25 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_H
-# define RENDER_H
+#include "ft/libft.h"
 
-# include "ft/math_mat4.h"
+#include "mesh.h"
+#include "p_mesh_renderer.h"
 
-# include "camera.h"
-# include "mesh.h"
-
-typedef struct s_render_params		t_render_params;
-
-struct			s_render_params
+t_obj_renderer	*create_mesh_renderer(t_mesh_render *r, t_mesh const *mesh)
 {
-	t_camera		*camera;
-	t_mat4 const	*projection_m;
-	t_mat4 const	*top_matrix;
-};
+	t_mesh_renderer *const	renderer = NEW(t_mesh_renderer);
 
-void			simple_render(t_render_params const *params,
-					t_mesh const *mesh);
-
-#endif
+	*renderer = (t_mesh_renderer){
+		OBJ_RENDERER(mesh_renderer_render),
+		r,
+		mesh
+	};
+	return (V(renderer));
+}

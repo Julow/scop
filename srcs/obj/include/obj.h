@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2016/11/23 21:38:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/25 11:42:18 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 typedef struct s_obj			t_obj;
 typedef struct s_transform		t_transform;
 typedef struct s_obj_component	t_obj_component;
+typedef struct s_obj_renderer	t_obj_renderer;
 
 /*
 ** ========================================================================== **
@@ -43,6 +44,7 @@ struct			s_transform
 
 /*
 ** obj's component base class
+** 'update' is called at each update step, one at a time, parent first
 */
 struct			s_obj_component
 {
@@ -52,11 +54,22 @@ struct			s_obj_component
 # define OBJ_COMPONENT(UPDATE)	((t_obj_component){V(UPDATE)})
 
 /*
+** obj's renderer base class
+** 'render' is called at the render step, parent first
+*/
+struct			s_obj_renderer
+{
+	void			(*render)(t_obj_renderer *renderer, t_mat4 const *model);
+};
+
+# define OBJ_RENDERER(RENDER)	((t_obj_renderer){V(RENDER)})
+
+/*
 ** Represent an object
 */
 struct			s_obj
 {
-	t_mesh const	*mesh;
+	t_obj_renderer	*renderer;
 	t_transform		transform;
 	t_mat4			transform_m;
 	t_vector		components;

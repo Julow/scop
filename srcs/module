@@ -138,8 +138,8 @@ main module main: main
 	private require mesh
 	private require mesh
 	private require mesh_loader
+	private require mesh_renderer
 	private require obj
-	private require render
 	private require shader
 	private require utils
 

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:50:02 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/11/25 14:38:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 # include "ft/ft_vector.h"
 # include "ft/gl.h"
-# include "render.h"
-# include "obj.h"
+
 # include "camera.h"
+# include "mesh_renderer.h"
+# include "obj.h"
 
 typedef struct s_scop		t_scop;
 
@@ -52,6 +53,7 @@ struct			s_scop
 	t_mat4			projection_m;
 	t_vec2			cursor;
 	int				flags;
+	t_mesh_render	mesh_render;
 };
 
 /*
