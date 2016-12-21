@@ -1,0 +1,11 @@
+module scene_loader:
+	public include public/
+	private include ./
+
+	public require ft::base
+	public require ft::in
+	public require scene_pod
+
+	private require ft::json
+	private require ft::json_t
+	private require ft::printf

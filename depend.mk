@@ -2,14 +2,16 @@ INCLUDE_FLAGS += -I$(O_DIR)/_public
 LINK_FLAGS += -lm -lm -lm -lm
 MAINS += main
 OBJ_DIR_TREE += $(O_DIR)/srcs/utils/ $(O_DIR)/srcs/texture_loader/ \
-	$(O_DIR)/srcs/shader_loader/ $(O_DIR)/srcs/shader/ $(O_DIR)/srcs/obj/ \
-	$(O_DIR)/srcs/mtl_loader/ $(O_DIR)/srcs/mesh_renderer/ \
-	$(O_DIR)/srcs/mesh_loader/ $(O_DIR)/srcs/main/ $(O_DIR)/srcs/events/ \
-	$(O_DIR)/srcs/camera/ $(O_DIR)/srcs/anim_component/ $(O_DIR)/srcs/anim/ \
-	$(O_DIR)/srcs/ $(O_DIR)/libft/get_next_line/ $(O_DIR)/libft/ft_vector/ \
+	$(O_DIR)/srcs/shader_loader/ $(O_DIR)/srcs/shader/ \
+	$(O_DIR)/srcs/scene_loader/ $(O_DIR)/srcs/obj/ $(O_DIR)/srcs/mtl_loader/ \
+	$(O_DIR)/srcs/mesh_renderer/ $(O_DIR)/srcs/mesh_loader/ \
+	$(O_DIR)/srcs/main/ $(O_DIR)/srcs/events/ $(O_DIR)/srcs/camera/ \
+	$(O_DIR)/srcs/anim_component/ $(O_DIR)/srcs/anim/ $(O_DIR)/srcs/ \
+	$(O_DIR)/libft/get_next_line/ $(O_DIR)/libft/ft_vector/ \
 	$(O_DIR)/libft/ft_printf/formats/ $(O_DIR)/libft/ft_printf/ \
 	$(O_DIR)/libft/ft_out/ $(O_DIR)/libft/ft_math/ $(O_DIR)/libft/ft_list/ \
-	$(O_DIR)/libft/ft_in/ $(O_DIR)/libft/ft_img_loader/ $(O_DIR)/libft/ft_img/ \
+	$(O_DIR)/libft/ft_json_t/ $(O_DIR)/libft/ft_json/ $(O_DIR)/libft/ft_in/ \
+	$(O_DIR)/libft/ft_img_loader/ $(O_DIR)/libft/ft_img/ \
 	$(O_DIR)/libft/ft_hmap/ $(O_DIR)/libft/ft_file_in/ $(O_DIR)/libft/ft_file/ \
 	$(O_DIR)/libft/ft_dstr/ $(O_DIR)/libft/ft_base/ $(O_DIR)/libft/ \
 	$(O_DIR)/_public/ft/ $(O_DIR)/_public/ $(O_DIR)/
@@ -55,7 +57,15 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/libft/ft_img_loader/ft_load_img.o \
 	$(O_DIR)/libft/ft_img_loader/tga_loader.o \
 	$(O_DIR)/libft/ft_in/ft_in_refresh.o $(O_DIR)/libft/ft_in/ft_read.o \
-	$(O_DIR)/libft/ft_in/ft_readto.o $(O_DIR)/libft/ft_list/ft_listadd.o \
+	$(O_DIR)/libft/ft_in/ft_readto.o $(O_DIR)/libft/ft_json/json_except.o \
+	$(O_DIR)/libft/ft_json/json_next.o $(O_DIR)/libft/ft_json/json_tokenize.o \
+	$(O_DIR)/libft/ft_json/json_utils.o $(O_DIR)/libft/ft_json/parse_value.o \
+	$(O_DIR)/libft/ft_json_t/json_t_free.o \
+	$(O_DIR)/libft/ft_json_t/json_t_parse.o \
+	$(O_DIR)/libft/ft_json_t/json_t_sizeof.o \
+	$(O_DIR)/libft/ft_json_t/parse_dict.o \
+	$(O_DIR)/libft/ft_json_t/parse_list.o \
+	$(O_DIR)/libft/ft_json_t/parse_value.o $(O_DIR)/libft/ft_list/ft_listadd.o \
 	$(O_DIR)/libft/ft_list/ft_listremove.o \
 	$(O_DIR)/libft/ft_list/ft_listsort.o $(O_DIR)/libft/ft_math/ft_mat3apply.o \
 	$(O_DIR)/libft/ft_math/ft_mat3mul.o \
@@ -109,6 +119,8 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/srcs/mtl_loader/parse_mtl_tokens.o \
 	$(O_DIR)/srcs/mtl_loader/parse_mtl_tokens_map.o \
 	$(O_DIR)/srcs/obj/obj_matrix.o $(O_DIR)/srcs/obj/obj_transform.o \
+	$(O_DIR)/srcs/scene_loader/load_scene_pod.o \
+	$(O_DIR)/srcs/scene_loader/parse_component.o \
 	$(O_DIR)/srcs/shader/shader_get_uniform.o \
 	$(O_DIR)/srcs/shader_loader/compile_shader.o \
 	$(O_DIR)/srcs/shader_loader/load_shader.o \
@@ -128,16 +140,19 @@ PUBLIC_LINKS += $(O_DIR)/_public/anim.h $(O_DIR)/_public/anim_component.h \
 	$(O_DIR)/_public/ft/ft_vector.h $(O_DIR)/_public/ft/ft_vprintf.h \
 	$(O_DIR)/_public/ft/ft_wchar.h $(O_DIR)/_public/ft/get_next_line.h \
 	$(O_DIR)/_public/ft/gl.h $(O_DIR)/_public/ft/img.h \
-	$(O_DIR)/_public/ft/img_loader.h $(O_DIR)/_public/ft/libft.h \
+	$(O_DIR)/_public/ft/img_loader.h $(O_DIR)/_public/ft/json.h \
+	$(O_DIR)/_public/ft/json_t.h $(O_DIR)/_public/ft/libft.h \
 	$(O_DIR)/_public/ft/math_complex.h $(O_DIR)/_public/ft/math_mat3.h \
 	$(O_DIR)/_public/ft/math_mat4.h $(O_DIR)/_public/ft/math_vec2.h \
 	$(O_DIR)/_public/ft/math_vec3.h $(O_DIR)/_public/ft/math_vec4.h \
 	$(O_DIR)/_public/mesh.h $(O_DIR)/_public/mesh_loader.h \
 	$(O_DIR)/_public/mesh_renderer.h $(O_DIR)/_public/mtl.h \
 	$(O_DIR)/_public/mtl_loader.h $(O_DIR)/_public/obj.h \
-	$(O_DIR)/_public/shader.h $(O_DIR)/_public/shader_get_uniform.c \
-	$(O_DIR)/_public/shader_loader.h $(O_DIR)/_public/texture.h \
-	$(O_DIR)/_public/texture_loader.h $(O_DIR)/_public/utils.h
+	$(O_DIR)/_public/obj_component_class.h $(O_DIR)/_public/scene_loader.h \
+	$(O_DIR)/_public/scene_pod.h $(O_DIR)/_public/shader.h \
+	$(O_DIR)/_public/shader_get_uniform.c $(O_DIR)/_public/shader_loader.h \
+	$(O_DIR)/_public/texture.h $(O_DIR)/_public/texture_loader.h \
+	$(O_DIR)/_public/utils.h
 
 # module anim
 $(O_DIR)/srcs/anim/anim_start.o: srcs/anim/anim_start.c \
@@ -391,6 +406,68 @@ $(O_DIR)/libft/ft_in/ft_readto.o: libft/ft_in/ft_readto.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
 	libft/ft_in/public/ft_in.h
 
+# module ft::json
+$(O_DIR)/libft/ft_json/json_except.o: libft/ft_json/json_except.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_json/p_json_parser.h \
+	libft/ft_json/public/json.h
+$(O_DIR)/libft/ft_json/json_next.o: libft/ft_json/json_next.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_json/p_json_parser.h \
+	libft/ft_json/public/json.h
+$(O_DIR)/libft/ft_json/json_tokenize.o: libft/ft_json/json_tokenize.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_json/p_json_parser.h \
+	libft/ft_json/public/json.h
+$(O_DIR)/libft/ft_json/json_utils.o: libft/ft_json/json_utils.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_json/public/json.h
+$(O_DIR)/libft/ft_json/parse_value.o: libft/ft_json/parse_value.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_json/p_json_parser.h \
+	libft/ft_json/public/json.h
+
+$(O_DIR)/libft/ft_json/json_except.o $(O_DIR)/libft/ft_json/json_next.o \
+$(O_DIR)/libft/ft_json/json_tokenize.o $(O_DIR)/libft/ft_json/json_utils.o \
+$(O_DIR)/libft/ft_json/parse_value.o: INCLUDE_FLAGS += -Ilibft/ft_json
+
+# module ft::json_t
+$(O_DIR)/libft/ft_json_t/json_t_free.o: libft/ft_json_t/json_t_free.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_json/public/json.h \
+	libft/ft_json_t/p_json_t.h libft/ft_json_t/public/json_t.h \
+	libft/ft_vector/public/ft_vector.h
+$(O_DIR)/libft/ft_json_t/json_t_parse.o: libft/ft_json_t/json_t_parse.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_json/public/json.h \
+	libft/ft_json_t/p_json_t.h libft/ft_json_t/public/json_t.h \
+	libft/ft_vector/public/ft_vector.h
+$(O_DIR)/libft/ft_json_t/json_t_sizeof.o: libft/ft_json_t/json_t_sizeof.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_json/public/json.h \
+	libft/ft_json_t/p_json_t.h libft/ft_json_t/public/json_t.h \
+	libft/ft_vector/public/ft_vector.h
+$(O_DIR)/libft/ft_json_t/parse_dict.o: libft/ft_json_t/parse_dict.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_json/public/json.h \
+	libft/ft_json_t/p_json_t.h libft/ft_json_t/public/json_t.h \
+	libft/ft_vector/public/ft_vector.h
+$(O_DIR)/libft/ft_json_t/parse_list.o: libft/ft_json_t/parse_list.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_json/public/json.h \
+	libft/ft_json_t/p_json_t.h libft/ft_json_t/public/json_t.h \
+	libft/ft_vector/public/ft_vector.h
+$(O_DIR)/libft/ft_json_t/parse_value.o: libft/ft_json_t/parse_value.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_json/public/json.h \
+	libft/ft_json_t/p_json_t.h libft/ft_json_t/public/json_t.h \
+	libft/ft_vector/public/ft_vector.h
+
+$(O_DIR)/libft/ft_json_t/json_t_free.o $(O_DIR)/libft/ft_json_t/json_t_parse.o \
+$(O_DIR)/libft/ft_json_t/json_t_sizeof.o $(O_DIR)/libft/ft_json_t/parse_dict.o \
+$(O_DIR)/libft/ft_json_t/parse_list.o $(O_DIR)/libft/ft_json_t/parse_value.o: \
+	INCLUDE_FLAGS += -Ilibft/ft_json_t
+
 # module ft::list
 $(O_DIR)/libft/ft_list/ft_listadd.o: libft/ft_list/ft_listadd.c \
 	libft/ft_base/public/libft.h libft/ft_list/public/ft_list.h
@@ -630,18 +707,20 @@ $(O_DIR)/srcs/main/init_window.o: srcs/main/init_window.c \
 	srcs/obj/include/obj.h srcs/shader/shader.h srcs/texture/texture.h \
 	srcs/utils/include/utils.h
 $(O_DIR)/srcs/main/main.o: srcs/main/main.c libft/ft_base/public/libft.h \
-	libft/ft_dstr/public/ft_dstr.h libft/ft_gl/gl.h \
-	libft/ft_hmap/public/ft_hmap.h libft/ft_list/public/ft_list.h \
-	libft/ft_math/public/math_mat4.h libft/ft_math/public/math_vec2.h \
-	libft/ft_math/public/math_vec3.h libft/ft_math/public/math_vec4.h \
-	libft/ft_out/public/ft_out.h libft/ft_printf/public/ft_printf.h \
-	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
-	srcs/anim_component/public/anim_component.h srcs/camera/include/camera.h \
-	srcs/events/include/events.h srcs/main/include/main.h srcs/mesh/mesh.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_file_in/public/file_in.h \
+	libft/ft_gl/gl.h libft/ft_hmap/public/ft_hmap.h libft/ft_in/public/ft_in.h \
+	libft/ft_list/public/ft_list.h libft/ft_math/public/math_mat4.h \
+	libft/ft_math/public/math_vec2.h libft/ft_math/public/math_vec3.h \
+	libft/ft_math/public/math_vec4.h libft/ft_out/public/ft_out.h \
+	libft/ft_printf/public/ft_printf.h libft/ft_vector/public/ft_vector.h \
+	srcs/anim/include/anim.h srcs/anim_component/public/anim_component.h \
+	srcs/camera/include/camera.h srcs/events/include/events.h \
+	srcs/main/include/main.h srcs/mesh/mesh.h \
 	srcs/mesh_loader/include/public/mesh_loader.h \
 	srcs/mesh_renderer/public/mesh_renderer.h srcs/mtl/mtl.h \
-	srcs/obj/include/obj.h srcs/shader/shader.h srcs/texture/texture.h \
-	srcs/utils/include/utils.h
+	srcs/obj/include/obj.h srcs/obj/include/obj_component_class.h \
+	srcs/scene_loader/public/scene_loader.h srcs/scene_pod/public/scene_pod.h \
+	srcs/shader/shader.h srcs/texture/texture.h srcs/utils/include/utils.h
 $(O_DIR)/srcs/main/motions.o: srcs/main/motions.c libft/ft_base/public/libft.h \
 	libft/ft_gl/gl.h libft/ft_hmap/public/ft_hmap.h \
 	libft/ft_list/public/ft_list.h libft/ft_math/public/math_mat4.h \
@@ -815,6 +894,38 @@ $(O_DIR)/srcs/obj/obj_transform.o: srcs/obj/obj_transform.c \
 	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
 	srcs/obj/include/obj.h srcs/texture/texture.h
 
+# module scene_loader
+$(O_DIR)/srcs/scene_loader/load_scene_pod.o: \
+	srcs/scene_loader/load_scene_pod.c libft/ft_base/public/libft.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_in/public/ft_in.h \
+	libft/ft_json/public/json.h libft/ft_json_t/public/json_t.h \
+	libft/ft_list/public/ft_list.h libft/ft_math/public/math_mat4.h \
+	libft/ft_math/public/math_vec2.h libft/ft_math/public/math_vec3.h \
+	libft/ft_math/public/math_vec4.h libft/ft_vector/public/ft_vector.h \
+	srcs/anim/include/anim.h srcs/camera/include/camera.h srcs/mesh/mesh.h \
+	srcs/mtl/mtl.h srcs/obj/include/obj.h \
+	srcs/obj/include/obj_component_class.h srcs/scene_loader/p_scene_loader.h \
+	srcs/scene_loader/public/scene_loader.h srcs/scene_pod/public/scene_pod.h \
+	srcs/texture/texture.h
+$(O_DIR)/srcs/scene_loader/parse_component.o: \
+	srcs/scene_loader/parse_component.c libft/ft_base/public/libft.h \
+	libft/ft_dstr/public/ft_dstr.h libft/ft_in/public/ft_in.h \
+	libft/ft_json/public/json.h libft/ft_json_t/public/json_t.h \
+	libft/ft_list/public/ft_list.h libft/ft_math/public/math_mat4.h \
+	libft/ft_math/public/math_vec2.h libft/ft_math/public/math_vec3.h \
+	libft/ft_math/public/math_vec4.h libft/ft_vector/public/ft_vector.h \
+	srcs/anim/include/anim.h srcs/camera/include/camera.h srcs/mesh/mesh.h \
+	srcs/mtl/mtl.h srcs/obj/include/obj.h \
+	srcs/obj/include/obj_component_class.h srcs/scene_loader/p_scene_loader.h \
+	srcs/scene_loader/public/scene_loader.h srcs/scene_pod/public/scene_pod.h \
+	srcs/texture/texture.h
+
+$(O_DIR)/srcs/scene_loader/load_scene_pod.o \
+$(O_DIR)/srcs/scene_loader/parse_component.o: INCLUDE_FLAGS += \
+	-Isrcs/scene_loader
+
+# module scene_pod
+
 # module shader
 $(O_DIR)/srcs/shader/shader_get_uniform.o: srcs/shader/shader_get_uniform.c \
 	libft/ft_base/public/libft.h libft/ft_hmap/public/ft_hmap.h \
@@ -915,6 +1026,8 @@ libft/get_next_line/public/get_next_line.h
 $(O_DIR)/_public/ft/gl.h: libft/ft_gl/gl.h
 $(O_DIR)/_public/ft/img.h: libft/ft_img/public/img.h
 $(O_DIR)/_public/ft/img_loader.h: libft/ft_img_loader/public/img_loader.h
+$(O_DIR)/_public/ft/json.h: libft/ft_json/public/json.h
+$(O_DIR)/_public/ft/json_t.h: libft/ft_json_t/public/json_t.h
 $(O_DIR)/_public/ft/libft.h: libft/ft_base/public/libft.h
 $(O_DIR)/_public/ft/math_complex.h: libft/ft_math/public/math_complex.h
 $(O_DIR)/_public/ft/math_mat3.h: libft/ft_math/public/math_mat3.h
@@ -928,6 +1041,9 @@ $(O_DIR)/_public/mesh_renderer.h: srcs/mesh_renderer/public/mesh_renderer.h
 $(O_DIR)/_public/mtl.h: srcs/mtl/mtl.h
 $(O_DIR)/_public/mtl_loader.h: srcs/mtl_loader/include/public/mtl_loader.h
 $(O_DIR)/_public/obj.h: srcs/obj/include/obj.h
+$(O_DIR)/_public/obj_component_class.h: srcs/obj/include/obj_component_class.h
+$(O_DIR)/_public/scene_loader.h: srcs/scene_loader/public/scene_loader.h
+$(O_DIR)/_public/scene_pod.h: srcs/scene_pod/public/scene_pod.h
 $(O_DIR)/_public/shader.h: srcs/shader/shader.h
 $(O_DIR)/_public/shader_get_uniform.c: srcs/shader/shader_get_uniform.c
 $(O_DIR)/_public/shader_loader.h: \

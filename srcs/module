@@ -127,6 +127,7 @@ main module main: main
 	local MDR += lol
 
 	# private require ft::base
+	private require ft::file_in
 	private require ft::gl
 	private require ft::math
 	private require ft::printf
@@ -140,6 +141,8 @@ main module main: main
 	private require mesh_loader
 	private require mesh_renderer
 	private require obj
+	private require scene_loader
+	private require scene_pod
 	private require shader
 	private require utils
 

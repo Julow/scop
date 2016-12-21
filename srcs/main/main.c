@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/12/02 11:58:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/12/21 15:03:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,67 @@
 #include "mesh_loader.h"
 #include "mesh_renderer.h"
 #include "obj.h"
+#include "scene_loader.h"
+#include "scene_pod.h"
 #include "shader.h"
 #include "utils.h"
 
 #include <math.h>
 #include <stdlib.h>
+
+/*
+** ========================================================================== **
+** Debug
+*/
+
+#define PRINT(I,F,...)		ft_printf("%.*c" F, (I) * 2, ' ', ##__VA_ARGS__)
+
+static void	print_scene_pod_components(t_vector const *components, uint32_t indent)
+{
+	t_scene_pod_component const	*c;
+
+	c = VECTOR_IT(*components);
+	while (VECTOR_NEXT(*components, c))
+	{
+		PRINT(indent, "- %ts%n", c->name);
+	}
+}
+
+static void	print_scene_pod_objects(t_vector const *objects, uint32_t indent)
+{
+	t_scene_pod_object const	*obj;
+
+	obj = VECTOR_IT(*objects);
+	while (VECTOR_NEXT(*objects, obj))
+	{
+		PRINT(indent, "-%n");
+		PRINT(indent + 1, "pos: [ %f, %f, %f ]%n", obj->pos.x, obj->pos.y, obj->pos.z);
+		PRINT(indent + 1, "rot: [ %f, %f, %f ]%n", obj->rot.x, obj->rot.y, obj->rot.z);
+		PRINT(indent + 1, "shear: [ %f, %f, %f ]%n", obj->shear.x, obj->shear.y, obj->shear.z);
+		PRINT(indent + 1, "scale: [ %f, %f, %f ]%n", obj->scale.x, obj->scale.y, obj->scale.z);
+		PRINT(indent + 1, "components:%n");
+		print_scene_pod_components(&obj->components, indent + 2);
+		PRINT(indent + 1, "childs:%n");
+		print_scene_pod_objects(&obj->childs, indent + 2);
+	}
+}
+
+static void	print_scene_pod_camera(t_scene_pod_camera const *cam, uint32_t indent)
+{
+	PRINT(indent, "pos: [ %f, %f, %f ]%n", cam->pos.x, cam->pos.y, cam->pos.z);
+	PRINT(indent, "dir: [ %f, %f, %f ]%n", cam->dir.x, cam->dir.y, cam->dir.z);
+	PRINT(indent, "fov: %f%n", cam->fov);
+	PRINT(indent, "near: %f%n", cam->near);
+	PRINT(indent, "far: %f%n", cam->far);
+}
+
+static void	print_scene_pod(t_scene_pod const *scene)
+{
+	ft_printf("objects:%n");
+	print_scene_pod_objects(&scene->objects, 1);
+	ft_printf("camera:%n");
+	print_scene_pod_camera(&scene->camera, 1);
+}
 
 /*
 ** ========================================================================== **
@@ -178,6 +234,8 @@ void			update(t_scop *scop)
 ** Main
 */
 
+#include "ft/file_in.h"
+
 static void		handle_input(t_scop *scop, float elapsed)
 {
 	t_vec3			pos;
@@ -193,6 +251,16 @@ static void		handle_input(t_scop *scop, float elapsed)
 
 int				main(void)
 {
+	t_file_in *const	in = ft_in_fdopen(0);
+	t_scene_pod			scene;
+
+	if (!load_scene_pod(V(in), &scene))
+		return (1);
+
+	print_scene_pod(&scene);
+
+	return (0);
+
 	t_scop			scop;
 	t_fps			fps;
 	int				last_flags;
