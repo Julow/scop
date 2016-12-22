@@ -64,6 +64,7 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/libft/ft_json_t/json_t_parse.o \
 	$(O_DIR)/libft/ft_json_t/json_t_sizeof.o \
 	$(O_DIR)/libft/ft_json_t/parse_dict.o \
+	$(O_DIR)/libft/ft_json_t/parse_enum.o \
 	$(O_DIR)/libft/ft_json_t/parse_list.o \
 	$(O_DIR)/libft/ft_json_t/parse_value.o $(O_DIR)/libft/ft_list/ft_listadd.o \
 	$(O_DIR)/libft/ft_list/ft_listremove.o \
@@ -186,7 +187,8 @@ $(O_DIR)/srcs/anim_component/anim_component.o: \
 	libft/ft_math/public/math_vec4.h libft/ft_vector/public/ft_vector.h \
 	srcs/anim/include/anim.h srcs/anim_component/public/anim_component.h \
 	srcs/camera/include/camera.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
-	srcs/obj/include/obj.h srcs/texture/texture.h
+	srcs/obj/include/obj.h srcs/obj/include/obj_component_class.h \
+	srcs/texture/texture.h
 
 # module camera
 $(O_DIR)/srcs/camera/camera_get_view.o: srcs/camera/camera_get_view.c \
@@ -452,6 +454,11 @@ $(O_DIR)/libft/ft_json_t/parse_dict.o: libft/ft_json_t/parse_dict.c \
 	libft/ft_in/public/ft_in.h libft/ft_json/public/json.h \
 	libft/ft_json_t/p_json_t.h libft/ft_json_t/public/json_t.h \
 	libft/ft_vector/public/ft_vector.h
+$(O_DIR)/libft/ft_json_t/parse_enum.o: libft/ft_json_t/parse_enum.c \
+	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
+	libft/ft_in/public/ft_in.h libft/ft_json/public/json.h \
+	libft/ft_json_t/p_json_t.h libft/ft_json_t/public/json_t.h \
+	libft/ft_vector/public/ft_vector.h
 $(O_DIR)/libft/ft_json_t/parse_list.o: libft/ft_json_t/parse_list.c \
 	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
 	libft/ft_in/public/ft_in.h libft/ft_json/public/json.h \
@@ -465,8 +472,8 @@ $(O_DIR)/libft/ft_json_t/parse_value.o: libft/ft_json_t/parse_value.c \
 
 $(O_DIR)/libft/ft_json_t/json_t_free.o $(O_DIR)/libft/ft_json_t/json_t_parse.o \
 $(O_DIR)/libft/ft_json_t/json_t_sizeof.o $(O_DIR)/libft/ft_json_t/parse_dict.o \
-$(O_DIR)/libft/ft_json_t/parse_list.o $(O_DIR)/libft/ft_json_t/parse_value.o: \
-	INCLUDE_FLAGS += -Ilibft/ft_json_t
+$(O_DIR)/libft/ft_json_t/parse_enum.o $(O_DIR)/libft/ft_json_t/parse_list.o \
+$(O_DIR)/libft/ft_json_t/parse_value.o: INCLUDE_FLAGS += -Ilibft/ft_json_t
 
 # module ft::list
 $(O_DIR)/libft/ft_list/ft_listadd.o: libft/ft_list/ft_listadd.c \
@@ -901,7 +908,8 @@ $(O_DIR)/srcs/scene_loader/load_scene_pod.o: \
 	libft/ft_json/public/json.h libft/ft_json_t/public/json_t.h \
 	libft/ft_list/public/ft_list.h libft/ft_math/public/math_mat4.h \
 	libft/ft_math/public/math_vec2.h libft/ft_math/public/math_vec3.h \
-	libft/ft_math/public/math_vec4.h libft/ft_vector/public/ft_vector.h \
+	libft/ft_math/public/math_vec4.h libft/ft_out/public/ft_out.h \
+	libft/ft_printf/public/ft_printf.h libft/ft_vector/public/ft_vector.h \
 	srcs/anim/include/anim.h srcs/camera/include/camera.h srcs/mesh/mesh.h \
 	srcs/mtl/mtl.h srcs/obj/include/obj.h \
 	srcs/obj/include/obj_component_class.h srcs/scene_loader/p_scene_loader.h \

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 15:01:57 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/12/21 17:34:25 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/12/22 15:57:36 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+static t_json_t_value const	g_vec2_json = JSON_T_FIXED_LIST(t_vec2,
+	(x, JSON_T_VALUE(FLOAT)),
+	(y, JSON_T_VALUE(FLOAT))
+);
+
 static t_json_t_value const	g_vec3_json = JSON_T_FIXED_LIST(t_vec3,
 	(x, JSON_T_VALUE(FLOAT)),
 	(y, JSON_T_VALUE(FLOAT)),
@@ -23,8 +28,8 @@ static t_json_t_value const	g_vec3_json = JSON_T_FIXED_LIST(t_vec3,
 );
 
 static t_json_t_value const	g_camera_json = JSON_T_DICT(t_scene_pod_camera,
-	("position", pos, g_vec3_json),
-	("direction", dir, g_vec3_json),
+	("pos", pos, g_vec3_json),
+	("dir", dir, g_vec2_json),
 	("fov", fov, JSON_T_VALUE(FLOAT)),
 	("near", near, JSON_T_VALUE(FLOAT)),
 	("far", far, JSON_T_VALUE(FLOAT))
@@ -35,6 +40,7 @@ static t_json_t_value const	g_object_json = JSON_T_DICT(t_scene_pod_object,
 	("rotation", rot, g_vec3_json),
 	("shear", shear, g_vec3_json),
 	("scale", scale, g_vec3_json),
+	("mesh", mesh, JSON_T_VALUE(STRING)),
 	("components", components, JSON_T_LIST(g_scene_pod_component_json)),
 	("childs", childs, JSON_T_LIST(g_object_json))
 );

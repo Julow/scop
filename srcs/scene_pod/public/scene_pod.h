@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 14:55:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/12/21 14:59:49 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/12/22 15:19:52 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ struct		s_scene_pod_object
 	t_vec3		rot;
 	t_vec3		shear;
 	t_vec3		scale;
+	t_sub		*mesh;
 	t_vector	components;
 	t_vector	childs;
 };
@@ -37,7 +38,7 @@ struct		s_scene_pod_object
 struct		s_scene_pod_camera
 {
 	t_vec3		pos;
-	t_vec3		dir;
+	t_vec2		dir;
 	float		fov;
 	float		near;
 	float		far;

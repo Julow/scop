@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 22:11:48 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/23 22:12:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2016/12/22 18:43:43 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,22 @@ static void		anim_component_update(t_anim_component *c, t_obj *obj)
 	obj_transform[c->type](obj, VEC3_ADD(VEC3_MUL1(c->offset, delta), c->from));
 }
 
-t_obj_component	*create_anim_component(t_vec3 from, t_vec3 to, float duration,
-					float (*smooth)(float), t_obj_anim_t type, uint32_t flags)
+t_obj_component	*create_anim_component(t_anim_component_param const *param)
 {
 	t_anim_component *const	c = NEW(t_anim_component);
 
+	ft_printf("flags: %u%n", param->flags);
 	*c = (t_anim_component){
 		OBJ_COMPONENT(&anim_component_update),
-		ANIM(duration, flags, smooth),
-		from,
-		VEC3_SUB(to, from),
-		type
+		ANIM(param->duration, param->flags, param->smooth),
+		param->from,
+		VEC3_SUB(param->to, param->from),
+		param->type
 	};
 	anim_start(&c->anim);
 	return (V(c));
 }
+
+t_obj_component_class	g_anim_component_class = {
+	V(&create_anim_component)
+};
