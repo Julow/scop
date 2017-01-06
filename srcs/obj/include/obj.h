@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2016/11/25 11:42:18 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/05 11:34:27 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,33 @@ struct			s_obj_renderer
 
 /*
 ** Represent an object
+** -
+** renderer		=> TODO: remove
+** local		=> Local transformations (relative to parent's)
+** world_m		=> World space matrix
+** components	=> Components array (t_obj_component*)
+** childs		=> Child objs array (t_obj)
+** moving		=> If the object localy moved during the current frame
+** 					(world_m is not up to date)
+** moved		=> If the object moved (in world space) during the last frame
 */
 struct			s_obj
 {
 	t_obj_renderer	*renderer;
-	t_transform		transform;
-	t_mat4			transform_m;
+	t_transform		local;
+	t_mat4			world_m;
 	t_vector		components;
 	t_vector		childs;
-	uint32_t		flags;
+	bool			moving:1;
+	bool			moved:1;
 };
 
-# define OBJ()	((t_obj){NULL,{},{},VECTOR(t_obj_component*),VECTOR(t_obj),0})
-
-# define OBJ_F_MATRIX_OK	(1 << 0)
-# define OBJ_F_HIDE			(1 << 1)
+# define OBJ()	((t_obj){NULL,{},{},VECTOR(t_obj_component*),VECTOR(t_obj),1,0})
 
 /*
-** Return the transformation matrix
+** Recursively update object's components
 */
-t_mat4 const	*obj_matrix(t_obj *obj);
+void			obj_update(t_vector *objs);
 
 /*
 ** Apply transform to an object

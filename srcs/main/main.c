@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/12/22 18:41:40 by juloo            ###   ########.fr       */
+/*   Updated: 2017/01/04 14:40:48 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,23 +105,19 @@ bool			load_scene(t_scop *scop)
 ** Render obj
 */
 
-static void		render_objs(t_vector *objs, t_mat4 const *parent_mat)
+static void		render_objs(t_vector *objs)
 {
 	t_obj				*obj;
-	t_mat4				mat;
 
 	obj = VECTOR_IT(*objs);
 	while (VECTOR_NEXT(*objs, obj))
 	{
-		ft_mat4mult(obj_matrix(obj), parent_mat, &mat);
 		if (obj->renderer != NULL)
-			obj->renderer->render(obj->renderer, &mat);
+			obj->renderer->render(obj->renderer, &obj->world_m);
 		if (obj->childs.length > 0)
-			render_objs(&(obj->childs), &mat);
+			render_objs(&(obj->childs));
 	}
 }
-
-static t_mat4 const		g_mat4_identity = MAT4_I();
 
 void			render(t_scop *scop)
 {
@@ -131,7 +127,7 @@ void			render(t_scop *scop)
 
 	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	render_objs(&scop->objects, &g_mat4_identity);
+	render_objs(&scop->objects);
 }
 
 /*
@@ -139,25 +135,9 @@ void			render(t_scop *scop)
 ** Update obj
 */
 
-static void		update_objs(t_vector *objs)
-{
-	t_obj				*obj;
-	t_obj_component		**component;
-
-	obj = VECTOR_IT(*objs);
-	while (VECTOR_NEXT(*objs, obj))
-	{
-		component = VECTOR_IT(obj->components);
-		while (VECTOR_NEXT(obj->components, component))
-			(*component)->update(*component, obj);
-		if (obj->childs.length > 0)
-			update_objs(&obj->childs);
-	}
-}
-
 void			update(t_scop *scop)
 {
-	update_objs(&scop->objects);
+	obj_update(&scop->objects);
 }
 
 /*
