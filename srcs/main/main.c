@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/04 14:40:48 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/11 15:08:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 #include "mesh_renderer.h"
 #include "obj.h"
 #include "scene_loader.h"
-#include "scene_pod.h"
 #include "shader.h"
 #include "utils.h"
 
@@ -36,68 +35,72 @@
 */
 
 #include "ft/file_in.h"
+#include "ft/json_t.h"
 
-static bool		load_objs(t_mesh_render *mesh_render, t_vector const *pods,
-					t_vector *dst);
+/*
+** anim component
+*/
 
-static bool		load_obj(t_mesh_render *mesh_render,
-					t_scene_pod_object const *pod, t_obj *dst)
-{
-	t_scene_pod_component const	*comp;
+#include "anim_component.h"
 
-	*dst = OBJ();
-	obj_translate(dst, pod->pos);
-	obj_rotate(dst, pod->rot);
-	obj_scale(dst, pod->scale);
-	obj_shear(dst, pod->shear);
-	dst->renderer = create_mesh_renderer(mesh_render, load_mesh(*pod->mesh));
-	comp = VECTOR_IT(pod->components);
-	ft_vreserve(&dst->components, pod->components.length);
-	while (VECTOR_NEXT(pod->components, comp))
-	{
-		if ((*(t_obj_component**)ft_vpush(&dst->components, NULL, 1) =
-				comp->c->create(comp->param)) == NULL)
-			return (false); // TODO: leaks
-	}
-	return (load_objs(mesh_render, &pod->childs, &dst->childs));
-}
+static t_json_t_value const	g_vec3_json = JSON_T_FIXED_LIST(t_vec3,
+	(x, JSON_T_VALUE(FLOAT)),
+	(y, JSON_T_VALUE(FLOAT)),
+	(z, JSON_T_VALUE(FLOAT))
+);
 
-static bool		load_objs(t_mesh_render *mesh_render, t_vector const *pods,
-					t_vector *dst)
-{
-	t_scene_pod_object const	*obj;
+static t_json_t_value const		g_anim_type_json = JSON_T_ENUM(t_obj_anim_t,
+	("translate", OBJ_ANIM_TRANSLATE),
+	("rotate", OBJ_ANIM_ROTATE),
+	("shear", OBJ_ANIM_SHEAR),
+	("scale", OBJ_ANIM_SCALE)
+);
 
-	*dst = VECTOR(t_obj);
-	ft_vreserve(dst, pods->length);
-	obj = VECTOR_IT(*pods);
-	while (VECTOR_NEXT(*pods, obj))
-	{
-		if (!load_obj(mesh_render, obj, ft_vpush(dst, NULL, 1)))
-			return (false); // TODO: leaks
-	}
-	return (true);
-}
+static t_json_t_value const		g_anim_smooth_json = JSON_T_ENUM(float (*)(float),
+	("linear", &smooth_linear),
+	("in", &smooth_in),
+	("out", &smooth_out),
+	("in_out", &smooth_in_out),
+	("elastic", &smooth_elastic),
+	("bounce", &smooth_bounce),
+	("back_in", &smooth_back_in),
+	("back_out", &smooth_back_out),
+	("back_in_out", &smooth_back_in_out)
+);
 
-static bool		load_camera(t_scene_pod_camera const *pod, t_scop *scop)
-{
-	scop->camera = CAMERA(pod->pos, pod->dir);
-	scop->projection_m = ft_mat4perspective(pod->fov, WIN_RATIO,
-			pod->near, pod->far);
-	return (true);
-}
+static t_json_t_value const		g_anim_flags_json = JSON_T_ENUM(uint32_t,
+	("none", 0),
+	("restart", F_ANIM_RESTART),
+	("repeat", F_ANIM_REPEAT),
+	("reverse", F_ANIM_REVERSE)
+);
 
-bool			load_scene(t_scop *scop)
+static t_json_t_value const		g_anim_param_json = JSON_T_DICT(t_anim_component_param,
+	("from", from, g_vec3_json),
+	("to", to, g_vec3_json),
+	("duration", duration, JSON_T_VALUE(FLOAT)),
+	("type", type, g_anim_type_json),
+	("smooth", smooth, g_anim_smooth_json),
+	("repeat", flags, g_anim_flags_json)
+);
+
+/*
+** -
+*/
+
+static t_scene_component const	g_scene_components[] = {
+	{ SUBC("anim"), &g_anim_component_class, &g_anim_param_json },
+};
+
+static bool		scop_load_scene(t_scop *scop)
 {
 	t_file_in *const	in = ft_in_fdopen(0);
-	t_scene_pod			scene;
 	bool				r;
 
-	r = load_scene_pod(V(in), &scene);
+	r = load_scene(V(in), &scop->scene, &VECTORC(g_scene_components),
+			&scop->mesh_render, WIN_RATIO);
 	ft_in_close(in);
-	if (!r)
-		return (false);
-	return (load_camera(&scene.camera, scop)
-		&& load_objs(&scop->mesh_render, &scene.objects, &scop->objects));
+	return (r);
 }
 
 /*
@@ -121,13 +124,13 @@ static void		render_objs(t_vector *objs)
 
 void			render(t_scop *scop)
 {
-	scop->mesh_render.view = camera_get_view(&scop->camera);
-	scop->mesh_render.proj = &scop->projection_m;
-	scop->mesh_render.camera_pos = scop->camera.position;
+	scop->mesh_render.view = camera_get_view(&scop->scene.camera);
+	scop->mesh_render.proj = &scop->scene.projection_m;
+	scop->mesh_render.camera_pos = scop->scene.camera.position;
 
 	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	render_objs(&scop->objects);
+	render_objs(&scop->scene.objects);
 }
 
 /*
@@ -137,7 +140,7 @@ void			render(t_scop *scop)
 
 void			update(t_scop *scop)
 {
-	obj_update(&scop->objects);
+	obj_update(&scop->scene.objects);
 }
 
 /*
@@ -150,12 +153,12 @@ static void		handle_input(t_scop *scop, float elapsed)
 	t_vec3			pos;
 	t_vec2			look;
 
-	pos = scop->camera.position;
+	pos = scop->scene.camera.position;
 	if (handle_key_hold(scop, elapsed, &pos))
-		camera_move(&(scop->camera), pos);
-	look = scop->camera.look;
+		camera_move(&(scop->scene.camera), pos);
+	look = scop->scene.camera.look;
 	if (handle_cursor_move(scop, &look))
-		camera_look(&(scop->camera), look);
+		camera_look(&(scop->scene.camera), look);
 }
 
 int				main(void)
@@ -165,7 +168,7 @@ int				main(void)
 	int				last_flags;
 
 	ft_bzero(&scop, sizeof(scop));
-	if (!init_window(&scop) || !load_scene(&scop))
+	if (!init_window(&scop) || !scop_load_scene(&scop))
 		return (1);
 	mesh_render_init(&scop.mesh_render);
 	glfwSwapInterval(0); // TODO: tmp
@@ -184,8 +187,8 @@ int				main(void)
 			ft_printf("\rFPS: %-2lld t: %-3lld flags: %.16b "
 				"pos: [ %f, %f, %f ] look: [ %f, %f ]%5 %!",
 				fps.average_fps, fps.average_time, scop.flags,
-				scop.camera.position.x, scop.camera.position.y,
-				scop.camera.position.z, scop.camera.look.x, scop.camera.look.y);
+				scop.scene.camera.position.x, scop.scene.camera.position.y,
+				scop.scene.camera.position.z, scop.scene.camera.look.x, scop.scene.camera.look.y);
 		}
 		handle_input(&scop, fps.elapsed);
 		update(&scop);

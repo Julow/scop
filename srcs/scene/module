@@ -1,7 +1,8 @@
-module scene_pod:
+module scene:
 	public include public/
 
 	public require ft::base
 	public require ft::math
 	public require ft::vector
+	public require camera
 	public require obj

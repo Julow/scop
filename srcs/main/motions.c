@@ -6,12 +6,13 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/31 12:24:00 by juloo             #+#    #+#             */
-/*   Updated: 2015/12/10 19:52:05 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/11 15:05:34 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 #include "motions.h"
+
 #include <math.h>
 
 t_motion_def const	g_moves[] = {
@@ -62,7 +63,7 @@ bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos)
 	while (++i < ARRAY_LEN(g_moves))
 		if (scop->flags & g_moves[i].flag)
 		{
-			g_moves[i].f(scop->camera.look, &move, g_moves[i].inv);
+			g_moves[i].f(scop->scene.camera.look, &move, g_moves[i].inv);
 			length++;
 		}
 	if (length == 0)

@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_scene_loader.h                                   :+:      :+:    :+:   */
+/*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/21 14:59:09 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 15:06:04 by jaguillo         ###   ########.fr       */
+/*   Created: 2017/01/11 13:20:22 by jaguillo          #+#    #+#             */
+/*   Updated: 2017/01/11 13:36:52 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef P_SCENE_LOADER_H
-# define P_SCENE_LOADER_H
+#ifndef SCENE_H
+# define SCENE_H
 
-# include "ft/json.h"
-# include "ft/json_t.h"
 # include "ft/libft.h"
+# include "ft/math_mat4.h"
 
-# include "p_scene_pod.h"
-# include "scene_loader.h"
+# include "camera.h"
+# include "obj.h"
+
+typedef struct s_scene			t_scene;
 
 /*
 ** ========================================================================== **
+** Scene
 */
 
-void			load_scene_objs(t_mesh_render *mesh_render,
-					t_vector const *pods, t_vector *dst);
-
-bool			scene_pod_parse_component(t_json_parser *p,
-					t_scene_pod_component *dst, t_vector const *components);
-
-void			scene_pod_free_component(t_scene_pod_component *data,
-					t_vector const *components);
+struct			s_scene
+{
+	t_vector		objects;
+	t_camera		camera;
+	t_mat4			projection_m;
+};
 
 #endif

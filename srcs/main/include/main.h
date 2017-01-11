@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/25 14:38:08 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/11 13:37:07 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "camera.h"
 # include "mesh_renderer.h"
 # include "obj.h"
+# include "scene.h"
 
 typedef struct s_scop		t_scop;
 
@@ -37,10 +38,6 @@ typedef struct s_scop		t_scop;
 
 # define WIN_TITLE			"Scop"
 
-# define PERSPECTIVE_FOV	42.f
-# define PERSPECTIVE_NEAR	0.01f
-# define PERSPECTIVE_FAR	10000.f
-
 # define MOVE_SPEED			0.00002f
 # define CURSOR_SPEED		3.f
 # define ACCELERATION		10.f
@@ -48,9 +45,7 @@ typedef struct s_scop		t_scop;
 struct			s_scop
 {
 	GLFWwindow		*window;
-	t_vector		objects;
-	t_camera		camera;
-	t_mat4			projection_m;
+	t_scene			scene;
 	t_vec2			cursor;
 	int				flags;
 	t_mesh_render	mesh_render;

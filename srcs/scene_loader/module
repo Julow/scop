@@ -4,8 +4,11 @@ module scene_loader:
 
 	public require ft::base
 	public require ft::in
-	public require scene_pod
+	public require ft::json_t
+	public require scene
 
 	private require ft::json
-	private require ft::json_t
+	private require ft::math
 	private require ft::printf
+	private require ft::vector
+	private require obj
