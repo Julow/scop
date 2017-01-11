@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 14:59:09 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 15:06:04 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/11 17:55:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 ** ========================================================================== **
 */
 
-void			load_scene_objs(t_mesh_render *mesh_render,
-					t_vector const *pods, t_vector *dst);
+void			load_scene_objs(t_vector const *pods, t_vector *dst);
 
 bool			scene_pod_parse_component(t_json_parser *p,
 					t_scene_pod_component *dst, t_vector const *components);

@@ -1,12 +1,14 @@
 module mesh_renderer:
 	public include public/
-	private include ./
+	private include .
 
+	public require ft::base
+	public require ft::list
 	public require ft::math
 	public require mesh
 	public require obj
-	public require shader
 
-	private require ft::base
 	private require ft::gl
+	private require mesh_loader
+	private require shader
 	private require shader_loader

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 15:08:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/11 19:42:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,29 @@ static t_json_t_value const		g_anim_param_json = JSON_T_DICT(t_anim_component_pa
 );
 
 /*
+** mesh renderer component
+*/
+
+#include "mesh_renderer.h"
+
+/*
 ** -
 */
 
-static t_scene_component const	g_scene_components[] = {
-	{ SUBC("anim"), &g_anim_component_class, &g_anim_param_json },
-};
-
 static bool		scop_load_scene(t_scop *scop)
 {
+	t_scene_component const	scene_components[] = {
+		{ SUBC("anim"), V(&create_anim_component), NULL, &g_anim_param_json },
+		{ SUBC("mesh"),
+			V(&mesh_renderer_component_create), &scop->mesh_renderer,
+			&JSON_T_VALUE(STRING)
+		},
+	};
+
 	t_file_in *const	in = ft_in_fdopen(0);
 	bool				r;
 
-	r = load_scene(V(in), &scop->scene, &VECTORC(g_scene_components),
-			&scop->mesh_render, WIN_RATIO);
+	r = load_scene(V(in), &scop->scene, &VECTORC(scene_components), WIN_RATIO);
 	ft_in_close(in);
 	return (r);
 }
@@ -108,29 +117,28 @@ static bool		scop_load_scene(t_scop *scop)
 ** Render obj
 */
 
-static void		render_objs(t_vector *objs)
-{
-	t_obj				*obj;
+// static void		render_objs(t_vector *objs)
+// {
+// 	t_obj				*obj;
 
-	obj = VECTOR_IT(*objs);
-	while (VECTOR_NEXT(*objs, obj))
-	{
-		if (obj->renderer != NULL)
-			obj->renderer->render(obj->renderer, &obj->world_m);
-		if (obj->childs.length > 0)
-			render_objs(&(obj->childs));
-	}
-}
+// 	obj = VECTOR_IT(*objs);
+// 	while (VECTOR_NEXT(*objs, obj))
+// 	{
+// 		if (obj->renderer != NULL)
+// 			obj->renderer->render(obj->renderer, &obj->world_m);
+// 		if (obj->childs.length > 0)
+// 			render_objs(&(obj->childs));
+// 	}
+// }
 
 void			render(t_scop *scop)
 {
-	scop->mesh_render.view = camera_get_view(&scop->scene.camera);
-	scop->mesh_render.proj = &scop->scene.projection_m;
-	scop->mesh_render.camera_pos = scop->scene.camera.position;
-
 	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	render_objs(&scop->scene.objects);
+
+	ft_mat4mult(&scop->scene.projection_m, camera_get_view(&scop->scene.camera),
+			&scop->mesh_renderer.viewproj); // TODO: only when needed
+	mesh_render(&scop->mesh_renderer);
 }
 
 /*
@@ -168,9 +176,11 @@ int				main(void)
 	int				last_flags;
 
 	ft_bzero(&scop, sizeof(scop));
-	if (!init_window(&scop) || !scop_load_scene(&scop))
+	if (!init_window(&scop))
 		return (1);
-	mesh_render_init(&scop.mesh_render);
+	mesh_renderer_init(&scop.mesh_renderer);
+	if (!scop_load_scene(&scop))
+		return (1);
 	glfwSwapInterval(0); // TODO: tmp
 	init_events(scop.window);
 	fps = fps_init(200000);

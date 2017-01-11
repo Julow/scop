@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2017/01/05 11:34:27 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/11 17:55:41 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,8 @@ struct			s_obj_component
 # define OBJ_COMPONENT(UPDATE)	((t_obj_component){V(UPDATE)})
 
 /*
-** obj's renderer base class
-** 'render' is called at the render step, parent first
-*/
-struct			s_obj_renderer
-{
-	void			(*render)(t_obj_renderer *renderer, t_mat4 const *model);
-};
-
-# define OBJ_RENDERER(RENDER)	((t_obj_renderer){V(RENDER)})
-
-/*
 ** Represent an object
 ** -
-** renderer		=> TODO: remove
 ** local		=> Local transformations (relative to parent's)
 ** world_m		=> World space matrix
 ** components	=> Components array (t_obj_component*)
@@ -78,7 +66,6 @@ struct			s_obj_renderer
 */
 struct			s_obj
 {
-	t_obj_renderer	*renderer;
 	t_transform		local;
 	t_mat4			world_m;
 	t_vector		components;
@@ -87,7 +74,7 @@ struct			s_obj
 	bool			moved:1;
 };
 
-# define OBJ()	((t_obj){NULL,{},{},VECTOR(t_obj_component*),VECTOR(t_obj),1,0})
+# define OBJ()	((t_obj){{},{},VECTOR(t_obj_component*),VECTOR(t_obj),1,0})
 
 /*
 ** Recursively update object's components

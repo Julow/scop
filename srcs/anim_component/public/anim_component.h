@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 22:09:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/12/22 16:14:32 by juloo            ###   ########.fr       */
+/*   Updated: 2017/01/11 18:02:18 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 # include "anim.h"
 # include "obj.h"
-# include "obj_component_class.h"
 
 typedef struct s_anim_component			t_anim_component;
 typedef struct s_anim_component_param	t_anim_component_param;
@@ -61,7 +60,5 @@ struct			s_anim_component_param
 ** 'flags' is any combination of anim's flags
 */
 t_obj_component	*create_anim_component(t_anim_component_param const *param);
-
-extern t_obj_component_class	g_anim_component_class;
 
 #endif

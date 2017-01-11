@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 15:00:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/10 19:02:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/11 19:27:21 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,25 @@ bool			scene_pod_parse_component(t_json_parser *p,
 		return (false);
 	if ((c = get_component(components, JSON_VAL_STRING(p))) == NULL)
 		return (ft_json_fail(p, SUBC("Unknown component")));
-	dst->name = c->name;
-	dst->c = c->c;
+	dst->c = c;
 	dst->param = MALLOC(ft_json_t_sizeof(c->val));
-	if (!ft_json_next(p)
-		|| !ft_json_t_next(p, c->val, dst->param)
-		|| !ft_json_except(p, JSON_END))
+	if (ft_json_next(p))
 	{
-		free(dst->param);
-		return (false);
+		if (ft_json_t_next(p, c->val, dst->param))
+		{
+			if (ft_json_except(p, JSON_END))
+				return (true);
+		}
+		ft_json_t_free(c->val, dst->param);
 	}
-	return (true);
+	free(dst->param);
+	return (false);
 }
 
 void			scene_pod_free_component(t_scene_pod_component *data,
 					t_vector const *components)
 {
-	t_scene_component const *const	c = get_component(components, data->name);
-
-	HARD_ASSERT(c != NULL);
-	ft_json_t_free(c->val, data->param);
+	ft_json_t_free(data->c->val, data->param);
 	free(data->param);
+	(void)components;
 }

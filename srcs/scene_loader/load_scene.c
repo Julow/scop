@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 13:21:48 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 15:06:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/11 17:52:09 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,13 @@ static void		load_camera(t_scene_pod_camera const *pod, t_scene *dst,
 }
 
 bool		load_scene(t_in *in, t_scene *dst,
-				t_vector const *components,
-				t_mesh_render *mesh_render, // TODO: remove
-				float win_ratio)
+				t_vector const *components, float win_ratio)
 {
 	t_json_t_value const	object_json = JSON_T_DICT(t_scene_pod_object,
 		("position", pos, g_vec3_json),
 		("rotation", rot, g_vec3_json),
 		("shear", shear, g_vec3_json),
 		("scale", scale, g_vec3_json),
-		("mesh", mesh, JSON_T_VALUE(STRING)),
 		("components", components, JSON_T_LIST(JSON_T_CALLBACK(
 			V(scene_pod_parse_component),
 			V(scene_pod_free_component),
@@ -78,7 +75,7 @@ bool		load_scene(t_in *in, t_scene *dst,
 		return (false);
 	}
 	load_camera(&scene_pod.camera, dst, win_ratio);
-	load_scene_objs(mesh_render, &scene_pod.objects, &dst->objects);
+	load_scene_objs(&scene_pod.objects, &dst->objects);
 	ft_json_t_free(&scene_json, &scene_pod);
 	return (true);
 }

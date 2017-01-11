@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 22:11:48 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/12/22 18:43:43 by juloo            ###   ########.fr       */
+/*   Updated: 2017/01/11 18:11:36 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_obj_component	*create_anim_component(t_anim_component_param const *param)
 {
 	t_anim_component *const	c = NEW(t_anim_component);
 
-	ft_printf("flags: %u%n", param->flags);
 	*c = (t_anim_component){
 		OBJ_COMPONENT(&anim_component_update),
 		ANIM(param->duration, param->flags, param->smooth),
@@ -44,7 +43,3 @@ t_obj_component	*create_anim_component(t_anim_component_param const *param)
 	anim_start(&c->anim);
 	return (V(c));
 }
-
-t_obj_component_class	g_anim_component_class = {
-	V(&create_anim_component)
-};

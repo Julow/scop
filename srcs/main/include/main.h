@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 13:37:07 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/11 17:42:20 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ struct			s_scop
 	t_scene			scene;
 	t_vec2			cursor;
 	int				flags;
-	t_mesh_render	mesh_render;
+	t_mesh_renderer	mesh_renderer;
 };
 
 /*
