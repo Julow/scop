@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shader_get_uniform.c                               :+:      :+:    :+:   */
+/*   ft_read_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/23 23:42:44 by juloo             #+#    #+#             */
-/*   Updated: 2016/12/01 17:18:25 by jaguillo         ###   ########.fr       */
+/*   Created: 2017/01/12 15:49:04 by jaguillo          #+#    #+#             */
+/*   Updated: 2017/01/12 15:49:27 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft/ft_hmap.h"
-#include "shader.h"
+#include "utils.h"
 
-t_uniform_loc		shader_get_uniform(t_shader const *shader, t_sub name)
+bool			ft_read_line(t_in *in, t_dstr *dst)
 {
-	t_uniform const *const	uniform = ft_hmapget(shader->uniforms, name).value;
-
-	return ((uniform == NULL) ? 0 : uniform->loc);
+	dst->length = 0;
+	if (!ft_readto_char(in, '\n', dst))
+		return (dst->length > 0);
+	in->buff_i++;
+	return (true);
 }

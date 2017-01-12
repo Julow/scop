@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 15:08:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:24 by juloo            ###   ########.fr       */
+/*   Updated: 2017/01/12 15:29:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,26 @@
 # define MTL_LOADER_H
 
 # include "ft/libft.h"
-# include "ft/ft_hmap.h"
+# include "ft/set.h"
+
+typedef struct s_mtllib_mtl		t_mtllib_mtl;
+typedef struct s_mtllib			t_mtllib;
+
+/*
+** ========================================================================== **
+*/
+
+struct			s_mtllib_mtl
+{
+	t_set_h			set_head;
+	t_sub			name;
+	t_mtl			mtl;
+};
+
+struct			s_mtllib
+{
+	t_set			mtls;
+};
 
 /*
 ** newmtl <name>				Create a mtl
@@ -32,6 +51,12 @@
 ** -
 ** Return NULL on error
 */
-t_hmap const	*load_mtl(t_sub file_name);
+t_mtllib const	*load_mtl(t_sub file_name);
+
+/*
+** Retrieve a mtl by it's name
+** Return NULL if not found
+*/
+t_mtl const		*mtllib_get(t_mtllib const *lib, t_sub name);
 
 #endif

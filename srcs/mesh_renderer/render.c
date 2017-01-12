@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 14:28:18 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 19:43:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/12 16:01:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void			mesh_render(t_mesh_renderer *renderer)
 	t_mesh_renderer_component const	*mesh;
 
 	mesh = LIST_IT(&renderer->meshes);
-	glUseProgram(renderer->shader->handle);
+	glUseProgram(renderer->shader.handle);
 	glUniformMatrix4fv(renderer->u_viewproj, 1, true,
 			(float const*)&renderer->viewproj); // TODO: only when needed
 	while ((mesh = LIST_NEXT(mesh)))

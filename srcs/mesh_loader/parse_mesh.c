@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:49:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/22 12:26:02 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/12 13:49:35 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft/get_next_line.h"
+#include "ft/file_in.h"
+#include "ft/ft_in.h"
 
 #include "internal.h"
 #include "utils.h"
@@ -49,19 +50,22 @@ static bool		parse_line(t_sub line, t_mesh_data *data)
 	return (true);
 }
 
-bool			parse_mesh(char const *file, t_mesh_data *data)
+bool			parse_mesh(t_sub file, t_mesh_data *data)
 {
-	t_sub			line;
-	int				fd;
+	t_dstr			line;
+	t_file_in		*in;
+	bool			r;
 
-	if ((fd = open(file, O_RDONLY)) < 0)
+	if ((in = ft_in_open(file)) == NULL)
 		return (false);
-	while (get_next_line(fd, &line) > 0)
-		if (!parse_line(line, data))
-		{
-			close(fd);
-			return (false);
-		}
-	close(fd);
-	return (true);
+	line = DSTR0();
+	r = true;
+	while (r && (ft_readto_char(V(in), '\n', &line) || line.length > 0))
+	{
+		r = parse_line(DSTR_SUB(line), data);
+		in->in.buff_i++;
+		line.length = 0;
+	}
+	ft_in_close(in);
+	return (r);
 }

@@ -6,44 +6,63 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 15:07:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/12 15:30:42 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft/file_in.h"
+#include "ft/ft_in.h"
+#include "ft/ft_printf.h"
+
 #include "internal.h"
 #include "utils.h"
-#include "ft/ft_hmap.h"
-#include "ft/ft_printf.h"
+
 #include <fcntl.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-static void		lol(void *mtl)
+static int		mtllib_mtl_cmp(t_mtllib_mtl const *mtl, t_sub const *key)
 {
-	ft_hmapdestroy(mtl, NULL);
+	return (SUB_CMP(mtl->name, *key));
 }
 
-t_hmap const	*load_mtl(t_sub file_name)
+static int		cached_mtllib_cmp(t_cached_mtllib const *lib, t_sub const *key)
 {
-	static t_hmap	*cache = NULL;
-	t_hpair			mtllib;
-	int				fd;
-	bool			ret;
+	return (SUB_CMP(lib->file_name, *key));
+}
 
-	if (cache == NULL)
-		cache = ft_hmapnew(MTL_CACHE_SIZE, &ft_djb2);
-	if ((mtllib = ft_hmapget(cache, file_name)).value != NULL)
-		return (mtllib.value);
-	mtllib = ft_hmapputp(cache, file_name, ft_hmapnew(MTLLIB_SIZE, &ft_djb2));
-	if ((fd = open(mtllib.key, O_RDONLY)) < 0)
+static bool		load_mtllib(t_sub file_name, t_mtllib *dst)
+{
+	t_file_in		*in;
+	bool			r;
+
+	*dst = (t_mtllib){
+		SET(&mtllib_mtl_cmp, 0),
+	};
+	if ((in = ft_in_open(file_name)) == NULL)
+		return (false);
+	r = parse_mtl(V(in), dst);
+	ft_in_close(in);
+	return (r);
+}
+
+t_mtllib const	*load_mtl(t_sub file_name)
+{
+	static t_set	cache = SET(&cached_mtllib_cmp, 0);
+	t_cached_mtllib	*mtllib;
+
+	mtllib = ft_set_get(&cache, &file_name);
+	if (mtllib == NULL)
 	{
-		ft_hmaprem(cache, file_name, &lol);
-		ft_dprintf(2, "Error: Cannot open %s\n", mtllib.key);
-		return (NULL);
+		mtllib = MALLOC(sizeof(t_cached_mtllib) + file_name.length);
+		memcpy(ENDOF(mtllib), file_name.str, file_name.length);
+		mtllib->set_head = SET_HEAD();
+		mtllib->file_name = SUB(ENDOF(mtllib), file_name.length);
+		if (!load_mtllib(file_name, &mtllib->mtllib))
+		{
+			free(mtllib);
+			return (NULL);
+		}
 	}
-	ret = parse_mtl(fd, mtllib.value);
-	close(fd);
-	if (ret)
-		return (mtllib.value);
-	ft_hmapdestroy(mtllib.value, NULL);
-	return (NULL);
+	return (&mtllib->mtllib);
 }

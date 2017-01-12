@@ -6,12 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:20:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/01/12 23:54:07 by juloo            ###   ########.fr       */
+/*   Updated: 2017/01/12 16:01:25 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft/ft_dstr.h"
+#include "ft/ft_in.h"
 #include "ft/ft_list.h"
-#include "ft/get_next_line.h"
 #include "ft/gl.h"
 
 #include "internal.h"
@@ -47,29 +48,30 @@ static bool		read_shader_end(t_list *lines, uint32_t *s, t_shader_t t)
 	return (true);
 }
 
-bool			read_shader(int fd, t_list *lines, uint32_t *s, t_shader_t t)
+bool			read_shader(t_in *in, t_list *lines, uint32_t *s, t_shader_t t)
 {
 	t_sub *const	start_line = lines->last;
 	t_sub			*tmp;
-	t_sub			line;
+	t_dstr			line;
 
-	while (get_next_line(fd, &line) > 0)
-		if (ft_substart(line, SHADER_START))
+	line = DSTR0();
+	while (ft_read_line(in, &line))
+		if (ft_substart(DSTR_SUB(line), SHADER_START))
 		{
 			if (!read_shader_end(lines, s, t))
 				return (false);
 			if (t != g_shader_t.all)
 				ft_listremove_next(lines, start_line, -1);
-			if (!get_shader_type(line, &t))
+			if (!get_shader_type(DSTR_SUB(line), &t))
 				return (false);
-			return (read_shader(fd, lines, s, t));
+			return (read_shader(in, lines, s, t));
 		}
 		else
 		{
 			tmp = ft_listadd(lines, lines->last, line.length + 2);
 			tmp->str = ((void*)tmp) + sizeof(t_sub);
 			tmp->length = line.length + 1;
-			ft_memcpy(((void*)tmp) + sizeof(t_sub), line.str, line.length);
+			memcpy(((void*)tmp) + sizeof(t_sub), line.str, line.length);
 			(((char*)tmp) + sizeof(t_sub))[line.length] = '\n';
 			(((char*)tmp) + sizeof(t_sub))[tmp->length] = '\0';
 		}

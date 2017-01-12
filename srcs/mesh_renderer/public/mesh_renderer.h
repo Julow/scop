@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 12:15:49 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 18:02:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/12 16:00:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ struct			s_mesh_renderer
 {
 	t_mat4			viewproj;
 	t_list			meshes;
-	t_shader const	*shader;
+	t_shader		shader;
 	t_uniform_loc	u_model;
 	t_uniform_loc	u_viewproj;
 	t_uniform_loc	u_diffuse_map;

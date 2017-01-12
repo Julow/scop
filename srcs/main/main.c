@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 19:42:50 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/12 12:20:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int				main(void)
 	t_fps			fps;
 	int				last_flags;
 
-	ft_bzero(&scop, sizeof(scop));
+	memset(&scop, 0, sizeof(scop));
 	if (!init_window(&scop))
 		return (1);
 	mesh_renderer_init(&scop.mesh_renderer);

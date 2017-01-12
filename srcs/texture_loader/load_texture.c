@@ -6,20 +6,19 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:15:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/21 17:55:23 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/12 15:41:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft/ft_hmap.h"
 #include "ft/gl.h"
 #include "ft/img.h"
 #include "ft/img_loader.h"
+#include "ft/set.h"
 
+#include "p_texture_loader.h"
 #include "texture_loader.h"
 
 #include <stdlib.h>
-
-#define TEXTURE_CACHE_SIZE		10
 
 static uint32_t	send_texture(t_img const *img)
 {
@@ -38,20 +37,30 @@ static uint32_t	send_texture(t_img const *img)
 	return (handle);
 }
 
+static int		cached_texture_cmp(t_cached_texture const *t, t_sub const *key)
+{
+	return (SUB_CMP(t->file_name, *key));
+}
+
 t_texture const	*load_texture(t_sub file_name)
 {
-	static t_hmap	*cache = NULL;
-	t_img			img;
-	t_hpair			tmp;
+	static t_set		cache = SET(&cached_texture_cmp, 0);
+	t_cached_texture	*t;
+	t_img				img;
 
-	if (cache == NULL)
-		cache = ft_hmapnew(TEXTURE_CACHE_SIZE, &ft_djb2);
-	if ((tmp = ft_hmapget(cache, file_name)).value != NULL)
-		return (tmp.value);
-	if (!ft_load_img(file_name, &img))
-		return (NULL);
-	tmp = ft_hmapput(cache, file_name, NULL, sizeof(t_texture));
-	ft_memcpy(tmp.value, &(t_texture){send_texture(&img)}, sizeof(t_texture));
-	free(img.data);
-	return (tmp.value);
+	t = ft_set_get(&cache, &file_name);
+	if (t == NULL)
+	{
+		if (!ft_load_img(file_name, &img))
+			return (NULL);
+		t = MALLOC(sizeof(t_cached_texture) + file_name.length);
+		memcpy(ENDOF(t), file_name.str, file_name.length);
+		*t = (t_cached_texture){
+			SET_HEAD(),
+			SUB(ENDOF(t), file_name.length),
+			{ send_texture(&img) },
+		};
+		free(img.data);
+	}
+	return (&t->texture);
 }

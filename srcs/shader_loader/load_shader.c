@@ -6,11 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/15 14:06:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/22 13:38:46 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/12 16:01:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft/ft_hmap.h"
+#include "ft/file_in.h"
+#include "ft/ft_in.h"
 #include "ft/ft_list.h"
 #include "ft/gl.h"
 
@@ -56,47 +57,28 @@ static bool		link_shader(uint32_t *shaders, uint32_t *dst)
 	return (true);
 }
 
-static bool		load_shaders_file(char const *file, uint32_t *dst)
+bool			load_shader(t_sub file_name, t_shader *dst)
 {
 	uint32_t		shaders[g_shader_t.length];
-	int				tmp;
+	int				i;
+	t_file_in		*in;
 	bool			success;
 	t_list			lines;
 
-	if ((tmp = open(file, O_RDONLY)) < 0)
+	if ((in = ft_in_open(file_name)) == NULL)
 		return (false);
-	ft_bzero(shaders, sizeof(uint32_t[g_shader_t.length]));
+	memset(shaders, 0, sizeof(shaders));
 	lines = LIST(t_sub);
-	success = read_shader(tmp, &lines, shaders, g_shader_t.all);
-	close(tmp);
+	success = read_shader(V(in), &lines, shaders, g_shader_t.all);
+	ft_in_close(in);
 	ft_listremove_next(&lines, LIST_IT(&lines), -1);
-	success = success && link_shader(shaders, dst);
-	tmp = -1;
-	while (++tmp < g_shader_t.length)
-		if (shaders[tmp] > 0)
-			glDeleteShader(shaders[tmp]);
-	return (success);
-}
-
-t_shader const	*load_shader(t_sub file_name)
-{
-	static t_hmap	*cache = NULL;
-	t_hmap			*uniforms;
-	t_hpair			tmp;
-	uint32_t		handle;
-
-	if (cache == NULL)
-		cache = ft_hmapnew(SHADER_CACHE_SIZE, &ft_djb2);
-	if ((tmp = ft_hmapget(cache, file_name)).value != NULL)
-		return (tmp.value);
-	tmp = ft_hmapput(cache, file_name, NULL, sizeof(t_shader));
-	if (!load_shaders_file(tmp.key, &handle))
+	success = success && link_shader(shaders, &dst->handle);
+	i = 0;
+	while (i < g_shader_t.length)
 	{
-		ft_hmaprem(cache, file_name, NULL);
-		return (NULL);
+		if (shaders[i] > 0)
+			glDeleteShader(shaders[i]);
+		i++;
 	}
-	uniforms = ft_hmapnew(SHADER_LOC_SIZE, &ft_djb2);
-	load_uniforms(handle, uniforms);
-	ft_memcpy(tmp.value, &(t_shader){uniforms, handle}, sizeof(t_shader));
-	return (tmp.value);
+	return (success);
 }

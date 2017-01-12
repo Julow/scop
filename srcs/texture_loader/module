@@ -1,11 +1,12 @@
 module texture_loader:
 
 	public include public/
-	private include include/
+	private include ./
 
 	public require ft::base
 	public require texture
-	private require ft::img_loader
-	private require ft::img
-	private require ft::hmap
+
 	private require ft::gl
+	private require ft::img
+	private require ft::img_loader
+	private require ft::set

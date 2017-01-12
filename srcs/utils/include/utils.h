@@ -6,22 +6,23 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:07:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:45:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/12 15:50:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# include "ft/libft.h"
+# include "ft/ft_in.h"
 # include "ft/ft_list.h"
+# include "ft/libft.h"
 
-# define MEM_EQU(a,b,s)		(ft_memcmp((a), (b), (s)) == 0)
+# define MEM_EQU(a,b,s)		(memcmp((a), (b), (s)) == 0)
 
 /*
-** Call ft_memcpy and increment 'd'
+** Call memcpy and increment 'd'
 */
-# define MEM_WRITE(d,s,t,n)	((d) = ft_memcpy(d, s, S(t, n)) + S(t, n))
+# define MEM_WRITE(d,s,t,n)	((d) = memcpy(d, s, S(t, n)) + S(t, n))
 
 /*
 ** Ignore parse error
@@ -44,6 +45,12 @@ void			ft_listremove_next(t_list *lst, void *node, int n);
 */
 bool			ft_substart(t_sub sub, t_sub start);
 bool			ft_subends(t_sub sub, t_sub with);
+
+/*
+** Read a line from 'in' and save it to 'dst'
+** Return true on success, false on EOF
+*/
+bool			ft_read_line(t_in *in, t_dstr *dst);
 
 /*
 ** Print an error

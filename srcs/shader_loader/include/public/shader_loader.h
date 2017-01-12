@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 10:27:57 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/11/27 23:39:27 by juloo            ###   ########.fr       */
+/*   Updated: 2017/01/12 15:54:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 ** -
 ** a //#shader cannot be repeated (except 'all')
 ** -
-** Return NULL on error
+** Return false on error
 */
-t_shader const	*load_shader(t_sub file_name);
+bool			load_shader(t_sub file_name, t_shader *dst);
 
 #endif

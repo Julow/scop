@@ -6,20 +6,21 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 13:06:50 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/21 17:39:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/12 15:25:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INTERNAL_H
 # define INTERNAL_H
 
-# include "ft/ft_hmap.h"
 # include "ft/ft_vector.h"
 # include "ft/libft.h"
+# include "ft/set.h"
 
 # include "mesh_loader.h"
+# include "mtl_loader.h"
 
-# define MESH_CACHE_SIZE	10
+typedef struct s_cached_mesh		t_cached_mesh;
 
 /*
 ** vbo_data:
@@ -41,11 +42,18 @@ typedef struct	s_mesh_data
 	t_vector		vn;
 	t_vector		vt;
 	t_vector		f;
-	t_hmap const	*mtllib;
+	t_mtllib const	*mtllib;
 	t_vector		mtl;
 	t_vector		vbo_data;
 	t_vector		ebo_data;
 }				t_mesh_data;
+
+struct			s_cached_mesh
+{
+	t_set_h			set_head;
+	t_sub			file_name;
+	t_mesh			mesh;
+};
 
 /*
 ** parse_mesh.c
@@ -56,7 +64,7 @@ typedef struct	s_mesh_token
 	bool			(*f)(t_sub, t_mesh_data*);
 }				t_mesh_token;
 
-bool			parse_mesh(char const *file, t_mesh_data *data);
+bool			parse_mesh(t_sub file, t_mesh_data *data);
 
 /*
 ** parse_mesh_tokens.c

@@ -40,6 +40,7 @@ module utils: utils
 	public include include/
 
 	public require ft::base
+	public require ft::in
 	public require ft::list
 
 	private require ft::out
@@ -50,7 +51,7 @@ module shader: shader
 	public include .
 
 	public require ft::base
-	public require ft::hmap
+	public require ft::gl
 
 module shader_loader: shader_loader
 
@@ -60,9 +61,10 @@ module shader_loader: shader_loader
 	public require ft::base
 	public require shader
 
-	private require ft::get_next_line
+	private require ft::dstr
+	private require ft::file_in
 	private require ft::gl
-	private require ft::hmap
+	private require ft::in
 	private require ft::list
 	private require ft::printf
 	private require utils
@@ -82,11 +84,12 @@ module mesh_loader: mesh_loader
 	public require ft::base
 	public require mesh
 
-	private require ft::get_next_line
+	private require ft::file_in
 	private require ft::gl
-	private require ft::hmap
+	private require ft::in
 	private require ft::math
 	private require ft::printf
+	private require ft::set
 	private require ft::vector
 	private require mtl_loader
 	private require utils
@@ -104,9 +107,11 @@ module mtl_loader: mtl_loader
 	private include include/
 
 	public require ft::base
-	public require ft::hmap
+	public require ft::set
 
-	private require ft::get_next_line
+	private require ft::dstr
+	private require ft::file_in
+	private require ft::in
 	private require ft::printf
 	private require mtl
 	private require texture_loader

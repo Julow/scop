@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mtl.h                                              :+:      :+:    :+:   */
+/*   p_texture_loader.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/03 14:11:54 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/12 14:58:28 by jaguillo         ###   ########.fr       */
+/*   Created: 2017/01/12 15:40:20 by jaguillo          #+#    #+#             */
+/*   Updated: 2017/01/12 15:40:48 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MTL_H
-# define MTL_H
+#ifndef P_TEXTURE_LOADER_H
+# define P_TEXTURE_LOADER_H
 
-# include "ft/math_vec3.h"
+# include "ft/set.h"
+
 # include "texture.h"
+# include "texture_loader.h"
 
-typedef struct s_mtl		t_mtl;
+typedef struct s_cached_texture		t_cached_texture;
 
-struct		s_mtl
+/*
+** ========================================================================== **
+*/
+
+struct			s_cached_texture
 {
-	t_texture const	*ambient_map;
-	t_texture const	*diffuse_map;
-	t_texture const	*specular_map;
-	t_vec3			ambient_color;
-	t_vec3			diffuse_color;
-	t_vec3			specular_color;
-	int				specular_exp;
+	t_set_h			set_head;
+	t_sub			file_name;
+	t_texture		texture;
 };
 
 #endif

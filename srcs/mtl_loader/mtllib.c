@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mtl.h                                              :+:      :+:    :+:   */
+/*   mtllib.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/03 14:11:54 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/12 14:58:28 by jaguillo         ###   ########.fr       */
+/*   Created: 2017/01/12 15:27:38 by jaguillo          #+#    #+#             */
+/*   Updated: 2017/01/12 15:30:24 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MTL_H
-# define MTL_H
+#include "internal.h"
 
-# include "ft/math_vec3.h"
-# include "texture.h"
-
-typedef struct s_mtl		t_mtl;
-
-struct		s_mtl
+t_mtl const		*mtllib_get(t_mtllib const *lib, t_sub name)
 {
-	t_texture const	*ambient_map;
-	t_texture const	*diffuse_map;
-	t_texture const	*specular_map;
-	t_vec3			ambient_color;
-	t_vec3			diffuse_color;
-	t_vec3			specular_color;
-	int				specular_exp;
-};
+	t_mtllib_mtl const *const	mtl = ft_set_cget(&lib->mtls, &name);
 
-#endif
+	return ((mtl == NULL) ? NULL : &mtl->mtl);
+}

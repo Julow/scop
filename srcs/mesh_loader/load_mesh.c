@@ -6,14 +6,14 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/21 17:45:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/12 15:26:34 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft/ft_hmap.h"
 #include "ft/ft_printf.h"
-
 #include "internal.h"
+
+#include <stdlib.h>
 
 static void		init_mesh_data(t_mesh_data *data)
 {
@@ -40,7 +40,7 @@ static void		clear_mesh_data(t_mesh_data *data)
 	ft_vclear(&(data->ebo_data));
 }
 
-static bool		load_mesh_file(char const *file, t_mesh *dst)
+static bool		load_mesh_file(t_sub file, t_mesh *dst)
 {
 	t_mesh_data		data;
 	bool			success;
@@ -58,7 +58,7 @@ static bool		load_mesh_file(char const *file, t_mesh *dst)
 	send_t = ft_clock(0);
 	success = success && send_mesh(&data, dst);
 	send_t = ft_clock(send_t);
-	ft_printf("%s%-25sv:%-9dvn:%-9dvt:%-9df:%-9dvbo:%-9debo:%-9dmtl:%-9d"
+	ft_printf("%s%-25tsv:%-9dvn:%-9dvt:%-9df:%-9dvbo:%-9debo:%-9dmtl:%-9d"
 		"time:%-5d %-5d %-5d\n", success ? "" : "[FAIL] ", file,
 		data.v.length, data.vn.length, data.vt.length, data.f.length,
 		data.vbo_data.length / 8, data.ebo_data.length / 3, data.mtl.length,
@@ -67,20 +67,29 @@ static bool		load_mesh_file(char const *file, t_mesh *dst)
 	return (success);
 }
 
+static int		cached_mesh_cmp(t_cached_mesh const *mesh, t_sub const *key)
+{
+	return (SUB_CMP(mesh->file_name, *key));
+}
+
 t_mesh const	*load_mesh(t_sub file_name)
 {
-	static t_hmap	*cache = NULL;
-	t_hpair			mesh;
+	static t_set	cache = SET(&cached_mesh_cmp, 0);
+	t_cached_mesh	*cached_mesh;
 
-	if (cache == NULL)
-		cache = ft_hmapnew(MESH_CACHE_SIZE, &ft_djb2);
-	if ((mesh = ft_hmapget(cache, file_name)).value != NULL)
-		return (mesh.value);
-	mesh = ft_hmapput(cache, file_name, NULL, sizeof(t_mesh));
-	if (!load_mesh_file(mesh.key, mesh.value))
+	cached_mesh = ft_set_get(&cache, &file_name);
+	if (cached_mesh == NULL)
 	{
-		ft_hmaprem(cache, file_name, NULL);
-		return (NULL);
+		cached_mesh = MALLOC(sizeof(t_cached_mesh) + file_name.length);
+		memcpy(ENDOF(cached_mesh), file_name.str, file_name.length);
+		cached_mesh->set_head = SET_HEAD();
+		cached_mesh->file_name = SUB(ENDOF(cached_mesh), file_name.length);
+		if (!load_mesh_file(file_name, &cached_mesh->mesh))
+		{
+			free(cached_mesh);
+			return (NULL);
+		}
+		ft_set_insert(&cache, cached_mesh, &file_name);
 	}
-	return (mesh.value);
+	return (&cached_mesh->mesh);
 }

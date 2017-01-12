@@ -6,15 +6,21 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/03 10:29:58 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/10 19:58:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/12 15:53:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INTERNAL_H
 # define INTERNAL_H
 
-# include "shader_loader.h"
+# include "ft/ft_in.h"
 # include "ft/ft_list.h"
+
+# include "shader_loader.h"
+
+# define ERR_SHADER_BUFFER 		1024
+
+# define SHADER_START			(SUBC("//#shader "))
 
 /*
 ** ?enum shader_t
@@ -50,10 +56,7 @@ extern struct s_enum_shader_t const		g_shader_t;
 ** ?end
 */
 
-bool			read_shader(int fd, t_list *lines, uint32_t *s, t_shader_t t);
-
+bool			read_shader(t_in *in, t_list *lines, uint32_t *s, t_shader_t t);
 bool			compile_shader(t_list *lines, uint32_t *dst, t_shader_t t);
-
-void			load_uniforms(uint32_t handle, t_hmap *uniforms);
 
 #endif
