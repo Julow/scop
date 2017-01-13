@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 12:15:49 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/12 16:00:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/12 17:31:11 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ void			mesh_renderer_init(t_mesh_renderer *dst);
 
 /*
 ** Render all the meshes
+** -
+** Render to 3 buffers:
+** 	0: position (vec3)
+** 	1: normals (vec3)
+** 	2: color (vec4; rgb=albedo, a=specular)
 */
 void			mesh_render(t_mesh_renderer *renderer);
 
