@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:20:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/12 16:01:25 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/16 15:24:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool		get_shader_type(t_sub line, t_shader_t *t)
 	t_sub			word;
 
 	word = SUB_LEN(line, MIN(SHADER_START.length, line.length));
-	if (!ft_subnext_is(line, &word, IS_SPACE))
+	if (!ft_subnext_is(line, &word, IS_WHITESPACE))
 		return (false);
 	i = -1;
 	while (++i < g_shader_t.length)

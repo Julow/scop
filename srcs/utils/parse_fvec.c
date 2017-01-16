@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/03 18:38:33 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/01/12 23:54:57 by juloo            ###   ########.fr       */
+/*   Updated: 2017/01/16 15:25:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool			parse_fvec(t_sub line, float *vec, int len)
 
 	word = SUB_START(line);
 	i = -1;
-	while (++i < len && ft_subnext_is(line, &word, IS_SPACE))
+	while (++i < len && ft_subnext_is(line, &word, IS_WHITESPACE))
 		if (ft_subto_float(word, vec + i) == 0)
 		{
 			ft_printf("Invalid float: %ts\n", word);

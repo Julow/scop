@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/08 19:15:44 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/12 15:27:18 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/16 15:24:08 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool			parse_mtllib(t_sub line, t_mesh_data *data)
 	t_sub			word;
 
 	word = SUB_START(line);
-	if (!ft_subnext_is(line, &word, IS_SPACE))
+	if (!ft_subnext_is(line, &word, IS_WHITESPACE))
 		return (ft_error(false, "mtllib need an argument"));
 	if ((data->mtllib = load_mtl(line)) == NULL)
 		return (false);
@@ -35,7 +35,7 @@ bool			parse_usemtl(t_sub line, t_mesh_data *data)
 	if (data->mtllib == NULL)
 		return (false);
 	word = SUB_START(line);
-	if (!ft_subnext_is(line, &word, IS_SPACE))
+	if (!ft_subnext_is(line, &word, IS_WHITESPACE))
 		return (ft_error(false, "usemtl need an argument"));
 	if ((mtl = mtllib_get(data->mtllib, word)) == NULL)
 		return (false);

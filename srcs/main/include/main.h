@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/12 18:04:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/16 18:33:31 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "obj.h"
 # include "scene.h"
 
-typedef struct s_scop_fbo	t_scop_fbo;
+typedef struct s_gbuffer	t_gbuffer;
 typedef struct s_scop		t_scop;
 
 # define WIN_RATIO			(1.f)
@@ -43,7 +43,7 @@ typedef struct s_scop		t_scop;
 # define CURSOR_SPEED		3.f
 # define ACCELERATION		10.f
 
-struct			s_scop_fbo
+struct			s_gbuffer
 {
 	GLuint			fbo;
 	GLuint			buff_pos;
@@ -57,7 +57,7 @@ struct			s_scop
 	t_scene			scene;
 	t_vec2			cursor;
 	int				flags;
-	t_scop_fbo		fbo;
+	t_gbuffer		gbuffer;
 	t_mesh_renderer	mesh_renderer;
 };
 

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/05 12:15:49 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/12 17:31:11 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/16 15:50:58 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,20 @@ typedef t_sub								*t_mesh_renderer_component_param;
 
 /*
 ** Renderer object
+** viewproj			=> Combination of view and projection matrices
+** meshes			=> Meshes to draw (automatically updated)
 */
 struct			s_mesh_renderer
 {
 	t_mat4			viewproj;
 	t_list			meshes;
 	t_shader		shader;
+	GLuint			default_diffuse_map;
+	GLuint			default_specular_map;
 	t_uniform_loc	u_model;
 	t_uniform_loc	u_viewproj;
 	t_uniform_loc	u_diffuse_map;
+	t_uniform_loc	u_specular_map;
 };
 
 void			mesh_renderer_init(t_mesh_renderer *dst);

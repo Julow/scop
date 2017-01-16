@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/13 22:33:02 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/16 19:35:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,10 @@ static bool		scop_load_scene(t_scop *scop)
 
 /*
 ** ========================================================================== **
-** Setup fbo
+** Setup gbuffer
 */
 
-static GLuint	setup_fbo_buff(t_vec2u win_size, GLint internal_format,
+static GLuint	setup_g_attach(t_vec2u win_size, GLint internal_format,
 					GLenum format, GLenum type, GLenum attachment)
 {
 	GLuint			buff;
@@ -132,15 +132,14 @@ static GLuint	setup_fbo_buff(t_vec2u win_size, GLint internal_format,
 	return (buff);
 }
 
-// TODO: Multi sampling
-void			setup_fbo(t_scop_fbo *dst, t_vec2u win_size)
+void			setup_gbuffer(t_gbuffer *dst, t_vec2u win_size)
 {
 	glGenFramebuffers(1, &dst->fbo);
 	glBindFramebuffer(GL_FRAMEBUFFER, dst->fbo);
 
-	dst->buff_pos = setup_fbo_buff(win_size, GL_RGB16F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT0);
-	dst->buff_nor = setup_fbo_buff(win_size, GL_RGB16F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT1);
-	dst->buff_col = setup_fbo_buff(win_size, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, GL_COLOR_ATTACHMENT2);
+	dst->buff_pos = setup_g_attach(win_size, GL_RGB16F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT0);
+	dst->buff_nor = setup_g_attach(win_size, GL_RGB16F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT1);
+	dst->buff_col = setup_g_attach(win_size, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, GL_COLOR_ATTACHMENT2);
 
 	glDrawBuffers(3, (GLuint[]){
 		GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2
@@ -217,14 +216,49 @@ void			texture_to_quad(GLuint buff)
 
 /*
 ** ========================================================================== **
+** Blinn-Phong lightning
+** TODO: BlinnPhongRenderer
+*/
+
+/*
+** Compute blinn-phong lightning for the gbuffer 'in'
+** Render to framebuffer:
+** 	0: light intensity (vec3)
+*/
+void			blinn_phong_lightning(t_gbuffer const *in)
+{
+	static t_shader		*shader = NULL;
+
+	if (shader == NULL)
+	{
+		shader = NEW(t_shader);
+		if (!load_shader(SUBC("srcs/main/blinn_phong_lightning.glsl"), shader))
+			HARD_ASSERT(false, "Failed to load blinn_phong_lightning.glsl");
+		glUseProgram(shader->handle);
+		glUniform1i(glGetUniformLocation(shader->handle, "_u_pos"), 0);
+		glUniform1i(glGetUniformLocation(shader->handle, "_u_nor"), 1);
+		glUniform1i(glGetUniformLocation(shader->handle, "_u_col"), 2);
+	}
+	glUseProgram(shader->handle);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, in->buff_pos);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, in->buff_nor);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, in->buff_col);
+	render_screen_quad();
+}
+
+/*
+** ========================================================================== **
 ** Render obj
 */
 
 void			render(t_scop *scop)
 {
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, scop->fbo.fbo);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, scop->gbuffer.fbo);
 
-	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
+	glClearColor(0.f, 0.f, 0.f, 0.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	ft_mat4mult(&scop->scene.projection_m, camera_get_view(&scop->scene.camera),
@@ -233,10 +267,8 @@ void			render(t_scop *scop)
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	glClearColor(0.f, 0.6f, 0.6f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	texture_to_quad(scop->fbo.buff_col);
+	// texture_to_quad(scop->gbuffer.buff_col);
+	blinn_phong_lightning(&scop->gbuffer);
 }
 
 /*
@@ -276,7 +308,7 @@ int				main(void)
 	memset(&scop, 0, sizeof(scop));
 	if (!init_window(&scop))
 		return (1);
-	setup_fbo(&scop.fbo, VEC2U(WIN_WIDTH, WIN_HEIGHT));
+	setup_gbuffer(&scop.gbuffer, VEC2U(WIN_WIDTH, WIN_HEIGHT));
 	mesh_renderer_init(&scop.mesh_renderer);
 	if (!scop_load_scene(&scop))
 		return (1);

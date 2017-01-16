@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 16:54:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/21 17:40:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/16 15:23:59 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool			parse_f(t_sub line, t_mesh_data *data)
 
 	word = SUB_START(line);
 	i = 0;
-	while (ft_subnext_is(line, &word, IS_SPACE))
+	while (ft_subnext_is(line, &word, IS_WHITESPACE))
 	{
 		if (!parse_f_tri(word, face + i))
 			return (false);

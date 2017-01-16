@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 13:50:52 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/12 19:18:33 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/16 17:55:48 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ out vec3			_frag_pos;
 out vec2			_frag_tex;
 out vec3			_frag_nor;
 
-uniform mat4		model;
-uniform mat4		viewproj;
+uniform mat4		_u_model;
+uniform mat4		_u_viewproj;
 
 void		main()
 {
-	vec4		pos = model * vec4(_vert_pos, 1.f);
-	vec4		nor = model * vec4(_vert_nor, 0.f);
+	vec4		pos = _u_model * vec4(_vert_pos, 1.f);
+	vec4		nor = _u_model * vec4(_vert_nor, 0.f);
 
 	_frag_pos = pos.rgb;
 	_frag_tex = _vert_tex;
 	_frag_nor = nor.rgb;
-	gl_Position = viewproj * pos;
+	gl_Position = _u_viewproj * pos;
 }
 
 //#shader frag
@@ -46,11 +46,13 @@ in vec3				_frag_pos;
 in vec2				_frag_tex;
 in vec3				_frag_nor;
 
-// uniform sampler2D	diffuse_map;
+uniform sampler2D	_u_diffuse_map;
+uniform sampler2D	_u_specular_map;
 
 void		main()
 {
 	_buff_pos = _frag_pos;
 	_buff_nor = normalize(_frag_nor);
-	_buff_col = vec4(1.f, 1.f, 1.f, 0.f);
+	_buff_col = vec4(texture(_u_diffuse_map, _frag_tex).rgb,
+			texture(_u_specular_map, _frag_tex).r);
 }

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 11:50:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/13 22:08:53 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/16 15:41:53 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ static bool		init_glfw(t_scop *scop)
 		glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, OPENGL_PROFILE);
+	glfwWindowHint(GLFW_DEPTH_BITS, 0);
+	glfwWindowHint(GLFW_STENCIL_BITS, 0);
+	glfwWindowHint(GLFW_ALPHA_BITS, 0);
 	if ((scop->window = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, WIN_TITLE,
 		NULL, NULL)) == NULL)
 	{
