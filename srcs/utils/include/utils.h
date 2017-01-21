@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 12:07:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/12 15:50:13 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/19 19:13:26 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,13 @@ typedef struct	s_fps
 t_fps			fps_init(uint32_t update_interval);
 void			fps_start(t_fps *fps);
 bool			fps_end(t_fps *fps);
+
+/*
+** Render a full screen quad
+** -
+** layout=0 vec3 pos;
+** layout=1 vec2 tex;
+*/
+void			render_screen_quad(void);
 
 #endif

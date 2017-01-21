@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/16 18:33:31 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/19 17:18:23 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "ft/gl.h"
 
 # include "camera.h"
+# include "gbuffer.h"
+# include "lighter.h"
 # include "mesh_renderer.h"
 # include "obj.h"
 # include "scene.h"
@@ -43,14 +45,6 @@ typedef struct s_scop		t_scop;
 # define CURSOR_SPEED		3.f
 # define ACCELERATION		10.f
 
-struct			s_gbuffer
-{
-	GLuint			fbo;
-	GLuint			buff_pos;
-	GLuint			buff_nor;
-	GLuint			buff_col;
-};
-
 struct			s_scop
 {
 	GLFWwindow		*window;
@@ -59,6 +53,7 @@ struct			s_scop
 	int				flags;
 	t_gbuffer		gbuffer;
 	t_mesh_renderer	mesh_renderer;
+	t_lighter		lighter;
 };
 
 /*

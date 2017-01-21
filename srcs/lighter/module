@@ -1,0 +1,11 @@
+module lighter:
+	public include public/
+
+	public require ft::list
+	public require ft::math
+	public require gbuffer
+	public require obj
+	public require shader
+
+	private require shader_loader
+	private require utils

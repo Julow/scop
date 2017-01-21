@@ -43,6 +43,7 @@ module utils: utils
 	public require ft::in
 	public require ft::list
 
+	private require ft::gl
 	private require ft::out
 	private require ft::printf
 
@@ -131,7 +132,7 @@ main module main: main
 
 	local MDR += lol
 
-	# private require ft::base
+	private require ft::base
 	private require ft::file_in
 	private require ft::gl
 	private require ft::json_t
@@ -142,7 +143,8 @@ main module main: main
 	private require anim_component
 	private require camera
 	private require events
-	private require mesh
+	private require gbuffer
+	private require lighter
 	private require mesh
 	private require mesh_loader
 	private require mesh_renderer

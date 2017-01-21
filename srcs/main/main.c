@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/16 19:35:12 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/21 19:22:25 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,12 @@ static t_json_t_value const		g_anim_param_json = JSON_T_DICT(t_anim_component_pa
 #include "mesh_renderer.h"
 
 /*
+** point light component
+*/
+
+#include "lighter.h"
+
+/*
 ** -
 */
 
@@ -102,6 +108,10 @@ static bool		scop_load_scene(t_scop *scop)
 			V(&mesh_renderer_component_create), &scop->mesh_renderer,
 			&JSON_T_VALUE(STRING)
 		},
+		{ SUBC("point-light"),
+			V(&create_point_light_component), &scop->lighter,
+			&g_vec3_json
+		}
 	};
 
 	t_file_in *const	in = ft_in_fdopen(0);
@@ -114,87 +124,8 @@ static bool		scop_load_scene(t_scop *scop)
 
 /*
 ** ========================================================================== **
-** Setup gbuffer
-*/
-
-static GLuint	setup_g_attach(t_vec2u win_size, GLint internal_format,
-					GLenum format, GLenum type, GLenum attachment)
-{
-	GLuint			buff;
-
-	glGenTextures(1, &buff);
-	glBindTexture(GL_TEXTURE_2D, buff);
-	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, win_size.x, win_size.y,
-			0, format, type, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, GL_TEXTURE_2D, buff, 0);
-	return (buff);
-}
-
-void			setup_gbuffer(t_gbuffer *dst, t_vec2u win_size)
-{
-	glGenFramebuffers(1, &dst->fbo);
-	glBindFramebuffer(GL_FRAMEBUFFER, dst->fbo);
-
-	dst->buff_pos = setup_g_attach(win_size, GL_RGB16F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT0);
-	dst->buff_nor = setup_g_attach(win_size, GL_RGB16F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT1);
-	dst->buff_col = setup_g_attach(win_size, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, GL_COLOR_ATTACHMENT2);
-
-	glDrawBuffers(3, (GLuint[]){
-		GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2
-	});
-}
-
-/*
-** ========================================================================== **
 ** Utils
 */
-
-static float const	g_quad_vertices[] = {
-	-1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-	-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-	1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-	1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-};
-
-static GLuint	init_quad(void)
-{
-	GLuint			quad_vao;
-	GLuint			quad_vbo;
-
-	glGenVertexArrays(1, &quad_vao);
-	glBindVertexArray(quad_vao);
-	glGenBuffers(1, &quad_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, quad_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_quad_vertices), &g_quad_vertices,
-			GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), NULL);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), V(3 * sizeof(float)));
-	return (quad_vao);
-}
-
-/*
-** Render a full screen quad
-** -
-** layout=0 vec3 pos;
-** layout=1 vec2 tex;
-*/
-void			render_screen_quad(void)
-{
-	static GLuint	quad_vao;
-	static bool		quad_vao_init = false;
-
-	if (!quad_vao_init)
-	{
-		quad_vao = init_quad();
-		quad_vao_init = true;
-	}
-	glBindVertexArray(quad_vao);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-}
 
 void			texture_to_quad(GLuint buff)
 {
@@ -216,36 +147,35 @@ void			texture_to_quad(GLuint buff)
 
 /*
 ** ========================================================================== **
-** Blinn-Phong lightning
-** TODO: BlinnPhongRenderer
+** HDR Render
+** TODO: HDR
 */
 
+#define EXPOSURE		5.f
+
 /*
-** Compute blinn-phong lightning for the gbuffer 'in'
 ** Render to framebuffer:
-** 	0: light intensity (vec3)
+** 	0: final color (vec3)
 */
-void			blinn_phong_lightning(t_gbuffer const *in)
+void			render_hdr(t_gbuffer const *gbuffer)
 {
 	static t_shader		*shader = NULL;
 
 	if (shader == NULL)
 	{
 		shader = NEW(t_shader);
-		if (!load_shader(SUBC("srcs/main/blinn_phong_lightning.glsl"), shader))
-			HARD_ASSERT(false, "Failed to load blinn_phong_lightning.glsl");
+		if (!load_shader(SUBC("srcs/main/render_hdr.glsl"), shader))
+			HARD_ASSERT(false, "Failed to load texture_to_quad.glsl");
 		glUseProgram(shader->handle);
-		glUniform1i(glGetUniformLocation(shader->handle, "_u_pos"), 0);
-		glUniform1i(glGetUniformLocation(shader->handle, "_u_nor"), 1);
-		glUniform1i(glGetUniformLocation(shader->handle, "_u_col"), 2);
+		glUniform1i(glGetUniformLocation(shader->handle, "_u_col"), 0);
+		glUniform1i(glGetUniformLocation(shader->handle, "_u_light"), 1);
+		glUniform1f(glGetUniformLocation(shader->handle, "_u_exposure"), EXPOSURE);
 	}
 	glUseProgram(shader->handle);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, in->buff_pos);
+	glBindTexture(GL_TEXTURE_2D, gbuffer->buff_col);
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, in->buff_nor);
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, in->buff_col);
+	glBindTexture(GL_TEXTURE_2D, GBUFFER_BUFF_LIGHT(gbuffer));
 	render_screen_quad();
 }
 
@@ -256,7 +186,7 @@ void			blinn_phong_lightning(t_gbuffer const *in)
 
 void			render(t_scop *scop)
 {
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, scop->gbuffer.fbo);
+	GBUFFER_BIND(&scop->gbuffer, POS, NOR, COL, LIGHT(&scop->gbuffer));
 
 	glClearColor(0.f, 0.f, 0.f, 0.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -265,10 +195,15 @@ void			render(t_scop *scop)
 			&scop->mesh_renderer.viewproj); // TODO: only when needed
 	mesh_render(&scop->mesh_renderer);
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	render_lights(&scop->lighter, &scop->gbuffer);
 
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	// texture_to_quad(scop->gbuffer.buff_col);
-	blinn_phong_lightning(&scop->gbuffer);
+	// texture_to_quad(scop->gbuffer.buff_nor);
+	// texture_to_quad(scop->gbuffer.buff_pos);
+	// texture_to_quad(GBUFFER_BUFF_LIGHT(&scop->gbuffer));
+	// texture_to_quad(GBUFFER_BUFF_LIGHT_BACK(&scop->gbuffer));
+	render_hdr(&scop->gbuffer);
 }
 
 /*
@@ -308,14 +243,18 @@ int				main(void)
 	memset(&scop, 0, sizeof(scop));
 	if (!init_window(&scop))
 		return (1);
-	setup_gbuffer(&scop.gbuffer, VEC2U(WIN_WIDTH, WIN_HEIGHT));
+	if (!gbuffer_init(VEC2U(WIN_WIDTH, WIN_HEIGHT), &scop.gbuffer))
+		return (1);
 	mesh_renderer_init(&scop.mesh_renderer);
+	if (!lighter_init(&scop.lighter))
+		return (1);
 	if (!scop_load_scene(&scop))
 		return (1);
 	// glfwSwapInterval(0); // TODO: tmp
 	init_events(scop.window);
 	fps = fps_init(200000);
 	last_flags = -1;
+	update(&scop);
 	while (!glfwWindowShouldClose(scop.window))
 	{
 		fps_start(&fps);
