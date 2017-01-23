@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 14:28:18 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/16 17:55:28 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/23 17:02:29 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void			mesh_render(t_mesh_renderer *renderer)
 			(float const*)&renderer->viewproj); // TODO: only when needed
 	while ((mesh = LIST_NEXT(mesh)))
 	{
-		glUniformMatrix4fv(renderer->u_model, 1, false,
+		glUniformMatrix4fv(renderer->u_model, 1, true,
 				(float const*)&mesh->model_m);
 		draw_mesh(renderer, mesh->mesh);
 	}

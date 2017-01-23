@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/04 11:29:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/05 11:34:41 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/23 17:52:54 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@ static void		obj_update_components(t_vector *components, t_obj *obj)
 
 static void		obj_update_world_m(t_obj *obj, t_mat4 const *parent_m)
 {
-	obj->world_m = MAT4_I();
-	ft_mat4translate(&obj->world_m, obj->local.position);
-	ft_mat4scale3(&obj->world_m, obj->local.scale);
-	ft_mat4shear(&obj->world_m, obj->local.shear);
-	ft_mat4rotate(&obj->world_m, obj->local.rotation);
-	ft_mat4transpose(&obj->world_m);
-	if (parent_m != NULL)
-		ft_mat4mult(&obj->world_m, parent_m, &obj->world_m);
+	t_mat4 const	local_m = ft_mat4transform(obj->local.position,
+				obj->local.rotation, obj->local.shear, obj->local.scale);
+
+	if (parent_m == NULL)
+		obj->world_m = local_m;
+	else
+		ft_mat4mult(parent_m, &local_m, &obj->world_m);
 }
 
 static void		obj_update_loop(t_vector *objs,
