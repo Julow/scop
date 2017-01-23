@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/21 19:22:25 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/23 18:05:29 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 
 #include "anim_component.h"
 
-static t_json_t_value const	g_vec3_json = JSON_T_FIXED_LIST(t_vec3,
+static t_json_t_value const	g_vec3_json = JSON_T_TUPLE(t_vec3,
 	(x, JSON_T_VALUE(FLOAT)),
 	(y, JSON_T_VALUE(FLOAT)),
 	(z, JSON_T_VALUE(FLOAT))

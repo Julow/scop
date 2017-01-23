@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 13:21:48 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 17:52:09 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/23 19:32:18 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 
 #include "p_scene_loader.h"
 
-static t_json_t_value const	g_vec2_json = JSON_T_FIXED_LIST(t_vec2,
+static t_json_t_value const	g_vec2_json = JSON_T_TUPLE(t_vec2,
 	(x, JSON_T_VALUE(FLOAT)),
 	(y, JSON_T_VALUE(FLOAT))
 );
 
-static t_json_t_value const	g_vec3_json = JSON_T_FIXED_LIST(t_vec3,
+static t_json_t_value const	g_vec3_json = JSON_T_TUPLE(t_vec3,
 	(x, JSON_T_VALUE(FLOAT)),
 	(y, JSON_T_VALUE(FLOAT)),
 	(z, JSON_T_VALUE(FLOAT))
@@ -31,8 +31,8 @@ static t_json_t_value const	g_camera_json = JSON_T_DICT(t_scene_pod_camera,
 	("pos", pos, g_vec3_json),
 	("dir", dir, g_vec2_json),
 	("fov", fov, JSON_T_VALUE(FLOAT)),
-	("near", near, JSON_T_VALUE(FLOAT)),
-	("far", far, JSON_T_VALUE(FLOAT))
+	("near", near, JSON_T_VALUE(FLOAT), &(float){0.01f}),
+	("far", far, JSON_T_VALUE(FLOAT), &(float){10000.f})
 );
 
 static void		load_camera(t_scene_pod_camera const *pod, t_scene *dst,
@@ -47,17 +47,17 @@ bool		load_scene(t_in *in, t_scene *dst,
 				t_vector const *components, float win_ratio)
 {
 	t_json_t_value const	object_json = JSON_T_DICT(t_scene_pod_object,
-		("position", pos, g_vec3_json),
-		("rotation", rot, g_vec3_json),
-		("shear", shear, g_vec3_json),
-		("scale", scale, g_vec3_json),
+		("pos", pos, g_vec3_json),
+		("rot", rot, g_vec3_json, &VEC3_0()),
+		("shear", shear, g_vec3_json, &VEC3_0()),
+		("scale", scale, g_vec3_json, &VEC3_1(1.f)),
 		("components", components, JSON_T_LIST(JSON_T_CALLBACK(
 			V(scene_pod_parse_component),
 			V(scene_pod_free_component),
 			components,
 			sizeof(t_scene_pod_component)
-		))),
-		("childs", childs, JSON_T_LIST(object_json))
+		)), &VECTOR(0)),
+		("childs", childs, JSON_T_LIST(object_json), &VECTOR(0))
 	);
 	t_json_t_value const	scene_json = JSON_T_DICT(t_scene_pod,
 		("objects", objects, JSON_T_LIST(object_json)),

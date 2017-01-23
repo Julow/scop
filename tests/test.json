@@ -1,10 +1,7 @@
 {
 	objects: [
 		{
-			position: [0, 0, -5],
-			rotation: [0, 0, 0],
-			shear: [0, 0, 0],
-			scale: [1, 1, 1],
+			pos: [0, 0, -5],
 			components: [
 				["anim", {
 					type: "translate",
@@ -16,25 +13,18 @@
 				}],
 				["mesh", "res/obj/cube.obj"],
 			],
-			childs: []
 		},
 
 		{
-			position: [-5, 0, 0],
-			rotation: [0, -1.57, 0],
-			shear: [0, 0, 0],
-			scale: [1, 1, 1],
+			pos: [-5, 0, 0],
+			rot: [0, -1.57, 0],
 			components: [
 				["mesh", "res/obj/42.obj"]
 			],
-			childs: []
 		},
 
 		{
-			position: [5, 0, 0],
-			rotation: [0, 0, 0],
-			shear: [0, 0, 0],
-			scale: [1, 1, 1],
+			pos: [5, 0, 0],
 			components: [
 				["anim",{
 					type: "rotate",
@@ -46,21 +36,16 @@
 				}],
 				["mesh", "res/obj/teapot.obj"]
 			],
-			childs: []
 		},
 
 		{
-			position: [0, 0, 0],
-			rotation: [0, 0, 0],
-			shear: [0, 0, 0],
-			scale: [1, 1, 1],
+			pos: [0, 0, 0],
 			components: [
 				["point-light", [5, 5, 5]],
 			],
-			childs: []
 		},
 
 	],
 
-	camera: { pos: [0, 0, 20], dir: [1.57, 0], fov: 42, near: 0.01, far: 10000 },
+	camera: { pos: [0, 0, 20], dir: [1.57, 0], fov: 42 },
 }
