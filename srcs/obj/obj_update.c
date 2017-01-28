@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/04 11:29:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/23 17:52:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/28 17:35:10 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,31 @@ static void		obj_update_components(t_vector *components, t_obj *obj)
 	}
 }
 
-static void		obj_update_world_m(t_obj *obj, t_mat4 const *parent_m)
+static void		get_local_m(t_transform const *t, t_mat4 *dst, t_mat4 *inv)
 {
-	t_mat4 const	local_m = ft_mat4transform(obj->local.position,
-				obj->local.rotation, obj->local.shear, obj->local.scale);
+	*dst = ft_mat4transform(t->position, t->rotation, t->shear, t->scale);
+	*inv = ft_mat4transform_inv(t->position, t->rotation, t->shear, t->scale);
+}
 
-	if (parent_m == NULL)
-		obj->world_m = local_m;
+static void		obj_update_world_m(t_obj *obj, t_obj const *parent)
+{
+	t_mat4			local_m;
+	t_mat4			local_inv_m;
+
+	if (parent == NULL)
+	{
+		get_local_m(&obj->local, &obj->world_m, &obj->world_inv_m);
+	}
 	else
-		ft_mat4mult(parent_m, &local_m, &obj->world_m);
+	{
+		get_local_m(&obj->local, &local_m, &local_inv_m);
+		ft_mat4mult(&parent->world_m, &local_m, &obj->world_m);
+		ft_mat4mult(&parent->world_inv_m, &local_inv_m, &obj->world_inv_m);
+	}
 }
 
 static void		obj_update_loop(t_vector *objs,
-					t_mat4 const *parent_m, bool parent_moved)
+					t_obj const *parent, bool parent_moved)
 {
 	t_obj			*obj;
 	bool			moving;
@@ -46,8 +58,8 @@ static void		obj_update_loop(t_vector *objs,
 		obj_update_components(&obj->components, obj);
 		moving = parent_moved || obj->moving;
 		if (moving)
-			obj_update_world_m(obj, parent_m);
-		obj_update_loop(&obj->childs, &obj->world_m, moving);
+			obj_update_world_m(obj, parent);
+		obj_update_loop(&obj->childs, obj, moving);
 		obj->moving = false;
 		obj->moved = moving;
 	}

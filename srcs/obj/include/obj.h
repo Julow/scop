@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2017/01/11 17:55:41 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/28 18:07:29 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,17 @@ struct			s_transform
 struct			s_obj_component
 {
 	void			(*update)(t_obj_component *component, t_obj *obj);
+	t_obj			*obj;
 };
 
-# define OBJ_COMPONENT(UPDATE)	((t_obj_component){V(UPDATE)})
+# define OBJ_COMPONENT(UPDATE)	((t_obj_component){V(UPDATE), NULL})
 
 /*
 ** Represent an object
 ** -
 ** local		=> Local transformations (relative to parent's)
-** world_m		=> World space matrix
+** world_m		=> World matrix
+** world_inv_m	=> Inverse world matrix
 ** components	=> Components array (t_obj_component*)
 ** childs		=> Child objs array (t_obj)
 ** moving		=> If the object localy moved during the current frame
@@ -68,13 +70,20 @@ struct			s_obj
 {
 	t_transform		local;
 	t_mat4			world_m;
+	t_mat4			world_inv_m;
 	t_vector		components;
 	t_vector		childs;
 	bool			moving:1;
 	bool			moved:1;
 };
 
-# define OBJ()	((t_obj){{},{},VECTOR(t_obj_component*),VECTOR(t_obj),1,0})
+# define OBJ()	((t_obj){{},{},{},VECTOR(t_obj_component*),VECTOR(t_obj),1,0})
+
+/*
+** Bind a component to an object
+** (a component can only be bind to a single object)
+*/
+void			obj_bind(t_obj *obj, t_obj_component *c);
 
 /*
 ** Recursively update object's components
