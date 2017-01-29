@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/21 23:23:58 by juloo             #+#    #+#             */
-/*   Updated: 2017/01/28 18:07:29 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/28 18:15:27 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include "ft/math_vec3.h"
 
 # include "anim.h"
-# include "camera.h"
 # include "mesh.h"
 
 typedef struct s_obj			t_obj;

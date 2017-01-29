@@ -3,13 +3,14 @@
 
 		{
 			pos: [0, 0, 0],
-			scale: [16, 16, 16],
+			scale: [30, 30, 30],
 			childs: [
 				{ pos: [0, -0.5, 0], scale: [1, 0.1, 1], components: [ ["mesh", "res/obj/cube.obj"], ] },
 				{ pos: [0, 0.5, 0], scale: [1, 0.1, 1], components: [ ["mesh", "res/obj/cube.obj"], ] },
-				{ pos: [-0.5, 0, 0], rot: [0, 0, 1.57], scale: [1, 0.1, 1], components: [ ["mesh", "res/obj/cube.obj"], ] },
-				{ pos: [0.5, 0, 0], rot: [0, 0, 1.57], scale: [1, 0.1, 1], components: [ ["mesh", "res/obj/cube.obj"], ] },
-				{ pos: [0, 0, -0.5], rot: [1.57, 0, 0], scale: [1, 0.1, 1], components: [ ["mesh", "res/obj/cube.obj"], ] },
+				{ pos: [-0.5, 0, 0], scale: [0.1, 1, 1], components: [ ["mesh", "res/obj/cube.obj"], ] },
+				{ pos: [0.5, 0, 0], scale: [0.1, 1, 1], components: [ ["mesh", "res/obj/cube.obj"], ] },
+				{ pos: [0, 0, -0.5], scale: [1, 1, 0.1], components: [ ["mesh", "res/obj/cube.obj"], ] },
+				{ pos: [0, 0, 0.5], scale: [1, 1, 0.1], components: [ ["mesh", "res/obj/cube.obj"], ] },
 			]
 		},
 
@@ -17,13 +18,19 @@
 			pos: [0, 0, 0],
 			components: [
 				["anim", { type: "rotate", repeat: "restart", duration: 2000, from: [0, 0, 0], to: [0, 6.28, 0], smooth: "linear" }],
-				["point-light", [5, 5, 5]],
+				["point-light", [100, 100, 100]],
 			],
 			childs: [
-				{ pos: [0, 0, 5], components: [ ["point-light", [1, 1, 1]], ] },
+				{ pos: [0, 0, 5], components: [ ["point-light", [10, 10, 10]], ] },
 			]
 		},
 
-	],
-	camera: { pos: [0, 0, 20], dir: [1.57, 0], fov: 42 },
+		{
+			pos: [0, 0, 0],
+			components: [
+				["camera", { fov: 0.1 }]
+			]
+		}
+
+	]
 }

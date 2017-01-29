@@ -7,14 +7,6 @@ module anim: anim
 
 	put LINK_FLAGS -lm
 
-module camera: camera
-
-	public include include/
-
-	public require ft::math
-
-	put LINK_FLAGS -lm
-
 module events: events
 
 	public include include/
@@ -32,7 +24,6 @@ module obj: obj
 	public require ft::math
 	public require ft::vector
 	public require anim
-	public require camera
 	public require mesh
 
 module utils: utils

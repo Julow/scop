@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/23 18:52:01 by jaguillo          #+#    #+#             */
-/*   Updated: 2016/11/21 17:33:58 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/28 16:23:57 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ typedef struct s_motion_def		t_motion_def;
 
 struct			s_motion_def
 {
-	int				flag;
-	void			(*f)(t_vec2 dir, t_vec3 *move, float inv);
-	float			inv;
+	uint32_t		flag;
+	t_vec3			dir;
 };
 
 bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos);

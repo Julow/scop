@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   camera_move.c                                      :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/09/21 11:23:26 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/12/03 15:00:27 by jaguillo         ###   ########.fr       */
+/*   Created: 2017/01/28 17:52:59 by jaguillo          #+#    #+#             */
+/*   Updated: 2017/01/29 17:58:05 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera.h"
 
-void			camera_move(t_camera *camera, t_vec3 pos)
+void		camera_current(t_camera_list *lst, t_camera *camera)
 {
-	camera->position = pos;
-	camera->flags |= F_CAMERA_UPDATED;
+	lst->current = camera;
+	camera->proj_m = ft_mat4perspective(camera->fov, lst->win_ratio,
+			camera->clip.x, camera->clip.y);
 }

@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 14:55:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 18:05:35 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/28 17:57:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 # include "scene_loader.h"
 
-typedef struct s_scene_pod_camera		t_scene_pod_camera;
 typedef struct s_scene_pod_object		t_scene_pod_object;
 typedef struct s_scene_pod_component	t_scene_pod_component;
 typedef struct s_scene_pod				t_scene_pod;
@@ -34,15 +33,6 @@ struct		s_scene_pod_object
 	t_vector	childs;
 };
 
-struct		s_scene_pod_camera
-{
-	t_vec3		pos;
-	t_vec2		dir;
-	float		fov;
-	float		near;
-	float		far;
-};
-
 struct		s_scene_pod_component
 {
 	t_scene_component const	*c;
@@ -52,7 +42,6 @@ struct		s_scene_pod_component
 struct		s_scene_pod
 {
 	t_vector			objects;
-	t_scene_pod_camera	camera;
 };
 
 #endif

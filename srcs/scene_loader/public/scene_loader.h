@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 14:54:41 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 18:03:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/28 20:07:00 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ struct		s_scene_component
 ** Load a scene from a json file
 ** Return true on success, false on error
 */
-bool		load_scene(t_in *in, t_scene *dst,
-				t_vector const *components, float win_ratio);
+bool		load_scene(t_in *in, t_scene *dst, t_vector const *components);
 
 #endif

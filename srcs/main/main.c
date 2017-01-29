@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/23 18:05:29 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/29 17:57:20 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,18 @@ static t_json_t_value const		g_anim_param_json = JSON_T_DICT(t_anim_component_pa
 #include "lighter.h"
 
 /*
+** camera component
+*/
+
+#include "camera.h"
+
+static t_json_t_value const		g_camera_param_json = JSON_T_DICT(t_camera_param,
+	("fov", fov, JSON_T_VALUE(FLOAT)),
+	("near", near, JSON_T_VALUE(FLOAT), &(float){0.1f}),
+	("far", far, JSON_T_VALUE(FLOAT), &(float){10000.f})
+);
+
+/*
 ** -
 */
 
@@ -111,13 +123,17 @@ static bool		scop_load_scene(t_scop *scop)
 		{ SUBC("point-light"),
 			V(&create_point_light_component), &scop->lighter,
 			&g_vec3_json
+		},
+		{ SUBC("camera"),
+			V(&create_camera), &scop->camera_list,
+			&g_camera_param_json
 		}
 	};
 
 	t_file_in *const	in = ft_in_fdopen(0);
 	bool				r;
 
-	r = load_scene(V(in), &scop->scene, &VECTORC(scene_components), WIN_RATIO);
+	r = load_scene(V(in), &scop->scene, &VECTORC(scene_components));
 	ft_in_close(in);
 	return (r);
 }
@@ -191,8 +207,8 @@ void			render(t_scop *scop)
 	glClearColor(0.f, 0.f, 0.f, 0.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	ft_mat4mult(&scop->scene.projection_m, camera_get_view(&scop->scene.camera),
-			&scop->mesh_renderer.viewproj); // TODO: only when needed
+	memcpy(&scop->mesh_renderer.viewproj,
+			&scop->camera_list.current->viewproj_m, sizeof(t_mat4)); // TODO: improve
 	mesh_render(&scop->mesh_renderer);
 
 	render_lights(&scop->lighter, &scop->gbuffer);
@@ -226,12 +242,18 @@ static void		handle_input(t_scop *scop, float elapsed)
 	t_vec3			pos;
 	t_vec2			look;
 
-	pos = scop->scene.camera.position;
+	pos = scop->camera_list.current->c.obj->local.position;
 	if (handle_key_hold(scop, elapsed, &pos))
-		camera_move(&(scop->scene.camera), pos);
-	look = scop->scene.camera.look;
+	{
+		obj_translate(scop->camera_list.current->c.obj, pos);
+	}
+	look = VEC2_0();
 	if (handle_cursor_move(scop, &look))
-		camera_look(&(scop->scene.camera), look);
+	{
+		obj_rotate(scop->camera_list.current->c.obj, VEC3_ADD(
+				scop->camera_list.current->c.obj->local.rotation,
+				VEC3(look.y, -look.x, 0.f)));
+	}
 }
 
 int				main(void)
@@ -248,8 +270,12 @@ int				main(void)
 	mesh_renderer_init(&scop.mesh_renderer);
 	if (!lighter_init(&scop.lighter))
 		return (1);
+	scop.camera_list = CAMERA_LIST(WIN_RATIO);
 	if (!scop_load_scene(&scop))
 		return (1);
+	if (scop.camera_list.cameras.length == 0)
+		return (ASSERT(!"No camera in scene"), 1);
+	camera_current(&scop.camera_list, scop.camera_list.cameras.first);
 	// glfwSwapInterval(0); // TODO: tmp
 	init_events(scop.window);
 	fps = fps_init(200000);
@@ -263,12 +289,20 @@ int				main(void)
 		glfwPollEvents();
 		if (fps_end(&fps) || scop.flags != last_flags)
 		{
+			t_vec3			camera_pos;
+			t_vec3			camera_dir;
+
 			last_flags = scop.flags;
-			ft_printf("\rFPS: %-2lld t: %-3lld flags: %.16b "
-				"pos: [ %f, %f, %f ] look: [ %f, %f ]%5 %!",
-				fps.average_fps, fps.average_time, scop.flags,
-				scop.scene.camera.position.x, scop.scene.camera.position.y,
-				scop.scene.camera.position.z, scop.scene.camera.look.x, scop.scene.camera.look.y);
+			{
+				camera_pos = VEC3_0();
+				ft_mat4apply_vec3(&scop.camera_list.current->c.obj->world_m, &camera_pos, 1.f);
+				camera_dir = VEC3(0.f, 0.f, 1.f);
+				ft_mat4apply_vec3(&scop.camera_list.current->c.obj->world_m, &camera_dir, 0.f);
+			}
+			ft_printf("\rFPS: %-2lld t: %-3lld flags: %.16b camera: [%f, %f, %f] => [%f, %f, %f] %!",
+					fps.average_fps, fps.average_time, scop.flags,
+					camera_pos.x, camera_pos.y, camera_pos.z,
+					camera_dir.x, camera_dir.y, camera_dir.z);
 		}
 		handle_input(&scop, fps.elapsed);
 		update(&scop);

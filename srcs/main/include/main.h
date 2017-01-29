@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/22 08:10:19 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/19 17:18:23 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/28 18:56:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include "obj.h"
 # include "scene.h"
 
-typedef struct s_gbuffer	t_gbuffer;
 typedef struct s_scop		t_scop;
 
 # define WIN_RATIO			(1.f)
@@ -49,6 +48,7 @@ struct			s_scop
 {
 	GLFWwindow		*window;
 	t_scene			scene;
+	t_camera_list	camera_list;
 	t_vec2			cursor;
 	int				flags;
 	t_gbuffer		gbuffer;

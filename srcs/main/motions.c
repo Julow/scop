@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/31 12:24:00 by juloo             #+#    #+#             */
-/*   Updated: 2017/01/11 15:05:34 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/28 18:57:55 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,62 +15,49 @@
 
 #include <math.h>
 
-t_motion_def const	g_moves[] = {
-	{FLAG_MOVE_FRONT, &move_front, -1.f},
-	{FLAG_MOVE_BACK, &move_front, 1.f},
-	{FLAG_MOVE_RIGHT, &move_lateral, -1.f},
-	{FLAG_MOVE_LEFT, &move_lateral, 1.f},
-	{FLAG_MOVE_DOWN, &move_vertical, -1.f},
-	{FLAG_MOVE_UP, &move_vertical, 1.f}
+static t_motion_def const	g_moves[] = {
+	{FLAG_MOVE_FRONT, VEC3(0.f, 0.f, -1.f)},
+	{FLAG_MOVE_BACK, VEC3(0.f, 0.f, 1.f)},
+	{FLAG_MOVE_RIGHT, VEC3(-1.f, 0.f, 0.f)},
+	{FLAG_MOVE_LEFT, VEC3(1.f, 0.f, 0.f)},
+	{FLAG_MOVE_DOWN, VEC3(0.f, -1.f, 0.f)},
+	{FLAG_MOVE_UP, VEC3(0.f, 1.f, 0.f)},
 };
 
-void			move_front(t_vec2 dir, t_vec3 *move, float inv)
+static uint32_t	get_dir(uint32_t flags, t_vec3 *dst)
 {
-	float			sin_pitch;
+	uint32_t		i;
+	uint32_t		length;
 
-	sin_pitch = sinf(dir.y) * inv;
-	move->y += sin_pitch;
-	sin_pitch = (1.f - ABS(sin_pitch)) * inv;
-	move->z += sinf(dir.x) * sin_pitch;
-	move->x += cosf(dir.x) * sin_pitch;
-}
-
-void			move_lateral(t_vec2 dir, t_vec3 *move, float inv)
-{
-	move->z += sinf(dir.x - (M_PI / 2.f)) * inv;
-	move->x += cosf(dir.x - (M_PI / 2.f)) * inv;
-}
-
-void			move_vertical(t_vec2 dir, t_vec3 *move, float inv)
-{
-	move->y += 1.f * inv;
-	(void)dir;
-}
-
-bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *pos)
-{
-	t_vec3			move;
-	int				length;
-	int				i;
-
-	if (scop->flags == 0)
-		return (false);
-	move = VEC3_0();
-	if (scop->flags & FLAG_ACCELERATE)
-		elapsed *= ACCELERATION;
+	*dst = VEC3_0();
 	length = 0;
-	i = -1;
-	while (++i < ARRAY_LEN(g_moves))
-		if (scop->flags & g_moves[i].flag)
+	i = 0;
+	while (i < ARRAY_LEN(g_moves))
+	{
+		if (flags & g_moves[i].flag)
 		{
-			g_moves[i].f(scop->scene.camera.look, &move, g_moves[i].inv);
+			*dst = VEC3_ADD(*dst, g_moves[i].dir);
 			length++;
 		}
+		i++;
+	}
+	return (length);
+}
+
+bool			handle_key_hold(t_scop *scop, float elapsed, t_vec3 *dst)
+{
+	uint32_t		length;
+	t_vec3			dir;
+	float			delta;
+
+	length = get_dir(scop->flags, &dir);
 	if (length == 0)
 		return (false);
-	pos->x += move.x * elapsed * MOVE_SPEED / (float)length;
-	pos->y += move.y * elapsed * MOVE_SPEED / (float)length;
-	pos->z += move.z * elapsed * MOVE_SPEED / (float)length;
+	delta = (scop->flags & FLAG_ACCELERATE) ? ACCELERATION : 1.f;
+	delta *= elapsed * MOVE_SPEED / (float)length;
+	dir = VEC3_MUL1(dir, delta);
+	ft_mat4apply_vec3(&scop->camera_list.current->c.obj->world_m, &dir, 0.f);
+	*dst = VEC3_ADD(*dst, dir);
 	return (true);
 }
 

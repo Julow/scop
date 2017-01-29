@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 13:28:32 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 18:03:54 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/28 18:08:20 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void		load_obj(t_scene_pod_object const *pod, t_obj *dst)
 	{
 		c = comp->c->create(comp->param, comp->c->create_param);
 		if (c != NULL)
-			ft_vpush(&dst->components, &c, 1);
+			obj_bind(dst, c);
 	}
 	load_scene_objs(&pod->childs, &dst->childs);
 }
