@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/15 13:54:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/29 17:57:20 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/01/30 16:22:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,12 @@ static t_json_t_value const		g_anim_param_json = JSON_T_DICT(t_anim_component_pa
 
 #include "lighter.h"
 
+static t_json_t_value const		g_spot_light_param_json = JSON_T_DICT(t_spot_light_param,
+	("color", intensity, g_vec3_json),
+	("cutoff", cutoff, JSON_T_VALUE(FLOAT)),
+	("border", cutoff_border, JSON_T_VALUE(FLOAT), &(float){0.f})
+);
+
 /*
 ** camera component
 */
@@ -123,6 +129,10 @@ static bool		scop_load_scene(t_scop *scop)
 		{ SUBC("point-light"),
 			V(&create_point_light_component), &scop->lighter,
 			&g_vec3_json
+		},
+		{ SUBC("spot-light"),
+			V(&create_spot_light_component), &scop->lighter,
+			&g_spot_light_param_json
 		},
 		{ SUBC("camera"),
 			V(&create_camera), &scop->camera_list,

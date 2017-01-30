@@ -101,9 +101,11 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/libft/ft_vector/ft_vreserve.o $(O_DIR)/libft/ft_vector/ft_vspan.o \
 	$(O_DIR)/srcs/gbuffer/gbuffer.o $(O_DIR)/srcs/lighter/init.o \
 	$(O_DIR)/srcs/lighter/point_light_component.o \
-	$(O_DIR)/srcs/lighter/render_lights.o $(O_DIR)/srcs/main/callbacks.o \
-	$(O_DIR)/srcs/main/init_window.o $(O_DIR)/srcs/main/main.o \
-	$(O_DIR)/srcs/main/motions.o $(O_DIR)/srcs/mesh_loader/build_mesh.o \
+	$(O_DIR)/srcs/lighter/render_lights.o \
+	$(O_DIR)/srcs/lighter/spot_light_component.o \
+	$(O_DIR)/srcs/main/callbacks.o $(O_DIR)/srcs/main/init_window.o \
+	$(O_DIR)/srcs/main/main.o $(O_DIR)/srcs/main/motions.o \
+	$(O_DIR)/srcs/mesh_loader/build_mesh.o \
 	$(O_DIR)/srcs/mesh_loader/build_mtl.o \
 	$(O_DIR)/srcs/mesh_loader/load_mesh.o \
 	$(O_DIR)/srcs/mesh_loader/parse_mesh.o \
@@ -683,6 +685,15 @@ $(O_DIR)/srcs/lighter/render_lights.o: srcs/lighter/render_lights.c \
 	srcs/gbuffer/public/gbuffer.h srcs/lighter/public/lighter.h \
 	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
 	srcs/shader/shader.h srcs/texture/texture.h srcs/utils/include/utils.h
+$(O_DIR)/srcs/lighter/spot_light_component.o: \
+	srcs/lighter/spot_light_component.c libft/ft_base/public/libft.h \
+	libft/ft_gl/gl.h libft/ft_list/public/ft_list.h \
+	libft/ft_math/public/math_mat4.h libft/ft_math/public/math_vec2.h \
+	libft/ft_math/public/math_vec3.h libft/ft_math/public/math_vec4.h \
+	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
+	srcs/gbuffer/public/gbuffer.h srcs/lighter/public/lighter.h \
+	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
+	srcs/shader/shader.h srcs/texture/texture.h
 
 # module main
 $(O_DIR)/srcs/main/callbacks.o: srcs/main/callbacks.c \
