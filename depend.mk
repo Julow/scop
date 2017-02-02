@@ -99,10 +99,9 @@ O_FILES += $(O_DIR)/srcs/anim/anim_start.o $(O_DIR)/srcs/anim/anim_update.o \
 	$(O_DIR)/libft/ft_set/remove.o $(O_DIR)/libft/ft_set/utils.o \
 	$(O_DIR)/libft/ft_vector/ft_vclear.o $(O_DIR)/libft/ft_vector/ft_vpush.o \
 	$(O_DIR)/libft/ft_vector/ft_vreserve.o $(O_DIR)/libft/ft_vector/ft_vspan.o \
-	$(O_DIR)/srcs/gbuffer/gbuffer.o $(O_DIR)/srcs/lighter/init.o \
+	$(O_DIR)/srcs/gbuffer/gbuffer.o $(O_DIR)/srcs/lighter/lighter.o \
+	$(O_DIR)/srcs/lighter/point_light.o \
 	$(O_DIR)/srcs/lighter/point_light_component.o \
-	$(O_DIR)/srcs/lighter/render_lights.o \
-	$(O_DIR)/srcs/lighter/spot_light_component.o \
 	$(O_DIR)/srcs/main/callbacks.o $(O_DIR)/srcs/main/init_window.o \
 	$(O_DIR)/srcs/main/main.o $(O_DIR)/srcs/main/motions.o \
 	$(O_DIR)/srcs/mesh_loader/build_mesh.o \
@@ -658,42 +657,36 @@ $(O_DIR)/srcs/gbuffer/gbuffer.o: srcs/gbuffer/gbuffer.c \
 	srcs/gbuffer/public/gbuffer.h
 
 # module lighter
-$(O_DIR)/srcs/lighter/init.o: srcs/lighter/init.c libft/ft_base/public/libft.h \
-	libft/ft_gl/gl.h libft/ft_list/public/ft_list.h \
-	libft/ft_math/public/math_mat4.h libft/ft_math/public/math_vec2.h \
-	libft/ft_math/public/math_vec3.h libft/ft_math/public/math_vec4.h \
-	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
-	srcs/gbuffer/public/gbuffer.h srcs/lighter/public/lighter.h \
-	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
-	srcs/shader/shader.h srcs/shader_loader/include/public/shader_loader.h \
+$(O_DIR)/srcs/lighter/lighter.o: srcs/lighter/lighter.c \
+	libft/ft_base/public/libft.h libft/ft_gl/gl.h \
+	libft/ft_list/public/ft_list.h libft/ft_math/public/math_mat4.h \
+	libft/ft_math/public/math_vec2.h libft/ft_math/public/math_vec3.h \
+	libft/ft_math/public/math_vec4.h libft/ft_vector/public/ft_vector.h \
+	srcs/anim/include/anim.h srcs/gbuffer/public/gbuffer.h \
+	srcs/lighter/p_lighter.h srcs/lighter/public/lighter.h srcs/mesh/mesh.h \
+	srcs/mtl/mtl.h srcs/obj/include/obj.h srcs/shader/shader.h \
 	srcs/texture/texture.h
+$(O_DIR)/srcs/lighter/point_light.o: srcs/lighter/point_light.c \
+	libft/ft_base/public/libft.h libft/ft_gl/gl.h \
+	libft/ft_list/public/ft_list.h libft/ft_math/public/math_mat4.h \
+	libft/ft_math/public/math_vec2.h libft/ft_math/public/math_vec3.h \
+	libft/ft_math/public/math_vec4.h libft/ft_vector/public/ft_vector.h \
+	srcs/anim/include/anim.h srcs/gbuffer/public/gbuffer.h \
+	srcs/lighter/p_lighter.h srcs/lighter/public/lighter.h srcs/mesh/mesh.h \
+	srcs/mtl/mtl.h srcs/obj/include/obj.h srcs/shader/shader.h \
+	srcs/shader_loader/include/public/shader_loader.h srcs/texture/texture.h
 $(O_DIR)/srcs/lighter/point_light_component.o: \
 	srcs/lighter/point_light_component.c libft/ft_base/public/libft.h \
 	libft/ft_gl/gl.h libft/ft_list/public/ft_list.h \
 	libft/ft_math/public/math_mat4.h libft/ft_math/public/math_vec2.h \
 	libft/ft_math/public/math_vec3.h libft/ft_math/public/math_vec4.h \
 	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
-	srcs/gbuffer/public/gbuffer.h srcs/lighter/public/lighter.h \
-	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
-	srcs/shader/shader.h srcs/texture/texture.h
-$(O_DIR)/srcs/lighter/render_lights.o: srcs/lighter/render_lights.c \
-	libft/ft_base/public/libft.h libft/ft_dstr/public/ft_dstr.h \
-	libft/ft_gl/gl.h libft/ft_in/public/ft_in.h libft/ft_list/public/ft_list.h \
-	libft/ft_math/public/math_mat4.h libft/ft_math/public/math_vec2.h \
-	libft/ft_math/public/math_vec3.h libft/ft_math/public/math_vec4.h \
-	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
-	srcs/gbuffer/public/gbuffer.h srcs/lighter/public/lighter.h \
-	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
-	srcs/shader/shader.h srcs/texture/texture.h srcs/utils/include/utils.h
-$(O_DIR)/srcs/lighter/spot_light_component.o: \
-	srcs/lighter/spot_light_component.c libft/ft_base/public/libft.h \
-	libft/ft_gl/gl.h libft/ft_list/public/ft_list.h \
-	libft/ft_math/public/math_mat4.h libft/ft_math/public/math_vec2.h \
-	libft/ft_math/public/math_vec3.h libft/ft_math/public/math_vec4.h \
-	libft/ft_vector/public/ft_vector.h srcs/anim/include/anim.h \
-	srcs/gbuffer/public/gbuffer.h srcs/lighter/public/lighter.h \
-	srcs/mesh/mesh.h srcs/mtl/mtl.h srcs/obj/include/obj.h \
-	srcs/shader/shader.h srcs/texture/texture.h
+	srcs/gbuffer/public/gbuffer.h srcs/lighter/p_lighter.h \
+	srcs/lighter/public/lighter.h srcs/mesh/mesh.h srcs/mtl/mtl.h \
+	srcs/obj/include/obj.h srcs/shader/shader.h srcs/texture/texture.h
+
+$(O_DIR)/srcs/lighter/lighter.o $(O_DIR)/srcs/lighter/point_light.o \
+$(O_DIR)/srcs/lighter/point_light_component.o: INCLUDE_FLAGS += -Isrcs/lighter
 
 # module main
 $(O_DIR)/srcs/main/callbacks.o: srcs/main/callbacks.c \

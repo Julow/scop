@@ -1,5 +1,6 @@
 module lighter:
 	public include public/
+	private include ./
 
 	public require ft::list
 	public require ft::math
@@ -8,4 +9,3 @@ module lighter:
 	public require shader
 
 	private require shader_loader
-	private require utils
