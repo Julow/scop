@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:49:17 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/02/02 15:22:19 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/02/03 13:55:12 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "lighter.h"
 #include "p_lighter.h"
 
-static void		component_update(t_point_light_component *c, t_obj *obj)
+static void				component_update(t_point_light_component *c, t_obj *obj)
 {
 	if (obj->moved)
 	{
@@ -25,7 +25,6 @@ static void		component_update(t_point_light_component *c, t_obj *obj)
 		glBindBuffer(GL_ARRAY_BUFFER, c->l->point_vbo);
 		glBufferSubData(GL_ARRAY_BUFFER, S(t_point_light_data, c->index),
 				sizeof(t_point_light_data), &c->data);
-		// TRACE("point_vbo update");
 	}
 }
 
@@ -40,10 +39,7 @@ t_point_light_component	*create_point_light_component(
 		OBJ_COMPONENT(&component_update),
 		lighter,
 		0,
-		{
-			{},
-			*param,
-		},
+		{ VEC3_0(), *param },
 	};
 	lighter->flags |= LIGHTER_F_POINT_VBO_INVALID;
 	return (c);

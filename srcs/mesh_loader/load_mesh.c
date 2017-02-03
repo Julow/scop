@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/22 16:46:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/12 15:26:34 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/02/03 16:17:50 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static void		init_mesh_data(t_mesh_data *data)
 	data->v = VECTOR(t_vec3);
 	data->vn = VECTOR(t_vec3);
 	data->vt = VECTOR(t_vec2);
-	ft_vpush(&(data->v), NULL, 1);
-	ft_vpush(&(data->vn), NULL, 1);
-	ft_vpush(&(data->vt), NULL, 1);
+	ft_vpush(&(data->v), &VEC3_0(), 1);
+	ft_vpush(&(data->vn), &VEC3_0(), 1);
+	ft_vpush(&(data->vt), &VEC2_0(), 1);
 	data->f = VECTOR(uint32_t[9]);
 	data->mtllib = NULL;
 	data->mtl = VECTOR(t_mesh_mtl);

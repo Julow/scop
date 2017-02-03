@@ -117,7 +117,7 @@ module texture: texture
 
 #
 
-main module main: main
+main module scop: main
 
 	private include include/
 

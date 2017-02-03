@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 17:12:00 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/02/02 17:15:57 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/02/03 13:41:44 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,10 @@ void			render_lights(t_lighter *lighter, t_gbuffer *gbuffer)
 	glBindTexture(GL_TEXTURE_2D, gbuffer->buff_nor);
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, gbuffer->buff_col);
-
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_ONE, GL_ONE);
 	glDisable(GL_DEPTH_TEST);
-
 	render_point_lights(lighter);
-
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 }

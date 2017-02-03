@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 22:09:02 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 18:02:18 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/02/03 13:41:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 
 typedef struct s_anim_component			t_anim_component;
 typedef struct s_anim_component_param	t_anim_component_param;
-typedef enum s_obj_anim_t				t_obj_anim_t;
+typedef enum e_obj_anim_t				t_obj_anim_t;
 
 /*
 ** ========================================================================== **
 ** Animation Component
 */
 
-enum			s_obj_anim_t
+enum			e_obj_anim_t
 {
 	OBJ_ANIM_TRANSLATE,
 	OBJ_ANIM_ROTATE,

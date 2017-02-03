@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/25 18:51:43 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/29 17:58:32 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/02/03 13:40:41 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_camera	*create_camera(t_camera_param const *param,
 	camera = ft_listadd(&camera_list->cameras, camera_list->cameras.last, 0);
 	*camera = (t_camera){
 		OBJ_COMPONENT(&camera_update),
-		{},
-		{},
+		MAT4_0(),
+		MAT4_0(),
 		VEC2(param->near, param->far),
 		param->fov,
 	};

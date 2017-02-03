@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 13:46:42 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/16 17:55:26 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/02/03 14:49:13 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ void			mesh_renderer_init(t_mesh_renderer *dst)
 	if (!load_shader(SUBC("srcs/mesh_renderer/render.glsl"), &shader))
 		HARD_ASSERT(false, "Failed to load shader");
 	*dst = (t_mesh_renderer){
-		{},
+		MAT4_0(),
 		LIST(t_mesh_renderer_component),
 		shader,
 		create_dummy_texture(),
 		create_dummy_texture(),
-		.u_model = glGetUniformLocation(shader.handle, "_u_model"),
-		.u_viewproj = glGetUniformLocation(shader.handle, "_u_viewproj"),
-		.u_diffuse_map = glGetUniformLocation(shader.handle, "_u_diffuse_map"),
-		.u_specular_map = glGetUniformLocation(shader.handle, "_u_specular_map"),
+		glGetUniformLocation(shader.handle, "_u_model"),
+		glGetUniformLocation(shader.handle, "_u_viewproj"),
+		glGetUniformLocation(shader.handle, "_u_diffuse_map"),
+		glGetUniformLocation(shader.handle, "_u_specular_map"),
 	};
 	glUseProgram(shader.handle);
 	glUniform1i(dst->u_diffuse_map, 0);

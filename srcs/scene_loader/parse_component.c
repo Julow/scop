@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 15:00:13 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/11 19:27:21 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/02/03 13:51:02 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-static t_scene_component const	*get_component(t_vector const *components, t_sub name) // TODO: improve
+/*
+** TODO: improve
+*/
+static t_scene_component const*
+				get_component(t_vector const *components, t_sub name)
 {
 	t_scene_component const	*c;
 

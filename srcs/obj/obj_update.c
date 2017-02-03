@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/04 11:29:16 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/28 17:35:10 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/02/03 15:01:41 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void		obj_update_components(t_vector *components, t_obj *obj)
 
 static void		get_local_m(t_transform const *t, t_mat4 *dst, t_mat4 *inv)
 {
-	*dst = ft_mat4transform(t->position, t->rotation, t->shear, t->scale);
-	*inv = ft_mat4transform_inv(t->position, t->rotation, t->shear, t->scale);
+	ft_mat4transform(&t->position, &t->rotation, &t->scale, dst);
+	ft_mat4transform_inv(&t->position, &t->rotation, &t->scale, inv);
 }
 
 static void		obj_update_world_m(t_obj *obj, t_obj const *parent)

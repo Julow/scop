@@ -6,12 +6,12 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/21 14:55:08 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/28 17:57:00 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/02/03 13:49:35 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCENE_POD_H
-# define SCENE_POD_H
+#ifndef P_SCENE_POD_H
+# define P_SCENE_POD_H
 
 # include "ft/ft_vector.h"
 # include "ft/libft.h"

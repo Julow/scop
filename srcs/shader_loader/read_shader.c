@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/09/17 14:20:07 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/01/16 15:24:55 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/02/03 13:53:56 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ bool			read_shader(t_in *in, t_list *lines, uint32_t *s, t_shader_t t)
 				return (false);
 			if (t != g_shader_t.all)
 				ft_listremove_next(lines, start_line, -1);
-			if (!get_shader_type(DSTR_SUB(line), &t))
-				return (false);
-			return (read_shader(in, lines, s, t));
+			return (get_shader_type(DSTR_SUB(line), &t) ?
+					read_shader(in, lines, s, t) : false);
 		}
 		else
 		{
