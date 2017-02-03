@@ -6,7 +6,7 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 11:57:51 by jaguillo          #+#    #+#             */
-/*   Updated: 2017/02/02 17:18:36 by jaguillo         ###   ########.fr       */
+/*   Updated: 2017/02/03 13:06:16 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,13 @@ void		main()
 	float			scale = 9.97494 * sqrt(max(_point_color.x,
 								max(_point_color.y, _point_color.z)));
 
-	gl_Position = _u_proj_m
-		* (_u_view_m * vec4(_point_pos, 1.f) + vec4(_vert_pos * scale, 0.f));
+	vec4			p = _u_view_m * vec4(_point_pos, 1.f);
 
-	// TODO: check if behind camera
+	float			behind = max(p.z - -1.f, 0.f);
+	p.z -= behind;
+	scale = sqrt(scale*scale - behind*behind);
+
+	gl_Position = _u_proj_m * (p + vec4(_vert_pos * scale, 0.f));
 }
 
 //#shader frag
